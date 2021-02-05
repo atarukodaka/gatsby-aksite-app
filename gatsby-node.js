@@ -41,7 +41,7 @@ exports.createPages = async ({graphql, actions})  => {
         path: "archive", 
         component: path.resolve(`./src/templates/archive.js`),
         context: {
-            slug: "workout",
+            slug: "/foo/",
         }
     })
     result.data.allMarkdownRemark.edges.forEach(({node}) => {

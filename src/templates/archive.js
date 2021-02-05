@@ -28,8 +28,8 @@ export default function Archive({ data }) {
 }
 
 export const query = graphql`
-    {
-      allMarkdownRemark(filter: {fields: {slug: {regex: "/workout/"}}}) {
+    query($slug: String!){
+        allMarkdownRemark(filter: {fields: {slug: {regex: $slug }}}) {
         nodes {
           fields {
             slug
