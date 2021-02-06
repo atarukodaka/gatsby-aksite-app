@@ -1,5 +1,6 @@
 import React from "react"
-import { useStaticQuery } from "gatsby"
+import { useStaticQuery, Link, graphql } from "gatsby"
+
 
 const Sidebar = ( ) => {
 
@@ -10,6 +11,7 @@ const Sidebar = ( ) => {
                     nodes {
                         fields {
                             slug
+                            folder
                         }
 
                     }
@@ -18,20 +20,26 @@ const Sidebar = ( ) => {
 
         `
     )
-    const folders = [...new Set(data.allMarkdownRemark.nodes.map ( node => node.fields.slug.split('/')[1]))]
+    //const folders = [...new Set(data.allMarkdownRemark.nodes.map ( node => node.fields.slug.split('/')[1]))]
 
-
-
+    const hierarcies = [...new Set(data.allMarkdownRemark.nodes.map ( 
+        node => node.fields.folder))
+    ].filter(v=>v)
 
     return (
         <div>
             <h2>Sidebar</h2>
             <ul>
                 {
-                    folders.map( folder => (
-                        <li> { folder }</li>
-                    )
-
+                    
+                    hierarcies.map( hierarcy =>
+                        (
+                            //<li> { hierarcy }</li>
+                            //<li><Link to="/workout">workout</Link></li>
+                            <li key={hierarcy.id}>
+                                <Link to={'/' + hierarcy}>{hierarcy}</Link>
+                            </li>
+                        )
                     )
                 }
             </ul>

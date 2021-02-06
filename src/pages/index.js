@@ -6,19 +6,18 @@ const IndexPage = ( { data } ) => {
   return (
     <div>
       <Layout>
-      <h1>Gatsby Index Page</h1>
+      <h2>Gatsby Index Page</h2>
 
-      <h2>Markup Files</h2>
-      
         {
           data.allMarkdownRemark.nodes.map(node => (
             <div key={node.id}>
-              <h2>
+              <h3>
                 <Link to={node.fields.slug}>
                 {node.frontmatter.title}
                 </Link>
-              </h2>
-              <p>{node.frontmatter.date}</p>
+              </h3>
+              <p>date: {node.frontmatter.date}</p>
+              <p>{node.text}</p>
             </div>
             )
           )

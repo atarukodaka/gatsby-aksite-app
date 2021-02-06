@@ -10,7 +10,7 @@ export default function Archive({ data }) {
             <ul>
                 {
                 data.allMarkdownRemark.nodes.map(node => (
-                    <li>
+                    <li key={node.id}>
                         <Link to={node.fields.slug}>
                         { node.frontmatter.title }
                         
