@@ -14,8 +14,14 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
             name: `slug`,
             value: slug,
         })
+        let hierarcy = slug.split(/\//).filter( v => v)
+        hierarcy.pop()
+        createNodeField({
+            node, 
+            name: 'hierarcy',
+            value: hierarcy
+        })
         console.log(slug)
-
         //console.log('\n', fileNode.relativePath)
       
     }
