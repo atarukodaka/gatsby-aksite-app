@@ -8,8 +8,9 @@ const useStyles = makeStyles({
         fontSize: "xx-large",
         fontWeight: "bold",
         borderBottom: "1px solid",
-        paddingTop: "10px",
-        paddingBottom: "5px",
+        paddingBottom: "1px",
+        marginBottom: "1px"
+        
     },
     post_info: {
         fontSize: "small",

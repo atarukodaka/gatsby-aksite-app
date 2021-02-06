@@ -1,6 +1,7 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { Button, makeStyles } from "@material-ui/core"
+import { Button, makeStyles, Breadcrumbs } from "@material-ui/core"
+
 
 const useStyles = makeStyles({
     toptitle: {
@@ -8,6 +9,7 @@ const useStyles = makeStyles({
         color: "#aaa",
         backgroundColor: "black",
         padding: "20px"
+        
     },
     navitation_bar: {
         color: "#ddd",
@@ -36,7 +38,7 @@ const Header = () => {
                 <Button component={Link} to="/">Top</Button>
                 <Button component={Link} to="/about">About</Button>                
             </nav>
-           
+            
         </header>
     )
 }

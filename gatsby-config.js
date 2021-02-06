@@ -7,7 +7,7 @@
 module.exports = {
   siteMetadata: {
     title: "Ataru Kodaka Site",
-    author: "its me",
+    author: "Ataru KODAKA",
     email: "atarukodaka@gmail.com",
   },
 
