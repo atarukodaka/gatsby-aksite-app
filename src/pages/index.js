@@ -1,43 +1,30 @@
 import React from "react"
 import Layout from "../components/layout.js"
 import { graphql, Link } from "gatsby"
+import { List, ListItem, ListItemText} from '@material-ui/core'
+import Post from "../components/post.js"
 
 const IndexPage = ( { data } ) => {
+  const node = data.allMarkdownRemark.nodes[0]
   return (
-    <div>
-      <Layout>
-      <h2>Gatsby Index Page</h2>
-
-        {
-          data.allMarkdownRemark.nodes.map(node => (
-            <div key={node.id}>
-              <h3>
-                <Link to={node.fields.slug}>
-                {node.frontmatter.title}
-                </Link>
-              </h3>
-              <p>date: {node.frontmatter.date}</p>
-              <p>{node.text}</p>
-            </div>
-            )
-          )
-        }
-
-
-      </Layout>
-
-
-    </div>
+    <Layout>
+      <Post node={node}/>
+    </Layout>
   )
 }
 
 export const query = graphql`
   {
-    allMarkdownRemark {
+    allMarkdownRemark(limit: 10, 
+      sort: { fields: [frontmatter___date], order: DESC},
+      filter: { frontmatter: { date: {ne: null}}}
+      ) 
+      {
       nodes {
         html
         fields {
           slug
+          folder
         }
         frontmatter {
           date

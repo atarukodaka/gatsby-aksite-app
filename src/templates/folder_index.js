@@ -2,10 +2,12 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/layout.js"
 
-export default function FolderIndex( { data }) {
+export default function FolderIndexTemplate( { data }) {
+    const node = data.allMarkdownRemark.nodes[0]
+    const folder = (node ) ? node.fields.folder : ""
     return (
         <Layout>
-            <h2>FOLDER INDEX</h2>
+            <h2> { folder }</h2>
             <ul>
                 {
                     data.allMarkdownRemark.nodes.map(node => (

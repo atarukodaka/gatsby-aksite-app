@@ -1,21 +1,32 @@
 import React from "react"
+
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
 import Header from "./header.js"
 import Footer from "./footer.js"
 import Sidebar from "./sidebar.js"
 
-const Layout = ( props) => {
+const Layout = ({ children }) => {
     return (
-        <div>
-            <Header/>
-            
-            <main>
-            { props.children}
-            </main>
+        <Container>
+            <Header />
 
-            <Sidebar/>
+            <Grid container spacing="4">
+                <Grid item xs={8}>
+                    <Container>
+                        {children}
+                    </Container>
+                </Grid>
+                <Grid item xs={4}>
+                    <Sidebar />
+                </Grid>
 
-            <Footer/>
-        </div>
+            </Grid>
+
+            <Footer />
+        </Container>
+
     )
 }
 
