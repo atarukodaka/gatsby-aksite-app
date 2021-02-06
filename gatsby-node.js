@@ -23,8 +23,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
             value: folder
         })
         
-        console.log("slug: ", slug)
-        console.log("folder: ", folder)
+        //console.log("slug: ", slug)
+        //console.log("folder: ", folder)
     }
 
   }
@@ -57,7 +57,6 @@ exports.createPages = async ({graphql, actions})  => {
             },
         })
     })
-    
     // archives
     createPage( { 
         path: "archive", 
@@ -85,6 +84,7 @@ exports.createPages = async ({graphql, actions})  => {
         }
 
         )
-    })
+    })        
+
         
 }

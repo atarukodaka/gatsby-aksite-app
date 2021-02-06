@@ -4,6 +4,9 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+flags: {
+  THE_FLAG: false
+} 
 module.exports = {
   siteMetadata: {
     title: "Gatsby Title",

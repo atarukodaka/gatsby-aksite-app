@@ -7,11 +7,13 @@ const Layout = ( props) => {
     return (
         <div>
             <Header/>
-            <hr/>
+            
+            <main>
             { props.children}
-            <hr/>
+            </main>
+
             <Sidebar/>
-            <hr/>
+
             <Footer/>
         </div>
     )

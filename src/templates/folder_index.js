@@ -3,7 +3,6 @@ import { graphql, Link } from "gatsby"
 import Layout from "../components/layout.js"
 
 export default function FolderIndex( { data }) {
-
     return (
         <Layout>
             <h2>FOLDER INDEX</h2>
@@ -20,8 +19,6 @@ export default function FolderIndex( { data }) {
 
                 }
             </ul>
-
-
         </Layout>
     )
 }

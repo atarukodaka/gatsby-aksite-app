@@ -24,7 +24,7 @@ const Sidebar = ( ) => {
 
     const hierarcies = [...new Set(data.allMarkdownRemark.nodes.map ( 
         node => node.fields.folder))
-    ].filter(v=>v)
+    ].filter(v=>v).sort()
 
     return (
         <div>
