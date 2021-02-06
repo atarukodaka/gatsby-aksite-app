@@ -4,17 +4,13 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
-flags: {
-  THE_FLAG: false
-} 
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Title",
-    author: "its me",
-    user: { name: "foo", email: "foo@bar.com" }
-
+    title: "Ataru Kodaka Site",
+    author: "Ataru KODAKA",
+    email: "atarukodaka@gmail.com",
   },
-  /* Your site config here */
+
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -25,6 +21,7 @@ module.exports = {
     },
     "gatsby-transformer-remark",
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-material-ui`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -39,5 +36,6 @@ module.exports = {
         ],
       },
     },
+    
   ],
 }

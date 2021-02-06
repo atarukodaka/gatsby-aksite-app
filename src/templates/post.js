@@ -1,14 +1,15 @@
 import React from "react"
-import Layout from "../components/layout.js"
+
 import { graphql } from "gatsby"
 
-export default function Post({ data }) {
-  return (
-    <Layout>
-      <h1>{data.markdownRemark.frontmatter.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }} />
-    </Layout>
-  )
+import Layout from "../components/layout.js"
+import Post from "../components/post.js"
+
+export default function PostTemplate ({ data }) {
+  const node = data.markdownRemark
+
+  return (<Layout><Post node={node}/></Layout>)
+
 }
 
 
@@ -18,6 +19,10 @@ export const query = graphql`
         html
         frontmatter {
           title
+          date
+        }
+        fields {
+          folder
         }
       }
     }
