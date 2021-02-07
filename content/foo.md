@@ -3,13 +3,15 @@ title: foo
 date: 2020-02-02
 ---
 
-### asasdf
+## heading2
 
 - asef
 - fes
 
 
-foo
+## Syntax Hilight
+
+### ruby
 
 ```ruby
 def fun
@@ -17,6 +19,7 @@ def fun
 end
 ```
 
+### javascript
 ```javascript
 const data = useStaticQuery()
 

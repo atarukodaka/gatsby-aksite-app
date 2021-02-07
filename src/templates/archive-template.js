@@ -11,7 +11,7 @@ export default function ArchiveTemplate({ data, pageContext }) {
       <h2>MONTHLY ARCHIVE: {year}/{month}</h2>
       {
         data.allMarkdownRemark.nodes.map(node => (
-          <PostExcerpt node={node} />
+          <PostExcerpt node={node} key={node.id} />
         ))
       }
     </Layout>

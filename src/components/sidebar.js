@@ -61,7 +61,7 @@ const Sidebar = () => {
                     
                     uniq_folders(data.allMarkdownRemark.nodes).map( folder =>
                         (
-                            <ListItem button component={Link} to={'/' + folder} key={folder.id}>
+                            <ListItem button component={Link} to={'/' + folder} key={folder}>
                                 <ListItemText>
                                     <FolderName folder={folder}/>
                                 </ListItemText>

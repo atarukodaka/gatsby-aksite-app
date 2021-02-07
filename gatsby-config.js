@@ -28,11 +28,20 @@ module.exports = {
         path: `${__dirname}/static/images`,
       },
     },    
-    "gatsby-transformer-remark",
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-prismjs`,      
+          }
+        ]
+      },
+    },
     `gatsby-transformer-sharp`,    
     `gatsby-plugin-sharp`,
     `gatsby-plugin-material-ui`,
-    `gatsby-plugin-emotion`,
+    `gatsby-plugin-emotion`,    
     {
       resolve: `gatsby-transformer-remark`,
       options: {
