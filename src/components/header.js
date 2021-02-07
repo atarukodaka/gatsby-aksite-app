@@ -1,25 +1,20 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { Button, makeStyles, AppBar, Hidden, Toolbar, 
-    IconButton } from "@material-ui/core"
+import { Button, AppBar, Hidden, Toolbar, IconButton } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
+import styled from "@emotion/styled"
 
+const TopTitle = styled.div`
+    font-size: x-large;
+    color: #aaa;
+    background-color: black;
+    padding: 20px;
+`
+const Navbar = styled.nav`
+    color: #ddd;
+    backgroundColor: #eee;
 
-const useStyles = makeStyles({
-    toptitle: {
-        fontSize: "x-large",
-        color: "#aaa",
-        backgroundColor: "black",
-        padding: "20px"
-
-    },
-    navitation_bar: {
-        color: "#ddd",
-        backgroundColor: "#eee",
-
-    }
-
-})
+`
 const Header = () => {
     const data = useStaticQuery(
         graphql`
@@ -32,15 +27,14 @@ const Header = () => {
             }
         `
     )
-    const classes = useStyles()
     return (
         <header>
             <Hidden xsDown>
-                <div className={classes.toptitle}> {data.site.siteMetadata.title} </div>
-                <nav className={classes.navitation_bar}>
+                <TopTitle>{data.site.siteMetadata.title}</TopTitle>
+                <Navbar>
                     <Button component={Link} to="/">Top</Button>
                     <Button component={Link} to="/about">About</Button>
-                </nav>
+                </Navbar>
             </Hidden>
 
             <Hidden smUp>
@@ -51,7 +45,6 @@ const Header = () => {
                         </IconButton>
                         NEWS
                 </Toolbar>
-                    
                     
                 </AppBar>
             </Hidden>

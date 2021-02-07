@@ -30,6 +30,7 @@ module.exports = {
     `gatsby-transformer-sharp`,    
     `gatsby-plugin-sharp`,
     `gatsby-plugin-material-ui`,
+    `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-transformer-remark`,
       options: {
