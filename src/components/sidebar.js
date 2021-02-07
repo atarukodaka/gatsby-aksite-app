@@ -2,6 +2,8 @@ import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import Recent from "./recent.js"
+import config from "../../config"
+
 
 const Sidebar = () => {
     
@@ -56,13 +58,16 @@ const Sidebar = () => {
             </List>
 
             <h3>Directories</h3>
+            
             <List component="nav">
                 {
                     
                     folders.map( folder =>
                         (
                             <ListItem button component={Link} to={'/' + folder} key={folder.id}>
-                                <ListItemText>{folder}</ListItemText>
+                                <ListItemText>
+                                    { config.folder_names[folder] || folder }
+                                </ListItemText>
                             </ListItem>
                         )
                     )

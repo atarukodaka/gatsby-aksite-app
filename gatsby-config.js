@@ -4,6 +4,8 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+const config = require('./config.js')
+
 module.exports = {
   siteMetadata: {
     title: "Ataru Kodaka Site",
