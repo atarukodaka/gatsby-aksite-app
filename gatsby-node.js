@@ -31,20 +31,24 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
+    //allMarkdownRemark(filter: {frontmatter: {published: {ne: false}}}) {         
     const result = await graphql(`
-      {
-          allMarkdownRemark(filter: {frontmatter: {published: {ne: false}}}) {         
-                  nodes {
-                      fields {
-                          slug
-                          folder
-                      }
-                  }
-              
-          }
-      }
-    
-    `)
+    {
+        allMarkdownRemark {
+            nodes {
+                fields {
+                    slug
+                    folder
+                }
+                frontmatter {
+                    date
+                }
+            
+            }
+            
+        }    
+    }`)
+    const yearMonths = new Set()
 
     // markdown pages
     result.data.allMarkdownRemark.nodes.map(node => {
@@ -57,15 +61,38 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug: node.fields.slug,
             },
         })
+        //
+        //const { year, month } = node.frontmatter
+        const dt = new Date(node.frontmatter.date)
+        dt.setDate(1)
+        yearMonths.add(dt)
 
     })
-    // archives
-    createPage({
-        path: "archive",
-        component: path.resolve(`./src/templates/archive.js`),
-        context: {
-            slug: "/foo/",
-        }
+
+    // monthly archives
+    
+    console.log("** creating monthly archives")
+    yearMonths.forEach(yearMonth => {
+        //onst { year, month } = yearMonth
+        //const year = "2020"
+        //const month = "02"
+        const year = yearMonth.getFullYear()
+        const month = yearMonth.getMonth() + 1
+        const fromDate = yearMonth
+        const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
+
+        console.log(`  ${year}/${month} archive`)
+                
+        //).toISOString();
+
+        createPage({
+            path: `/archives/${year}/${month.toString().padStart(2, 0)}`,
+            component: path.resolve(`./src/templates/archive.js`),
+            context: {
+                fromDate: fromDate.toISOString(),
+                toDate: toDate.toISOString()
+            }
+        })
     })
     // folder index
     console.log("** creating folder indecies")
