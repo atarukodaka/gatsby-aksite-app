@@ -56,7 +56,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
         createPage({
             path: node.fields.slug,
-            component: path.resolve(`./src/templates/post.js`),
+            component: path.resolve(`./src/templates/post-template.js`),
             context: {
                 slug: node.fields.slug,
             },
@@ -87,7 +87,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
         createPage({
             path: `/archives/${year}/${month.toString().padStart(2, 0)}`,
-            component: path.resolve(`./src/templates/archive.js`),
+            component: path.resolve(`./src/templates/archive-template.js`),
             context: {
                 archive: 'monthly',
                 year: year,
@@ -109,7 +109,7 @@ exports.createPages = async ({ graphql, actions }) => {
         console.log("create folder index: ", folder)
         createPage({
             path: folder,
-            component: path.resolve(`./src/templates/folder_index.js`),
+            component: path.resolve(`./src/templates/folder_index-template.js`),
             context: {
                 folder: folder,
             }
