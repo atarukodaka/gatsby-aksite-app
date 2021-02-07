@@ -1,39 +1,39 @@
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const path  = require(`path`)
+const path = require(`path`)
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-    const { createNodeField }  = actions
-   
+    const { createNodeField } = actions
+
     if (node.internal.type === `MarkdownRemark`) {
-        
-        const slug = createFilePath({node, getNode, basePath: `pages`})
+
+        const slug = createFilePath({ node, getNode, basePath: `pages` })
         createNodeField({
             node,
             name: `slug`,
             value: slug,
         })
 
-        let folders_array = slug.split(/\//).filter( v => v)
+        let folders_array = slug.split(/\//).filter(v => v)
         folders_array.pop()
         const folder = folders_array.join('/')
         createNodeField({
-            node, 
+            node,
             name: 'folder',
             value: folder
         })
-        
+
         //console.log("slug: ", slug)
         //console.log("folder: ", folder)
     }
 
-  }
+}
 
-exports.createPages = async ({graphql, actions})  => {
+exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
     const result = await graphql(`
       {
-          allMarkdownRemark {         
+          allMarkdownRemark(filter: {frontmatter: {published: {ne: false}}}) {         
                   nodes {
                       fields {
                           slug
@@ -47,8 +47,9 @@ exports.createPages = async ({graphql, actions})  => {
     `)
 
     // markdown pages
-    result.data.allMarkdownRemark.nodes.map( node => {
+    result.data.allMarkdownRemark.nodes.map(node => {
         console.log(`create markdown page: ${node.fields.slug}`)
+
         createPage({
             path: node.fields.slug,
             component: path.resolve(`./src/templates/post.js`),
@@ -56,10 +57,11 @@ exports.createPages = async ({graphql, actions})  => {
                 slug: node.fields.slug,
             },
         })
+
     })
     // archives
-    createPage( { 
-        path: "archive", 
+    createPage({
+        path: "archive",
         component: path.resolve(`./src/templates/archive.js`),
         context: {
             slug: "/foo/",
@@ -68,12 +70,12 @@ exports.createPages = async ({graphql, actions})  => {
     // folder index
     console.log("** creating folder indecies")
     const folders =
-        [...new Set(result.data.allMarkdownRemark.nodes.map( node => node.fields.folder).
-            filter(v=>v))]
-    
+        [...new Set(result.data.allMarkdownRemark.nodes.map(node => node.fields.folder).
+            filter(v => v))]
+
     console.log("folders: ", folders)
- 
-    folders.map ( folder => {
+
+    folders.map(folder => {
         console.log("create folder index: ", folder)
         createPage({
             path: folder,
@@ -84,7 +86,7 @@ exports.createPages = async ({graphql, actions})  => {
         }
 
         )
-    })        
+    })
 
-        
+
 }
