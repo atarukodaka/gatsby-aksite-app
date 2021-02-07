@@ -11,7 +11,7 @@ const Footer = ( ) => {
             }
           }        
     }
-`)
+    `)
     
     return (
         <footer>
