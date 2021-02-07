@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout.js"
 import { graphql } from "gatsby"
-import Post, { PostExcerpt } from "../components/post.js"
+import { PostExcerpt } from "../components/post.js"
 
 const IndexPage = ( { data } ) => {
   const node = data.allMarkdownRemark.nodes[0]

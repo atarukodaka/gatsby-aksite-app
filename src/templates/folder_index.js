@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
 
@@ -9,7 +9,7 @@ export default function FolderIndexTemplate( { data }) {
     return (
         <Layout>
             <h2> { folder }</h2>
-            <ul>
+            
                 {
                     data.allMarkdownRemark.nodes.map(node => (
                         <PostExcerpt node={node}/>
@@ -17,26 +17,19 @@ export default function FolderIndexTemplate( { data }) {
                     ))
 
                 }
-            </ul>
+            
         </Layout>
     )
 }
 
 
 export const query = graphql`
-query($folder: String!){
-    allMarkdownRemark(filter: {fields: {folder: {eq: $folder}}}) {
-        nodes{
-            frontmatter {
-                title
+    query($folder: String!){
+        allMarkdownRemark(filter: {fields: {folder: {eq: $folder}}}) {
+            nodes{
+                frontmatter { title }
+                fields { slug, folder }
             }
-
-          fields {
-            slug
-            folder
-          }
         }
-      }
-    
-    }        
+    }
 `

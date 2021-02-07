@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
-import Layout from "./layout.js"
+//import Layout from "./layout.js"
 import { makeStyles} from "@material-ui/core"
 
 const useStyles = makeStyles({
@@ -23,13 +23,13 @@ const Post = ( { node }) => {
     const classes = useStyles()
     return (
         <div>
-        <h2 className={classes.post_title}>{node.frontmatter.title}</h2>
-        <div className={classes.post_info}>| 
-            <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> | 
-            { node.frontmatter.date} |
+            <h2 className={classes.post_title}>{node.frontmatter.title}</h2>
+            <div className={classes.post_info}>| 
+                <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> | 
+                { node.frontmatter.date} |
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: node.html }} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: node.html }} />
-      </div>
     )
 }
 
@@ -42,7 +42,7 @@ export const PostExcerpt = ( { node }) => {
             <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> | 
             { node.frontmatter.date} |
         </div>
-        <div>node.excerpt</div>
+        <div>{node.excerpt}</div>
       </div>
     )
 }
