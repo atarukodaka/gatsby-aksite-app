@@ -26,7 +26,9 @@ export default function FolderIndexTemplate( { data }) {
 export const query = graphql`
     query($folder: String!){
         allMarkdownRemark(filter: {fields: {folder: {eq: $folder}}}) {
+            
             nodes{
+                excerpt(truncate: true, format: PLAIN)            
                 frontmatter { title }
                 fields { slug, folder }
             }

@@ -15,6 +15,11 @@ const useStyles = makeStyles({
     post_info: {
         fontSize: "small",
         textAlign: "right",
+    },
+    post_continue: {
+        fontSize: "small",
+        textAlign: "right",
+        fontStyle: "italic"
     }
 })
 
@@ -43,6 +48,7 @@ export const PostExcerpt = ( { node }) => {
             { node.frontmatter.date} |
         </div>
         <div>{node.excerpt}</div>
+        <div className={classes.post_continue}><Link to={node.fields.slug}>continue reading</Link></div>
       </div>
     )
 }

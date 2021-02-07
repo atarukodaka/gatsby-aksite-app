@@ -89,6 +89,7 @@ exports.createPages = async ({ graphql, actions }) => {
             path: `/archives/${year}/${month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive.js`),
             context: {
+                archive: 'monthly',
                 year: year,
                 month: month,
                 fromDate: fromDate.toISOString(),

@@ -4,17 +4,14 @@ import { graphql } from "gatsby"
 import { PostExcerpt } from "../components/post.js"
 
 const IndexPage = ( { data } ) => {
-  const node = data.allMarkdownRemark.nodes[0]
   return (
-<Layout>    
-      {
-        
-        data.allMarkdownRemark.nodes.map(node => (
+    <Layout>    
+    {
+      data.allMarkdownRemark.nodes.map(node => (
           <PostExcerpt node={node}/>
-          ))
-
-      }
-        </Layout>    
+      ))
+    }
+    </Layout>    
   )
 }
 

@@ -6,7 +6,9 @@ import { List, ListItem, ListItemText } from '@material-ui/core'
 const Archives = () => {
     const data = useStaticQuery(graphql`
     {
-    allSitePage(filter: {path: {regex: "/^/archives/.*/"}, context: {}}) {
+    allSitePage(sort: {fields: context___fromDate, order: DESC}, 
+        filter: {context: {archive: {eq: "monthly"} }}){
+        
         nodes {
             path
             context {

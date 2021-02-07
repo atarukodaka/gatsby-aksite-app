@@ -37,10 +37,12 @@ const Sidebar = () => {
         <div>
             <h2>Profile</h2>
             <List component="nav">
-                <ListItem>
+            <ListItem>
                     <ListItemText>{data.site.siteMetadata.author}</ListItemText>
                 </ListItem>
-                <ListItem></ListItem>
+                <ListItem>
+                    <ListItemText>{data.site.siteMetadata.email}</ListItemText>
+                </ListItem>
             </List>
 
             <h3>Directories</h3>
