@@ -1,6 +1,8 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { Button, makeStyles, Breadcrumbs } from "@material-ui/core"
+import { Button, makeStyles, Breadcrumbs, AppBar, Hidden, Toolbar, 
+    IconButton } from "@material-ui/core"
+import MenuIcon from "@material-ui/icons/Menu"
 
 
 const useStyles = makeStyles({
@@ -9,14 +11,14 @@ const useStyles = makeStyles({
         color: "#aaa",
         backgroundColor: "black",
         padding: "20px"
-        
+
     },
     navitation_bar: {
         color: "#ddd",
         backgroundColor: "#eee",
-        
+
     }
-    
+
 })
 const Header = () => {
     const data = useStaticQuery(
@@ -33,12 +35,26 @@ const Header = () => {
     const classes = useStyles()
     return (
         <header>
-            <div className={classes.toptitle}> { data.site.siteMetadata.title } </div>
-            <nav className={classes.navitation_bar}>
-                <Button component={Link} to="/">Top</Button>
-                <Button component={Link} to="/about">About</Button>                
-            </nav>
-            
+            <Hidden xsDown>
+                <div className={classes.toptitle}> {data.site.siteMetadata.title} </div>
+                <nav className={classes.navitation_bar}>
+                    <Button component={Link} to="/">Top</Button>
+                    <Button component={Link} to="/about">About</Button>
+                </nav>
+            </Hidden>
+
+            <Hidden smUp>
+                <AppBar>
+                <Toolbar>
+                <IconButton>
+                <MenuIcon />
+                        </IconButton>
+                        NEWS
+                </Toolbar>
+                    
+                    
+                </AppBar>
+            </Hidden>
         </header>
     )
 }

@@ -13,12 +13,12 @@ const Layout = ({ children }) => {
             <Header />
 
             <Grid container spacing="4">
-                <Grid item xs={8}>
+                <Grid item xs={12} sm={8}>
                     <Container>
                         {children}
                     </Container>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} sm={4}>
                     <Sidebar />
                 </Grid>
 
