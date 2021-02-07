@@ -26,7 +26,7 @@ const Archives = () => {
             <List component="nav">
             {
                 data.allSitePage.nodes.map(node => (
-                    <ListItem button component={Link} to={node.path}>
+                    <ListItem button component={Link} to={node.path} key={node.id}>
                         <ListItemText>{node.context.year}/{node.context.month}</ListItemText>
                     </ListItem>
                 ))

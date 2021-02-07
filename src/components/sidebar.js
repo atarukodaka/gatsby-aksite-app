@@ -37,10 +37,10 @@ const Sidebar = () => {
         <div>
             <h2>Profile</h2>
             <List component="nav">
-            <ListItem>
+                <ListItem key="author">
                     <ListItemText>{data.site.siteMetadata.author}</ListItemText>
                 </ListItem>
-                <ListItem>
+                <ListItem key="email">
                     <ListItemText>{data.site.siteMetadata.email}</ListItemText>
                 </ListItem>
             </List>
@@ -51,7 +51,7 @@ const Sidebar = () => {
                     
                     folders.map( folder =>
                         (
-                            <ListItem button component={Link} to={'/' + folder}>
+                            <ListItem button component={Link} to={'/' + folder} key={folder.id}>
                                 <ListItemText>{folder}</ListItemText>
                             </ListItem>
                         )

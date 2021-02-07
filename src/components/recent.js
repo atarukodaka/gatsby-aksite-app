@@ -29,7 +29,7 @@ const Recent = () => {
                 {
                     data.allMarkdownRemark.nodes.map( node =>
                         (
-                            <ListItem button component={Link} to={node.fields.slug}>
+                            <ListItem button component={Link} to={node.fields.slug} key={node.id}>
                                 <ListItemText>{node.frontmatter.title}</ListItemText>
                             </ListItem>
                         )

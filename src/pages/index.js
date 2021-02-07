@@ -8,7 +8,7 @@ const IndexPage = ( { data } ) => {
     <Layout>    
     {
       data.allMarkdownRemark.nodes.map(node => (
-          <PostExcerpt node={node}/>
+          <PostExcerpt node={node} key={node.id}/>
       ))
     }
     </Layout>    
