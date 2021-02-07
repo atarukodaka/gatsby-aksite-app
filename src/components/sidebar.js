@@ -2,7 +2,6 @@ import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import Recent from "./recent.js"
-import Archives from "./archives.js"
 
 const Sidebar = () => {
     
@@ -69,6 +68,9 @@ const Sidebar = () => {
                     )
                 }
             </List>
+
+            <h3>Recent Posts</h3>
+            <Recent />
 
             <h3>Monthly Archives</h3>
             <List component="nav">

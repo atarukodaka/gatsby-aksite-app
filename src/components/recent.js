@@ -23,8 +23,7 @@ const Recent = () => {
 
 
     return (
-        <div>
-        <h3>Recent</h3>
+
         <List component="nav">
                 {
                     data.allMarkdownRemark.nodes.map( node =>
@@ -36,7 +35,7 @@ const Recent = () => {
                     )
                 }
             </List>        
-        </div>
+
     )
 }
 
