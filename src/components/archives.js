@@ -21,8 +21,7 @@ const Archives = () => {
     `)
 
     return (
-        <div>
-            <h3>Monthly Archives</h3>
+ 
             <List component="nav">
             {
                 data.allSitePage.nodes.map(node => (
@@ -32,8 +31,7 @@ const Archives = () => {
                 ))
             }
             </List>
-        </div>
-        
+
     )
 }
 export default Archives

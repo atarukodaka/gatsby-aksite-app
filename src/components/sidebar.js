@@ -24,6 +24,17 @@ const Sidebar = () => {
 
                     }
                 }
+                allSitePage(sort: {fields: context___fromDate, order: DESC}, 
+                    filter: {context: {archive: {eq: "monthly"} }}){
+                    
+                    nodes {
+                        path
+                        context {
+                            year, month
+                            fromDate, toDate
+                        }
+                    }
+                }                
             }
 
         `
@@ -59,9 +70,17 @@ const Sidebar = () => {
                 }
             </List>
 
-            <Recent/>
-
-            <Archives/>
+            <h3>Monthly Archives</h3>
+            <List component="nav">
+            {
+                data.allSitePage.nodes.map(node => (
+                    <ListItem button component={Link} to={node.path} key={node.id}>
+                        <ListItemText>{node.context.year}/{node.context.month}</ListItemText>
+                    </ListItem>
+                ))
+            }
+            </List>
+         
 
         </div>
     )
