@@ -25,7 +25,7 @@ const Post = ( { node }) => {
         <div>
         <h2 className={classes.post_title}>{node.frontmatter.title}</h2>
         <div className={classes.post_info}>| 
-            <Link to={node.fields.folder}>{node.fields.folder}</Link> | 
+            <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> | 
             { node.frontmatter.date} |
         </div>
         <div dangerouslySetInnerHTML={{ __html: node.html }} />
@@ -33,4 +33,20 @@ const Post = ( { node }) => {
     )
 }
 
+export const PostExcerpt = ( { node }) => {
+    const classes = useStyles()
+    return (
+        <div>
+        <h2 className={classes.post_title}>{node.frontmatter.title}</h2>
+        <div className={classes.post_info}>| 
+            <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> | 
+            { node.frontmatter.date} |
+        </div>
+        <div>node.excerpt</div>
+      </div>
+    )
+}
+
 export default Post
+
+

@@ -1,14 +1,20 @@
 import React from "react"
 import Layout from "../components/layout.js"
 import { graphql } from "gatsby"
-import Post from "../components/post.js"
+import Post, { PostExcerpt } from "../components/post.js"
 
 const IndexPage = ( { data } ) => {
   const node = data.allMarkdownRemark.nodes[0]
   return (
-    <Layout>
-      <Post node={node}/>
-    </Layout>
+<Layout>    
+      {
+        
+        data.allMarkdownRemark.nodes.map(node => (
+          <PostExcerpt node={node}/>
+          ))
+
+      }
+        </Layout>    
   )
 }
 
@@ -20,6 +26,7 @@ export const query = graphql`
       ) 
       {
       nodes {
+        excerpt(truncate: true, format: PLAIN)
         html
         fields {
           slug

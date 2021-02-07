@@ -1,6 +1,7 @@
 import React from "react"
 import Layout from "../components/layout.js"
 import { graphql, Link } from "gatsby"
+import { PostExcerpt } from "../components/post.js"
 
 export default function ArchiveTemplate ({ data, pageContext }) {
     //const { fromDate, toDate } = pageContext
@@ -12,16 +13,11 @@ export default function ArchiveTemplate ({ data, pageContext }) {
     console.log(`monthly archive template: ${year}/${month}`)
     return (
         <Layout>
-            <h2>ARCHIVE ARCHIVE: {year}/{month}</h2>
+            <h2>MONTHLY ARCHIVE: {year}/{month}</h2>
             <ul>
                 {
                 data.allMarkdownRemark.nodes.map(node => (
-                    <li key={node.id}>
-                        <Link to={node.fields.slug}>
-                        { node.frontmatter.title } [{node.frontmatter.date}]                 
-                        </Link>
-                        
-                    </li>
+                   <PostExcerpt node={node}/>
 
                 ))
 
@@ -38,7 +34,7 @@ export const query = graphql`
       allMarkdownRemark(filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
         totalCount
         nodes { 
-          fields { slug }
+          fields { slug, folder }
           frontmatter { title, date }
         }
       }
