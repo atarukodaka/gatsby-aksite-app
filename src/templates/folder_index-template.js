@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
+import FolderName from "../components/foldername.js"
 
 export default function FolderIndexTemplate( { data, pageContext }) {
     //const node = data.allMarkdownRemark.nodes[0]
@@ -11,12 +12,11 @@ export default function FolderIndexTemplate( { data, pageContext }) {
 
     return (
         <Layout>
-            <h2> { folder }</h2>
+            <h2><FolderName folder={folder}/></h2>
                 {
                     data.allMarkdownRemark.nodes.map(node => (
                         <PostExcerpt node={node} key={node.id} />
                     ))
-
                 }
             
         </Layout>

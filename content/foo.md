@@ -11,3 +11,13 @@ date: 2020-02-02
 
 foo
 
+```ruby
+def fun
+    puts "asdf"
+end
+```
+
+```javascript
+const data = useStaticQuery()
+
+```
