@@ -3,11 +3,11 @@ import Layout from "../components/layout.js"
 import { graphql, Link } from "gatsby"
 
 export default function ArchiveTemplate ({ data, pageContext }) {
-    const { fromDate, toDate } = pageContext
-    //const { year, month } = fromDate
-    const dt = new Date(fromDate)
-    const year = dt.getFullYear()
-    const month = dt.getMonth() + 1
+    //const { fromDate, toDate } = pageContext
+    const { year, month } = pageContext
+    //const dt = new Date(fromDate)
+    //const year = dt.getFullYear()
+    //const month = dt.getMonth() + 1
     
     console.log(`monthly archive template: ${year}/${month}`)
     return (

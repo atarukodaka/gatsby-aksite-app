@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { Button, makeStyles, Breadcrumbs, AppBar, Hidden, Toolbar, 
+import { Button, makeStyles, AppBar, Hidden, Toolbar, 
     IconButton } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 

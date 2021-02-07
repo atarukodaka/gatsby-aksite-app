@@ -1,7 +1,6 @@
 import React from "react"
 import Layout from "../components/layout.js"
-import { graphql, Link } from "gatsby"
-import { List, ListItem, ListItemText} from '@material-ui/core'
+import { graphql } from "gatsby"
 import Post from "../components/post.js"
 
 const IndexPage = ( { data } ) => {
