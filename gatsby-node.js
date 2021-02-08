@@ -72,8 +72,7 @@ exports.createPages = async ({ graphql, actions }) => {
     paginate({
         createPage,
         items: data.allMdx.nodes,
-        itemsPerPage: 2,
-        //pathPrefix: "/list",
+        itemsPerPage: 10,
         pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
         component: path.resolve("./src/templates/index-template.js")
     })
@@ -81,17 +80,13 @@ exports.createPages = async ({ graphql, actions }) => {
     // monthly archives    
     console.log("** creating monthly archives")
     yearMonths.forEach(yearMonth => {
-        //onst { year, month } = yearMonth
-        //const year = "2020"
-        //const month = "02"
         const year = yearMonth.getFullYear()
         const month = yearMonth.getMonth() + 1
         const fromDate = yearMonth
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         console.log(`  ${year}/${month} archive`)
-                
-        //).toISOString();
+
 
         createPage({
             path: `/archives/${year}/${month.toString().padStart(2, 0)}`,

@@ -20,7 +20,8 @@ export default function ArchiveTemplate({ data, pageContext }) {
 
 export const query = graphql`
     query($fromDate: Date!, $toDate: Date!){        
-      allMdx(filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
+      allMdx(sort: {fields: frontmatter___date, order: DESC},
+        filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
         nodes { 
           excerpt(truncate: true)
           fields {

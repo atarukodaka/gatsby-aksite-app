@@ -9,10 +9,11 @@ import { PostExcerpt } from "../components/post.js"
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
-    allMdx (skip: $skip, limit: $limit){
+    allMdx (sort: {fields: frontmatter___date, order: DESC},
+      skip: $skip, limit: $limit){
       nodes {
         frontmatter { title, date(formatString: "YYYY-MM-DD") }
-        excerpt(truncate: true)
+        excerpt(truncate: true, pruneLength: 300)
         fields { slug, directory }
       }
     }
