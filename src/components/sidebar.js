@@ -50,9 +50,9 @@ const Sidebar = () => {
                 <ListItem key="author">
                     <ListItemText>{data.site.siteMetadata.author}</ListItemText>
                 </ListItem>
-                <ListItem key="email">
-                    <ListItemText>{data.site.siteMetadata.email}</ListItemText>
-                </ListItem>
+                <ListItem key="description">
+                    <ListItemText>{data.site.siteMetadata.description}</ListItemText>
+                </ListItem>                
             </List>
 
             <h3>Directories</h3>            

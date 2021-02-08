@@ -3,9 +3,11 @@ import Layout from "../components/layout.js"
 import { graphql } from "gatsby"
 import { PostExcerpt } from "../components/post.js"
 
+
 const IndexPage = ( { data } ) => {
   return (
     <Layout>    
+      
     {
       data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id}/>

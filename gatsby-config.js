@@ -4,15 +4,14 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
-const config = require('./config.js')
+//const config = require('./config.js')
 
 module.exports = {
   siteMetadata: {
     title: "Ataru Kodaka Site",
     author: "Ataru KODAKA",
-    email: "atarukodaka@gmail.com",
+    description: '',
   },
-
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
