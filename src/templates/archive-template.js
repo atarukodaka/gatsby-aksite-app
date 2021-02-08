@@ -24,7 +24,7 @@ export const query = graphql`
         nodes { 
           excerpt(truncate: true)
           fields {
-            slug, folder
+            slug, directory
           }
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title

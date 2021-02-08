@@ -19,7 +19,7 @@ export const query = graphql`
           date(formatString: "YYYY-MM-DD")
         }
         fields {
-          folder
+          directory
         }
       }
     }

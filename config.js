@@ -1,6 +1,6 @@
 const config = {
   foo: "HHHHOGEGE",
-  folder_names: {
+  directory_names: {
     "workout": "ワークアウト",
     "game": "ゲーム"
 

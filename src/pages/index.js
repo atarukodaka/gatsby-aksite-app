@@ -29,7 +29,7 @@ export const query = graphql`
         body
         fields {
           slug
-          folder
+          directory
         }
         frontmatter {
           date
