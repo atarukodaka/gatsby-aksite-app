@@ -8,9 +8,7 @@ export default function PostTemplate ({ data }) {
   const node = data.mdx
 
   return (<Layout><Post node={node}/></Layout>)
-
 }
-
 
 export const query = graphql`
     query($slug: String!) {
