@@ -12,7 +12,7 @@ const TopTitle = styled.div`
 `
 const Navbar = styled.nav`
     color: #ddd;
-    backgroundColor: #eee;
+    background-color: #eee;
 
 `
 const Header = () => {
