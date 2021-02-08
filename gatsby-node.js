@@ -14,17 +14,17 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
             value: slug,
         })
 
-        let folders_array = slug.split(/\//).filter(v => v)
-        folders_array.pop()
-        const folder = folders_array.join('/')
+        let directories_array = slug.split(/\//).filter(v => v)
+        directories_array.pop()
+        const directory = directories_array.join('/')
         createNodeField({
             node,
-            name: 'folder',
-            value: folder
+            name: 'directory',
+            value: directory
         })
 
         //console.log("slug: ", slug)
-        //console.log("folder: ", folder)
+        //console.log("directory: ", directory)
     }
 
 }
@@ -37,7 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
             nodes {
                 fields {
                     slug
-                    folder
+                    directory
                 }
                 frontmatter {
                     date
@@ -96,21 +96,21 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
-    // folder index
-    console.log("** creating folder indecies")
-    const folders =
-        [...new Set(result.data.allMdx.nodes.map(node => node.fields.folder).
+    // directory index
+    console.log("** creating directory indecies")
+    const directories =
+        [...new Set(result.data.allMdx.nodes.map(node => node.fields.directory).
             filter(v => v))]
 
-    console.log("folders: ", folders)
+    console.log("directories: ", directories)
 
-    folders.map(folder => {
-        console.log("create folder index: ", folder)
+    directories.map(directory => {
+        console.log("create directory index: ", directory)
         createPage({
-            path: folder,
-            component: path.resolve(`./src/templates/folder_index-template.js`),
+            path: directory,
+            component: path.resolve(`./src/templates/directory_index-template.js`),
             context: {
-                folder: folder,
+                directory: directory,
             }
         }
 

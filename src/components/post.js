@@ -27,7 +27,7 @@ const Post = ({ node }) => {
         <div>
             <PostTitle>{node.frontmatter.title}</PostTitle>
             <PostInfo>
-                <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> |
+                <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
                 {node.frontmatter.date} |
             </PostInfo>
 
@@ -43,12 +43,14 @@ export const PostExcerpt = ({ node }) => {
         <div>
             <PostTitle>{node.frontmatter.title}</PostTitle>
             <PostInfo>
-                <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> |
+                <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
                 {node.frontmatter.date} |
             </PostInfo>
 
             <div>{node.excerpt}</div>
-            <PostContinueReading>{node.fields.slug} </PostContinueReading>
+            <PostContinueReading>
+                <Link to={node.fields.slug}>continue reading...</Link>
+            </PostContinueReading>
         </div>
     )
 }

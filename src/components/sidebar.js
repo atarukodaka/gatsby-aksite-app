@@ -1,11 +1,11 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
 import { List, ListItem, ListItemText } from '@material-ui/core'
-import FolderName from "./foldername.js"
+import DirectoryName from "./directory_name.js"
 
-const uniq_folders = ( nodes ) => {
+const uniq_directories = ( nodes ) => {
     return [...new Set(nodes.map ( 
-        node => node.fields.folder))
+        node => node.fields.directory))
     ].filter(v=>v).sort()
 }
 const Sidebar = () => {    
@@ -22,7 +22,7 @@ const Sidebar = () => {
                     nodes {
                         fields {
                             slug
-                            folder
+                            directory
                         }
 
                     }
@@ -59,11 +59,11 @@ const Sidebar = () => {
             <List component="nav">
                 {
                     
-                    uniq_folders(data.allMdx.nodes).map( folder =>
+                    uniq_directories(data.allMdx.nodes).map( directory =>
                         (
-                            <ListItem button component={Link} to={'/' + folder} key={folder}>
+                            <ListItem button component={Link} to={'/' + directory} key={directory.id}>
                                 <ListItemText>
-                                    <FolderName folder={folder}/>
+                                    <DirectoryName directory={directory}/>
                                 </ListItemText>
                             </ListItem>
                         )
