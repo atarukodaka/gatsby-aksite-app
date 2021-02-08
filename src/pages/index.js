@@ -7,7 +7,7 @@ const IndexPage = ( { data } ) => {
   return (
     <Layout>    
     {
-      data.allMarkdownRemark.nodes.map(node => (
+      data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id}/>
       ))
     }
@@ -17,14 +17,14 @@ const IndexPage = ( { data } ) => {
 
 export const query = graphql`
   {
-    allMarkdownRemark(limit: 10, 
+    allMdx(limit: 10, 
       sort: { fields: [frontmatter___date], order: DESC},
       filter: { frontmatter: { date: {ne: null}}}
       ) 
       {
       nodes {
-        excerpt(truncate: true, format: PLAIN)
-        html
+        excerpt(truncate: true)
+        body
         fields {
           slug
           folder

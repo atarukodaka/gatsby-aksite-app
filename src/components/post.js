@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 //import Layout from "./layout.js"
 import { makeStyles} from "@material-ui/core"
 
@@ -33,7 +34,7 @@ const Post = ( { node }) => {
                 <Link to={'/' + node.fields.folder}>{node.fields.folder}</Link> | 
                 { node.frontmatter.date} |
             </div>
-            <div dangerouslySetInnerHTML={{ __html: node.html }} />
+            <MDXRenderer>{node.body}</MDXRenderer>
         </div>
     )
 }

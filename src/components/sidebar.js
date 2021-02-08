@@ -18,7 +18,7 @@ const Sidebar = () => {
                         author
                     }                    
                 }
-                allMarkdownRemark {
+                allMdx {
                     nodes {
                         fields {
                             slug
@@ -59,7 +59,7 @@ const Sidebar = () => {
             <List component="nav">
                 {
                     
-                    uniq_folders(data.allMarkdownRemark.nodes).map( folder =>
+                    uniq_folders(data.allMdx.nodes).map( folder =>
                         (
                             <ListItem button component={Link} to={'/' + folder} key={folder}>
                                 <ListItemText>

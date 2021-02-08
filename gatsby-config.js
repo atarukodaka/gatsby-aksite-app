@@ -27,25 +27,13 @@ module.exports = {
         name: `images`,
         path: `${__dirname}/static/images`,
       },
-    },    
-    {
-      resolve: "gatsby-transformer-remark",
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-prismjs`,      
-          }
-        ]
-      },
     },
-    `gatsby-transformer-sharp`,    
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-material-ui`,
-    `gatsby-plugin-emotion`,    
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins: [
+          `gatsby-remark-prismjs`,
           `gatsby-remark-relative-images`,
           {
             resolve: `gatsby-remark-images`,
@@ -53,9 +41,12 @@ module.exports = {
               maxWidth: 700,
             },
           },
-        ],
-      },
+        ]
+      }
     },
-    
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-material-ui`,
+    `gatsby-plugin-emotion`,
   ],
 }

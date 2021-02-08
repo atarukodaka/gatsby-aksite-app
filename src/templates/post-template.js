@@ -1,12 +1,11 @@
 import React from "react"
-
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout.js"
 import Post from "../components/post.js"
 
 export default function PostTemplate ({ data }) {
-  const node = data.markdownRemark
+  const node = data.mdx
 
   return (<Layout><Post node={node}/></Layout>)
 
@@ -15,8 +14,8 @@ export default function PostTemplate ({ data }) {
 
 export const query = graphql`
     query($slug: String!) {
-      markdownRemark(fields: { slug: { eq: $slug } }) {
-        html
+      mdx(fields: { slug: { eq: $slug } }) {
+        body
         frontmatter {
           title
           date(formatString: "YYYY-MM-DD")
