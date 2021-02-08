@@ -5,7 +5,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
 
-
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
@@ -22,9 +22,14 @@ export const data = graphql`
 
 const IndexTemplate = ( { data, pageContext } ) => {
   const { previousPagePath, nextPagePath } = pageContext;
+  const directory = pageContext.directory || ""
+  const { breadcrumb: { crumbs } } = pageContext
+  const directory_name = directory.toString().split('/').pop()
+
   console.log(data) 
   return (
-    <Layout>      
+    <Layout>  
+      <Breadcrumb crumbs={crumbs} crumbLabel={directory_name}/>                
       {
         data.allMdx.nodes.map(node => (
             <PostExcerpt node={node} key={node.id}/>

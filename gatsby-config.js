@@ -56,7 +56,7 @@ module.exports = {
       // useAutoGen: required 'true' to use autogen
       useAutoGen: true,
       // autoGenHomeLabel: optional 'Home' is default
-      autoGenHomeLabel: `Root`,
+      autoGenHomeLabel: `Home`,
       // exlude: optional, include this array to exclude paths you don't want to
       // generate breadcrumbs for (see below for details).
       excludes: [
@@ -78,9 +78,10 @@ module.exports = {
       ],
       // trailingSlashes: optional, will add trailing slashes to the end
       // of crumb pathnames. default is false
-      trailingSlashes: true,
+      trailingSlashes: false,
       }      
     },
+    //`gatsby-plugin-typography`,
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
