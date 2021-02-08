@@ -4,13 +4,20 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "@emotion/styled"
 
 const PostTitle = styled.h2`
-    font-size: xx-large;
+    
     font-weight: bold;
     border-bottom: 1px solid;
     padding-bottom: 1px;
     margin-bottom: 1px;
 `
 
+const PostTitleExcerpt = styled.h3`
+    
+    font-weight: bold;
+    border-bottom: 1px solid;
+    padding-bottom: 1px;
+    margin-bottom: 1px;
+`
 const PostInfo = styled.div`
     font-size: small;
     text-align: right;
@@ -41,7 +48,7 @@ const Post = ({ node }) => {
 export const PostExcerpt = ({ node }) => {
     return (
         <div>
-            <PostTitle>{node.frontmatter.title}</PostTitle>
+            <PostTitleExcerpt>{node.frontmatter.title}</PostTitleExcerpt>
             <PostInfo>
                 <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
                 {node.frontmatter.date} |

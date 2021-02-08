@@ -1,8 +1,8 @@
 const config = {
-  foo: "HHHHOGEGE",
-  directory_names: {
+    directory_names: {
     "workout": "ワークアウト",
-    "game": "ゲーム"
+    "game": "ゲーム",
+    "software": "ソフトウェア"
 
   },
 }

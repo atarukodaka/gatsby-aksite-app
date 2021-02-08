@@ -32,7 +32,13 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
-          `gatsby-remark-prismjs`,
+          'gatsby-remark-prismjs-title',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              alias: {js: 'javascript', sh: 'bash'}
+            }
+          },
           `gatsby-remark-relative-images`,
           {
             resolve: `gatsby-remark-images`,
