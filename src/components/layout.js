@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import { MDXProvider } from "@mdx-js/react"
 //import { Message, Divider } from "theme-ui"
@@ -12,17 +11,15 @@ import Footer from "./footer.js"
 import Sidebar from "./sidebar.js"
 
 const Foo = () => (<big>FOO TAG USED HERE</big>)
-const Youtube = ( {url}) => (
-    <Link to={url}>url</Link>
-)
-    
-const shortcodes = { Foo, Youtube }
 
-const Layout = ({ children }) => {
+    
+const shortcodes = { Foo }
+
+const Layout = ({ children, location }) => {
     return (
         <Container>
             <Header />
-
+            
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={9}>
                     <Container>

@@ -4,6 +4,7 @@ import { Button, AppBar, Hidden, Toolbar, IconButton } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 import styled from "@emotion/styled"
 
+
 const TopTitle = styled.div`
     font-size: x-large;
     color: #aaa;
@@ -15,7 +16,7 @@ const Navbar = styled.nav`
     background-color: #eee;
 
 `
-const Header = () => {
+const Header = ( ) => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -35,6 +36,8 @@ const Header = () => {
                     <Button component={Link} to="/">Top</Button>
                     <Button component={Link} to="/about">About</Button>
                 </Navbar>
+
+                
             </Hidden>
 
             <Hidden smUp>
