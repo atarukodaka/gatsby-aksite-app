@@ -1,6 +1,7 @@
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
+const { paginate }= require('gatsby-awesome-pagination')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
@@ -16,11 +17,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
         let directories_array = slug.split(/\//).filter(v => v)
         directories_array.pop()
-        const directory = directories_array.join('/')
+
         createNodeField({
             node,
             name: 'directory',
-            value: directory
+            value: directories_array.join('/')
         })
 
         //console.log("slug: ", slug)
@@ -31,7 +32,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-        const result = await graphql(`
+    const { data  } = await graphql(`
     {
         allMdx {
             nodes {
@@ -50,7 +51,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const yearMonths = new Set()
 
     // markdown pages
-    result.data.allMdx.nodes.map(node => {
+    data.allMdx.nodes.map(node => {
         console.log(`create markdown page: ${node.fields.slug}`)
 
         createPage({
@@ -67,9 +68,17 @@ exports.createPages = async ({ graphql, actions }) => {
         yearMonths.add(dt)
 
     })
+    // index list
+    paginate({
+        createPage,
+        items: data.allMdx.nodes,
+        itemsPerPage: 2,
+        //pathPrefix: "/list",
+        pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
+        component: path.resolve("./src/templates/index-template.js")
+    })
 
-    // monthly archives
-    
+    // monthly archives    
     console.log("** creating monthly archives")
     yearMonths.forEach(yearMonth => {
         //onst { year, month } = yearMonth
@@ -99,7 +108,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // directory index
     console.log("** creating directory indecies")
     const directories =
-        [...new Set(result.data.allMdx.nodes.map(node => node.fields.directory).
+        [...new Set(data.allMdx.nodes.map(node => node.fields.directory).
             filter(v => v))]
 
     console.log("directories: ", directories)
