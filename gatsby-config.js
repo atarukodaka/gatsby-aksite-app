@@ -4,13 +4,14 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+//const config = require('./config.js')
+
 module.exports = {
   siteMetadata: {
     title: "Ataru Kodaka Site",
     author: "Ataru KODAKA",
-    email: "atarukodaka@gmail.com",
+    description: '',
   },
-
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -19,13 +20,25 @@ module.exports = {
         path: `${__dirname}/content`,
       }
     },
-    "gatsby-transformer-remark",
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-material-ui`,
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        plugins: [
+        name: `images`,
+        path: `${__dirname}/static/images`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins: [
+          'gatsby-remark-prismjs-title',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              alias: {js: 'javascript', sh: 'bash'}
+            }
+          },
           `gatsby-remark-relative-images`,
           {
             resolve: `gatsby-remark-images`,
@@ -33,9 +46,12 @@ module.exports = {
               maxWidth: 700,
             },
           },
-        ],
-      },
+        ]
+      }
     },
-    
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-material-ui`,
+    `gatsby-plugin-emotion`,
   ],
 }
