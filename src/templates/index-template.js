@@ -1,7 +1,10 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
+
 
 
 export const data = graphql`
@@ -28,8 +31,13 @@ const IndexTemplate = ( { data, pageContext } ) => {
       }
       
       <div>
-        {previousPagePath ? <Link to={previousPagePath}>Prev Page</Link> : null }
-			  {nextPagePath ? <Link to={nextPagePath}>Next Page</Link> : null }        
+        <span>
+          {previousPagePath ? <Link to={previousPagePath}><ArrowBackIcon/>BACK</Link> : null }
+        </span>
+        ----
+        <span>
+			    {nextPagePath ? <Link to={nextPagePath}>NEXT<ArrowForwardIcon/></Link> : null }        
+          </span>
       </div>
     </Layout>    
   )
