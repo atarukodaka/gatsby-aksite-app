@@ -1,7 +1,6 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { Button, AppBar, Hidden, Toolbar, IconButton } from "@material-ui/core"
-import MenuIcon from "@material-ui/icons/Menu"
+import { Button } from "@material-ui/core"
 import styled from "@emotion/styled"
 
 const TopTitle = styled.div`
@@ -15,7 +14,7 @@ const Navbar = styled.nav`
     background-color: #eee;
 
 `
-const Header = () => {
+const Header = ( ) => {
     const data = useStaticQuery(
         graphql`
             query {
@@ -28,27 +27,15 @@ const Header = () => {
         `
     )
     return (
-        <header>
-            <Hidden xsDown>
-                <TopTitle>{data.site.siteMetadata.title}</TopTitle>
-                <Navbar>
-                    <Button component={Link} to="/">Top</Button>
-                    <Button component={Link} to="/about">About</Button>
-                </Navbar>
-            </Hidden>
-
-            <Hidden smUp>
-                <AppBar>
-                <Toolbar>
-                <IconButton>
-                <MenuIcon />
-                        </IconButton>
-                        NEWS
-                </Toolbar>
-                    
-                </AppBar>
-            </Hidden>
-        </header>
+        <div>
+            <TopTitle>
+                {data.site.siteMetadata.title}
+            </TopTitle>
+            <Navbar>
+                <Button component={Link} to="/">Top</Button>
+                <Button component={Link} to="/about">About</Button>
+            </Navbar>
+        </div>
     )
 }
 

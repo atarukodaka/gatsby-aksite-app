@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { List, ListItem, ListItemText } from '@material-ui/core'
+//import { List, ListItem, ListItemText } from '@material-ui/core'
 import DirectoryName from "./directory_name.js"
 
 const uniq_directories = ( nodes ) => {
@@ -44,45 +44,38 @@ const Sidebar = () => {
     )
     
     return (
-        <div>
+        <div className="sidebar">
             <h2>Profile</h2>
-            <List component="nav">
-                <ListItem key="author">
-                    <ListItemText>{data.site.siteMetadata.author}</ListItemText>
-                </ListItem>
-                <ListItem key="description">
-                    <ListItemText>{data.site.siteMetadata.description}</ListItemText>
-                </ListItem>                
-            </List>
-
-            <h3>Directories</h3>            
-            <List component="nav">
-                {
-                    
+            <ul>
+            <li>{data.site.siteMetadata.author}</li>
+            <li>{data.site.siteMetadata.descriptino}</li>
+            </ul>
+            
+            <h3>Directories</h3>         
+            <ul>
+                { 
                     uniq_directories(data.allMdx.nodes).map( directory =>
                         (
-                            <ListItem button component={Link} to={'/' + directory} key={directory.id}>
-                                <ListItemText>
+                            <li key={directory.id}>
+                                <Link to={'/' + directory} >
                                     <DirectoryName directory={directory}/>
-                                </ListItemText>
-                            </ListItem>
+                                </Link>
+                            </li>
                         )
                     )
                 }
-            </List>
+            </ul>   
 
             <h3>Monthly Archives</h3>
-            <List component="nav">
+                <ul>
             {
                 data.allSitePage.nodes.map(node => (
-                    <ListItem button component={Link} to={node.path} key={node.id}>
-                        <ListItemText>{node.context.year}/{node.context.month}</ListItemText>
-                    </ListItem>
+                    <li key={node.id}>
+                        <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
+                    </li>
                 ))
             }
-            </List>
-         
-
+            </ul>
         </div>
     )
 }

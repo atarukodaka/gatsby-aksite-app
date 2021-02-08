@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 
 import { MDXProvider } from "@mdx-js/react"
 //import { Message, Divider } from "theme-ui"
@@ -7,22 +6,20 @@ import { MDXProvider } from "@mdx-js/react"
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
+import "./layout.css"
 import Header from "./header.js"
 import Footer from "./footer.js"
 import Sidebar from "./sidebar.js"
 
 const Foo = () => (<big>FOO TAG USED HERE</big>)
-const Youtube = ( {url}) => (
-    <Link to={url}>url</Link>
-)
+
     
-const shortcodes = { Foo, Youtube }
+const shortcodes = { Foo }
 
 const Layout = ({ children }) => {
     return (
         <Container>
-            <Header />
-
+            <Header />                    
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={9}>
                     <Container>
@@ -37,9 +34,9 @@ const Layout = ({ children }) => {
 
             </Grid>
 
+
             <Footer />
         </Container>
-
     )
 }
 
