@@ -10,7 +10,7 @@ export default function ArchiveTemplate({ data, pageContext }) {
     <Layout>
       <h2>MONTHLY ARCHIVE: {year}/{month}</h2>
       {
-        data.allMarkdownRemark.nodes.map(node => (
+        data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id} />
         ))
       }
@@ -20,9 +20,9 @@ export default function ArchiveTemplate({ data, pageContext }) {
 
 export const query = graphql`
     query($fromDate: Date!, $toDate: Date!){        
-      allMarkdownRemark(filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
+      allMdx(filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
         nodes { 
-          excerpt(truncate: true, format: PLAIN)
+          excerpt(truncate: true)
           fields {
             slug, folder
           }

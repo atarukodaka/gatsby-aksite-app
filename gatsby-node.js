@@ -5,7 +5,7 @@ const path = require(`path`)
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
 
-    if (node.internal.type === `MarkdownRemark`) {
+    if (node.internal.type === `Mdx`) {
 
         const slug = createFilePath({ node, getNode, basePath: `pages` })
         createNodeField({
@@ -31,10 +31,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    //allMarkdownRemark(filter: {frontmatter: {published: {ne: false}}}) {         
-    const result = await graphql(`
+        const result = await graphql(`
     {
-        allMarkdownRemark {
+        allMdx {
             nodes {
                 fields {
                     slug
@@ -51,7 +50,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const yearMonths = new Set()
 
     // markdown pages
-    result.data.allMarkdownRemark.nodes.map(node => {
+    result.data.allMdx.nodes.map(node => {
         console.log(`create markdown page: ${node.fields.slug}`)
 
         createPage({
@@ -100,7 +99,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // folder index
     console.log("** creating folder indecies")
     const folders =
-        [...new Set(result.data.allMarkdownRemark.nodes.map(node => node.fields.folder).
+        [...new Set(result.data.allMdx.nodes.map(node => node.fields.folder).
             filter(v => v))]
 
     console.log("folders: ", folders)
