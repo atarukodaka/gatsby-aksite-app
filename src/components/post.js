@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "@emotion/styled"
+import DirectoryName from "./directory_name.js"
 
 const PostTitle = styled.h2`
     
@@ -34,7 +35,9 @@ const Post = ({ node }) => {
         <div>
             <PostTitle>{node.frontmatter.title}</PostTitle>
             <PostInfo>
-                <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
+                <Link to={'/' + node.fields.directory}>
+                    <DirectoryName directory={node.fields.directory}/>
+                </Link> |
                 {node.frontmatter.date} |
             </PostInfo>
 
