@@ -10,6 +10,7 @@ export const data = graphql`
     allMdx (sort: {fields: frontmatter___date, order: DESC},
       skip: $skip, limit: $limit){
       nodes {
+        id
         frontmatter { title, date(formatString: "YYYY-MM-DD") }
         excerpt(truncate: true, pruneLength: 300)
   

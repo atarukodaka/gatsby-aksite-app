@@ -24,6 +24,7 @@ const Sidebar = () => {
                     filter: {context: {archive: {eq: "monthly"} }}){
                     
                     nodes {
+                        id
                         path
                         context {
                             year, month

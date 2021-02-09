@@ -27,6 +27,7 @@ export const query = graphql`
       allMdx(sort: {fields: frontmatter___date, order: DESC},
         filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
         nodes { 
+          id
           excerpt(truncate: true)
 
           frontmatter {
