@@ -21,20 +21,3 @@ export default function PostTemplate ({ pageContext }) {
       <Post node={node}/>
     </Layout>)
 }
-
-/*
-export const query = graphql`
-    query($slug: String!) {
-      mdx(fields: { slug: { eq: $slug } }) {
-        body
-        frontmatter {
-          title
-          date(formatString: "YYYY-MM-DD")
-        }
-        fields {
-          directory
-        }
-      }
-    }
-  `
-  */

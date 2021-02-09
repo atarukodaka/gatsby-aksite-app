@@ -41,7 +41,7 @@ const Post = ({ node }) => {
                 {node.frontmatter.date} |
             </PostInfo>
 
-            <MDXRenderer>
+            <MDXRenderer>   
                 {node.body}
             </MDXRenderer>
         </div>

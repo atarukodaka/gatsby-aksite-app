@@ -49,7 +49,6 @@ exports.createPages = async ({ graphql, actions }) => {
             
         }    
     }`)
-    const yearMonths = new Set()
 
     // markdown pages
     data.allMdx.nodes.map(node => {
@@ -63,12 +62,6 @@ exports.createPages = async ({ graphql, actions }) => {
                 node: node,
             },
         })
-        //
-        //const { year, month } = node.frontmatter
-        const dt = new Date(node.frontmatter.date)
-        dt.setDate(1)
-        yearMonths.add(dt)
-
     })
     // index list
     paginate({
@@ -80,6 +73,13 @@ exports.createPages = async ({ graphql, actions }) => {
     })
 
     // monthly archives    
+    const yearMonths = new Set()
+    data.allMdx.nodes.forEach(node => { 
+        const dt = new Date(node.frontmatter.date);
+        dt.setDate(1);
+        yearMonths.add(dt)
+    })
+
     console.log("** creating monthly archives")
     yearMonths.forEach(yearMonth => {
         const year = yearMonth.getFullYear()

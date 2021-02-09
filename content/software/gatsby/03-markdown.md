@@ -101,9 +101,65 @@ query MyQuery {
 新規に gatsby-node.js を作成します：
 
 ```js:title=gatsby-node.js
+const path = require(`path`)
 
-exports.
+exports.createPages = async ( { graphql, actions}) => {
+    const { createPage } = actions
+    const { data } = await graphql(`
+    {
+        allMdx {
+            nodes {
+                frontmatter {
+                    title
+                }
+                slug
+                body
+            }
+        }
+    }
+    `)
+    data.allMdx.nodes.map(node=> {
+        console.log('create markdown page: ', node.slug)
+
+       createPage({
+           path: node.slug,
+           component: path.resolve('src/templates/post-template.js'),
+           context: {
+               node: node,
+           }
+       })
+    })
+}
 ```
+
+いくつかポイントがありますが、まず async/await は非同期処理のため（らしい）です。詳しくは菊名。
+graphql()で mdx リソースのノードとそのタイトルやスラッグ、中身を取ってきてdataに入れます。
+そして各ノードに対応するページを createPage()します。
+その時、実際どのように出力するかを決める template component を指定し、そのテンプレートに node を context として渡します。
+
+```js:title=src/template/post-template.js
+import React from "react"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+
+export default function PostTempalte ( { pageContext }){
+    const { node } = pageContext
+    return (
+        <div>
+            <h2>{node.frontmatter.title}</h2>
+            <MDXRenderer>
+                {node.body}
+            </MDXRenderer>
+        </div>
+    )
+}
+```
+
+pageContext の中に node が入ってるので、その中からデータを取り出すわけですね。
+node.body はいろいろ関数やらが組み込まれた形式になってるので MDXRenderer タグで囲ってあげて HTML に変換します。
+
+これで localhost:8000/awesome で見られるようになりました。
+
+
 
 
 
