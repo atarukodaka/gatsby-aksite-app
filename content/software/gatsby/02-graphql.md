@@ -1,6 +1,6 @@
 ---
 title: Gatsby - [2] GraphQL
-date: 2021-02-09 13:00:00
+date: 2021-02-09 02:00:00
 ---
 
 ## やること
@@ -62,28 +62,26 @@ query MyQuery {
 ### Page Query
 ページを処理するときに（だけ）使えます。コンポーネント内ではダメです。
 
-```diff-js:title=src/pages/about.js
+```js:title=src/pages/about.js
 import React from "react"
-- import "../components/hello.js"
-+ import { graphql } from 'gatsby'
+ import { graphql } from 'gatsby'
 
-+// page query を投げる
-+export const query = graphql`
-+  query {
-+    site {
-+      siteMetadata {
-+        title
-+        author
-+      }
-+    }
-+  }
+// page query を投げる
+export const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
+  }
 `
 const AboutPage = ({ data }) => {  // data に返ってくる
--    return (<div><Hello/></div>)
-+    return (<ul>
-+        <li key="title">{data.site.siteMetadata.title}</li>
-+        <li key="author">{data.site.siteMetadata.author}</li>
-+    </ul>)
+    return (<ul>
+        <li key="title">{data.site.siteMetadata.title}</li>
+        <li key="author">{data.site.siteMetadata.author}</li>
+    </ul>)
 }
 export default AboutPage
 ```
@@ -98,23 +96,22 @@ graphql() 関数を使うので import します。
 今度はページ処理ではなく、コンポーネント内から読んでみます。
 前述の方法は使えなず、その代わりに useStaticQuery()というのを使います。
 
-```diff-js:title=src/components/hello.js
+```js:title=src/components/hello.js
 import React from "react"
-+import { graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 
 const Hello = ( ) => {
-+    const data = useStaticQuery(graphql`
-+    {
-+        site {
-+            siteMetadata {
-+                author
-+            }
-+        }
-+    }        
-+    `)
+    const data = useStaticQuery(graphql`
+    {
+        site {
+            siteMetadata {
+                author
+            }
+        }
+    }        
+    `)
     return (
--        <big>HELLO GUYS !!!</big>
-+        <big>HELLO {data.site.siteMetadata.author}!!!</big>
+        <big>HELLO {data.site.siteMetadata.author}!!!</big>
     )
 }
 

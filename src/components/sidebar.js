@@ -11,8 +11,11 @@ const Sidebar = () => {
                         author
                     }                    
                 }
-                allMdx {
+                allMdx(limit: 10,
+                    sort: {fields: frontmatter___date, order: DESC},
+                    ) {
                     nodes {
+                        frontmatter { title }
                         slug
 
                     }
@@ -39,6 +42,17 @@ const Sidebar = () => {
             <ul>
             <li key="author">{data.site.siteMetadata.author}</li>
             <li key="description">{data.site.siteMetadata.descriptino}</li>
+            </ul>
+
+            <h3>Recent Posts</h3>
+            <ul>
+            {
+                data.allMdx.nodes.map(node => (
+                    <li key={node.id}>
+                        <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                    </li>
+                ))
+            }
             </ul>
             
             <h3>Monthly Archives</h3>

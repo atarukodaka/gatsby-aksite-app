@@ -11,7 +11,8 @@ exports.createPages = async ({ graphql, actions }) => {
         allMdx {
             nodes {
                 frontmatter {
-                    date
+                    title
+                    date(formatString: "YYYY-MM-DD")
                 }
                 body
                 slug
@@ -33,15 +34,17 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
     // index list
+    const itemsPerPage = 10
     paginate({
         createPage,
         items: data.allMdx.nodes,
-        itemsPerPage: 10,
+        itemsPerPage: itemsPerPage,
         pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
         component: path.resolve("./src/templates/index-template.js")
     })
 
     // monthly archives    
+    console.log("** creating monthly archives")
     const yearMonths = new Set()
     data.allMdx.nodes.forEach(node => { 
         const dt = new Date(node.frontmatter.date);
@@ -49,7 +52,6 @@ exports.createPages = async ({ graphql, actions }) => {
         yearMonths.add(dt)
     })
 
-    console.log("** creating monthly archives")
     yearMonths.forEach(yearMonth => {
         const year = yearMonth.getFullYear()
         const month = yearMonth.getMonth() + 1
