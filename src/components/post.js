@@ -32,8 +32,8 @@ const PostContinueReading = styled.div`
 
 const Post = ({ node }) => {
     return (
-        <div>
-            <PostTitle>{node.frontmatter.title}</PostTitle>
+        <div className="post">
+            <PostTitle>{node.frontmatter.title || node.fields.slug}</PostTitle>
             <PostInfo>
                 <Link to={'/' + node.fields.directory}>
                     <DirectoryName directory={node.fields.directory}/>
@@ -51,7 +51,7 @@ const Post = ({ node }) => {
 export const PostExcerpt = ({ node }) => {
     return (
         <div>
-            <PostTitleExcerpt>{node.frontmatter.title}</PostTitleExcerpt>
+            <PostTitleExcerpt>{node.frontmatter.title || node.fields.slug}</PostTitleExcerpt>
             <PostInfo>
                 <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
                 {node.frontmatter.date} |

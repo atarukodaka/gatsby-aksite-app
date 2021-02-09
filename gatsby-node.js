@@ -4,6 +4,7 @@ const path = require(`path`)
 const { paginate }= require('gatsby-awesome-pagination')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
+    //console.log("node: ", node)
     const { createNodeField } = actions
 
     if (node.internal.type === `Mdx`) {
@@ -43,7 +44,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 frontmatter {
                     date
                 }
-            
+                body
             }
             
         }    
@@ -59,6 +60,7 @@ exports.createPages = async ({ graphql, actions }) => {
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
                 slug: node.fields.slug,
+                node: node,
             },
         })
         //

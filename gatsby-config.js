@@ -34,10 +34,11 @@ module.exports = {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
           'gatsby-remark-prismjs-title',
+          //`gatsby-remark-code-titles`,
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
-              alias: {js: 'javascript', sh: 'bash'}
+              alias: {js: 'javascript', sh: 'bash', md: 'markdown'},
             }
           },
           `gatsby-remark-relative-images`,

@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "gatsby"
 
 import { MDXProvider } from "@mdx-js/react"
 //import { Message, Divider } from "theme-ui"
@@ -11,10 +12,11 @@ import Header from "./header.js"
 import Footer from "./footer.js"
 import Sidebar from "./sidebar.js"
 
+
 const Foo = () => (<big>FOO TAG USED HERE</big>)
 
     
-const shortcodes = { Foo }
+const shortcodes = { Foo, Link }
 
 const Layout = ({ children }) => {
     return (

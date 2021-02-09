@@ -6,8 +6,9 @@ import Post from "../components/post.js"
 
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
-export default function PostTemplate ({ data, pageContext }) {
-  const node = data.mdx
+export default function PostTemplate ({ pageContext }) {
+  //const node = data.mdx
+  const { node } = pageContext
   const directory = pageContext.directory || ""
   const { breadcrumb: { crumbs } } = pageContext
   const directory_name = directory.toString().split('/').pop()
@@ -21,6 +22,7 @@ export default function PostTemplate ({ data, pageContext }) {
     </Layout>)
 }
 
+/*
 export const query = graphql`
     query($slug: String!) {
       mdx(fields: { slug: { eq: $slug } }) {
@@ -35,3 +37,4 @@ export const query = graphql`
       }
     }
   `
+  */

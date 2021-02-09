@@ -47,8 +47,8 @@ const Sidebar = () => {
         <div className="sidebar">
             <h2>Profile</h2>
             <ul>
-            <li>{data.site.siteMetadata.author}</li>
-            <li>{data.site.siteMetadata.descriptino}</li>
+            <li key="author">{data.site.siteMetadata.author}</li>
+            <li key="description">{data.site.siteMetadata.descriptino}</li>
             </ul>
             
             <h3>Directories</h3>         
