@@ -28,13 +28,11 @@ export const query = graphql`
         filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
         nodes { 
           excerpt(truncate: true)
-          fields {
-            slug, directory
-          }
+
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title
           }        
-          
+          slug
         }
       }
     }

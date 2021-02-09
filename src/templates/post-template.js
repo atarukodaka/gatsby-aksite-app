@@ -9,15 +9,10 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 export default function PostTemplate ({ pageContext }) {
   //const node = data.mdx
   const { node } = pageContext
-  const directory = pageContext.directory || ""
-  const { breadcrumb: { crumbs } } = pageContext
-  const directory_name = directory.toString().split('/').pop()
-  //const directory_name = "asdf"
 
 
   return (
     <Layout>
-      <Breadcrumb crumbs={crumbs} crumbLabel={directory_name}/>      
       <Post node={node}/>
     </Layout>)
 }

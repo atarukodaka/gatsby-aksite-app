@@ -3,33 +3,6 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const { paginate }= require('gatsby-awesome-pagination')
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-    //console.log("node: ", node)
-    const { createNodeField } = actions
-
-    if (node.internal.type === `Mdx`) {
-
-        const slug = createFilePath({ node, getNode, basePath: `pages` })
-        createNodeField({
-            node,
-            name: `slug`,
-            value: slug,
-        })
-
-        let directories_array = slug.split(/\//).filter(v => v)
-        directories_array.pop()
-
-        createNodeField({
-            node,
-            name: 'directory',
-            value: directories_array.join('/')
-        })
-
-        //console.log("slug: ", slug)
-        //console.log("directory: ", directory)
-    }
-
-}
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
@@ -37,14 +10,11 @@ exports.createPages = async ({ graphql, actions }) => {
     {
         allMdx {
             nodes {
-                fields {
-                    slug
-                    directory
-                }
                 frontmatter {
                     date
                 }
                 body
+                slug
             }
             
         }    
@@ -52,13 +22,12 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // markdown pages
     data.allMdx.nodes.map(node => {
-        console.log(`create markdown page: ${node.fields.slug}`)
+        console.log(`create markdown page: ${node.slug}`)
 
         createPage({
-            path: node.fields.slug,
+            path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
-                slug: node.fields.slug,
                 node: node,
             },
         })
@@ -101,26 +70,5 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
-    // directory index
-    console.log("** creating directory indecies")
-    const directories =
-        [...new Set(data.allMdx.nodes.map(node => node.fields.directory).
-            filter(v => v))]
-
-    console.log("directories: ", directories)
-
-    directories.map(directory => {
-        console.log("create directory index: ", directory)
-        createPage({
-            path: directory,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
-            context: {
-                directory: directory,
-            }
-        }
-
-        )
-    })
-
 
 }
