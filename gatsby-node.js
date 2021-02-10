@@ -9,9 +9,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
     if (node.internal.type === `Mdx`) {
         const slug = createFilePath({ node, getNode, basePath: `pages` })
-        const directory = slug.split("/").slice(0,-2).join("/")
+        const directory = slug.split("/").slice(1,-2).join("/")
         // add directory field
-        console.log("create node fields directory", directory)
+        //console.log("create node fields directory", directory)
         createNodeField({
                 node,
                 name: 'directory',
@@ -24,7 +24,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
     const { data } = await graphql(`
     {
-        allMdx {
+        allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
                 frontmatter {
                     title
@@ -41,7 +41,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // markdown pages
     data.allMdx.nodes.map(node => {
-        console.log(`create markdown page: ${node.slug}`)
+        //console.log(`create markdown page: ${node.slug}`)
 
         createPage({
             path: node.slug,
@@ -61,15 +61,15 @@ exports.createPages = async ({ graphql, actions }) => {
         component: path.resolve("./src/templates/index-template.js")
     })
 
-    // directory index
-    
+    // directory index    
     const directory_set = new Set()
     data.allMdx.nodes.map(node => {
         directory_set.add(node.fields.directory)
     })
-    console.log("directories: ", directory_set)
+    //console.log("directories: ", directory_set)
     
     const directories = [...directory_set].filter(v=>v)
+    console.log("directories: ", directories)
     directories.map(directory => {
         createPage({
             path: `/${directory}`,
@@ -84,15 +84,16 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** creating monthly archives")
     const yearMonths = new Set()
     data.allMdx.nodes.forEach(node => {
-        const dt = new Date(node.frontmatter.date);
-        dt.setDate(1);
-        yearMonths.add(dt)
+        if (node.frontmatter.date != null){
+            const dt = new Date(node.frontmatter.date);
+            yearMonths.add(dt.getFullYear() * 12 + dt.getMonth())
+        }
     })
-
+    
     yearMonths.forEach(yearMonth => {
-        const year = yearMonth.getFullYear()
-        const month = yearMonth.getMonth() + 1
-        const fromDate = yearMonth
+        const year = parseInt(yearMonth/12)
+        const month = yearMonth % 12 + 1
+        const fromDate = new Date(year, month - 1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         console.log(`  ${year}/${month} archive`)

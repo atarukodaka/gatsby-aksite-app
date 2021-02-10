@@ -11,7 +11,7 @@ const Sidebar = () => {
                         author
                     }                    
                 }
-                allMdx(limit: 10,
+                allMdx(
                     sort: {fields: frontmatter___date, order: DESC},
                     ) {
                     nodes {
@@ -48,7 +48,7 @@ const Sidebar = () => {
             <h3>Recent Posts</h3>
             <ul>
             {
-                data.allMdx.nodes.map(node => (
+                data.allMdx.nodes.slice(0, 10).map(node => (
                     <li key={node.id}>
                         <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
                     </li>

@@ -19,9 +19,8 @@ export default function DirectoryTemplate({ data, pageContext }) {
 }
 
 export const query = graphql`
-    query($fromDate: Date!, $toDate: Date!){        
-      allMdx(sort: {fields: frontmatter___date, order: DESC},
-        filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
+    query($directory: String!){        
+      allMdx(filter: {fields: {directory: {eq: $directory}}} ) {
         nodes { 
           id
           excerpt(truncate: true)
