@@ -33,7 +33,7 @@ const Post = ({ node }) => {
         <div className="post">
             <PostTitle>{node.frontmatter.title || node.slug}</PostTitle>
             <PostInfo>
-                {node.frontmatter.date} |
+            | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
             </PostInfo>
 
             <MDXRenderer>   
@@ -48,8 +48,7 @@ export const PostExcerpt = ({ node }) => {
         <div>
             <PostTitleExcerpt>{node.frontmatter.title || node.slug}</PostTitleExcerpt>
             <PostInfo>
-
-                {node.frontmatter.date} |
+            | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
             </PostInfo>
 
             <div>{node.excerpt}</div>

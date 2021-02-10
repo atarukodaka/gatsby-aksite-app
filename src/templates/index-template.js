@@ -13,7 +13,7 @@ export const data = graphql`
         id
         frontmatter { title, date(formatString: "YYYY-MM-DD") }
         excerpt(truncate: true, pruneLength: 300)
-  
+        fields { directory}
         slug
       }
     }

@@ -27,7 +27,10 @@ export const query = graphql`
 
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title
-          }        
+          }     
+          fields { 
+            directory
+          }   
           slug
         }
       }
