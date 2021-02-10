@@ -1,6 +1,6 @@
 ---
-title: Gatsby - Markdown
-date: 2021-02-09
+title: Gatsby - [3] Markdown
+date: 2021-02-09 03:00:00
 ---
 
 ## やること
@@ -56,15 +56,15 @@ mkdir content
 mv src/pages/awesome.md content
 ```
 
-```diff-js:title=gatsby-config.js
+```js:title=gatsby-config.js
 module.exports = {
   plugins: [
-+    {
-+      resolve: `gatsby-source-filesystem`,
-+      options: {
-+        name: `content`,
-+        path: `${__dirname}/content`,
-+      }b
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `content`,
+        path: `${__dirname}/content`,
+      }b
     ...
 ```
 

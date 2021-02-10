@@ -1,90 +1,99 @@
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
-const { paginate }= require('gatsby-awesome-pagination')
+const { paginate } = require('gatsby-awesome-pagination')
+
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-    //console.log("node: ", node)
     const { createNodeField } = actions
 
     if (node.internal.type === `Mdx`) {
-
         const slug = createFilePath({ node, getNode, basePath: `pages` })
+        const directory = slug.split("/").slice(1,-2).join("/")
+        // add directory field
+        //console.log("create node fields directory", directory)
         createNodeField({
-            node,
-            name: `slug`,
-            value: slug,
-        })
-
-        let directories_array = slug.split(/\//).filter(v => v)
-        directories_array.pop()
-
-        createNodeField({
-            node,
-            name: 'directory',
-            value: directories_array.join('/')
-        })
-
-        //console.log("slug: ", slug)
-        //console.log("directory: ", directory)
+                node,
+                name: 'directory',
+                value: directory
+            })
     }
-
 }
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data  } = await graphql(`
+    const { data } = await graphql(`
     {
-        allMdx {
+        allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
+                frontmatter {
+                    title
+                    date(formatString: "YYYY-MM-DD")
+                }
                 fields {
-                    slug
                     directory
                 }
-                frontmatter {
-                    date
-                }
                 body
-            }
-            
+                slug
+            }            
         }    
     }`)
 
     // markdown pages
     data.allMdx.nodes.map(node => {
-        console.log(`create markdown page: ${node.fields.slug}`)
+        //console.log(`create markdown page: ${node.slug}`)
 
         createPage({
-            path: node.fields.slug,
+            path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
-                slug: node.fields.slug,
                 node: node,
             },
         })
     })
     // index list
+    const itemsPerPage = 10
     paginate({
         createPage,
         items: data.allMdx.nodes,
-        itemsPerPage: 10,
+        itemsPerPage: itemsPerPage,
         pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
         component: path.resolve("./src/templates/index-template.js")
     })
 
-    // monthly archives    
-    const yearMonths = new Set()
-    data.allMdx.nodes.forEach(node => { 
-        const dt = new Date(node.frontmatter.date);
-        dt.setDate(1);
-        yearMonths.add(dt)
+    // directory index    
+    const directory_set = new Set()
+    data.allMdx.nodes.map(node => {
+        directory_set.add(node.fields.directory)
+    })
+    //console.log("directories: ", directory_set)
+    
+    const directories = [...directory_set].filter(v=>v)
+    console.log("directories: ", directories)
+    directories.map(directory => {
+        createPage({
+            path: `/${directory}`,
+            component: path.resolve(`./src/templates/directory_index-template.js`),
+            context: {
+                directory: directory
+            }
+        })
     })
 
+    // monthly archives    
     console.log("** creating monthly archives")
+    const yearMonths = new Set()
+    data.allMdx.nodes.forEach(node => {
+        if (node.frontmatter.date != null){
+            const dt = new Date(node.frontmatter.date);
+            yearMonths.add(dt.getFullYear() * 12 + dt.getMonth())
+        }
+    })
+    
     yearMonths.forEach(yearMonth => {
-        const year = yearMonth.getFullYear()
-        const month = yearMonth.getMonth() + 1
-        const fromDate = yearMonth
+        const year = parseInt(yearMonth/12)
+        const month = yearMonth % 12 + 1
+        const fromDate = new Date(year, month - 1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         console.log(`  ${year}/${month} archive`)
@@ -101,26 +110,5 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
-    // directory index
-    console.log("** creating directory indecies")
-    const directories =
-        [...new Set(data.allMdx.nodes.map(node => node.fields.directory).
-            filter(v => v))]
-
-    console.log("directories: ", directories)
-
-    directories.map(directory => {
-        console.log("create directory index: ", directory)
-        createPage({
-            path: directory,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
-            context: {
-                directory: directory,
-            }
-        }
-
-        )
-    })
-
 
 }

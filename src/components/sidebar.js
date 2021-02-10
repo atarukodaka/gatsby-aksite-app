@@ -1,13 +1,12 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-//import { List, ListItem, ListItemText } from '@material-ui/core'
-import DirectoryName from "./directory_name.js"
 
 const uniq_directories = ( nodes ) => {
     return [...new Set(nodes.map ( 
         node => node.fields.directory))
     ].filter(v=>v).sort()
 }
+
 const Sidebar = () => {    
     const data = useStaticQuery(
         graphql`
@@ -18,12 +17,13 @@ const Sidebar = () => {
                         author
                     }                    
                 }
-                allMdx {
+                allMdx(
+                    sort: {fields: frontmatter___date, order: DESC},
+                    ) {
                     nodes {
-                        fields {
-                            slug
-                            directory
-                        }
+                        frontmatter { title }
+                        slug
+                        fields { directory }
 
                     }
                 }
@@ -31,6 +31,7 @@ const Sidebar = () => {
                     filter: {context: {archive: {eq: "monthly"} }}){
                     
                     nodes {
+                        id
                         path
                         context {
                             year, month
@@ -51,23 +52,29 @@ const Sidebar = () => {
             <li key="description">{data.site.siteMetadata.descriptino}</li>
             </ul>
             
-            <h3>Directories</h3>         
+            <h3>Recent Posts</h3>
             <ul>
-                { 
-                    uniq_directories(data.allMdx.nodes).map( directory =>
-                        (
-                            <li key={directory.id}>
-                                <Link to={'/' + directory} >
-                                    <DirectoryName directory={directory}/>
-                                </Link>
-                            </li>
-                        )
-                    )
-                }
-            </ul>   
-
+            {
+                data.allMdx.nodes.slice(0, 10).map(node => (
+                    <li key={node.id}>
+                        <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                    </li>
+                ))
+            }
+            </ul>
+            <h3>Directories</h3>
+            <ul>
+            {
+                uniq_directories(data.allMdx.nodes).map(directory => (
+                    <li key={directory}>
+                        <Link to={'/' + directory}>{directory}</Link>
+                    </li>
+                ))
+                
+            }    
+            </ul>
             <h3>Monthly Archives</h3>
-                <ul>
+            <ul>
             {
                 data.allSitePage.nodes.map(node => (
                     <li key={node.id}>

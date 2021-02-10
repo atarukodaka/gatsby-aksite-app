@@ -27,14 +27,16 @@ export const query = graphql`
       allMdx(sort: {fields: frontmatter___date, order: DESC},
         filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
         nodes { 
+          id
           excerpt(truncate: true)
-          fields {
-            slug, directory
-          }
+
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title
           }        
-          
+          fields { 
+            directory
+          }
+          slug
         }
       }
     }

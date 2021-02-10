@@ -2,10 +2,8 @@ import React from "react"
 import { Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "@emotion/styled"
-import DirectoryName from "./directory_name.js"
 
 const PostTitle = styled.h2`
-    
     font-weight: bold;
     border-bottom: 1px solid;
     padding-bottom: 1px;
@@ -25,7 +23,6 @@ const PostInfo = styled.div`
 `
 
 const PostContinueReading = styled.div`
-    font-size: small;
     text-align: right;
     font-style: italic;
 `
@@ -33,12 +30,9 @@ const PostContinueReading = styled.div`
 const Post = ({ node }) => {
     return (
         <div className="post">
-            <PostTitle>{node.frontmatter.title || node.fields.slug}</PostTitle>
+            <PostTitle>{node.frontmatter.title || node.slug}</PostTitle>
             <PostInfo>
-                <Link to={'/' + node.fields.directory}>
-                    <DirectoryName directory={node.fields.directory}/>
-                </Link> |
-                {node.frontmatter.date} |
+            | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
             </PostInfo>
 
             <MDXRenderer>   
@@ -51,15 +45,14 @@ const Post = ({ node }) => {
 export const PostExcerpt = ({ node }) => {
     return (
         <div>
-            <PostTitleExcerpt>{node.frontmatter.title || node.fields.slug}</PostTitleExcerpt>
+            <PostTitleExcerpt>{node.frontmatter.title || node.slug}</PostTitleExcerpt>
             <PostInfo>
-                <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
-                {node.frontmatter.date} |
+            | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
             </PostInfo>
 
             <div>{node.excerpt}</div>
             <PostContinueReading>
-                <Link to={node.fields.slug}>continue reading...</Link>
+                <Link to={'/' + node.slug}>continue reading...</Link>
             </PostContinueReading>
         </div>
     )

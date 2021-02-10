@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/layout.js"
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql } from 'gatsby'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 
