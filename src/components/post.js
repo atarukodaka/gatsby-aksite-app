@@ -1,41 +1,47 @@
 import React from "react"
 import { Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import styled from "@emotion/styled"
+import styles from "./post.module.css"
 
-const PostTitle = styled.h2`
-    font-weight: bold;
-    border-bottom: 1px solid;
-    padding-bottom: 1px;
-    margin-bottom: 1px;
-`
+const PostTitle = ({node}) => (
+    <h2 className={styles.title}>
+        {node.frontmatter.title || node.slug}
+    </h2>
+)
+const PostTitleExcerpt = ({node}) => (
+    <h3 className={styles.title}>
+        <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
+    </h3>
+)
+const LinkToDirectory = ({ node }) => (
+    <Link to={'/' + node.fields.directory}>
+    {node.fields.directory}
+    </Link>
 
-const PostTitleExcerpt = styled.h3`
-    
-    font-weight: bold;
-    border-bottom: 1px solid;
-    padding-bottom: 1px;
-    margin-bottom: 1px;
-`
-const PostInfo = styled.div`
-    font-size: small;
-    text-align: right;
-`
+)
+const PostInfo = ({ node }) => (
+    <div className={styles.postInfo}>
+        | 
+        <LinkToDirectory node={node}/> |
+        {node.frontmatter.date}
+         |
+    </div>
+)
+const PostContinueReading = ({node}) => {
 
-const PostContinueReading = styled.div`
-    text-align: right;
-    font-style: italic;
-`
-
+    const text = "continue reading..."
+    return (
+    <div className={styles.continueReading}>
+        <Link to={'/' + node.slug}>{text}</Link>
+    </div>
+)}
 const Post = ({ node }) => {
     return (
         <div className="post">
-            <PostTitle>{node.frontmatter.title || node.slug}</PostTitle>
-            <PostInfo>
-            | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
-            </PostInfo>
+            <PostTitle node={node}/>
+            <PostInfo node={node} />
 
-            <MDXRenderer>   
+            <MDXRenderer>
                 {node.body}
             </MDXRenderer>
         </div>
@@ -45,19 +51,11 @@ const Post = ({ node }) => {
 export const PostExcerpt = ({ node }) => {
     return (
         <div>
-            <PostTitleExcerpt>
-                <Link to={'/' + node.slug}>
-                    {node.frontmatter.title || node.slug}
-                </Link>
-            </PostTitleExcerpt>
-            <PostInfo>
-            | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
-            </PostInfo>
+            <PostTitleExcerpt node={node}/>
+            <PostInfo node={node} />
 
             <div>{node.excerpt}</div>
-            <PostContinueReading>
-                <Link to={'/' + node.slug}>continue reading...</Link>
-            </PostContinueReading>
+            <PostContinueReading node={node}/>
         </div>
     )
 }
