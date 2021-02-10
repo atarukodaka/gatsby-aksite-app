@@ -1,6 +1,12 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
 
+const uniq_directories = ( nodes ) => {
+    return [...new Set(nodes.map ( 
+        node => node.fields.directory))
+    ].filter(v=>v).sort()
+}
+
 const Sidebar = () => {    
     const data = useStaticQuery(
         graphql`
@@ -17,6 +23,7 @@ const Sidebar = () => {
                     nodes {
                         frontmatter { title }
                         slug
+                        fields { directory }
 
                     }
                 }
@@ -44,7 +51,7 @@ const Sidebar = () => {
             <li key="author">{data.site.siteMetadata.author}</li>
             <li key="description">{data.site.siteMetadata.descriptino}</li>
             </ul>
-
+            
             <h3>Recent Posts</h3>
             <ul>
             {
@@ -55,7 +62,17 @@ const Sidebar = () => {
                 ))
             }
             </ul>
-            
+            <h3>Directories</h3>
+            <ul>
+            {
+                uniq_directories(data.allMdx.nodes).map(directory => (
+                    <li key={directory}>
+                        <Link to={'/' + directory}>{directory}</Link>
+                    </li>
+                ))
+                
+            }    
+            </ul>
             <h3>Monthly Archives</h3>
             <ul>
             {

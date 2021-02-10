@@ -23,7 +23,6 @@ const PostInfo = styled.div`
 `
 
 const PostContinueReading = styled.div`
-    font-size: small;
     text-align: right;
     font-style: italic;
 `
