@@ -17,6 +17,9 @@ body {
 div.sidebar li {
     list-style: none;
 }
+h3 a { 
+  text-decoration: none;
+}
 
 /* markdown */
 div.post h1 {

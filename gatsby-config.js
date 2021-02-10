@@ -83,6 +83,7 @@ module.exports = {
       }      
     },
     //`gatsby-plugin-typography`,
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

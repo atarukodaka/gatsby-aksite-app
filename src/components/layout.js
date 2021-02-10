@@ -11,17 +11,19 @@ import "./layout.css"
 import Header from "./header.js"
 import Footer from "./footer.js"
 import Sidebar from "./sidebar.js"
+import SEO from "./seo.js"
+//import { data } from "../templates/index-template";
 
 
-const Foo = () => (<big>FOO TAG USED HERE</big>)
+const shortcodes = { Link }
 
-    
-const shortcodes = { Foo, Link }
+const Layout = ({ children, ogpTitle }) => {
 
-const Layout = ({ children }) => {
     return (
         <Container>
-            <Header />                    
+            <SEO title={ogpTitle}/>
+                        
+            <Header />    
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={9}>
                     <Container>

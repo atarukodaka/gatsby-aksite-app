@@ -7,7 +7,7 @@ export default function PostTemplate ({ pageContext }) {
   const { node } = pageContext
 
   return (
-    <Layout>
+    <Layout title={node.frontmatter.title}>
       <Post node={node}/>
     </Layout>
   )

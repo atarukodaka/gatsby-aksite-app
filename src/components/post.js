@@ -45,7 +45,11 @@ const Post = ({ node }) => {
 export const PostExcerpt = ({ node }) => {
     return (
         <div>
-            <PostTitleExcerpt>{node.frontmatter.title || node.slug}</PostTitleExcerpt>
+            <PostTitleExcerpt>
+                <Link to={'/' + node.slug}>
+                    {node.frontmatter.title || node.slug}
+                </Link>
+            </PostTitleExcerpt>
             <PostInfo>
             | <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> | {node.frontmatter.date} |
             </PostInfo>
