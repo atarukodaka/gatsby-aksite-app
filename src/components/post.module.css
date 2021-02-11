@@ -1,0 +1,19 @@
+.title {
+    font-weight: bold;
+    border-bottom: 1px solid;
+    padding-bottom: 1px;
+    margin-bottom: 1px;    
+}
+
+.postInfo {
+    font-size: small;
+    text-align: right;
+}
+.continueReading {
+    text-align: right;
+    font-style: italic;
+    
+}
+.continueReading > a {
+    text-decoration: none;
+}

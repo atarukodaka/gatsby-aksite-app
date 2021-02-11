@@ -7,15 +7,13 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 const AboutPage = ( { data, location, pageContext }  )  => {
   const { breadcrumb: { crumbs } } = pageContext
 
-  
+  //
   return (
-    <Layout location={location}>
+    <Layout>
       <Breadcrumb crumbs={crumbs} crumbLabel='About'/>
-      <h1>About</h1>
+      <h2>About</h2>
       <p>title: { data.site.siteMetadata.title } </p>
       <p>author: { data.site.siteMetadata.author } </p>
-
-      
     </Layout>
   )
 }

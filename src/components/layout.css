@@ -1,4 +1,5 @@
 
+
 nav.breadcrumb {
   
     font-size: small;
@@ -14,9 +15,11 @@ body {
     font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif
 }
 
+/*
 div.sidebar li {
     list-style: none;
 }
+*/
 h3 a { 
   text-decoration: none;
 }

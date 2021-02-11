@@ -35,6 +35,7 @@ const PostContinueReading = ({node}) => {
         <Link to={'/' + node.slug}>{text}</Link>
     </div>
 )}
+
 const Post = ({ node }) => {
     return (
         <div className="post">

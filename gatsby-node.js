@@ -51,13 +51,14 @@ exports.createPages = async ({ graphql, actions }) => {
             },
         })
     })
-    // index list
+    // index paginate
     const itemsPerPage = 10
     paginate({
         createPage,
         items: data.allMdx.nodes,
         itemsPerPage: itemsPerPage,
-        pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
+        //pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
+        pathPrefix: '/',
         component: path.resolve("./src/templates/index-template.js")
     })
 

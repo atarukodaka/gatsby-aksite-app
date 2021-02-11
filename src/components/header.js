@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import { Button } from "@material-ui/core"
+import { Button, AppBar, Toolbar, Container } from "@material-ui/core"
 import styled from "@emotion/styled"
 
 const TopTitle = styled.div`
@@ -28,14 +28,18 @@ const Header = ( ) => {
     )
     return (
         <div>
-            <TopTitle>
-                {data.site.siteMetadata.title}
-            </TopTitle>
-            <Navbar>
-                <Button component={Link} to="/">Top</Button>
-                <Button component={Link} to="/about">About</Button>
-            </Navbar>
-        </div>
+            <AppBar>
+                <Toolbar>
+                    {data.site.siteMetadata.title}
+                
+                
+                    <Button component={Link} to="/">Top</Button>
+                    <Button component={Link} to="/about">About</Button>
+                
+                </Toolbar>
+            </AppBar>
+            </div>
+        
     )
 }
 

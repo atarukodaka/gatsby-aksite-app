@@ -8,6 +8,8 @@ import Layout from "../components/layout.js"
 
 export default function ArchiveTemplate({ data, pageContext }) {
   const { year, month } = pageContext
+  
+
   console.log(`monthly archive template: ${year}/${month}`)
   const { breadcrumb: { crumbs } } = pageContext
 
@@ -27,7 +29,7 @@ export default function ArchiveTemplate({ data, pageContext }) {
 export const query = graphql`
     query($fromDate: Date!, $toDate: Date!){        
       allMdx(sort: {fields: frontmatter___date, order: DESC},
-        filter: { frontmatter: { date: { gte: $fromDate, lte: $toDate } }} ) {
+        filter: { frontmatter: { date: { gte: $fromDate, lt: $toDate } }} ) {
         nodes { 
           id
           excerpt(truncate: true)

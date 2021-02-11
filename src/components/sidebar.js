@@ -1,5 +1,7 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
+//import SidebarStyles from './sidebar.module.css'
+import './sidebar.module.css'
 
 const uniq_directories = ( nodes ) => {
     return [...new Set(nodes.map ( 
@@ -24,7 +26,7 @@ const Sidebar = () => {
                         frontmatter { title }
                         slug
                         fields { directory }
-
+                        id
                     }
                 }
                 allSitePage(sort: {fields: context___fromDate, order: DESC}, 
@@ -46,7 +48,7 @@ const Sidebar = () => {
     
     return (
         <div className="sidebar">
-            <h2>Profile</h2>
+            <h3>Profile</h3>
             <ul>
             <li key="author">{data.site.siteMetadata.author}</li>
             <li key="description">{data.site.siteMetadata.descriptino}</li>
