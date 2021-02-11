@@ -165,6 +165,5 @@ styled とか makeStyle とかあるけど、詳しくは docs を。
 ## やったこと
 こんな感じに：
 
-```
+
 ![gatsby-4](/images/gatsby-4.png) 
-```

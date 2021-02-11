@@ -13,28 +13,17 @@ const PostTitleExcerpt = ({node}) => (
         <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
     </h3>
 )
-const LinkToDirectory = ({ node }) => (
-    <Link to={'/' + node.fields.directory}>
-    {node.fields.directory}
-    </Link>
-
-)
 const PostInfo = ({ node }) => (
     <div className={styles.postInfo}>
         | 
-        <LinkToDirectory node={node}/> |
+        <Link to={'/' + node.fields.directory}>
+        {node.fields.directory}
+        </Link>
+        |
         {node.frontmatter.date}
          |
     </div>
 )
-const PostContinueReading = ({node}) => {
-
-    const text = "continue reading..."
-    return (
-    <div className={styles.continueReading}>
-        <Link to={'/' + node.slug}>{text}</Link>
-    </div>
-)}
 
 const Post = ({ node }) => {
     return (
@@ -55,8 +44,10 @@ export const PostExcerpt = ({ node }) => {
             <PostTitleExcerpt node={node}/>
             <PostInfo node={node} />
 
-            <div>{node.excerpt}</div>
-            <PostContinueReading node={node}/>
+            <div>
+                {node.excerpt}
+                <Link to={'/' + node.slug}>...continue reading</Link>
+            </div>
         </div>
     )
 }

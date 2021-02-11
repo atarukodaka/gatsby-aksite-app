@@ -1,5 +1,7 @@
 
-
+div.sidebar ul {
+  list-style-type:none
+}
 nav.breadcrumb {
   
     font-size: small;
@@ -20,6 +22,7 @@ div.sidebar li {
     list-style: none;
 }
 */
+
 h3 a { 
   text-decoration: none;
 }
@@ -98,8 +101,8 @@ div.gatsby-code-title > span {
   
 .gatsby-highlight pre[class="language-js"]::before {
     content: "JavaScript";
-    background: lightgreen;
-    color: black;
+    //background: lightgreen;
+    //color: black;
 }
 .gatsby-highlight pre[class="language-sh"]::before {
   content: "sh";
@@ -112,4 +115,7 @@ div.gatsby-code-title > span {
 }  
 .gatsby-highlight pre[class="language-md"]::before {
   content: "Markdown";
+}  
+.gatsby-highlight pre[class="language-css"]::before {
+  content: "CSS";
 }  
