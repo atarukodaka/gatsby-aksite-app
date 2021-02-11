@@ -1,42 +1,35 @@
 import React from "react"
 import { Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import styled from "@emotion/styled"
+import styles from "./post.module.css"
 
-const PostTitle = styled.h2`
-    
-    font-weight: bold;
-    border-bottom: 1px solid;
-    padding-bottom: 1px;
-    margin-bottom: 1px;
-`
-
-const PostTitleExcerpt = styled.h3`
-    
-    font-weight: bold;
-    border-bottom: 1px solid;
-    padding-bottom: 1px;
-    margin-bottom: 1px;
-`
-const PostInfo = styled.div`
-    font-size: small;
-    text-align: right;
-`
-
-const PostContinueReading = styled.div`
-    font-size: small;
-    text-align: right;
-    font-style: italic;
-`
+const PostTitle = ({node}) => (
+    <h2 className={styles.title}>
+        {node.frontmatter.title || node.slug}
+    </h2>
+)
+const PostTitleExcerpt = ({node}) => (
+    <h3 className={styles.title}>
+        <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
+    </h3>
+)
+const PostInfo = ({ node }) => (
+    <div className={styles.postInfo}>
+        | 
+        <Link to={'/' + node.fields.directory}>
+        {node.fields.directory}
+        </Link>
+        |
+        {node.frontmatter.date}
+         |
+    </div>
+)
 
 const Post = ({ node }) => {
     return (
-        <div>
-            <PostTitle>{node.frontmatter.title}</PostTitle>
-            <PostInfo>
-                <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
-                {node.frontmatter.date} |
-            </PostInfo>
+        <div className="post">
+            <PostTitle node={node}/>
+            <PostInfo node={node} />
 
             <MDXRenderer>
                 {node.body}
@@ -48,16 +41,13 @@ const Post = ({ node }) => {
 export const PostExcerpt = ({ node }) => {
     return (
         <div>
-            <PostTitleExcerpt>{node.frontmatter.title}</PostTitleExcerpt>
-            <PostInfo>
-                <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link> |
-                {node.frontmatter.date} |
-            </PostInfo>
+            <PostTitleExcerpt node={node}/>
+            <PostInfo node={node} />
 
-            <div>{node.excerpt}</div>
-            <PostContinueReading>
-                <Link to={node.fields.slug}>continue reading...</Link>
-            </PostContinueReading>
+            <div>
+                {node.excerpt}
+                <Link to={'/' + node.slug}>...continue reading</Link>
+            </div>
         </div>
     )
 }

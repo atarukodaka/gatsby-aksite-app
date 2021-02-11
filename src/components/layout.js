@@ -1,46 +1,75 @@
 import React from "react"
-import { Link } from "gatsby"
 
-import { MDXProvider } from "@mdx-js/react"
-//import { Message, Divider } from "theme-ui"
+import Paper from '@material-ui/core/Paper'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import Sidebar from './sidebar.js'
+import { graphql, useStaticQuery, Link} from "gatsby"
+import MenuIcon from '@material-ui/icons/Menu'
+import Hidden from '@material-ui/core/Hidden'
+import "./layout.css"
 
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+const query = graphql`
+{
+    site {
+        siteMetadata {
+            title
+            author
+        }
+    }
+}
+`
 
-import Header from "./header.js"
-import Footer from "./footer.js"
-import Sidebar from "./sidebar.js"
-
-const Foo = () => (<big>FOO TAG USED HERE</big>)
-const Youtube = ( {url}) => (
-    <Link to={url}>url</Link>
-)
-    
-const shortcodes = { Foo, Youtube }
-
-const Layout = ({ children }) => {
+const Header = ( { title } ) => {
+    //const data = useStaticQuery(query)
     return (
-        <Container>
-            <Header />
+    <header>
+        <AppBar position="static" color="primary">
+            <Toolbar>
+                <Hidden smUp>
+                    <MenuIcon/>
+                </Hidden>
+                
+                <Button color="inherit" component={Link} to="/">{title}</Button>
+                <Button color="inherit" component={Link} to="/about">About</Button>
+            </Toolbar>    
+        </AppBar>
+    </header>    
+)}
 
-            <Grid container spacing={4}>
-                <Grid item xs={12} sm={8}>
-                    <Container>
-                        <MDXProvider components={shortcodes}>
-                        {children}
-                        </MDXProvider>
-                    </Container>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <Sidebar />
-                </Grid>
+const Footer = ( { author } ) => {
 
+    return (<footer>
+        <Paper>
+            
+            written by { author }
+            (C) { (new Date()).getFullYear() } 
+        </Paper>
+    </footer>
+)}
+ 
+
+const Layout = ({ children }) =>{
+    const data = useStaticQuery(query)
+    return (
+
+    <div>
+        <Header title={data.site.siteMetadata.title}/>
+
+        <Grid container spacing={3}>
+            <Grid item sm={9}>
+                <Paper><Container>{children}</Container></Paper>
             </Grid>
 
-            <Footer />
-        </Container>
-
-    )
-}
-
+            <Grid item sm={3}>
+                <Sidebar/>
+            </Grid>
+        </Grid>
+        
+        <Footer author={data.site.siteMetadata.author}/>
+    </div>
+)}
 export default Layout
