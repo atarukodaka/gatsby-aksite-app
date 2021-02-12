@@ -23,7 +23,7 @@ date:を加えます。書式ですが、「必ず」 YYYY-MM-DD にすること
 
 query でfrontmatter { date }も取ります。フォーマットも扱いやすいように指定します。
 
-```
+```js:gatsby-node.js
 ...
     const { data } = await graphql(`
     {
@@ -42,7 +42,7 @@ query でfrontmatter { date }も取ります。フォーマットも扱いやす
 
 という流れで行きます。
 
-```js
+```js:gatsby-node.js
     console.log("** creating monthly archives")
     const yearMonths = new Set()
     data.allMdx.nodes.forEach(node => {

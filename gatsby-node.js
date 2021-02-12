@@ -36,7 +36,14 @@ exports.createPages = async ({ graphql, actions }) => {
                 body
                 slug
             }            
-        }    
+        }
+
+        directoryMdx: allMdx(filter: {fields: {directory: {ne: ""}}}) {
+            group(field: fields___directory) {
+              directory: fieldValue
+            }
+        }
+        
     }`)
 
     // markdown pages
@@ -62,7 +69,18 @@ exports.createPages = async ({ graphql, actions }) => {
         component: path.resolve("./src/templates/index-template.js")
     })
 
-    // directory index    
+    // directory index   
+    data.directoryMdx.group.forEach ( ({  directory }) => {
+        console.log(directory)
+        createPage({
+            path: `/${directory}`,
+            component: path.resolve(`./src/templates/directory_index-template.js`),
+            context: {
+                directory: directory
+            }
+        })
+    })
+    /*
     const directory_set = new Set()
     data.allMdx.nodes.map(node => {
         directory_set.add(node.fields.directory)
@@ -80,6 +98,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
+    */
 
     // monthly archives    
     console.log("** creating monthly archives")
@@ -97,7 +116,7 @@ exports.createPages = async ({ graphql, actions }) => {
         const fromDate = new Date(year, month - 1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
-        console.log(`  ${year}/${month} archive`)
+        //console.log(`  ${year}/${month} archive`)
 
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
