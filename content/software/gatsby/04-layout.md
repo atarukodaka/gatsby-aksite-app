@@ -166,4 +166,4 @@ styled とか makeStyle とかあるけど、詳しくは docs を。
 こんな感じに：
 
 
-![gatsby-4](/images/gatsby-4.png) 
+image: [gatsby-4](/images/gatsby-4.png) 

@@ -36,7 +36,20 @@ exports.createPages = async ({ graphql, actions }) => {
                 body
                 slug
             }            
-        }    
+        }
+
+        directoryMdx: allMdx(filter: {fields: {directory: {ne: ""}}}) {
+            group(field: fields___directory) {
+              directory: fieldValue
+            }
+        }
+        monthly: allMdx {
+            nodes {
+                frontmatter {
+                    date(formatString: "YYYYMM")
+                }
+            }
+        }
     }`)
 
     // markdown pages
@@ -62,7 +75,18 @@ exports.createPages = async ({ graphql, actions }) => {
         component: path.resolve("./src/templates/index-template.js")
     })
 
-    // directory index    
+    // directory index   
+    data.directoryMdx.group.forEach ( ({  directory }) => {
+        console.log(directory)
+        createPage({
+            path: `/${directory}`,
+            component: path.resolve(`./src/templates/directory_index-template.js`),
+            context: {
+                directory: directory
+            }
+        })
+    })
+    /*
     const directory_set = new Set()
     data.allMdx.nodes.map(node => {
         directory_set.add(node.fields.directory)
@@ -80,9 +104,32 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
+    */
 
     // monthly archives    
     console.log("** creating monthly archives")
+    const yearMonths = [...new Set(data.monthly.nodes.map(node => node.frontmatter.date))]
+    yearMonths.forEach(yyyymm => {
+        const year = parseInt(yyyymm.slice(0, 4))
+        const month = parseInt(yyyymm.slice(4))
+        const fromDate = new Date(year, month - 1, 1)
+        const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
+
+        //console.log(`  ${year}/${month} archive`)
+
+        createPage({
+            path: `/archives/${year}${month.toString().padStart(2, 0)}`,
+            component: path.resolve(`./src/templates/archive-template.js`),
+            context: {
+                archive: 'monthly',
+                year: year,
+                month: month,
+                fromDate: fromDate.toISOString(),
+                toDate: toDate.toISOString(),
+            }
+        })        
+    })
+/*
     const yearMonths = new Set()
     data.allMdx.nodes.forEach(node => {
         if (node.frontmatter.date != null){
@@ -97,7 +144,7 @@ exports.createPages = async ({ graphql, actions }) => {
         const fromDate = new Date(year, month - 1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
-        console.log(`  ${year}/${month} archive`)
+        //console.log(`  ${year}/${month} archive`)
 
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
@@ -111,5 +158,5 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
-
+*/
 }

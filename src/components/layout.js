@@ -58,14 +58,13 @@ const Layout = ({ children }) =>{
 
     <div>
         <Header title={data.site.siteMetadata.title}/>
-
         <Grid container spacing={3}>
             <Grid item sm={9}>
-                <Paper><Container>{children}</Container></Paper>
+                <Container><Paper>{children}</Paper></Container>
             </Grid>
 
             <Grid item sm={3}>
-                <Sidebar/>
+                <Paper><Sidebar/></Paper>
             </Grid>
         </Grid>
         
