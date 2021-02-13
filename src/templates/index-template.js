@@ -24,8 +24,8 @@ export const data = graphql`
 const IndexTemplate = ( { data, pageContext } ) => {
   const { previousPagePath, nextPagePath, humanPageNumber } = pageContext;
   const { breadcrumb: { crumbs } } = pageContext
-  console.log("pageContext: ", pageContext) 
-  console.log("crumbs: ", crumbs)
+  //console.log("pageContext: ", pageContext) 
+  //console.log("crumbs: ", crumbs)
 
   const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : humanPageNumber
   return (

@@ -3,7 +3,7 @@ import { useStaticQuery, Link, graphql } from "gatsby"
 import './sidebar.module.css'
 
 const Sidebar = () => {    
-    const data = useStaticQuery(
+    const { site, directories, recentPosts, monthlyArchives} = useStaticQuery(
         graphql`
             {
                 site {
@@ -50,14 +50,14 @@ const Sidebar = () => {
         <div className="sidebar">
             <h3>Profile</h3>
             <ul>
-            <li key="author">{data.site.siteMetadata.author}</li>
-            <li key="description">{data.site.siteMetadata.descriptino}</li>
+            <li key="author">{site.siteMetadata.author}</li>
+            <li key="description">{site.siteMetadata.descriptino}</li>
             </ul>
             
             <h3>Recent Posts</h3>
             <ul>
             {
-                data.recentPosts.nodes.map(node => (
+                recentPosts.nodes.map(node => (
                     <li key={node.id}>
                         <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
                     </li>
@@ -67,7 +67,7 @@ const Sidebar = () => {
             <h3>Directories</h3>
             <ul>
             {
-                data.directories.group.map( ({directory}) => (
+                directories.group.map( ({directory}) => (
                     <li key={directory}>
                         <Link to={'/' + directory}>{directory}</Link>
                     </li>
@@ -78,7 +78,7 @@ const Sidebar = () => {
             <h3>Monthly Archives</h3>
             <ul>
             {
-                data.monthlyArchives.nodes.map(node => (
+                monthlyArchives.nodes.map(node => (
                     <li key={node.id}>
                         <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
                     </li>
