@@ -73,6 +73,7 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** creating directory index")
     directories.group.forEach ( ({ directory }) => {
         console.log(directory)
+        console.log(directory)
         createPage({
             path: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
@@ -86,20 +87,17 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** creating monthly archives")
     const dates = mdxPages.nodes.map(node=>new Date(node.frontmatter.date))
     const ym1s = dates.filter((date, i, self) => 
-        //self.findIndex(d => d.getTime() === date.getTime()) === i
         self.findIndex(d => 
             (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
         ) === i)
 
-    //const yearMonths = [...new Set(data.monthly.nodes.map(node => node.frontmatter.date))]
-    //yearMonths.forEach(yyyymm => {
     ym1s.forEach(ym1 => {
         const year = ym1.getFullYear()
         const month = ym1.getMonth()+1
         const fromDate = ym1
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
-        //console.log(`  ${year}/${month} archive`)
+        console.log(`${year}/${month}`)
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),
