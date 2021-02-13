@@ -37,7 +37,6 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug
             }            
         }
-
         directoryMdx: allMdx(filter: {fields: {directory: {ne: ""}}}) {
             group(field: fields___directory) {
               directory: fieldValue
@@ -86,25 +85,6 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
-    /*
-    const directory_set = new Set()
-    data.allMdx.nodes.map(node => {
-        directory_set.add(node.fields.directory)
-    })
-    //console.log("directories: ", directory_set)
-    
-    const directories = [...directory_set].filter(v=>v)
-    console.log("directories: ", directories)
-    directories.map(directory => {
-        createPage({
-            path: `/${directory}`,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
-            context: {
-                directory: directory
-            }
-        })
-    })
-    */
 
     // monthly archives    
     console.log("** creating monthly archives")
@@ -116,7 +96,6 @@ exports.createPages = async ({ graphql, actions }) => {
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         //console.log(`  ${year}/${month} archive`)
-
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),
@@ -129,34 +108,4 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })        
     })
-/*
-    const yearMonths = new Set()
-    data.allMdx.nodes.forEach(node => {
-        if (node.frontmatter.date != null){
-            const dt = new Date(node.frontmatter.date);
-            yearMonths.add(dt.getFullYear() * 12 + dt.getMonth())
-        }
-    })
-    
-    yearMonths.forEach(yearMonth => {
-        const year = parseInt(yearMonth/12)
-        const month = yearMonth % 12 + 1
-        const fromDate = new Date(year, month - 1, 1)
-        const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
-
-        //console.log(`  ${year}/${month} archive`)
-
-        createPage({
-            path: `/archives/${year}${month.toString().padStart(2, 0)}`,
-            component: path.resolve(`./src/templates/archive-template.js`),
-            context: {
-                archive: 'monthly',
-                year: year,
-                month: month,
-                fromDate: fromDate.toISOString(),
-                toDate: toDate.toISOString(),
-            }
-        })
-    })
-*/
 }
