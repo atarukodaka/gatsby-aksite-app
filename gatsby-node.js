@@ -22,9 +22,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data } = await graphql(`
+    const { data: { mdxPages, directories } } = await graphql(`
     {
-        allMdx (sort: {fields: frontmatter___date, order: DESC}) {
+        mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
                 frontmatter {
                     title
@@ -37,24 +37,18 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug
             }            
         }
-        directoryMdx: allMdx(filter: {fields: {directory: {ne: ""}}}) {
+        directories: allMdx(filter: {fields: {directory: {ne: ""}}}) {
             group(field: fields___directory) {
               directory: fieldValue
             }
         }
-        monthly: allMdx {
-            nodes {
-                frontmatter {
-                    date(formatString: "YYYYMM")
-                }
-            }
-        }
+
     }`)
 
     // markdown pages
-    data.allMdx.nodes.map(node => {
+    console.log("** all markdown pages")
+    mdxPages.nodes.map(node => {
         //console.log(`create markdown page: ${node.slug}`)
-
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
@@ -64,10 +58,11 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
     // index paginate
+    console.log("** index paginate")
     const itemsPerPage = 10
     paginate({
         createPage,
-        items: data.allMdx.nodes,
+        items: mdxPages.nodes,
         itemsPerPage: itemsPerPage,
         //pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
         pathPrefix: '/',
@@ -75,7 +70,8 @@ exports.createPages = async ({ graphql, actions }) => {
     })
 
     // directory index   
-    data.directoryMdx.group.forEach ( ({  directory }) => {
+    console.log("** creating directory index")
+    directories.group.forEach ( ({ directory }) => {
         console.log(directory)
         createPage({
             path: `/${directory}`,
@@ -88,7 +84,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // monthly archives    
     console.log("** creating monthly archives")
-    const dates = data.allMdx.nodes.map(node=>new Date(node.frontmatter.date))
+    const dates = mdxPages.nodes.map(node=>new Date(node.frontmatter.date))
     const ym1s = dates.filter((date, i, self) => 
         //self.findIndex(d => d.getTime() === date.getTime()) === i
         self.findIndex(d => 
