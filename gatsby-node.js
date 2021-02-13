@@ -88,11 +88,19 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // monthly archives    
     console.log("** creating monthly archives")
-    const yearMonths = [...new Set(data.monthly.nodes.map(node => node.frontmatter.date))]
-    yearMonths.forEach(yyyymm => {
-        const year = parseInt(yyyymm.slice(0, 4))
-        const month = parseInt(yyyymm.slice(4))
-        const fromDate = new Date(year, month - 1, 1)
+    const dates = data.allMdx.nodes.map(node=>new Date(node.frontmatter.date))
+    const ym1s = dates.filter((date, i, self) => 
+        //self.findIndex(d => d.getTime() === date.getTime()) === i
+        self.findIndex(d => 
+            (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
+        ) === i)
+
+    //const yearMonths = [...new Set(data.monthly.nodes.map(node => node.frontmatter.date))]
+    //yearMonths.forEach(yyyymm => {
+    ym1s.forEach(ym1 => {
+        const year = ym1.getFullYear()
+        const month = ym1.getMonth()+1
+        const fromDate = ym1
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         //console.log(`  ${year}/${month} archive`)
