@@ -5,27 +5,6 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { PostExcerpt } from "../components/post.js"
 import Layout from "../components/layout.js"
 
-
-export default function ArchiveTemplate({ data, pageContext }) {
-  const { year, month } = pageContext
-  
-
-  console.log(`monthly archive template: ${year}/${month}`)
-  const { breadcrumb: { crumbs } } = pageContext
-
-  return (
-    <Layout>
-      <Breadcrumb crumbs={crumbs} crumbLabel={year + "-" + month}/>
-      <h2>MONTHLY ARCHIVE: {year}/{month}</h2>
-      {
-        data.allMdx.nodes.map(node => (
-          <PostExcerpt node={node} key={node.id} />
-        ))
-      }
-    </Layout>
-  )
-}
-
 export const query = graphql`
     query($fromDate: Date!, $toDate: Date!){        
       allMdx(sort: {fields: frontmatter___date, order: DESC},
@@ -45,3 +24,23 @@ export const query = graphql`
       }
     }
   `
+
+export default function ArchiveTemplate({ data, pageContext }) {
+  const { year, month } = pageContext
+  const { breadcrumb: { crumbs } } = pageContext
+  const title = `MONTHLY ARCHIVE: ${year}/${month}`
+  console.log(title)
+
+  return (
+    <Layout title={title}>
+      <Breadcrumb crumbs={crumbs} crumbLabel={year + "-" + month}/>
+      <h2>{title}</h2>
+      {
+        data.allMdx.nodes.map(node => (
+          <PostExcerpt node={node} key={node.id} />
+        ))
+      }
+    </Layout>
+  )
+}
+

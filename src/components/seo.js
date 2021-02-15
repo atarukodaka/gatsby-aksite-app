@@ -17,11 +17,10 @@ const query = graphql`
 const SEO = ( { title } ) => {
     const data = useStaticQuery(query)
     return (
-        <Helmet>
-            <title>
-                {title + ' | ' + data.site.siteMetadata.title}
-            </title>
-
+        <Helmet
+            title={title || '-'}
+            titleTemplate={`%s | ${data.site.siteMetadata.title}`}
+        >
         </Helmet>
     )
 }

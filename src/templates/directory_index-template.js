@@ -10,7 +10,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
   const current_directory = directory.split('/').slice(-1)
 
   return (
-    <Layout>
+    <Layout title={"Directory: " + directory}>
       <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
       <h2>DIRECTORY: {directory}</h2>
       {

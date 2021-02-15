@@ -3,9 +3,9 @@ import { useStaticQuery, Link, graphql } from "gatsby"
 import MonthlyArchives from './monthly_archives'
 const ListToTree = require('list-to-tree')
 
-
 const Tree = ({ nodes }) => {
-    return (<ul>
+    return (
+    <ul>
         {
             nodes.map(v => (
                     <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name}</Link>
@@ -18,7 +18,7 @@ const Tree = ({ nodes }) => {
 }
 
 const Sidebar = () => {
-    const { site, directories, recentPosts, monthlyArchives } = useStaticQuery(
+    const { site, directories, recentPosts } = useStaticQuery(
         graphql`
             {
                 site {
@@ -44,36 +44,11 @@ const Sidebar = () => {
                         id
                     }
                 }
-                monthlyArchives: allSitePage(sort: {fields: context___fromDate, order: DESC}, 
-                    filter: {context: {archive: {eq: "monthly"} }}){
-                    
-                    nodes {
-                        id
-                        path
-                        context {
-                            year, month
-                            fromDate, toDate
-                        }
-                    }
-                }                
             }
 
         `
     )
-/*    
-    const tree0 = [
-        { name: "figureskating", label: "figureskating", children: [{ name: "figureskating/practise", label: "practics" }] },
-        { name: "game", children: [{ name: "game/wot", label: "wot" }, { name: "game/kancolle", label: "kancolle" }] },
-        { name: "hobby", label: "hobby" }
-    ]
 
-    const list0 = [
-        { id: 1, name: "figureskating", parent: 0 },
-        { id: 2, name: "figureskating/practise", label: "practise", parent: 1 },
-        { id: 3, name: "game", parent: 0 },
-        { id: 4, name: "game/wot", label: "wot", parent: 3 }
-    ]
-*/
     let i = 1
     const list = []
     directories.group.forEach(v=> {
@@ -112,31 +87,10 @@ const Sidebar = () => {
             <h3>Directories</h3>
 
             <Tree nodes={tree} />
-{/*
-            <ul>
-                {
-                    directories.group.map(({ directory }) => (
-                        <li key={directory}>
-                            <Link to={'/' + directory}>{directory}</Link>
-                        </li>
-                    ))
-
-                }
-            </ul>
-*/}            
+            
             <h3>Monthly Archives</h3>
             <MonthlyArchives/>
-{/*            
-            <ul>
-                {
-                    monthlyArchives.nodes.map(node => (
-                        <li key={node.id}>
-                            <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
-                        </li>
-                    ))
-                }
-            </ul>
-            */}            
+          
         </div>
     )
 }
