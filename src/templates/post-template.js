@@ -1,8 +1,8 @@
 import React from "react"
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 import Layout from "../components/layout.js"
 import Post from "../components/post.js"
-import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import SEO from "../components/seo.js"
 import Sibling from "../components/sibling.js"
 

@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 
 const query = graphql`
 {
@@ -16,6 +16,7 @@ const query = graphql`
 `
 const SEO = ( { title } ) => {
     const data = useStaticQuery(query)
+
     return (
         <Helmet
             title={title || '-'}

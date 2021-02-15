@@ -15,7 +15,6 @@ const Footer = ( ) => {
     
     return (
         <footer>
-            <hr/>
             <div>(C) written by { data.site.siteMetadata.author } { (new Date()).getFullYear() } </div>
         </footer>
     )
