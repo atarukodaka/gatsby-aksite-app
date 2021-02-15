@@ -1,20 +1,17 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import './sidebar.module.css'
+import MonthlyArchives from './monthly_archives'
 const ListToTree = require('list-to-tree')
+
 
 const Tree = ({ nodes }) => {
     return (<ul>
         {
-            nodes.map(v => {
-
-                if (v.child) {
-                    return (<li><Link to={'/' +
-                        v.name}>{v.label || v.name}</Link><Tree nodes={v.child} /></li>)
-                } else {
-                    return (<li><Link to={'/' + v.name}>{v.label || v.name}</Link></li>)
-                }
-            }
+            nodes.map(v => (
+                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name}</Link>
+                    { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
+                    </li>
+                )
             )
         }
     </ul>)
@@ -128,6 +125,8 @@ const Sidebar = () => {
             </ul>
 */}            
             <h3>Monthly Archives</h3>
+            <MonthlyArchives/>
+{/*            
             <ul>
                 {
                     monthlyArchives.nodes.map(node => (
@@ -137,6 +136,7 @@ const Sidebar = () => {
                     ))
                 }
             </ul>
+            */}            
         </div>
     )
 }
