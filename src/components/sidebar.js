@@ -1,9 +1,27 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
 import './sidebar.module.css'
+const ListToTree = require('list-to-tree')
 
-const Sidebar = () => {    
-    const { site, directories, recentPosts, monthlyArchives} = useStaticQuery(
+const Tree = ({ nodes }) => {
+    return (<ul>
+        {
+            nodes.map(v => {
+
+                if (v.child) {
+                    return (<li><Link to={'/' +
+                        v.name}>{v.label || v.name}</Link><Tree nodes={v.child} /></li>)
+                } else {
+                    return (<li><Link to={'/' + v.name}>{v.label || v.name}</Link></li>)
+                }
+            }
+            )
+        }
+    </ul>)
+}
+
+const Sidebar = () => {
+    const { site, directories, recentPosts, monthlyArchives } = useStaticQuery(
         graphql`
             {
                 site {
@@ -45,45 +63,79 @@ const Sidebar = () => {
 
         `
     )
-    
+/*    
+    const tree0 = [
+        { name: "figureskating", label: "figureskating", children: [{ name: "figureskating/practise", label: "practics" }] },
+        { name: "game", children: [{ name: "game/wot", label: "wot" }, { name: "game/kancolle", label: "kancolle" }] },
+        { name: "hobby", label: "hobby" }
+    ]
+
+    const list0 = [
+        { id: 1, name: "figureskating", parent: 0 },
+        { id: 2, name: "figureskating/practise", label: "practise", parent: 1 },
+        { id: 3, name: "game", parent: 0 },
+        { id: 4, name: "game/wot", label: "wot", parent: 3 }
+    ]
+*/
+    let i = 1
+    const list = []
+    directories.group.forEach(v=> {
+        const parts = v.directory.split('/')
+        const label = parts.pop() || v.directory
+        const parent_dir = parts.join('/')
+        const parent = list.find(vv => vv.name === parent_dir)
+        const parent_id = (parent) ? parent.id : 0
+        
+        list.push({ id: i, parent: parent_id, name: v.directory, label: label})
+        i = i + 1
+    }
+    )
+    //console.log(list)
+
+    const tree = new ListToTree(list).GetTree()
+    //console.log(tree)
     return (
         <div className="sidebar">
             <h3>Profile</h3>
             <ul>
-            <li key="author">{site.siteMetadata.author}</li>
-            <li key="description">{site.siteMetadata.descriptino}</li>
+                <li key="author">{site.siteMetadata.author}</li>
+                <li key="description">{site.siteMetadata.descriptino}</li>
             </ul>
-            
+
             <h3>Recent Posts</h3>
             <ul>
-            {
-                recentPosts.nodes.map(node => (
-                    <li key={node.id}>
-                        <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
-                    </li>
-                ))
-            }
+                {
+                    recentPosts.nodes.map(node => (
+                        <li key={node.id}>
+                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                        </li>
+                    ))
+                }
             </ul>
             <h3>Directories</h3>
+
+            <Tree nodes={tree} />
+{/*
             <ul>
-            {
-                directories.group.map( ({directory}) => (
-                    <li key={directory}>
-                        <Link to={'/' + directory}>{directory}</Link>
-                    </li>
-                ))
-                
-            }    
+                {
+                    directories.group.map(({ directory }) => (
+                        <li key={directory}>
+                            <Link to={'/' + directory}>{directory}</Link>
+                        </li>
+                    ))
+
+                }
             </ul>
+*/}            
             <h3>Monthly Archives</h3>
             <ul>
-            {
-                monthlyArchives.nodes.map(node => (
-                    <li key={node.id}>
-                        <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
-                    </li>
-                ))
-            }
+                {
+                    monthlyArchives.nodes.map(node => (
+                        <li key={node.id}>
+                            <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
+                        </li>
+                    ))
+                }
             </ul>
         </div>
     )

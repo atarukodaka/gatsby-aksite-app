@@ -21,7 +21,7 @@ date:を加えます。書式ですが、「必ず」 YYYY-MM-DD にすること
 
 ## gatsby-node.js をいじる
 
-query でfrontmatter { date }も取ります。フォーマットも扱いやすいように指定します。
+query でfrontmatter { date }も取ります。フォーマットも扱いやすいように指定したり日付でソートしたりします。
 
 ```js:gatsby-node.js
 ...
@@ -43,23 +43,23 @@ query でfrontmatter { date }も取ります。フォーマットも扱いやす
 という流れで行きます。
 
 ```js:gatsby-node.js
-    console.log("** creating monthly archives")
-    const yearMonths = new Set()
-    data.allMdx.nodes.forEach(node => {
-        if (node.frontmatter.date != null){
-            const dt = new Date(node.frontmatter.date);
-            yearMonths.add(dt.getFullYear() * 12 + dt.getMonth())
-        }
-    })
-    
-    yearMonths.forEach(yearMonth => {
-        const year = parseInt(yearMonth/12)
-        const month = yearMonth % 12 + 1
-        const fromDate = new Date(year, month - 1, 1)
+    const ym1s = dates.filter((date, i, self) => 
+        self.findIndex(d => 
+            (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
+        ) === i)
+```
+
+各 mdxリソースの年月の月初日 uniq を取ります。[2020-02-02, 2020-02-04, 2020-04-12] から [2020-02-01, 2020-04-01]を取り出すわけですね。
+filter() や findIndex()で uniq() のような働きをしています。
+
+```js
+    ym1s.forEach(ym1 => {
+        const year = ym1.getFullYear()
+        const month = ym1.getMonth()+1
+        const fromDate = ym1
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
-        console.log(`  ${year}/${month} archive`)
-
+        console.log(`${year}/${month}`)
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),
@@ -70,9 +70,15 @@ query でfrontmatter { date }も取ります。フォーマットも扱いやす
                 fromDate: fromDate.toISOString(),
                 toDate: toDate.toISOString(),
             }
-        })
-    })    
+        })        
+    })
 ```
+
+そしてその YYYYMM01 ごとにテンプレートを経由して月別アーカイブを作成します。
+
+- date の getMonth() は０スタートの数字を返す:2020-02-01 なら 1
+- padStart()はゼロパディングをしてくれる:　3 -> "03"
+- toISOString() は YYYY-MM-DD 形式に変換
 
 テンプレートはこんな感じに：
 
@@ -119,9 +125,22 @@ export default function ArchiveTemplate({ data, pageContext }) {
     </Layout>
   )
 }
+export const PostExcerpt = ({ node }) => {
+    return (
+        <div>
+            <h3 className={styles.title}>
+              <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
+            </h3>
+
+            <div>
+                {node.excerpt}
+                <Link to={'/' + node.slug}>...continue reading</Link>
+            </div>
+        </div>
+    )
+}
 ```
 
 from, to で指定した期間の mdx node を取ってきて、タイトルと要旨(excerpt)を表示し、単体表示ページへのリンクも貼り付ける形です。
-
 
 
