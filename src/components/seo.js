@@ -21,8 +21,7 @@ const SEO = ( { title } ) => {
         <Helmet
             title={title || '-'}
             titleTemplate={`%s | ${data.site.siteMetadata.title}`}
-        >
-        </Helmet>
+        />
     )
 }
 

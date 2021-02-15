@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
+import styles from './sibling.module.css'
 
 const query = graphql`
 {
@@ -8,6 +9,7 @@ const query = graphql`
             id
             frontmatter {
                 title
+                date
             }
             fields { 
                 directory
@@ -19,15 +21,16 @@ const query = graphql`
 }
 `
 
-const Sibling = ( { node }) => {
+const Sibling = ( { node, order }) => {
+    order ||= "DESC"
     const data = useStaticQuery(query)
 
     return (
         <div>
-            <h4>SIBLINGS in '{node.fields.directory}'</h4>
+            <h4 className={styles.title}>SIBLINGS in '{node.fields.directory}'</h4>
             <ul>
             {
-                data.allMdx.nodes.filter(v => v.fields.directory === node.fields.directory).map(v=>
+                data.allMdx.nodes.filter(v => v.fields.directory === node.fields.directory).sort((v1, v2) => v2.frontmatter.title - v1.frontmatter.title).map(v=>
                     {
                         if (node.slug === v.slug ){
                             return (<li key={v.id}>{v.frontmatter.title}</li>)

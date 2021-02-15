@@ -1,4 +1,8 @@
 
+body {
+  font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif
+}
+
 div.sidebar ul {
   list-style-type: none;
   padding-left: 20px;
@@ -13,16 +17,6 @@ nav.breadcrumb {
     margin-top: 10px;
 
 }
-
-body {
-    font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif
-}
-
-/*
-div.sidebar li {
-    list-style: none;
-}
-*/
 
 h3 a { 
   text-decoration: none;
@@ -102,8 +96,6 @@ div.gatsby-code-title > span {
   
 .gatsby-highlight pre[class="language-js"]::before {
     content: "JavaScript";
-    //background: lightgreen;
-    //color: black;
 }
 .gatsby-highlight pre[class="language-sh"]::before {
   content: "sh";

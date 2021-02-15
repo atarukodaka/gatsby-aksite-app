@@ -1,7 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
+import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
+
+import Sibling from './sibling'
+
+const shortcuts = { Sibling }
+
 
 const PostTitle = ({node}) => (
     <h2 className={styles.title}>
@@ -31,9 +37,11 @@ const Post = ({ node }) => {
             <PostTitle node={node}/>
             <PostInfo node={node} />
 
+            <MDXProvider components={shortcuts}>
             <MDXRenderer>
                 {node.body}
             </MDXRenderer>
+            </MDXProvider>
         </div>
     )
 }

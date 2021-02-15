@@ -3,20 +3,6 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const { paginate } = require('gatsby-awesome-pagination')
 
-const ListToTree = require('list-to-tree')
-
-const list = [
-    {id: 1, name: "figureskating", parent: 0},
-    {id: 2, name: "figureskating/practise", label: "practise", parent: 1},
-    {id: 3, name: "game", parent: 0},
-    {id: 4, name: "game/wot", label: "wot", parent: 3}
-
-
-]
-
-const tree = new ListToTree(list)
-//console.log(tree.GetTree())
-
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
 

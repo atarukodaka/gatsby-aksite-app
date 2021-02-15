@@ -33,12 +33,30 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
+          {
+            resolve: "gatsby-remark-embed-video",
+            options: {
+              width: 800,
+              ratio: 1.77, // Optional: Defaults to 16/9 = 1.77
+              height: 400, // Optional: Overrides optional.ratio
+              related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
+              noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
+              urlOverrides: [
+                {
+                  id: "youtube",
+                  embedURL: videoId =>
+                    `https://www.youtube-nocookie.com/embed/${videoId}`,
+                },
+              ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
+              containerClass: "embedVideo-container", //Optional: Custom CSS class for iframe container, for multiple classes separate them by space
+            },
+          },          
           'gatsby-remark-prismjs-title',
           //`gatsby-remark-code-titles`,
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
-              alias: {js: 'javascript', sh: 'bash', md: 'markdown'},
+              alias: { js: 'javascript', sh: 'bash', md: 'markdown' },
             }
           },
           `gatsby-remark-relative-images`,
@@ -54,34 +72,27 @@ module.exports = {
     {
       resolve: `gatsby-plugin-breadcrumb`,
       options: {
-      // useAutoGen: required 'true' to use autogen
-      useAutoGen: true,
-      // autoGenHomeLabel: optional 'Home' is default
-      autoGenHomeLabel: `Home`,
-      // exlude: optional, include this array to exclude paths you don't want to
-      // generate breadcrumbs for (see below for details).
-      excludes: [
-        `**/dev-404-page/**`,
-        `**/404/**`,
-        `**/404.html`,
-        `**/offline-plugin-app-shell-fallback/**`
-      ],
-      // isMatchOptions: optional, include this object to configure the wildcard-match library.
-      excludeOptions: {
-        separator: '.'
-      },
-      // crumbLabelUpdates: optional, update specific crumbLabels in the path
-      crumbLabelUpdates: [
-        {
-          pathname: '/book',
-          crumbLabel: 'Books'
-        }
-      ],
-      // trailingSlashes: optional, will add trailing slashes to the end
-      // of crumb pathnames. default is false
-      trailingSlashes: false,
-      }      
+        useAutoGen: true,
+        autoGenHomeLabel: `Home`,
+        excludes: [
+          `**/dev-404-page/**`,
+          `**/404/**`,
+          `**/404.html`,
+          `**/offline-plugin-app-shell-fallback/**`
+        ],
+        excludeOptions: {
+          separator: '.'
+        },
+        crumbLabelUpdates: [
+          {
+            pathname: '/book',
+            crumbLabel: 'Books'
+          }
+        ],
+        trailingSlashes: false,
+      }
     },
+
     //`gatsby-plugin-typography`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
