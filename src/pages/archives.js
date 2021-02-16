@@ -1,7 +1,7 @@
 import React from 'react'
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import MonthlyArchives from '../components/monthly_archives'
 import Layout from '../components/layout'
-import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 export default ({ pageContext}) => {
     const { breadcrumb: { crumbs } } = pageContext

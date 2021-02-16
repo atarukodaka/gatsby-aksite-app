@@ -2,11 +2,6 @@
 title: Gatsby - [5] Archives
 date: 2021-02-11
 ---
-`video: https://www.youtube.com/embed/2Xc9gXyf2G4`
-`youtube: https://www.youtube.com/watch?v=2Xc9gXyf2G4`
-`youtube: https://www.youtube.com/watch?v=2Xc9gXyf2G4`
-youtube: [Cool Youtube Video](https://www.youtube.com/watch?v=2Xc9gXyf2G4)
-
 ## やること
 
 - 月別のアーカイブを作る
@@ -21,7 +16,7 @@ date: 2020-02-02
 ...
 ```
 
-date:を加えます。書式ですが、「必ず」 YYYY-MM-DD にすること。2020-2-2 とか省くと文字列扱いになっておかしなことになります。
+date:を加えます。書式ですが、「必ず」 YYYY-MM-DD にすること。2020-2-2 とか0を省くと文字列扱いになっておかしなことになります。
 
 ## gatsby-node.js をいじる
 

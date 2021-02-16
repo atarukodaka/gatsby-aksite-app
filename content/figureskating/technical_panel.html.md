@@ -5,8 +5,7 @@ published: false
 ---
 
 ## 構成と役割
-![](images/technical_panel.png)
-[概略説明]
+<img src="/images/technical_panel.png" height="600"/>
 
 - TC: テクニカルコントローラー
 - TS: テクニカルスペシャリスト
@@ -15,24 +14,24 @@ published: false
 - RO: リプレイオペレーター
 
 ### TC: テクニカルコントローラー
-![](images/tc.png)
+<img src="/images/tc_face.png" height="50"/>
 監督
 
 ### TS: テクニカルスペシャリスト
-![](images/ts.png)
+<img src="/images/ts_face.png" height="50"/>
 要素のコール
 
 
 ### ATS: アシスタントテクニカルスペシャリスト
-![](images/ats.png)
+<img src="/images/ats_face.png" height="50"/>
 プレコール
 
 ### DO: データオペレーター
-![](images/do.png)
+<img src="/images/do_face.png" height="50"/>
 要素の入力
 
 ### RO: リプレイオペレーター
-![](images/ro.png)
+<img src="/images/ro_face.png" height="50"/>
 レビュー時のリプレイ操作
 
 ## 会話例
