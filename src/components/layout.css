@@ -8,9 +8,9 @@ body {
 }
 div.sidebar ul {
   list-style-type: none;
-  padding-left: 20px;
-
-
+}
+div.sidebar ul li {
+  margin-bottmo: 0;
 }
 nav.breadcrumb {
   

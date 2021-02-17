@@ -3,16 +3,18 @@ import { Link } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
-import { Paper } from '@material-ui/core'
+//import { Paper } from '@material-ui/core'
+//import Img from 'gatsby-image'
 
 const shortcuts = {}
 
-
+/*
 const PostTitle = ({ node }) => (
     <h2 className={styles.title}>
         {node.frontmatter.title || node.slug}
     </h2>
 )
+
 const PostTitleExcerpt = ({ node }) => (
     <h3 className={styles.title}>
         <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
@@ -29,7 +31,7 @@ const PostInfo = ({ node }) => (
          |
     </div>
 )
-
+*/
 const PostHeader = ({node}) => (
     <header className={styles.header}>
     <div className={styles.date}>{node.frontmatter.date}</div>
@@ -71,6 +73,7 @@ export const PostExcerpt = ({node}) => (
     </div>
 )
 
+/*
 export const PostExcerptqqq = ({ node }) => {
     return (
         <Paper className={styles.excerpt}>
@@ -86,5 +89,5 @@ export const PostExcerptqqq = ({ node }) => {
         </Paper>
     )
 }
-
+*/
 export default Post

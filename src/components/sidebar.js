@@ -41,7 +41,7 @@ const Sidebar = () => {
                     sort: {fields: frontmatter___date, order: DESC}
                     ) {
                     nodes {
-                        frontmatter { title }
+                        frontmatter { title, date(formatString: "YYYY-MM-DD") }
                         slug
                         fields { directory }
                         id
@@ -85,7 +85,7 @@ const Sidebar = () => {
                 {
                     recentPosts.nodes.map(node => (
                         <li key={node.id}>
-                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link> ({node.frontmatter.date})
                         </li>
                     ))
                 }
