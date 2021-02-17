@@ -33,6 +33,7 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
+/*
           {
             resolve: "gatsby-remark-embed-video",
             options: {
@@ -50,7 +51,8 @@ module.exports = {
               ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
               containerClass: "embedVideo-container", //Optional: Custom CSS class for iframe container, for multiple classes separate them by space
             },
-          },          
+          },    
+*/                
           'gatsby-remark-prismjs-title',
           //`gatsby-remark-code-titles`,
           {

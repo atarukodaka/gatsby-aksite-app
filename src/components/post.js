@@ -5,9 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import { Paper } from '@material-ui/core'
 
-import Sibling from './sibling'
-
-const shortcuts = { Sibling }
+const shortcuts = {  }
 
 
 const PostTitle = ({node}) => (

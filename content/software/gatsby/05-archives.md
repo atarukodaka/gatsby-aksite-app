@@ -8,7 +8,7 @@ date: 2021-02-11
 
 ## 日付情報を markdown にいれる
 
-```md:title:content/awesome.md
+```md:title=content/awesome.md
 ---
 title: markdown is awesome
 date: 2020-02-02
@@ -22,7 +22,7 @@ date:を加えます。書式ですが、「必ず」 YYYY-MM-DD にすること
 
 query でfrontmatter { date }も取ります。フォーマットも扱いやすいように指定したり日付でソートしたりします。
 
-```js:gatsby-node.js
+```js:title=gatsby-node.js
 ...
     const { data } = await graphql(`
     {
@@ -41,7 +41,7 @@ query でfrontmatter { date }も取ります。フォーマットも扱いやす
 
 という流れで行きます。
 
-```js:gatsby-node.js
+```js:title=gatsby-node.js
     const ym1s = dates.filter((date, i, self) => 
         self.findIndex(d => 
             (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
