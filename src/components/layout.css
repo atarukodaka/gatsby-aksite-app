@@ -1,6 +1,6 @@
 
 body {
-  font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+  /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
   background-color: #eee;
 }
 
@@ -15,14 +15,14 @@ nav.breadcrumb {
     border-bottom: 1px solid #ddd;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 
 }
 footer {
-  padding: 2em;
+  /* padding: 2em; */
 }
 h3 a { 
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 /*
 .MuiContainer-root {
@@ -50,7 +50,7 @@ div.post h3 {
     padding-top: 10px;
     padding-bottom: 5px; }
   /* line 122, style.css.scss */
- div.posth4 {
+ div.post h4 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
@@ -62,7 +62,7 @@ div.post h5 {
     padding-top: 10px;
     padding-bottom: 5px; }
   /* line 122, style.css.scss */
-div.post   h6 {
+div.post h6 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;

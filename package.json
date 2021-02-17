@@ -44,7 +44,8 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
     "react-typography": "^0.16.19",
-    "typography": "^0.16.19"
+    "typography": "^0.16.19",
+    "typography-theme-moraga": "^0.16.19"
   },
   "devDependencies": {
     "prettier": "2.2.1"

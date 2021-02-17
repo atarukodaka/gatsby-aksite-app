@@ -69,6 +69,8 @@ const Sidebar = () => {
     //console.log(tree)
     return (
         <div className="sidebar">
+   
+
             <h3>Profile</h3>
             <ul>
                 <li key="author">{site.siteMetadata.author}</li>
