@@ -8,7 +8,7 @@ const Tree = ({ nodes }) => {
     <ul>
         {
             nodes.map(v => (
-                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name}</Link>
+                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>
                     { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
                     </li>
                 )
@@ -31,6 +31,7 @@ const Sidebar = () => {
                 directories: allMdx(sort: {fields: fields___directory, order: ASC}, filter: {fields: {directory: {ne: ""}}}) {
                     group(field: fields___directory) {
                       directory: fieldValue
+                      totalCount
                     }
                 }
                 recentPosts: allMdx(
@@ -58,7 +59,7 @@ const Sidebar = () => {
         const parent = list.find(vv => vv.name === parent_dir)
         const parent_id = (parent) ? parent.id : 0
         
-        list.push({ id: i, parent: parent_id, name: v.directory, label: label})
+        list.push({ id: i, parent: parent_id, name: v.directory, label: label, totalCount: v.totalCount})
         i = i + 1
     }
     )

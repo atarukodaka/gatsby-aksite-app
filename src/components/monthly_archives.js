@@ -11,6 +11,7 @@ const query = graphql`
             context {
                 year, month
                 fromDate, toDate
+                count
             }
         }
     }
@@ -24,7 +25,7 @@ const MonthlyArchives = ( ) => {
             {
                 data.monthlyArchives.nodes.map(node => (
                     <li key={node.id}>
-                        <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
+                        <Link to={node.path}>{node.context.year}/{node.context.month}</Link> ({node.context.count})
                     </li>
                 ))
             }

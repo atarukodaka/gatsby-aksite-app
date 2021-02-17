@@ -2,6 +2,7 @@
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const { paginate } = require('gatsby-awesome-pagination')
+const { findDOMNode } = require('react-dom')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
@@ -84,16 +85,28 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // monthly archives    
     console.log("** creating monthly archives")
+    const ym1s = new Map()
+
+    mdxPages.nodes.forEach(node => {
+        let date = new Date(node.frontmatter.date)
+        const k = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, 0)
+        const v = ym1s.get(k) || 0
+        ym1s.set(k, v+1)
+    })
+    //console.log(ym1s)
+
+    /*
     const dates = mdxPages.nodes.map(node=>new Date(node.frontmatter.date))
     const ym1s = dates.filter((date, i, self) => 
         self.findIndex(d => 
             (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
         ) === i)
-
-    ym1s.forEach(ym1 => {
-        const year = ym1.getFullYear()
-        const month = ym1.getMonth()+1
-        const fromDate = ym1
+    */
+    ym1s.forEach(function(v, k){ //} => { //(ym1, count) => {
+        const year = parseInt(k.slice(0,4))
+        const month = parseInt(k.slice(5))
+        const count = v
+        const fromDate = new Date(year, month-1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         console.log(`${year}/${month}`)
@@ -106,6 +119,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 month: month,
                 fromDate: fromDate.toISOString(),
                 toDate: toDate.toISOString(),
+                count: count,
             }
         })        
     })
