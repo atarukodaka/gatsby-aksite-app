@@ -6,6 +6,8 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { Paper, Card, CardContent, CardHeader, CardMedia } from '@material-ui/core'
 import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
+//import Test from "../../static/images/gatsby-4.png"
+import Img from 'gatsby-image'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
@@ -19,8 +21,17 @@ export const data = graphql`
         slug
       }
     }
+    img1: file(relativePath: {eq: "gatsby-4.png"}) {
+      id
+      childImageSharp {
+      fixed(width: 200) {
+        ...GatsbyImageSharpFixed
+      }
+      }
+    }
   }
 `
+
 
 const IndexTemplate = ( { data, pageContext } ) => {
   const { previousPagePath, nextPagePath, humanPageNumber } = pageContext;
@@ -29,6 +40,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
   //console.log("crumbs: ", crumbs)
 
   const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : humanPageNumber
+
   return (
     <Layout>  
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
@@ -37,6 +49,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
         <CardMedia component="img" height="140" image="/images/tc.png"></CardMedia>
         <CardContent>
         CARDCARD
+        <Img fixed={data.img1.childImageSharp.fixed}/>
         </CardContent>
       </Card>
       {

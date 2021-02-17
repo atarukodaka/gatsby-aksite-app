@@ -29,6 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
+                    image
                 }
                 fields {
                     directory
