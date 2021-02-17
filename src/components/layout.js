@@ -43,12 +43,14 @@ const Header = ( { title } ) => {
 
 const Footer = ( { author } ) => {
 
-    return (<footer>
+    return (
         <Paper>
+            <footer>
+        
             written by { author }
             (C) { (new Date()).getFullYear() } 
+            </footer>
         </Paper>
-    </footer>
 )}
  
 
@@ -58,16 +60,18 @@ const Layout = ({ children, title }) =>{
     <div>
         <SEO title={title}/>
         <Header title={data.site.siteMetadata.title}/>
+        <Container>
         <Grid container spacing={3}>
             <Grid item sm={9}>
-                <Container><Paper>{children}</Paper></Container>
+                <Paper><Container>{children}</Container></Paper>
             </Grid>
 
             <Grid item sm={3}>
-                <Paper><Sidebar/></Paper>
+                <Paper><Container><Sidebar/></Container></Paper>
             </Grid>
         </Grid>
-        
+        </Container>
+
         <Footer author={data.site.siteMetadata.author}/>
     </div>
 )}

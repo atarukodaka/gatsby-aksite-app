@@ -5,9 +5,13 @@
     margin-bottom: 1px;    
 }
 
+.excerpt .title a {
+  color: black;
+}
 .postInfo {
     font-size: small;
     text-align: right;
+    margin-bottom: 1em;
 }
 .continueReading {
     text-align: right;
@@ -18,48 +22,6 @@
     text-decoration: none;
 }
 
-.post > h2 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
-
-
-
-/* markdown */
-div.post h1 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
-  /* line 122, style.css.scss */
-div.post > h2 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
-  /* line 122, style.css.scss */
-div.post h3 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
-  /* line 122, style.css.scss */
- div.posth4 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
-  /* line 122, style.css.scss */
-div.post h5 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
-  /* line 122, style.css.scss */
-div.post   h6 {
-    font-weight: bold;
-    border-bottom: 1px solid #888;
-    padding-top: 10px;
-    padding-bottom: 5px; }
- 
+.excerpt {
+  padding: 1em;
+}

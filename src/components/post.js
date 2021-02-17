@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
+import { Paper } from '@material-ui/core'
 
 import Sibling from './sibling'
 
@@ -33,6 +34,7 @@ const PostInfo = ({ node }) => (
 
 const Post = ({ node }) => {
     return (
+
         <div className="post">
             <PostTitle node={node}/>
             <PostInfo node={node} />
@@ -43,20 +45,23 @@ const Post = ({ node }) => {
             </MDXRenderer>
             </MDXProvider>
         </div>
+
     )
 }
 
 export const PostExcerpt = ({ node }) => {
     return (
-        <div>
+        <Paper className={styles.excerpt}>
             <PostTitleExcerpt node={node}/>
             <PostInfo node={node} />
 
             <div>
                 {node.excerpt}
+            </div>
+            <div className={styles.continueReading}>
                 <Link to={'/' + node.slug}>...continue reading</Link>
             </div>
-        </div>
+        </Paper>
     )
 }
 

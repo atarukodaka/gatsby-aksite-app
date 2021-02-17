@@ -1,6 +1,7 @@
 
 body {
-  font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif
+  font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+  background-color: #eee;
 }
 
 div.sidebar ul {
@@ -17,10 +18,18 @@ nav.breadcrumb {
     margin-top: 10px;
 
 }
-
+footer {
+  padding: 2em;
+}
 h3 a { 
   text-decoration: none;
 }
+/*
+.MuiContainer-root {
+  padding-top: 12px;
+  padding-bottom: 24px;
+}
+*/
 
 /* markdown */
 div.post h1 {
