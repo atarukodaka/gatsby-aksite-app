@@ -60,10 +60,10 @@ const Layout = ({ children, title }) =>{
     <div>
         <SEO title={title}/>
         <Header title={data.site.siteMetadata.title}/>
-        <Container>
+        <Container  className="middle">
         <Grid container spacing={3}>
             <Grid item sm={9}>
-                <Paper><Container>{children}</Container></Paper>
+                <Paper><Container><div className="main">{children}</div></Container></Paper>
             </Grid>
 
             <Grid item sm={3}>

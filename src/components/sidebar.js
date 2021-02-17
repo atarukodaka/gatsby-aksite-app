@@ -1,7 +1,9 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
+import { Paper } from '@material-ui/core'
 import MonthlyArchives from './monthly_archives'
 const ListToTree = require('list-to-tree')
+
 
 const Tree = ({ nodes }) => {
     return (
@@ -70,12 +72,13 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
    
-
+            <Paper>
             <h3>Profile</h3>
             <ul>
                 <li key="author">{site.siteMetadata.author}</li>
                 <li key="description">{site.siteMetadata.descriptino}</li>
             </ul>
+            </Paper>
 
             <h3>Recent Posts</h3>
             <ul>

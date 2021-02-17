@@ -11,7 +11,7 @@ export const query = graphql`
         filter: { frontmatter: { date: { gte: $fromDate, lt: $toDate } }} ) {
         nodes { 
           id
-          excerpt(truncate: true)
+          excerpt(truncate: true, pruneLength: 500)
 
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title
@@ -34,7 +34,7 @@ export default function ArchiveTemplate({ data, pageContext }) {
   return (
     <Layout title={title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={year + "-" + month}/>
-      <h2>{title}</h2>
+      <h1>{title}</h1>
       {
         data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id} />

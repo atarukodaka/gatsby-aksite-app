@@ -12,7 +12,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
   return (
     <Layout title={"Directory: " + directory}>
       <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
-      <h2>DIRECTORY: {directory}</h2>
+      <h1>DIRECTORY: {directory}</h1>
       {
         data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id} />
@@ -28,7 +28,7 @@ export const query = graphql`
         filter: {fields: {directory: {eq: $directory}}} ) {
         nodes { 
           id
-          excerpt(truncate: true)
+          excerpt(truncate: true, pruneLength: 500)
 
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title

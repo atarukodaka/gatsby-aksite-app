@@ -3,19 +3,23 @@ body {
   /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
   background-color: #eee;
 }
-
+.middle {
+  margin-top: 2em;
+}
 div.sidebar ul {
   list-style-type: none;
   padding-left: 20px;
+
+
 }
 nav.breadcrumb {
   
     font-size: small;
-    border-top: 1px solid #ddd;
+    /* border-top: 1px solid #ddd; */
     border-bottom: 1px solid #ddd;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    /* margin-top: 10px; */
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    /* margin-top: 1em; */
 
 }
 footer {
@@ -32,42 +36,43 @@ h3 a {
 */
 
 /* markdown */
+/*
 div.post h1 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
     padding-bottom: 5px; }
-  /* line 122, style.css.scss */
+  
 div.post > h2 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
     padding-bottom: 5px; }
-  /* line 122, style.css.scss */
+
 div.post h3 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
     padding-bottom: 5px; }
-  /* line 122, style.css.scss */
+  
  div.post h4 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
     padding-bottom: 5px; }
-  /* line 122, style.css.scss */
+  
 div.post h5 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
     padding-bottom: 5px; }
-  /* line 122, style.css.scss */
+  
 div.post h6 {
     font-weight: bold;
     border-bottom: 1px solid #888;
     padding-top: 10px;
     padding-bottom: 5px; }
-
+*/
 /*******************************/
 /*  syntax hilight */
 div.gatsby-code-title > span {
