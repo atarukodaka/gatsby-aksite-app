@@ -1,6 +1,7 @@
 ---
 title: Gatsby - [4] Layout
 date: 2021-02-09 04:00:00
+image: /images/gatsby-4.png
 ---
 
 ## やること

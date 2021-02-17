@@ -1,9 +1,26 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
-import './sidebar.module.css'
+import { Paper } from '@material-ui/core'
+import MonthlyArchives from './monthly_archives'
+const ListToTree = require('list-to-tree')
 
-const Sidebar = () => {    
-    const { site, directories, recentPosts, monthlyArchives} = useStaticQuery(
+
+const Tree = ({ nodes }) => {
+    return (
+    <ul>
+        {
+            nodes.map(v => (
+                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>
+                    { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
+                    </li>
+                )
+            )
+        }
+    </ul>)
+}
+
+const Sidebar = () => {
+    const { site, directories, recentPosts } = useStaticQuery(
         graphql`
             {
                 site {
@@ -16,6 +33,7 @@ const Sidebar = () => {
                 directories: allMdx(sort: {fields: fields___directory, order: ASC}, filter: {fields: {directory: {ne: ""}}}) {
                     group(field: fields___directory) {
                       directory: fieldValue
+                      totalCount
                     }
                 }
                 recentPosts: allMdx(
@@ -23,68 +41,62 @@ const Sidebar = () => {
                     sort: {fields: frontmatter___date, order: DESC}
                     ) {
                     nodes {
-                        frontmatter { title }
+                        frontmatter { title, date(formatString: "YYYY-MM-DD") }
                         slug
                         fields { directory }
                         id
                     }
                 }
-                monthlyArchives: allSitePage(sort: {fields: context___fromDate, order: DESC}, 
-                    filter: {context: {archive: {eq: "monthly"} }}){
-                    
-                    nodes {
-                        id
-                        path
-                        context {
-                            year, month
-                            fromDate, toDate
-                        }
-                    }
-                }                
             }
 
         `
     )
-    
+
+    let i = 1
+    const list = []
+    directories.group.forEach(v=> {
+        const parts = v.directory.split('/')
+        const label = parts.pop() || v.directory
+        const parent_dir = parts.join('/')
+        const parent = list.find(vv => vv.name === parent_dir)
+        const parent_id = (parent) ? parent.id : 0
+        
+        list.push({ id: i, parent: parent_id, name: v.directory, label: label, totalCount: v.totalCount})
+        i = i + 1
+    }
+    )
+    //console.log(list)
+
+    const tree = new ListToTree(list).GetTree()
+    //console.log(tree)
     return (
         <div className="sidebar">
+   
+            <Paper>
             <h3>Profile</h3>
             <ul>
-            <li key="author">{site.siteMetadata.author}</li>
-            <li key="description">{site.siteMetadata.descriptino}</li>
+                <li key="author">{site.siteMetadata.author}</li>
+                <li key="description">{site.siteMetadata.descriptino}</li>
             </ul>
-            
+            </Paper>
+
             <h3>Recent Posts</h3>
             <ul>
-            {
-                recentPosts.nodes.map(node => (
-                    <li key={node.id}>
-                        <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
-                    </li>
-                ))
-            }
+                {
+                    recentPosts.nodes.map(node => (
+                        <li key={node.id}>
+                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link> ({node.frontmatter.date})
+                        </li>
+                    ))
+                }
             </ul>
             <h3>Directories</h3>
-            <ul>
-            {
-                directories.group.map( ({directory}) => (
-                    <li key={directory}>
-                        <Link to={'/' + directory}>{directory}</Link>
-                    </li>
-                ))
-                
-            }    
-            </ul>
+
+            <Tree nodes={tree} />
+            
             <h3>Monthly Archives</h3>
-            <ul>
-            {
-                monthlyArchives.nodes.map(node => (
-                    <li key={node.id}>
-                        <Link to={node.path}>{node.context.year}/{node.context.month}</Link>
-                    </li>
-                ))
-            }
-            </ul>
+            <MonthlyArchives/>
+          
         </div>
     )
 }

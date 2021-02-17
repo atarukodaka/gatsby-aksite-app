@@ -2,9 +2,12 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
+// import { Card, CardContent, CardMedia } from '@material-ui/core'
 import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
-import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
+//import Test from "../../static/images/gatsby-4.png"
+//import Img from 'gatsby-image'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
@@ -13,7 +16,7 @@ export const data = graphql`
       nodes {
         id
         frontmatter { title, date(formatString: "YYYY-MM-DD") }
-        excerpt(truncate: true, pruneLength: 300)
+        excerpt(truncate: true, pruneLength: 500)
         fields { directory}
         slug
       }
@@ -27,10 +30,11 @@ const IndexTemplate = ( { data, pageContext } ) => {
   //console.log("pageContext: ", pageContext) 
   //console.log("crumbs: ", crumbs)
 
-  const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : humanPageNumber
+  const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : `index [${humanPageNumber}]`
+
   return (
-    <Layout>  
-      <Breadcrumb crumbs={crumbs} crumbLabel={label}/>      
+    <Layout title={label}>  
+      <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
       {
         data.allMdx.nodes.map(node => (
             <PostExcerpt node={node} key={node.id}/>

@@ -10,6 +10,7 @@ import Sidebar from './sidebar.js'
 import { graphql, useStaticQuery, Link} from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
+import SEO from './seo'
 import "./layout.css"
 
 const query = graphql`
@@ -42,32 +43,35 @@ const Header = ( { title } ) => {
 
 const Footer = ( { author } ) => {
 
-    return (<footer>
+    return (
         <Paper>
-            
+            <footer>
+        
             written by { author }
             (C) { (new Date()).getFullYear() } 
+            </footer>
         </Paper>
-    </footer>
 )}
  
 
-const Layout = ({ children }) =>{
+const Layout = ({ children, title }) =>{
     const data = useStaticQuery(query)
     return (
-
     <div>
+        <SEO title={title}/>
         <Header title={data.site.siteMetadata.title}/>
+        <Container  className="middle">
         <Grid container spacing={3}>
             <Grid item sm={9}>
-                <Container><Paper>{children}</Paper></Container>
+                <Paper><Container><div className="main">{children}</div></Container></Paper>
             </Grid>
 
             <Grid item sm={3}>
-                <Paper><Sidebar/></Paper>
+                <Paper><Container><Sidebar/></Container></Paper>
             </Grid>
         </Grid>
-        
+        </Container>
+
         <Footer author={data.site.siteMetadata.author}/>
     </div>
 )}
