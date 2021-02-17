@@ -32,38 +32,37 @@ const PostInfo = ({ node }) => (
     </div>
 )
 */
-const PostHeader = ({node}) => (
+const PostHeader = ({ node }) => (
     <header className={styles.header}>
-    <div className={styles.date}>{node.frontmatter.date}</div>
-    <h1 className={styles.title}>{node.frontmatter.title}</h1>
-    <div className={styles.directory}>
-        <Link to={'/' + node.fields.directory}>
-            {node.fields.directory}
-        </Link>
-    </div>
-</header>
+        <div className={styles.date}>{node.frontmatter.date}</div>
+        <h1 className={styles.title}>{node.frontmatter.title}</h1>
+        <div className={styles.directory}>
+            <Link to={'/' + node.fields.directory}>
+                {node.fields.directory}
+            </Link>
+        </div>
+    </header>
 
 )
 
-const Post = ({ node }) => {
-    return (
-        <div className={styles.post}>
-            <PostHeader node={node}/>
-            <main>
-                <MDXProvider components={shortcuts}>
-                    <MDXRenderer>
-                        {node.body}
-                    </MDXRenderer>
-                </MDXProvider>
-            </main>
-        </div>
-
-    )
-}
-
-export const PostExcerpt = ({node}) => (
+const Post = ({ node }) => (
     <div className={styles.post}>
-        <PostHeader node={node}/>
+        <PostHeader node={node} />
+        <main>
+            <MDXProvider components={shortcuts}>
+                <MDXRenderer>
+                    {node.body}
+                </MDXRenderer>
+            </MDXProvider>
+        </main>
+    </div>
+
+)
+
+
+export const PostExcerpt = ({ node }) => (
+    <div className={styles.post}>
+        <PostHeader node={node} />
         <main>
             <div>{node.excerpt}</div>
             <div className={styles.continueReading}>
