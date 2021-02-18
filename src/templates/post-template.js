@@ -11,8 +11,7 @@ export default function PostTemplate ({ pageContext }) {
   const { breadcrumb: { crumbs } } = pageContext
 
   return (
-    <Layout>
-      <SEO title={node.frontmatter.title}></SEO>
+    <Layout title={node.frontmatter.title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title}/>
       <Post node={node}/>
     </Layout>
