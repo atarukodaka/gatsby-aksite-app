@@ -3,14 +3,12 @@ body {
   /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
   background-color: #eee;
 }
-.middle {
-  margin-top: 2em;
-}
+
 div.sidebar ul {
   list-style-type: none;
 }
 div.sidebar ul li {
-  margin-bottmo: 0;
+  margin-bottom: 0;
 }
 nav.breadcrumb {
   
@@ -22,18 +20,10 @@ nav.breadcrumb {
     /* margin-top: 1em; */
 
 }
-footer {
-  /* padding: 2em; */
+
+.gatsby-highlight {
+  font-size: small;
 }
-h3 a { 
-  /* text-decoration: none; */
-}
-/*
-.MuiContainer-root {
-  padding-top: 12px;
-  padding-bottom: 24px;
-}
-*/
 
 /* markdown */
 /*

@@ -74,7 +74,6 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** creating directory index")
     directories.group.forEach ( ({ directory }) => {
         console.log(directory)
-        console.log(directory)
         createPage({
             path: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
@@ -110,7 +109,7 @@ exports.createPages = async ({ graphql, actions }) => {
         const fromDate = new Date(year, month-1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
-        console.log(`${year}/${month}`)
+        //console.log(`${year}/${month}`)
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),

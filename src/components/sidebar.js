@@ -1,9 +1,12 @@
 import React from "react"
 import { useStaticQuery, Link, graphql } from "gatsby"
 import { Paper } from '@material-ui/core'
+import { TreeView, TreeItem } from '@material-ui/lab'
 import MonthlyArchives from './monthly_archives'
-const ListToTree = require('list-to-tree')
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
+const ListToTree = require('list-to-tree')
 
 const Tree = ({ nodes }) => {
     return (
@@ -17,6 +20,20 @@ const Tree = ({ nodes }) => {
             )
         }
     </ul>)
+}
+const Tree2 = ({ nodes }) => {
+    return (
+    <TreeView  defaultCollapseIcon={<ExpandMoreIcon />}
+    defaultExpandIcon={<ChevronRightIcon />}>
+        {
+            nodes.map(v => (
+                    <TreeItem nodeId={v.name} label={v.name}>
+                    { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
+                    </TreeItem>
+                )
+            )
+        }
+    </TreeView>)
 }
 
 const Sidebar = () => {
@@ -72,13 +89,11 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
    
-            <Paper>
             <h3>Profile</h3>
             <ul>
                 <li key="author">{site.siteMetadata.author}</li>
                 <li key="description">{site.siteMetadata.descriptino}</li>
             </ul>
-            </Paper>
 
             <h3>Recent Posts</h3>
             <ul>

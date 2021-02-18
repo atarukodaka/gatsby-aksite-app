@@ -8,6 +8,7 @@ import Layout from "../components/layout.js"
 import { PostExcerpt } from "../components/post.js"
 //import Test from "../../static/images/gatsby-4.png"
 //import Img from 'gatsby-image'
+import { Pagination } from '@material-ui/lab'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
@@ -32,6 +33,11 @@ const IndexTemplate = ( { data, pageContext } ) => {
 
   const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : `index [${humanPageNumber}]`
 
+  const [page, setPage] = React.useState(1)
+  const handleChange = (event, value) => {
+    setPage(value)
+  }
+
   return (
     <Layout title={label}>  
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
@@ -41,6 +47,9 @@ const IndexTemplate = ( { data, pageContext } ) => {
         ))
       }
       
+      <div>
+        <Pagination count={10} page={page} onChange={handleChange}/>
+      </div>
       <div>
         <span>
           {previousPagePath ? <Link to={previousPagePath}><ArrowBackIcon/>BACK</Link> : null }
