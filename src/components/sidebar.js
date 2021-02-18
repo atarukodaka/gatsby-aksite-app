@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, Link, graphql } from "gatsby"
+import { useStaticQuery, Link, graphql, navigate } from "gatsby"
 import { Paper } from '@material-ui/core'
 import { TreeView, TreeItem } from '@material-ui/lab'
 import MonthlyArchives from './monthly_archives'
@@ -21,19 +21,23 @@ const Tree = ({ nodes }) => {
         }
     </ul>)
 }
-const Tree2 = ({ nodes }) => {
+const handleClick = (node) => {
+    //alert(node.name)
+    navigate('/' + node.name)
+}
+const TreeNodes = ({ nodes }) => {
     return (
-    <TreeView  defaultCollapseIcon={<ExpandMoreIcon />}
-    defaultExpandIcon={<ChevronRightIcon />}>
+        <div>
         {
             nodes.map(v => (
-                    <TreeItem nodeId={v.name} label={v.name}>
-                    { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
+                    <TreeItem nodeId={v.name} label={v.label} onLabelClick={()=> { handleClick(v)}}>
+                    { ( v.child ) ? <TreeNodes nodes={v.child}/> : '' }
                     </TreeItem>
                 )
             )
         }
-    </TreeView>)
+        </div>
+    )
 }
 
 const Sidebar = () => {
@@ -107,8 +111,12 @@ const Sidebar = () => {
             </ul>
             <h3>Directories</h3>
 
-            <Tree nodes={tree} />
-            
+            <TreeView  defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}>
+    
+                <TreeNodes  nodes={tree} />
+            </TreeView>
+
             <h3>Monthly Archives</h3>
             <MonthlyArchives/>
           

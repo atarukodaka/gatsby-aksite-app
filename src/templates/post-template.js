@@ -3,7 +3,6 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 import Layout from "../components/layout.js"
 import Post from "../components/post.js"
-import SEO from "../components/seo.js"
 
 
 export default function PostTemplate ({ pageContext }) {

@@ -116,3 +116,9 @@ div.gatsby-code-title > span {
 .gatsby-highlight pre[class="language-css"]::before {
   content: "CSS";
 }  
+.gatsby-highlight pre[class="language-html"]::before {
+  content: "HTML";
+}  
+.gatsby-highlight pre[class="language-xml"]::before {
+  content: "XML";
+}  

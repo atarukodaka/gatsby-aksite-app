@@ -33,7 +33,7 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
-/*
+
           {
             resolve: "gatsby-remark-embed-video",
             options: {
@@ -52,7 +52,7 @@ module.exports = {
               containerClass: "embedVideo-container", //Optional: Custom CSS class for iframe container, for multiple classes separate them by space
             },
           },    
-*/                
+
           'gatsby-remark-prismjs-title',
           //`gatsby-remark-code-titles`,
           {
@@ -100,7 +100,6 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
-    //`gatsby-plugin-typography`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
