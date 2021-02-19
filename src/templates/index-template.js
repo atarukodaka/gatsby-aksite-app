@@ -54,18 +54,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
         ))
       }
       
-      <div>
-        <Pagination count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
-      </div>
-      <div>
-        <span>
-          {previousPagePath ? <Link to={previousPagePath}><ArrowBackIcon/>BACK</Link> : null }
-        </span>
-        ----
-        <span>
-			    {nextPagePath ? <Link to={nextPagePath}>NEXT<ArrowForwardIcon/></Link> : null }        
-          </span>
-      </div>
+      <Pagination count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
     </Layout>    
   )
 }

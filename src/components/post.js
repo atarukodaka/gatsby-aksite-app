@@ -3,17 +3,12 @@ import { Link } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
+import TableOfContents from './table_of_contents'
 //import { Paper } from '@material-ui/core'
 //import Img from 'gatsby-image'
 
 const shortcuts = {}
 
-const TableOfContents = ( node ) => (
-    <ul>
-        
-    </ul>
-
-)
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -30,7 +25,7 @@ const PostHeader = ({ node }) => (
 
 const Post = ({ node }) => (
     <div className={styles.post}>
-        <TableOfContents node={node}/>
+        <TableOfContents toc={node.tableOfContents}/>
 
         <PostHeader node={node} />
         <main>
@@ -43,7 +38,6 @@ const Post = ({ node }) => (
     </div>
 
 )
-
 
 export const PostExcerpt = ({ node }) => (
     <div className={styles.post}>
