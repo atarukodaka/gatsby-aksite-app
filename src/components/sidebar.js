@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, Link, graphql, navigate } from "gatsby"
 import MonthlyArchives from './monthly_archives'
-import { TreeView, TreeItem } from '@material-ui/lab'
+import DirectoryArchives from './directory_archives'
 
 import { Paper, Box } from '@material-ui/core'
 /*
@@ -11,43 +11,8 @@ import { List, ListItem } from '@material-ui/core'
 import styles from './sidebar.module.css'
 /* import Typography from '@material-ui/core' */
 
-const ListToTree = require('list-to-tree')
-
-const Tree = ({ nodes }) => {
-    return (
-    <ul className={styles.tree}>
-        {
-            nodes.map(v => (
-                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>
-                    { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
-                    </li>
-                )
-            )
-        }
-    </ul>)
-}
-const handleClick = (node) => {
-    //alert(node.name)
-    //navigate('/' + node.name)
-    navigate(node.path)
-}
-const TreeNodes = ({ nodes }) => {
-    return (
-        <div>
-        {
-            nodes.map(v => (
-                    <TreeItem nodeId={v.name} label={v.label + ' ('+ v.totalCount+ ')'} onLabelClick={()=> { handleClick(v)}}>
-                    { ( v.child ) ? <TreeNodes nodes={v.child}/> : '' }
-                    </TreeItem>
-                )
-            )
-        }
-        </div>
-    )
-}
-
 const Sidebar = () => {
-    const { site, directoryArchives, recentPosts } = useStaticQuery(
+    const { site,  recentPosts } = useStaticQuery(
         graphql`
             {
                 site {
@@ -57,16 +22,6 @@ const Sidebar = () => {
                     }                    
                 }
 
-                directoryArchives: allSitePage(filter: {context: {archive: {eq: "directory"}}}) {
-                    nodes {
-                      id
-                      path
-                      context {
-                        directory
-                        count
-                      }
-                    }
-                  }
                 recentPosts: allMdx(
                     limit: 5,
                     sort: {fields: frontmatter___date, order: DESC}
@@ -83,7 +38,7 @@ const Sidebar = () => {
 
         `
     )
-
+/*
     const list = []
     directoryArchives.nodes.forEach(node =>{
         const parts = node.context.directory.split('/')
@@ -94,22 +49,10 @@ const Sidebar = () => {
                 
         list.push({id: node.context.directory, parent: parent_id, name: node.context.directory, label: label, totalCount: node.context.count})
     })
-    /*
-    directories.group.forEach(v=> {
-        const parts = v.directory.split('/')
-        const label = parts.pop() || v.directory
-        const parent_dir = parts.join('/')
-        const parent = list.find(vv => vv.name === parent_dir)
-        const parent_id = (parent) ? parent.id : 0
-        
-        list.push({ id: i, parent: parent_id, name: v.directory, label: label, totalCount: v.totalCount})
-        i = i + 1
-    }
-    )
-    */
-    //console.log(list)
+ 
 
     const tree = new ListToTree(list).GetTree()
+    */
     //console.log(tree)
     return (
         <div className="sidebar">
@@ -136,16 +79,8 @@ const Sidebar = () => {
                 ))
                 }
             <h3 className={styles.title}>Directories</h3>
-            <Tree nodes={tree}/>
-{/*
-            <TreeView  defaultCollapseIcon={<ExpandMoreIcon />}
-                defaultExpandIcon={<ChevronRightIcon />}
-                defaultExpanded={directoryArchives.nodes.map(node=>node.context.directory)}
-                >
+            <DirectoryArchives/>
 
-                <TreeNodes  nodes={tree} />
-            </TreeView>
-*/}
             <h3 className={styles.title}>Monthly Archives</h3>
             <MonthlyArchives/>
           
