@@ -4,6 +4,31 @@ const path = require(`path`)
 const { paginate } = require('gatsby-awesome-pagination')
 const { findDOMNode } = require('react-dom')
 
+exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
+    createTypes(`
+      type Mdx implements Node {
+        frontmatter: MdxFrontmatter
+      }
+  
+      type MdxFrontmatter {
+        toc: Boolean
+      }
+    `);
+  };
+/*
+exports.createSchemaCustomization = ({ actions }) => {
+    const { createTypes } = actions
+    const typeDefs = `
+      type mdx implements Node {
+        frontmatter: Frontmatter
+      }
+      type Frontmatter {
+        toc: [Boolean!]!
+      }
+    `
+    createTypes(typeDefs)
+  }
+*/
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
 
