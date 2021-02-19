@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql, Link, navigate } from "gatsby"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
@@ -26,16 +26,23 @@ export const data = graphql`
 `
 
 const IndexTemplate = ( { data, pageContext } ) => {
-  const { previousPagePath, nextPagePath, humanPageNumber } = pageContext;
+  const { previousPagePath, nextPagePath, humanPageNumber, pageNumber, numberOfPages } = pageContext;
   const { breadcrumb: { crumbs } } = pageContext
   //console.log("pageContext: ", pageContext) 
   //console.log("crumbs: ", crumbs)
 
   const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : `index [${humanPageNumber}]`
 
-  const [page, setPage] = React.useState(1)
-  const handleChange = (event, value) => {
-    setPage(value)
+  
+  const handleChange = (event, p) => {
+    //alert(p)
+    if (p == 1){
+      navigate('/')
+    } else {
+      navigate(`/${p}`)
+    }
+    
+          //setPage(value)
   }
 
   return (
@@ -48,7 +55,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       }
       
       <div>
-        <Pagination count={10} page={page} onChange={handleChange}/>
+        <Pagination count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
       </div>
       <div>
         <span>

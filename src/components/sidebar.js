@@ -38,22 +38,6 @@ const Sidebar = () => {
 
         `
     )
-/*
-    const list = []
-    directoryArchives.nodes.forEach(node =>{
-        const parts = node.context.directory.split('/')
-        const label = parts.pop() || node.context.directory
-        const parent_dir = parts.join('/')
-        const parent = list.find(vv => vv.name === parent_dir)
-        const parent_id = (parent) ? parent.id : 0
-                
-        list.push({id: node.context.directory, parent: parent_id, name: node.context.directory, label: label, totalCount: node.context.count})
-    })
- 
-
-    const tree = new ListToTree(list).GetTree()
-    */
-    //console.log(tree)
     return (
         <div className="sidebar">
    
