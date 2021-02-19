@@ -57,7 +57,6 @@ const MonthlyArchives = () => {
         )
     */
     const handleClick = (node) => {
-        alert(node.path)
         navigate(node.path)
     }
     const formatLabel = (node) => {

@@ -8,30 +8,13 @@ import styles from "./post.module.css"
 
 const shortcuts = {}
 
-/*
-const PostTitle = ({ node }) => (
-    <h2 className={styles.title}>
-        {node.frontmatter.title || node.slug}
-    </h2>
+const TableOfContents = ( node ) => (
+    <ul>
+        
+    </ul>
+
 )
 
-const PostTitleExcerpt = ({ node }) => (
-    <h3 className={styles.title}>
-        <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
-    </h3>
-)
-const PostInfo = ({ node }) => (
-    <div className={styles.postInfo}>
-        |
-        <Link to={'/' + node.fields.directory}>
-            {node.fields.directory}
-        </Link>
-        |
-        {node.frontmatter.date}
-         |
-    </div>
-)
-*/
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
         <div className={styles.date}>{node.frontmatter.date}</div>
@@ -47,6 +30,8 @@ const PostHeader = ({ node }) => (
 
 const Post = ({ node }) => (
     <div className={styles.post}>
+        <TableOfContents node={node}/>
+
         <PostHeader node={node} />
         <main>
             <MDXProvider components={shortcuts}>
@@ -72,21 +57,4 @@ export const PostExcerpt = ({ node }) => (
     </div>
 )
 
-/*
-export const PostExcerptqqq = ({ node }) => {
-    return (
-        <Paper className={styles.excerpt}>
-            <PostTitleExcerpt node={node} />
-            <PostInfo node={node} />
-
-            <div>
-                {node.excerpt}
-            </div>
-            <div className={styles.continueReading}>
-                <Link to={'/' + node.slug}>...continue reading</Link>
-            </div>
-        </Paper>
-    )
-}
-*/
 export default Post

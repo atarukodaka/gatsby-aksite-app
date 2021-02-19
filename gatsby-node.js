@@ -22,7 +22,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, directories } } = await graphql(`
+    const { data: { mdxPages, directories} } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
@@ -36,11 +36,14 @@ exports.createPages = async ({ graphql, actions }) => {
                 }
                 body
                 slug
+                tableOfContents
             }            
         }
+
         directories: allMdx(filter: {fields: {directory: {ne: ""}}}) {
             group(field: fields___directory) {
               directory: fieldValue
+              totalCount
             }
         }
 
@@ -72,16 +75,21 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // directory index   
     console.log("** creating directory index")
-    directories.group.forEach ( ({ directory }) => {
+
+    directories.group.forEach ( ({ directory, totalCount }) => {
         console.log(directory)
         createPage({
             path: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
             context: {
-                directory: directory
+                archive: 'directory',
+                directory: directory,
+                //path: '/${directory}',
+                count: totalCount
             }
         })
     })
+ 
 
     // monthly archives    
     console.log("** creating monthly archives")

@@ -3,7 +3,12 @@ body {
   /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
   background-color: #eee;
 }
-
+.main {
+  background-color: white
+}
+.sidebar {
+  background-color: white
+}
 div.sidebar ul {
   list-style-type: none;
 }
@@ -21,8 +26,8 @@ nav.breadcrumb {
 
 }
 
-.gatsby-highlight {
-  font-size: small;
+pre {
+  max-width: 100%;
 }
 
 /* markdown */
@@ -96,6 +101,10 @@ div.gatsby-code-title > span {
     right: 1rem;
     text-align: right;
     top: 0;
+
+    /*overflow: auto;
+    float: left;
+    min-width: 100%;*/
   }  
   
 .gatsby-highlight pre[class="language-js"]::before {

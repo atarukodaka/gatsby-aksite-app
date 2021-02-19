@@ -33,6 +33,7 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
+          `gatsby-remark-autolink-headers`,
 
           {
             resolve: "gatsby-remark-embed-video",
