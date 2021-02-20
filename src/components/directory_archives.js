@@ -46,7 +46,7 @@ const Tree = ({ nodes }) => {
         <ul className={styles.tree}>
             {
                 nodes.map(v => (
-                    <li key={v.name} className="directory">
+                    <li key={v.id} className="directory">
                         <Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link> 
                         {/*
                         <Button onClick={()=>{navigate(`/${v.name}`)}}>

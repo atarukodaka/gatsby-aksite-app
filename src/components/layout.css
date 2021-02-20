@@ -33,9 +33,11 @@ nav.breadcrumb {
 
 /* *** Table of Contents *** */
 .tableOfContents  {
-  padding: 0.5em;
-  margin: 2em;
-  border-bottom: solid 1px;
+  
+  margin-right: 1em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  /*  border-bottom: solid 1px;*/
 }
 /* *** Directories *** */
 .directory a {
@@ -47,9 +49,10 @@ nav.breadcrumb {
 .directory a:hover {
   background-color: #eee
 }
+/*
 pre {
   max-width: 100%;
-}
+}*/
 
 /* markdown */
 /*

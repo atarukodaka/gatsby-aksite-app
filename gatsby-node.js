@@ -15,20 +15,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       }
     `);
 };
-/*
-exports.createSchemaCustomization = ({ actions }) => {
-    const { createTypes } = actions
-    const typeDefs = `
-      type mdx implements Node {
-        frontmatter: Frontmatter
-      }
-      type Frontmatter {
-        toc: [Boolean!]!
-      }
-    `
-    createTypes(typeDefs)
-  }
-*/
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
 
@@ -62,7 +49,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 body
                 slug
                 tableOfContents
-                
+                id
             }            
         }
 
@@ -79,12 +66,14 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
         //console.log(`create markdown page: ${node.slug}`)
+        const siblings = mdxPages.nodes.filter(v=> (v.fields.directory === node.fields.directory)) //  && (v != node))
         
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
                 node: node,
+                siblings: siblings
             },
         })
     })

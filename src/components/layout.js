@@ -61,6 +61,7 @@ const Header = ({ title }) => {
                     <List component="nav">
                         <ListItem button component="a" href="/about">About</ListItem>
                         <ListItem button component="a" href="/archives">Archives</ListItem>
+                        <ListItem button component="a" href="/directories">Directories</ListItem>
                     </List>
                 </div>
 
@@ -103,11 +104,14 @@ const Layout = ({ children, title }) => {
                             {children}
                         </Paper>
                     </Grid>
+                    <Hidden smDown>
                     <Grid item md={4} xs={12}>
                         <Paper>
                             <Sidebar/>
                         </Paper>
                     </Grid>
+                    </Hidden>
+
                 </Grid>
             </Container>
             <Footer />
