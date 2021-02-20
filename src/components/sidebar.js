@@ -1,26 +1,18 @@
 import React from "react"
-import { useStaticQuery, Link, graphql } from "gatsby"
-import { Paper } from '@material-ui/core'
+import { useStaticQuery, Link, graphql, navigate } from "gatsby"
 import MonthlyArchives from './monthly_archives'
-const ListToTree = require('list-to-tree')
+import DirectoryArchives from './directory_archives'
 
-
-const Tree = ({ nodes }) => {
-    return (
-    <ul>
-        {
-            nodes.map(v => (
-                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>
-                    { ( v.child ) ? <Tree nodes={v.child}></Tree> : '' }
-                    </li>
-                )
-            )
-        }
-    </ul>)
-}
+import { Paper, Box } from '@material-ui/core'
+/*
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight' */
+import { List, ListItem } from '@material-ui/core'
+import styles from './sidebar.module.css'
+/* import Typography from '@material-ui/core' */
 
 const Sidebar = () => {
-    const { site, directories, recentPosts } = useStaticQuery(
+    const { site,  recentPosts } = useStaticQuery(
         graphql`
             {
                 site {
@@ -30,14 +22,8 @@ const Sidebar = () => {
                     }                    
                 }
 
-                directories: allMdx(sort: {fields: fields___directory, order: ASC}, filter: {fields: {directory: {ne: ""}}}) {
-                    group(field: fields___directory) {
-                      directory: fieldValue
-                      totalCount
-                    }
-                }
                 recentPosts: allMdx(
-                    limit: 10,
+                    limit: 5,
                     sort: {fields: frontmatter___date, order: DESC}
                     ) {
                     nodes {
@@ -45,56 +31,41 @@ const Sidebar = () => {
                         slug
                         fields { directory }
                         id
+                        excerpt(pruneLength: 100)
                     }
                 }
             }
 
         `
     )
-
-    let i = 1
-    const list = []
-    directories.group.forEach(v=> {
-        const parts = v.directory.split('/')
-        const label = parts.pop() || v.directory
-        const parent_dir = parts.join('/')
-        const parent = list.find(vv => vv.name === parent_dir)
-        const parent_id = (parent) ? parent.id : 0
-        
-        list.push({ id: i, parent: parent_id, name: v.directory, label: label, totalCount: v.totalCount})
-        i = i + 1
-    }
-    )
-    //console.log(list)
-
-    const tree = new ListToTree(list).GetTree()
-    //console.log(tree)
     return (
         <div className="sidebar">
    
-            <Paper>
-            <h3>Profile</h3>
-            <ul>
-                <li key="author">{site.siteMetadata.author}</li>
-                <li key="description">{site.siteMetadata.descriptino}</li>
-            </ul>
-            </Paper>
+            <h3 className={styles.title}>Profile</h3>
+            <List>
+                <ListItem key="author">{site.siteMetadata.author}</ListItem>
+                <ListItem key="description">{site.siteMetadata.descriptino}</ListItem>
+            </List>
 
-            <h3>Recent Posts</h3>
-            <ul>
-                {
-                    recentPosts.nodes.map(node => (
-                        <li key={node.id}>
-                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link> ({node.frontmatter.date})
-                        </li>
-                    ))
+            <h3 className={styles.title}>Recent Posts</h3>
+                {recentPosts.nodes.map(node => (
+                    <Paper key={node.id} className={styles.recentPost}>
+                        <div className={styles.recentPostDate}>{node.frontmatter.date}</div>
+                        <h4 variant="h4" className={styles.recentPostTitle}>
+                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                        </h4>
+                        <div className={styles.recentPostDirectory}>{node.fields.directory}</div>
+                        <div className={styles.recentPostExcerpt}>
+                            {node.excerpt}
+                        </div>
+
+                    </Paper>
+                ))
                 }
-            </ul>
-            <h3>Directories</h3>
+            <h3 className={styles.title}>Directories</h3>
+            <DirectoryArchives/>
 
-            <Tree nodes={tree} />
-            
-            <h3>Monthly Archives</h3>
+            <h3 className={styles.title}>Monthly Archives</h3>
             <MonthlyArchives/>
           
         </div>

@@ -33,11 +33,12 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
-/*
+          `gatsby-remark-autolink-headers`,
+
           {
             resolve: "gatsby-remark-embed-video",
             options: {
-              width: 800,
+              width: 600,
               ratio: 1.77, // Optional: Defaults to 16/9 = 1.77
               height: 400, // Optional: Overrides optional.ratio
               related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
@@ -52,7 +53,7 @@ module.exports = {
               containerClass: "embedVideo-container", //Optional: Custom CSS class for iframe container, for multiple classes separate them by space
             },
           },    
-*/                
+
           'gatsby-remark-prismjs-title',
           //`gatsby-remark-code-titles`,
           {
@@ -100,7 +101,6 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
-    //`gatsby-plugin-typography`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,

@@ -1,21 +1,28 @@
 .post {
+  /*margin-top: 2em;
+  
+  padding: 2em;
+*/
+
   margin-top: 2em;
   margin-bottom: 2em;
-  padding: 2em;
-
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  padding-bottom: 1em;
+  /* background-color:white; */
+  /* box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);  */
+  box-shadow: 2px 2px 1px rgb(0 0 0 / 20%)
 }
 
 .header {
   margin-bottom: 2em;
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
   padding-bottom: 1em;
+  box-shadow: 0px 1px rgb(0 0 0 / 10%)
 }
 .title {
     font-weight: bold;
     /* border-bottom: 1px solid; */
     padding-bottom: 1px;
-    margin-bottom: 1px;    
+  /*   margin-bottom: 1px;     */
 }
 
 .directory {
@@ -53,5 +60,5 @@
 }
 
 .excerpt {
-  padding: 1em;
+  /* padding: 1em; */
 }

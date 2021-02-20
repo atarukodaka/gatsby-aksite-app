@@ -3,35 +3,14 @@ import { Link } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
+import TableOfContents from './table_of_contents'
 //import { Paper } from '@material-ui/core'
 //import Img from 'gatsby-image'
+import { Paper, Grid } from '@material-ui/core'
 
 const shortcuts = {}
 
-/*
-const PostTitle = ({ node }) => (
-    <h2 className={styles.title}>
-        {node.frontmatter.title || node.slug}
-    </h2>
-)
 
-const PostTitleExcerpt = ({ node }) => (
-    <h3 className={styles.title}>
-        <Link to={'/' + node.slug}>{node.frontmatter.title || node.slug}</Link>
-    </h3>
-)
-const PostInfo = ({ node }) => (
-    <div className={styles.postInfo}>
-        |
-        <Link to={'/' + node.fields.directory}>
-            {node.fields.directory}
-        </Link>
-        |
-        {node.frontmatter.date}
-         |
-    </div>
-)
-*/
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
         <div className={styles.date}>{node.frontmatter.date}</div>
@@ -41,6 +20,7 @@ const PostHeader = ({ node }) => (
                 {node.fields.directory}
             </Link>
         </div>
+       
     </header>
 
 )
@@ -49,6 +29,14 @@ const Post = ({ node }) => (
     <div className={styles.post}>
         <PostHeader node={node} />
         <main>
+            { node.frontmatter.toc === true && (
+                <div  className="tableOfContents">
+            <h2>Table Of Contents</h2>
+            <TableOfContents toc={node.tableOfContents}/> 
+
+            </div>)
+            
+            }
             <MDXProvider components={shortcuts}>
                 <MDXRenderer>
                     {node.body}
@@ -58,7 +46,6 @@ const Post = ({ node }) => (
     </div>
 
 )
-
 
 export const PostExcerpt = ({ node }) => (
     <div className={styles.post}>
@@ -72,21 +59,4 @@ export const PostExcerpt = ({ node }) => (
     </div>
 )
 
-/*
-export const PostExcerptqqq = ({ node }) => {
-    return (
-        <Paper className={styles.excerpt}>
-            <PostTitleExcerpt node={node} />
-            <PostInfo node={node} />
-
-            <div>
-                {node.excerpt}
-            </div>
-            <div className={styles.continueReading}>
-                <Link to={'/' + node.slug}>...continue reading</Link>
-            </div>
-        </Paper>
-    )
-}
-*/
 export default Post

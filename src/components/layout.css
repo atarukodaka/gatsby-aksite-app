@@ -3,14 +3,17 @@ body {
   /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
   background-color: #eee;
 }
-.middle {
-  margin-top: 2em;
+.main {
+  background-color: white
+}
+.sidebar {
+  background-color: white
 }
 div.sidebar ul {
   list-style-type: none;
 }
 div.sidebar ul li {
-  margin-bottmo: 0;
+  margin-bottom: 0;
 }
 nav.breadcrumb {
   
@@ -22,18 +25,26 @@ nav.breadcrumb {
     /* margin-top: 1em; */
 
 }
-footer {
-  /* padding: 2em; */
+
+/* *** Table of Contents *** */
+.tableOfContents  {
+  margin-top: 0em;
+  margin-bottom: 2em;
+  border-bottom: solid 1px;
 }
-h3 a { 
-  /* text-decoration: none; */
+/* *** Directories *** */
+.directory a {
+  color: black
 }
-/*
-.MuiContainer-root {
-  padding-top: 12px;
-  padding-bottom: 24px;
+.directory a:visited {
+  color: black
 }
-*/
+.directory a:hover {
+  background-color: #eee
+}
+pre {
+  max-width: 100%;
+}
 
 /* markdown */
 /*
@@ -106,6 +117,10 @@ div.gatsby-code-title > span {
     right: 1rem;
     text-align: right;
     top: 0;
+
+    /*overflow: auto;
+    float: left;
+    min-width: 100%;*/
   }  
   
 .gatsby-highlight pre[class="language-js"]::before {
@@ -125,4 +140,10 @@ div.gatsby-code-title > span {
 }  
 .gatsby-highlight pre[class="language-css"]::before {
   content: "CSS";
+}  
+.gatsby-highlight pre[class="language-html"]::before {
+  content: "HTML";
+}  
+.gatsby-highlight pre[class="language-xml"]::before {
+  content: "XML";
 }  

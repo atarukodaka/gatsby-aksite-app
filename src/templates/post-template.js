@@ -3,16 +3,15 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 import Layout from "../components/layout.js"
 import Post from "../components/post.js"
-import SEO from "../components/seo.js"
 
 
 export default function PostTemplate ({ pageContext }) {
   const { node } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
 
+  console.log(`create/template: ${node.slug} toc: ${node.frontmatter.toc}`)
   return (
-    <Layout>
-      <SEO title={node.frontmatter.title}></SEO>
+    <Layout title={node.frontmatter.title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title}/>
       <Post node={node}/>
     </Layout>
