@@ -6,7 +6,7 @@ import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
 //import { Paper } from '@material-ui/core'
 //import Img from 'gatsby-image'
-import { Paper } from '@material-ui/core'
+import { Paper, Grid } from '@material-ui/core'
 
 const shortcuts = {}
 
@@ -27,16 +27,15 @@ const PostHeader = ({ node }) => (
 
 const Post = ({ node }) => (
     <div className={styles.post}>
-        
         <PostHeader node={node} />
-        <h2>toc: {node.frontmatter.toc}</h2>
         <main>
-            { node.frontmatter.toc == true && (
-            <Paper>
+            { node.frontmatter.toc === true && (
+                <div  className="tableOfContents">
             <h2>Table Of Contents</h2>
-            
             <TableOfContents toc={node.tableOfContents}/> 
-            </Paper>)
+
+            </div>)
+            
             }
             <MDXProvider components={shortcuts}>
                 <MDXRenderer>

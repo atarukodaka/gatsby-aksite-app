@@ -9,6 +9,7 @@ export default function PostTemplate ({ pageContext }) {
   const { node } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
 
+  console.log(`create/template: ${node.slug} toc: ${node.frontmatter.toc}`)
   return (
     <Layout title={node.frontmatter.title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title}/>

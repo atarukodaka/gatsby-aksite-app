@@ -2,10 +2,11 @@ import React from 'react'
 import { useStaticQuery, Link, graphql, navigate } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
 import styles from './sidebar.module.css'
+import { Button } from '@material-ui/core'
 
 const ListToTree = require('list-to-tree')
 
-const DirectoryArchives = ({ nodes }) => {
+const DirectoryArchives = () => {
     const { directoryArchives } = useStaticQuery(
         graphql`
         {
@@ -39,12 +40,20 @@ const DirectoryArchives = ({ nodes }) => {
 }
 
 const Tree = ({ nodes }) => {
+    /*                        */
+
     return (
         <ul className={styles.tree}>
             {
                 nodes.map(v => (
-                    <li key={v.name}><Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>
-                        { (v.child) ? <Tree nodes={v.child}></Tree> : ''}
+                    <li key={v.name} className="directory">
+                        <Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link> 
+                        {/*
+                        <Button onClick={()=>{navigate(`/${v.name}`)}}>
+                            {v.label || v.name } ({v.totalCount})
+                        </Button>
+                        */}
+                        { v.child && (<Tree nodes={v.child}></Tree>)}
                     </li>
                 )
                 )

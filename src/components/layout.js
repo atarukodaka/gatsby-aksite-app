@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import SEO from './seo'
 import "./layout.css"
-import { Drawer, IconButton, Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Drawer, IconButton, Divider, List, ListItem, ListItemText, ListItemLink } from '@material-ui/core'
 
 const query = graphql`
 {
@@ -56,19 +56,11 @@ const Header = ({ title }) => {
                     <IconButton onClick={handleDrawerClose}>
                         <MenuIcon />
                     </IconButton>
-                    <Divider/>
-                    <List>
-                    <ListItem>
-                        <Link to="/about">
-                            <ListItemText>ABOUT</ListItemText>
-                        </Link>
-                    </ListItem>
+                    <Divider/>                    
                     
-                    <ListItem>
-                        <Link to="/archives">
-                            <ListItemText>ARCHVIES</ListItemText>
-                        </Link>
-                    </ListItem>
+                    <List component="nav">
+                        <ListItem button component="a" href="/about">About</ListItem>
+                        <ListItem button component="a" href="/archives">Archives</ListItem>
                     </List>
                 </div>
 
@@ -85,7 +77,8 @@ const Footer = ({ author }) => {
             <footer>
 
                 written by {author}
-            (C) {(new Date()).getFullYear()}
+            (C) {(new Date()).getFullYear()},
+            powered by Gatsby and its aksite starter
             </footer>
         </Paper>
     )

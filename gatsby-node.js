@@ -14,7 +14,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
         toc: Boolean
       }
     `);
-  };
+};
 /*
 exports.createSchemaCustomization = ({ actions }) => {
     const { createTypes } = actions
@@ -34,27 +34,27 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
     if (node.internal.type === `Mdx`) {
         const slug = createFilePath({ node, getNode, basePath: `pages` })
-        const directory = slug.split("/").slice(1,-2).join("/")
+        const directory = slug.split("/").slice(1, -2).join("/")
         // add directory field
         //console.log("create node fields directory", directory)
         createNodeField({
-                node,
-                name: 'directory',
-                value: directory
-            })
+            node,
+            name: 'directory',
+            value: directory
+        })
     }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, directories} } = await graphql(`
+    const { data: { mdxPages, directories } } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
-                    image
+                    toc
                 }
                 fields {
                     directory
@@ -76,8 +76,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // markdown pages
     console.log("** all markdown pages")
-    mdxPages.nodes.map(node => {
+    mdxPages.nodes.forEach(node => {
         //console.log(`create markdown page: ${node.slug}`)
+        
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
@@ -101,7 +102,7 @@ exports.createPages = async ({ graphql, actions }) => {
     // directory index   
     console.log("** creating directory index")
 
-    directories.group.forEach ( ({ directory, totalCount }) => {
+    directories.group.forEach(({ directory, totalCount }) => {
         console.log(directory)
         createPage({
             path: `/${directory}`,
@@ -114,7 +115,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
         })
     })
- 
+
 
     // monthly archives    
     console.log("** creating monthly archives")
@@ -122,9 +123,9 @@ exports.createPages = async ({ graphql, actions }) => {
 
     mdxPages.nodes.forEach(node => {
         let date = new Date(node.frontmatter.date)
-        const k = date.getFullYear() + "-" + (date.getMonth()+1).toString().padStart(2, 0)
+        const k = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, 0)
         const v = ym1s.get(k) || 0
-        ym1s.set(k, v+1)
+        ym1s.set(k, v + 1)
     })
     //console.log(ym1s)
 
@@ -135,11 +136,11 @@ exports.createPages = async ({ graphql, actions }) => {
             (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
         ) === i)
     */
-    ym1s.forEach(function(v, k){ //} => { //(ym1, count) => {
-        const year = parseInt(k.slice(0,4))
+    ym1s.forEach(function (v, k) { //} => { //(ym1, count) => {
+        const year = parseInt(k.slice(0, 4))
         const month = parseInt(k.slice(5))
         const count = v
-        const fromDate = new Date(year, month-1, 1)
+        const fromDate = new Date(year, month - 1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
         //console.log(`${year}/${month}`)
@@ -154,6 +155,6 @@ exports.createPages = async ({ graphql, actions }) => {
                 toDate: toDate.toISOString(),
                 count: count,
             }
-        })        
+        })
     })
 }
