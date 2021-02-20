@@ -56,8 +56,8 @@ const Header = ({ title }) => {
                     <IconButton onClick={handleDrawerClose}>
                         <MenuIcon />
                     </IconButton>
-                    <Divider/>                    
-                    
+                    <Divider />
+
                     <List component="nav">
                         <ListItem button component="a" href="/about">About</ListItem>
                         <ListItem button component="a" href="/archives">Archives</ListItem>
@@ -73,14 +73,16 @@ const Header = ({ title }) => {
 const Footer = ({ author }) => {
 
     return (
-        <Paper>
-            <footer>
+        <footer>
+            <Paper style={{ padding: "1em" }}>
+
 
                 written by {author}
             (C) {(new Date()).getFullYear()},
             powered by Gatsby and its aksite starter
-            </footer>
+
         </Paper>
+        </footer>
     )
 }
 
@@ -88,12 +90,38 @@ const Footer = ({ author }) => {
 
 const Layout = ({ children, title }) => {
     const data = useStaticQuery(query)
+
+
+    return (
+        <>
+            <Header />
+            <Container>
+                <Grid container spacing={3}>
+                    <Grid item md={8} xs={12}>
+                        <Paper>
+                            {children}
+                        </Paper>
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                        <Paper>
+                            <Sidebar/>
+                        </Paper>
+                    </Grid>
+                </Grid>
+            </Container>
+            <Footer />
+
+        </>
+
+    )
+    /*
     return (
         <div>
             <SEO title={title} />
-            <Header title={data.site.siteMetadata.title} />
-
-            <Container maxWidth="md" className="main">
+            <Grid sm={12}>
+                <Header title={data.site.siteMetadata.title} />
+            </Grid>
+            <Container  className="main">
                 <Grid container spacing={0}>
                     <Grid item md={9} sm={12}>
                         <Container>{children}</Container>
@@ -107,9 +135,12 @@ const Layout = ({ children, title }) => {
                 </Grid>
             </Container>
 
-
-            <Footer author={data.site.siteMetadata.author} />
+            <Grid sm={12}>
+                <Footer author={data.site.siteMetadata.author} />   
+            </Grid>
+            
         </div>
     )
+    */
 }
 export default Layout
