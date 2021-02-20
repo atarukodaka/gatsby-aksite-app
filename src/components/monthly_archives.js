@@ -83,7 +83,6 @@ const MonthlyArchives = () => {
                     {
                         year_node.nodes.sort((a, b) => a.context.month - b.context.month).map(node => (
                             <TreeItem nodeId={node.id} label={formatLabel(node)} onLabelClick={() => { handleClick(node) }}>
-
                             </TreeItem>
                         ))
                     }

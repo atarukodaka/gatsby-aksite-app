@@ -12,7 +12,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
   return (
     <Layout title={"Directory: " + directory}>
       <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
-      <h1>DIRECTORY: {directory}</h1>
+      <h1 className="pageTitle">DIRECTORY: {directory}</h1>
       {
         data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id} />

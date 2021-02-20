@@ -14,7 +14,11 @@ const shortcuts = {}
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
         <div className={styles.date}>{node.frontmatter.date}</div>
-        <h1 className={styles.title}>{node.frontmatter.title}</h1>
+        <h2 className={styles.title}>
+            <Link to={'/' + node.slug}>
+                {node.frontmatter.title}
+            </Link>
+        </h2>
         <div className={styles.directory}>
             <Link to={'/' + node.fields.directory}>
                 {node.fields.directory}

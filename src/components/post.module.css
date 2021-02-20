@@ -24,6 +24,10 @@
     padding-bottom: 1px;
   /*   margin-bottom: 1px;     */
 }
+.title a {
+  text-decoration: none;
+  color: black
+}
 
 .directory {
   font-size: small;
