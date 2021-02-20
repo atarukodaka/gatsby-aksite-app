@@ -94,7 +94,8 @@ const Layout = ({ children, title }) => {
 
     return (
         <>
-            <Header />
+            <SEO title={title} />
+            <Header title={data.site.siteMetadata.title} />
             <Container>
                 <Grid container spacing={3}>
                     <Grid item md={8} xs={12}>

@@ -49,7 +49,7 @@ const Sidebar = () => {
 
             <h3 className={styles.title}>Recent Posts</h3>
                 {recentPosts.nodes.map(node => (
-                    <Paper key={node.id} className={styles.recentPost}>
+                    <div key={node.id} className={styles.recentPost}>
                         <div className={styles.recentPostDate}>{node.frontmatter.date}</div>
                         <h4 variant="h4" className={styles.recentPostTitle}>
                             <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
@@ -59,7 +59,7 @@ const Sidebar = () => {
                             {node.excerpt}
                         </div>
 
-                    </Paper>
+                    </div>
                 ))
                 }
             <h3 className={styles.title}>Directories</h3>

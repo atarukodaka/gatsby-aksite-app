@@ -34,7 +34,7 @@ export default function ArchiveTemplate({ data, pageContext }) {
   return (
     <Layout title={title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={year + "-" + month}/>
-      <h1>{title}</h1>
+      <h1 className="pageTitle">{title}</h1>
       {
         data.allMdx.nodes.map(node => (
           <PostExcerpt node={node} key={node.id} />

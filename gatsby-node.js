@@ -62,6 +62,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 body
                 slug
                 tableOfContents
+                
             }            
         }
 

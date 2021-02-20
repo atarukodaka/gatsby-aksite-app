@@ -62,6 +62,15 @@ const MonthlyArchives = () => {
     const formatLabel = (node) => {
         return node.context.year + '/' + node.context.month.toString().padStart(2, ' ') + ' (' + node.context.count + ')'
     }
+    const countByYear = []
+    data.monthlyArchivesByYear.group.forEach(year_node => {
+        year_node.nodes.forEach(node => {
+            countByYear[node.context.year] === undefined && (countByYear[node.context.year] = 0)
+            countByYear[node.context.year] = parseInt(countByYear[node.context.year]) + node.context.count
+        })
+    })
+
+
 
     return (
         <TreeView
@@ -70,11 +79,10 @@ const MonthlyArchives = () => {
             defaultExpanded={[]}
         >
             {data.monthlyArchivesByYear.group.sort((a, b) => b.year - a.year).map(year_node => (
-                <TreeItem nodeId={year_node.year} label={year_node.year + ' ('+year_node.totalCount+')'}>
+                <TreeItem nodeId={year_node.year} label={year_node.year + ' ('+countByYear[year_node.year]+')'}>
                     {
                         year_node.nodes.sort((a, b) => a.context.month - b.context.month).map(node => (
                             <TreeItem nodeId={node.id} label={formatLabel(node)} onLabelClick={() => { handleClick(node) }}>
-
                             </TreeItem>
                         ))
                     }
