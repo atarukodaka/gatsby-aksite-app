@@ -1,7 +1,7 @@
 
 body {
   /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 .main {
   background-color: white
@@ -28,8 +28,8 @@ nav.breadcrumb {
 
 /* *** Table of Contents *** */
 .tableOfContents  {
-  margin-top: 0em;
-  margin-bottom: 2em;
+  padding: 0.5em;
+  margin: 2em;
   border-bottom: solid 1px;
 }
 /* *** Directories *** */

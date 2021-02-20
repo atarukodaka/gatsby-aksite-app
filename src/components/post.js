@@ -6,7 +6,7 @@ import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
 //import { Paper } from '@material-ui/core'
 //import Img from 'gatsby-image'
-import { Paper, Grid } from '@material-ui/core'
+import { Paper, Grid, Box, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 
 const shortcuts = {}
 
@@ -20,22 +20,26 @@ const PostHeader = ({ node }) => (
                 {node.fields.directory}
             </Link>
         </div>
-       
-    </header>
 
+    </header>
 )
 
 const Post = ({ node }) => (
     <div className={styles.post}>
         <PostHeader node={node} />
         <main>
-            { node.frontmatter.toc === true && (
-                <div  className="tableOfContents">
-            <h2>Table Of Contents</h2>
-            <TableOfContents toc={node.tableOfContents}/> 
+            {node.frontmatter.toc === true && (
+                    <Accordion defaultExpanded={true}>
+                        <AccordionSummary>
+                            <h4>Table Of Contents</h4>
+                        </AccordionSummary>
 
-            </div>)
-            
+                        <AccordionDetails>
+                            <TableOfContents toc={node.tableOfContents} />
+                        </AccordionDetails>
+                    </Accordion>
+                )
+
             }
             <MDXProvider components={shortcuts}>
                 <MDXRenderer>
