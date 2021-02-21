@@ -58,9 +58,12 @@
     text-align: right;
     font-style: italic;
     
+    
 }
 .continueReading > a {
     text-decoration: none;
+    background-color: #455;
+    color: white;
 }
 
 /* ******************* */

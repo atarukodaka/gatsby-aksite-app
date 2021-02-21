@@ -5,7 +5,7 @@ import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 // import { Card, CardContent, CardMedia } from '@material-ui/core'
 import Layout from "../components/layout.js"
-import { PostExcerpt } from "../components/post.js"
+import { PostExcerpt, PostCard } from "../components/post.js"
 //import Test from "../../static/images/gatsby-4.png"
 //import Img from 'gatsby-image'
 import { Pagination } from '@material-ui/lab'
@@ -53,7 +53,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
       {
         data.allMdx.nodes.map(node => (
-            <PostExcerpt node={node} key={node.id}/>
+            <PostCard node={node} key={node.id}/>
         ))
       }
       

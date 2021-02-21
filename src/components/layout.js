@@ -83,8 +83,6 @@ const Footer = ({ author }) => {
     )
 }
 
-
-
 const Layout = ({ children, title }) => {
     const data = useStaticQuery(query)
 
@@ -95,21 +93,15 @@ const Layout = ({ children, title }) => {
             <Container>
                 <Grid container spacing={6}>
                     <Grid item md={8} xs={12}>
-                        
-                            {children}
-                        
+                        {children}
                     </Grid>
                     <Grid item md={4} xs={12}>
-                        
-                            <Sidebar/>
-                        spacing
+                        <Sidebar/>
                     </Grid>
                 </Grid>
             </Container>
-            <Footer />
-
+            <Footer author={data.site.siteMetadata.author}/>
         </>
-
     )
     /*
     return (

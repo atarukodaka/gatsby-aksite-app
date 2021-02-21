@@ -21,7 +21,7 @@ export default function PostTemplate ({ pageContext }) {
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title}/>
       <Post node={node}/>
 
-      <h4>Siblings: {siblings.length}</h4>
+      <h4>Siblings on '{node.fields.directory}'</h4>
       <nav>
         <Grid container>
         {siblings && (siblings.map(v=>
