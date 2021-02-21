@@ -15,6 +15,7 @@ export default function PostTemplate ({ pageContext }) {
   //const siblings = node.filter(v=>v.fields.directory == node.fields.directory)
 
   console.log("siblings: ", siblings.length)
+  const numberShow = 9
   //(v.slug === node.slug) ? v.frontmatter.title : <Link to={'/' + v.slug}>{v.frontmatter.title}</Link>
   return (
     <Layout title={node.frontmatter.title}>
@@ -23,9 +24,9 @@ export default function PostTemplate ({ pageContext }) {
 
       <h4>Siblings on '{node.fields.directory}'</h4>
       <nav>
-        <Grid container>
-        {siblings && (siblings.map(v=>
-          (<Grid item xs={4}><PostCard node={v} disableLink={v.slug === node.slug}/></Grid>)))}
+        <Grid container spacing={3}>
+        {siblings && (siblings.slice(0, numberShow).map(v=>
+          (<Grid item xs={4}><PostCard node={v} showExcerpt={true} disableLink={v.slug === node.slug}/></Grid>)))}
 
         </Grid>
       </nav>

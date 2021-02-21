@@ -21,7 +21,7 @@ const AboutPage = ( { data, pageContext }  )  => {
   return (
     <Layout title="about">
       <Breadcrumb crumbs={crumbs} crumbLabel='About'/>
-      <h2>About</h2>
+      <h2 className="pageTitle">About</h2>
       <p>title: { data.site.siteMetadata.title } </p>
       <p>author: { data.site.siteMetadata.author } </p>
     </Layout>

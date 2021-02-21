@@ -57,7 +57,7 @@
 .continueReading {
     text-align: right;
     font-style: italic;
-    
+    padding-right: 2em;    
     
 }
 .continueReading > a {

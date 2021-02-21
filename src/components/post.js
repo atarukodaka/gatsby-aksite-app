@@ -70,7 +70,7 @@ export const PostExcerpt = ({ node }) => (
 )
 
 
-export const PostCard = ({ node, disableLink }) => {
+export const PostCard = ({ node, disableLink, showExcerpt }) => {
     return (
         <div key={node.id} className={styles.postCard}>
             <div className={styles.postCardDate}>{node.frontmatter.date}</div>
@@ -80,9 +80,11 @@ export const PostCard = ({ node, disableLink }) => {
                 }
             </h4>
             <div className={styles.postCardDirectory}>{node.fields.directory}</div>
+            { showExcerpt && (
             <div className={styles.postCardExcerpt}>
                 {node.excerpt}
             </div>
+            )}
         </div>
     )
 }

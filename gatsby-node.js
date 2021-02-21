@@ -60,9 +60,9 @@ exports.createPages = async ({ graphql, actions }) => {
                 fields { directory }
                 id
                 slug
+                excerpt(pruneLength: 200)
             }
         }
-
         directories: allMdx(filter: {fields: {directory: {ne: ""}}}) {
             group(field: fields___directory) {
               directory: fieldValue

@@ -38,7 +38,7 @@ const Header = ({ title }) => {
 
     return (
         <header>
-            <AppBar position="static" color="primary">
+            <AppBar position="relative" color="primary">
                 <Toolbar>
                     <Hidden mdUp>
                         <IconButton onClick={handleDrawerOpen}>
@@ -91,16 +91,18 @@ const Layout = ({ children, title }) => {
             <SEO title={title} />
             <Header title={data.site.siteMetadata.title} />
             <Container>
-                <Grid container spacing={6}>
-                    <Grid item md={8} xs={12}>
+                <Grid container spacing={6} className="main">
+                    <Grid item md={9} xs={12}>
                         {children}
                     </Grid>
-                    <Grid item md={4} xs={12}>
+
+                    <Grid item md={3} xs={12}>
                         <Sidebar/>
                     </Grid>
                 </Grid>
-            </Container>
+                </Container>
             <Footer author={data.site.siteMetadata.author}/>
+            
         </>
     )
     /*

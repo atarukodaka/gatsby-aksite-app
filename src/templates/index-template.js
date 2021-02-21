@@ -53,7 +53,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
       {
         data.allMdx.nodes.map(node => (
-            <PostCard node={node} key={node.id}/>
+            <PostExcerpt node={node} key={node.id}/>
         ))
       }
       

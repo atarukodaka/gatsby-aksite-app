@@ -1,13 +1,15 @@
 
 body {
   /* font-family: "Segoe UI", MeiryoKe_PGothic, "Meiryo", "Meiryo UI", Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif; */
-  /* background-color: #eee; */
+   background-color: #eee; 
 }
 .main {
-  background-color: white
+   background-color: white ;
+  
 }
 .sidebar {
-  background-color: white
+  background-color: white;
+  
 }
 div.sidebar ul {
   list-style-type: none;

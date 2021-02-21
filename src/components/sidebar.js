@@ -50,7 +50,7 @@ const Sidebar = () => {
 
             <h3 className={styles.title}>Recent Posts</h3>
             {recentPosts.nodes.map(node => (
-                <PostCard node={node} />
+                <PostCard node={node} showExcerpt={true}/>
             ))
             }
             <h3 className={styles.title}>Directories</h3>
