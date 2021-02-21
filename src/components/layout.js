@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import SEO from './seo'
 import "./layout.css"
-import { Drawer, IconButton, Divider, List, ListItem, ListItemText, ListItemLink } from '@material-ui/core'
+import { Drawer, IconButton, Divider, List, ListItem, ListItemText } from '@material-ui/core'
 
 const query = graphql`
 {
@@ -38,7 +38,7 @@ const Header = ({ title }) => {
 
     return (
         <header>
-            <AppBar position="static" color="primary">
+            <AppBar position="relative" color="primary">
                 <Toolbar>
                     <Hidden mdUp>
                         <IconButton onClick={handleDrawerOpen}>
@@ -59,8 +59,9 @@ const Header = ({ title }) => {
                     <Divider />
 
                     <List component="nav">
-                        <ListItem button component="a" href="/about">About</ListItem>
-                        <ListItem button component="a" href="/archives">Archives</ListItem>
+                        <ListItem button component={Link} to="/about">About</ListItem>
+                        <ListItem button component={Link} to="/archives">Archives</ListItem>
+                        <ListItem button component={Link} to="/directories">Directories</ListItem>
                     </List>
                 </div>
 
@@ -75,45 +76,34 @@ const Footer = ({ author }) => {
     return (
         <footer>
             <Paper style={{ padding: "1em" }}>
-
-
-                written by {author}
-            (C) {(new Date()).getFullYear()},
-            powered by Gatsby and its aksite starter
-
-        </Paper>
+                written by {author} (C) {(new Date()).getFullYear()},
+                powered by Gatsby and its aksite starter
+            </Paper>
         </footer>
     )
 }
 
-
-
 const Layout = ({ children, title }) => {
     const data = useStaticQuery(query)
-
 
     return (
         <>
             <SEO title={title} />
             <Header title={data.site.siteMetadata.title} />
             <Container>
-                <Grid container spacing={3}>
-                    <Grid item md={8} xs={12}>
-                        <Paper>
-                            {children}
-                        </Paper>
+                <Grid container spacing={6} className="main">
+                    <Grid item md={9} xs={12}>
+                        {children}
                     </Grid>
-                    <Grid item md={4} xs={12}>
-                        <Paper>
-                            <Sidebar/>
-                        </Paper>
+
+                    <Grid item md={3} xs={12}>
+                        <Sidebar/>
                     </Grid>
                 </Grid>
-            </Container>
-            <Footer />
-
+                </Container>
+            <Footer author={data.site.siteMetadata.author}/>
+            
         </>
-
     )
     /*
     return (

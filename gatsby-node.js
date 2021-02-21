@@ -15,20 +15,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       }
     `);
 };
-/*
-exports.createSchemaCustomization = ({ actions }) => {
-    const { createTypes } = actions
-    const typeDefs = `
-      type mdx implements Node {
-        frontmatter: Frontmatter
-      }
-      type Frontmatter {
-        toc: [Boolean!]!
-      }
-    `
-    createTypes(typeDefs)
-  }
-*/
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
 
@@ -47,7 +34,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, directories } } = await graphql(`
+    const { data: { mdxPages, directories, sibling_nodes } } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
@@ -62,10 +49,20 @@ exports.createPages = async ({ graphql, actions }) => {
                 body
                 slug
                 tableOfContents
-                
+                id
             }            
         }
-
+        sibling_nodes: allMdx  (sort: {fields: frontmatter___date, order: DESC}) {
+            nodes {
+                frontmatter {
+                    title, date(formatString: "YYYY-MM-DD")
+                }
+                fields { directory }
+                id
+                slug
+                excerpt(pruneLength: 200)
+            }
+        }
         directories: allMdx(filter: {fields: {directory: {ne: ""}}}) {
             group(field: fields___directory) {
               directory: fieldValue
@@ -79,12 +76,14 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
         //console.log(`create markdown page: ${node.slug}`)
-        
+        const siblings = sibling_nodes.nodes.filter(v=> (v.fields.directory === node.fields.directory) && v.slug != node.slug )
+                
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
                 node: node,
+                siblings: siblings,
             },
         })
     })
@@ -111,6 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 archive: 'directory',
                 directory: directory,
+                regex: `/^${directory}/`,
                 //path: '/${directory}',
                 count: totalCount
             }

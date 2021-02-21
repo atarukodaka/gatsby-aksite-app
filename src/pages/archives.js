@@ -9,8 +9,8 @@ export default ({ pageContext}) => {
     return (
         <Layout>
             <Breadcrumb crumbs={crumbs} crumbLabel='Monthly Archives'/>
-            <h3>Monthly Archives</h3>
-            <MonthlyArchives/>
+            <h3 className="pageTitle">Monthly Archives</h3>
+            <MonthlyArchives expandAll={true}/>
         </Layout>
     )
 }

@@ -28,11 +28,12 @@ const PostHeader = ({ node }) => (
     </header>
 )
 
-const Post = ({ node }) => (
+export const Post = ({ node }) => (
     <div className={styles.post}>
         <PostHeader node={node} />
         <main>
             {node.frontmatter.toc === true && (
+                <div  className="tableOfContents">
                     <Accordion defaultExpanded={true}>
                         <AccordionSummary>
                             <h4>Table Of Contents</h4>
@@ -42,6 +43,7 @@ const Post = ({ node }) => (
                             <TableOfContents toc={node.tableOfContents} />
                         </AccordionDetails>
                     </Accordion>
+                    </div>
                 )
 
             }
@@ -66,5 +68,25 @@ export const PostExcerpt = ({ node }) => (
         </main>
     </div>
 )
+
+
+export const PostCard = ({ node, disableLink, showExcerpt }) => {
+    return (
+        <div key={node.id} className={styles.postCard}>
+            <div className={styles.postCardDate}>{node.frontmatter.date}</div>
+            <h4 className={styles.postCardTitle}>
+                { (disableLink) ? node.frontmatter.title : 
+                    <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                }
+            </h4>
+            <div className={styles.postCardDirectory}>{node.fields.directory}</div>
+            { showExcerpt && (
+            <div className={styles.postCardExcerpt}>
+                {node.excerpt}
+            </div>
+            )}
+        </div>
+    )
+}
 
 export default Post

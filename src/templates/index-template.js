@@ -5,7 +5,7 @@ import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 // import { Card, CardContent, CardMedia } from '@material-ui/core'
 import Layout from "../components/layout.js"
-import { PostExcerpt } from "../components/post.js"
+import { PostExcerpt, PostCard } from "../components/post.js"
 //import Test from "../../static/images/gatsby-4.png"
 //import Img from 'gatsby-image'
 import { Pagination } from '@material-ui/lab'
@@ -17,7 +17,7 @@ export const data = graphql`
       nodes {
         id
         frontmatter { title, date(formatString: "YYYY-MM-DD") }
-        excerpt(truncate: true, pruneLength: 500)
+        excerpt(pruneLength: 300)
         fields { directory}
         slug
       }

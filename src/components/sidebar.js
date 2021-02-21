@@ -10,9 +10,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight' */
 import { List, ListItem } from '@material-ui/core'
 import styles from './sidebar.module.css'
 /* import Typography from '@material-ui/core' */
+import { PostCard } from './post'
 
 const Sidebar = () => {
-    const { site,  recentPosts } = useStaticQuery(
+    const { site, recentPosts } = useStaticQuery(
         graphql`
             {
                 site {
@@ -40,7 +41,7 @@ const Sidebar = () => {
     )
     return (
         <div className="sidebar">
-   
+
             <h3 className={styles.title}>Profile</h3>
             <List>
                 <ListItem key="author">{site.siteMetadata.author}</ListItem>
@@ -48,26 +49,16 @@ const Sidebar = () => {
             </List>
 
             <h3 className={styles.title}>Recent Posts</h3>
-                {recentPosts.nodes.map(node => (
-                    <div key={node.id} className={styles.recentPost}>
-                        <div className={styles.recentPostDate}>{node.frontmatter.date}</div>
-                        <h4 variant="h4" className={styles.recentPostTitle}>
-                            <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
-                        </h4>
-                        <div className={styles.recentPostDirectory}>{node.fields.directory}</div>
-                        <div className={styles.recentPostExcerpt}>
-                            {node.excerpt}
-                        </div>
-
-                    </div>
-                ))
-                }
+            {recentPosts.nodes.map(node => (
+                <PostCard node={node} showExcerpt={true}/>
+            ))
+            }
             <h3 className={styles.title}>Directories</h3>
-            <DirectoryArchives/>
+            <DirectoryArchives />
 
             <h3 className={styles.title}>Monthly Archives</h3>
-            <MonthlyArchives/>
-          
+            <MonthlyArchives />
+
         </div>
     )
 }

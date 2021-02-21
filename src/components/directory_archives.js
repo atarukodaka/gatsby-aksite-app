@@ -42,20 +42,18 @@ const DirectoryArchives = () => {
 const Tree = ({ nodes }) => {
     /*                        */
 
+    /*
+                    
+*/
     return (
         <ul className={styles.tree}>
             {
                 nodes.map(v => (
-                    <li key={v.name} className="directory">
-                        <Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link> 
-                        {/*
-                        <Button onClick={()=>{navigate(`/${v.name}`)}}>
-                            {v.label || v.name } ({v.totalCount})
-                        </Button>
-                        */}
-                        { v.child && (<Tree nodes={v.child}></Tree>)}
-                    </li>
-                )
+                        <li key={v.id} className="directory">
+                            <Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>                        
+                            { v.child && (<Tree nodes={v.child}></Tree>)}
+                        </li>
+                    )
                 )
             }
         </ul>)

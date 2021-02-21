@@ -43,7 +43,7 @@ const Tree = ({nodes}) => (
         {
             nodes.map(v=>(
                 <>
-                <li key={v.title}>
+                <li key={v.url}>
                 <Link to={v.url} style={{textDecoration: 'none'}}>{v.title}</Link>
                     
                     
