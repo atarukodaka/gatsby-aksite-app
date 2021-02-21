@@ -70,12 +70,14 @@ export const PostExcerpt = ({ node }) => (
 )
 
 
-export const PostCard = ({ node }) => {
+export const PostCard = ({ node, disableLink }) => {
     return (
         <div key={node.id} className={styles.postCard}>
             <div className={styles.postCardDate}>{node.frontmatter.date}</div>
             <h4 className={styles.postCardTitle}>
-                <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                { (disableLink) ? node.frontmatter.title : 
+                    <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                }
             </h4>
             <div className={styles.postCardDirectory}>{node.fields.directory}</div>
             <div className={styles.postCardExcerpt}>

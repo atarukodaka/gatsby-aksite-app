@@ -4,6 +4,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
 import { PostExcerpt } from "../components/post.js"
 import Layout from "../components/layout.js"
+import config from '../../config.js'
 
 export const query = graphql`
     query($fromDate: Date!, $toDate: Date!){        
@@ -11,7 +12,7 @@ export const query = graphql`
         filter: { frontmatter: { date: { gte: $fromDate, lt: $toDate } }} ) {
         nodes { 
           id
-          excerpt(truncate: true, pruneLength: 500)
+          excerpt(truncate: true, pruneLength: 300)
 
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title

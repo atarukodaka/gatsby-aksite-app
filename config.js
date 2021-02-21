@@ -1,10 +1,12 @@
 const config = {
-    directory_names: {
+
+
+  directory_names: {
     "workout": "ワークアウト",
-    "game": "ゲーム",    
+    "game": "ゲーム",
     "game/kancolle": "ゲーム/艦これ",
     "game/kancolle/event": "ゲーム/艦これ/イベント",
-    "game/wot": "ゲーム/wot",    
+    "game/wot": "ゲーム/wot",
     "software": "ソフトウェア",
     "software/middleman": "ソフトウェア/middleman",
     "software/middleman/susume": "ソフトウェア/middleman/すすめ",

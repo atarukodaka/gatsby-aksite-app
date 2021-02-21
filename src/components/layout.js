@@ -93,16 +93,16 @@ const Layout = ({ children, title }) => {
             <SEO title={title} />
             <Header title={data.site.siteMetadata.title} />
             <Container>
-                <Grid container spacing={3}>
+                <Grid container spacing={6}>
                     <Grid item md={8} xs={12}>
-                        <Paper>
+                        
                             {children}
-                        </Paper>
+                        
                     </Grid>
                     <Grid item md={4} xs={12}>
-                        <Paper>
+                        
                             <Sidebar/>
-                        </Paper>
+                        spacing
                     </Grid>
                 </Grid>
             </Container>

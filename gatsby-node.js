@@ -34,7 +34,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, directories } } = await graphql(`
+    const { data: { mdxPages, directories, sibling_nodes } } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
@@ -52,6 +52,16 @@ exports.createPages = async ({ graphql, actions }) => {
                 id
             }            
         }
+        sibling_nodes: allMdx  (sort: {fields: frontmatter___date, order: DESC}) {
+            nodes {
+                frontmatter {
+                    title, date(formatString: "YYYY-MM-DD")
+                }
+                fields { directory }
+                id
+                slug
+            }
+        }
 
         directories: allMdx(filter: {fields: {directory: {ne: ""}}}) {
             group(field: fields___directory) {
@@ -66,14 +76,14 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
         //console.log(`create markdown page: ${node.slug}`)
-        const siblings = mdxPages.nodes.filter(v=> (v.fields.directory === node.fields.directory)) //  && (v != node))
-        
+        const siblings = sibling_nodes.nodes.filter(v=> (v.fields.directory === node.fields.directory) && v.slug != node.slug )
+                
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
                 node: node,
-                siblings: siblings
+                siblings: siblings,
             },
         })
     })
@@ -100,6 +110,7 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 archive: 'directory',
                 directory: directory,
+                regex: `/^${directory}/`,
                 //path: '/${directory}',
                 count: totalCount
             }
