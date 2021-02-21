@@ -89,4 +89,17 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
     )
 }
 
+export const PostCards = ( {nodes, showExcerpt }) => {
+    return (
+        <Grid container spacing={3}>
+            {
+            nodes.map(node=>(
+                <Grid item xs={6} sm={4}>
+                    <PostCard node={node} key={node.id} showExcerpt={showExcerpt}/>
+                </Grid>
+            ))
+            }
+        </Grid>
+    )
+}
 export default Post

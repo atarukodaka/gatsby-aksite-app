@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout.js"
 import { graphql } from "gatsby"
-import { PostExcerpt, PostCard } from "../components/post.js"
+import { PostExcerpt, PostCards } from "../components/post.js"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { Grid } from '@material-ui/core'
 
@@ -34,15 +34,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
     <Layout title={"Directory: " + directory}>
       <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
       <h1 className="pageTitle">DIRECTORY: {directory}</h1>
-      <Grid container spacing={3}>
-      {
-        data.allMdx.nodes.map(node => (
-          <Grid item xs={6} sm={4}>
-          <PostCard node={node} key={node.id} showExcerpt={true} />
-          </Grid>
-        ))
-      }
-      </Grid>
+      <PostCards node={data.allMdx.nodes} key={node.id} showExcerpt={true} />
     </Layout>
   )
 }
