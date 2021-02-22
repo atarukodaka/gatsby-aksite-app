@@ -1,9 +1,9 @@
 import React from "react"
-import { useStaticQuery, Link, graphql, navigate } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
 
-import { Paper, Box } from '@material-ui/core'
+//import { Paper, Box } from '@material-ui/core'
 /*
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight' */

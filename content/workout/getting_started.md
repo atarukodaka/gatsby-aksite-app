@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: 宅トレことはじめ
 date: 2021-02-21
 image: https://3.bp.blogspot.com/-ugEtMLkRoq8/Vkb_GY_prTI/AAAAAAAA0aE/8Z7GweohF8U/s800/udetate_man.png
 ---

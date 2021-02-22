@@ -2,9 +2,9 @@ import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Layout from "../components/layout.js"
-import { PostExcerpt, PostCard, ostCards } from "../components/post.js"
+import { PostExcerpt } from "../components/post.js"
 import { Pagination } from '@material-ui/lab'
-import { Paper, Box } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!, $pruneLength: Int!=200){
