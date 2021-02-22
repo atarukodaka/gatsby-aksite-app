@@ -8,12 +8,12 @@ import config from '../../config.js'
 
 
 export const query = graphql`
-    query($fromDate: Date!, $toDate: Date!){        
+    query($fromDate: Date!, $toDate: Date!, $pruneLength: Int!=200){        
       allMdx(sort: {fields: frontmatter___date, order: DESC},
         filter: { frontmatter: { date: { gte: $fromDate, lt: $toDate } }} ) {
         nodes { 
           id
-          excerpt(truncate: true, pruneLength: 200)
+          excerpt(truncate: true, pruneLength: $pruneLength)
 
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title

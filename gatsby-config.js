@@ -10,7 +10,7 @@ module.exports = {
   siteMetadata: {
     title: "Ataru Kodaka Site",
     author: "Ataru KODAKA",
-    description: '',
+    description: 'THIS SITE IS HOGEHOGE FOO BAR BAZ ZZZZZ',
     siteUrl: `http://localhost:8000/`
   },
   plugins: [

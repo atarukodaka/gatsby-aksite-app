@@ -1,25 +1,26 @@
 import React from "react"
-import Layout from "../components/layout.js"
 import { graphql } from "gatsby"
-import { PostExcerpt, PostCards } from "../components/post.js"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { Grid } from '@material-ui/core'
 
+import { PostExcerpt, PostCards } from "../components/post.js"
+import Layout from "../components/layout.js"
+
 export const query = graphql`
-    query($regex: String!){        
+    query($regex: String!, $pruneLength: Int!=200){        
       allMdx(sort:  {fields: frontmatter___date, order: DESC},
         filter: {fields: {directory: {regex: $regex}}} ) {
         nodes { 
           id
-          excerpt(truncate: true, pruneLength: 200)
-
+          excerpt(truncate: true, pruneLength: $pruneLength)
+          slug
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title
           }     
           fields { 
             directory
           }   
-          slug
+          
         }
       }
     }
@@ -34,7 +35,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
     <Layout title={"Directory: " + directory}>
       <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
       <h1 className="pageTitle">DIRECTORY: {directory}</h1>
-      <PostCards node={data.allMdx.nodes} key={node.id} showExcerpt={true} />
+      <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
     </Layout>
   )
 }

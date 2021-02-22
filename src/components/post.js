@@ -79,7 +79,9 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                     <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
                 }
             </h4>
-            <div className={styles.postCardDirectory}>{node.fields.directory}</div>
+            <div className={styles.postCardDirectory}>
+                <Link to={'/'+node.fields.directory}>{node.fields.directory}</Link>
+            </div>
             { showExcerpt && (
             <div className={styles.postCardExcerpt}>
                 {node.excerpt}

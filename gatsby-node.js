@@ -3,6 +3,25 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const { paginate } = require('gatsby-awesome-pagination')
 const { findDOMNode } = require('react-dom')
+//const config = require(`config`)
+
+const config = {
+
+
+    directory_names: {
+      "workout": "ワークアウト",
+      "game": "ゲーム",
+      "game/kancolle": "ゲーム/艦これ",
+      "game/kancolle/event": "ゲーム/艦これ/イベント",
+      "game/wot": "ゲーム/wot",
+      "software": "ソフトウェア",
+      "software/middleman": "ソフトウェア/middleman",
+      "software/middleman/susume": "ソフトウェア/middleman/すすめ",
+      "figureskating": "フィギュアスケート",
+      "figureskating/practise": "フィギュアスケート/銀盤練習",
+      "hoby": "趣味"
+    },
+  }
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
@@ -24,10 +43,16 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         const directory = slug.split("/").slice(1, -2).join("/")
         // add directory field
         //console.log("create node fields directory", directory)
+        const directory_name = config.directory_names[directory] || directory
         createNodeField({
             node,
             name: 'directory',
             value: directory
+        })
+        createNodeField({
+            node,
+            name: 'directory_name',
+            value: directory_name
         })
     }
 }
@@ -69,7 +94,6 @@ exports.createPages = async ({ graphql, actions }) => {
               totalCount
             }
         }
-
     }`)
 
     // markdown pages
@@ -103,7 +127,11 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** creating directory index")
 
     directories.group.forEach(({ directory, totalCount }) => {
-        console.log(directory)
+        //console.log(directory)
+        const re = new RegExp(`^${directory}`)
+        const count = mdxPages.nodes.filter(node=> re.test(node.fields.directory)).length
+        console.log("directory count: ", directory, count)
+            
         createPage({
             path: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
@@ -111,12 +139,10 @@ exports.createPages = async ({ graphql, actions }) => {
                 archive: 'directory',
                 directory: directory,
                 regex: `/^${directory}/`,
-                //path: '/${directory}',
-                count: totalCount
+                count: count,
             }
         })
     })
-
 
     // monthly archives    
     console.log("** creating monthly archives")
