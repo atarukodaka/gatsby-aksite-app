@@ -24,6 +24,7 @@ const AboutPage = ( { data, pageContext }  )  => {
       <h2 className="pageTitle">About</h2>
       <p>title: { data.site.siteMetadata.title } </p>
       <p>author: { data.site.siteMetadata.author } </p>
+      <p>description: { data.site.siteMetadata.description } </p>
     </Layout>
   )
 }

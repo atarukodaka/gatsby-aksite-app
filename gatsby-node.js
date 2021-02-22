@@ -3,6 +3,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const { paginate } = require('gatsby-awesome-pagination')
 const { findDOMNode } = require('react-dom')
+const config = require(`./config`)
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
@@ -24,10 +25,16 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         const directory = slug.split("/").slice(1, -2).join("/")
         // add directory field
         //console.log("create node fields directory", directory)
+        
         createNodeField({
             node,
             name: 'directory',
             value: directory
+        })
+        createNodeField({
+            node,
+            name: 'directory_name',
+            value: config.directory_names[directory] || directory,
         })
     }
 }
@@ -42,9 +49,10 @@ exports.createPages = async ({ graphql, actions }) => {
                     title
                     date(formatString: "YYYY-MM-DD")
                     toc
+                    image
                 }
                 fields {
-                    directory
+                    directory, directory_name
                 }
                 body
                 slug
@@ -57,7 +65,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 frontmatter {
                     title, date(formatString: "YYYY-MM-DD")
                 }
-                fields { directory }
+                fields { directory, directory_name }
                 id
                 slug
                 excerpt(pruneLength: 200)
@@ -69,7 +77,6 @@ exports.createPages = async ({ graphql, actions }) => {
               totalCount
             }
         }
-
     }`)
 
     // markdown pages
@@ -103,20 +110,25 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** creating directory index")
 
     directories.group.forEach(({ directory, totalCount }) => {
-        console.log(directory)
+        //console.log(directory)
+        const re = new RegExp(`^${directory}`)
+        const count = mdxPages.nodes.filter(node=> re.test(node.fields.directory)).length
+        console.log("directory count: ", directory, count)
+        //const directory_name = (config.directory_names[directory]) ? config.directory_names[directory].split('/').pop() : directory
+        const directory_name = config.directory_names[directory] || directory
+            
         createPage({
             path: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
             context: {
                 archive: 'directory',
                 directory: directory,
+                directory_name: directory_name,
                 regex: `/^${directory}/`,
-                //path: '/${directory}',
-                count: totalCount
+                count: count,
             }
         })
     })
-
 
     // monthly archives    
     console.log("** creating monthly archives")

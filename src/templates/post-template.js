@@ -20,6 +20,7 @@ export default function PostTemplate ({ pageContext }) {
   return (
     <Layout title={node.frontmatter.title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title}/>
+
       <Post node={node}/>
 
       <h4>Siblings on '{node.fields.directory}'</h4>

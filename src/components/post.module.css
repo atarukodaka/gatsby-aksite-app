@@ -21,7 +21,7 @@
 .title {
     font-weight: bold;
     /* border-bottom: 1px solid; */
-    padding-bottom: 1px;
+    padding-bottom: 1em;
   /*   margin-bottom: 1px;     */
 }
 .title a {
@@ -41,10 +41,11 @@
 .directory a {
   text-decoration: none;
 }
-
+/*
 .date {
   font-size: small;
 }
+*/
 
 .excerpt .title a {
   color: black;

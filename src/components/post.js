@@ -21,10 +21,14 @@ const PostHeader = ({ node }) => (
         </h2>
         <div className={styles.directory}>
             <Link to={'/' + node.fields.directory}>
-                {node.fields.directory}
+                {node.fields.directory_name}
             </Link>
         </div>
-
+        
+        { node.frontmatter.image && (
+        <div className="eyecatchImageWrapper" style={{backgroundImage: `url(${node.frontmatter.image})`}}></div>
+        )}
+        
     </header>
 )
 
@@ -61,7 +65,8 @@ export const PostExcerpt = ({ node }) => (
     <div className={styles.post}>
         <PostHeader node={node} />
         <main>
-            <div>{node.excerpt}</div>
+            { /* node.frontmatter.image && (<img src={node.frontmatter.image} className="eyecatchImageSmall"></img>) */ }
+            <div className={styles.excerpt}>{node.excerpt}</div>
             <div className={styles.continueReading}>
                 <Link to={'/' + node.slug}>...continue reading</Link>
             </div>
@@ -71,22 +76,49 @@ export const PostExcerpt = ({ node }) => (
 
 
 export const PostCard = ({ node, disableLink, showExcerpt }) => {
+    if (showExcerpt === undefined){ showExcerpt = true}
+    
+    const noImageAvailable = "/images/no_image_available.png"
+    const imgsrc = node.frontmatter.image || noImageAvailable
     return (
         <div key={node.id} className={styles.postCard}>
+            <div>
+                <img src={imgsrc} className="eyecatchImageSmall"/> 
+            { /* { node.frontmatter.image && (<img src={imgsrc} className="eyecatchImageSmall" alt="eye catch image"/>) } */ }
+
+            </div>
+            
             <div className={styles.postCardDate}>{node.frontmatter.date}</div>
             <h4 className={styles.postCardTitle}>
                 { (disableLink) ? node.frontmatter.title : 
                     <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
                 }
             </h4>
-            <div className={styles.postCardDirectory}>{node.fields.directory}</div>
+            <div className={styles.postCardDirectory}>
+                <Link to={'/'+node.fields.directory}>{node.fields.directory_name}</Link>
+            </div>
             { showExcerpt && (
             <div className={styles.postCardExcerpt}>
                 {node.excerpt}
             </div>
+            
             )}
+            <div style={{clear: "both"}}/>
         </div>
     )
 }
 
+export const PostCards = ( {nodes, showExcerpt }) => {
+    return (
+        <Grid container spacing={3}>
+            {
+            nodes.map(node=>(
+                <Grid item xs={6} sm={4}>
+                    <PostCard node={node} key={node.id} showExcerpt={showExcerpt}/>
+                </Grid>
+            ))
+            }
+        </Grid>
+    )
+}
 export default Post
