@@ -41,10 +41,11 @@
 .directory a {
   text-decoration: none;
 }
-
+/*
 .date {
   font-size: small;
 }
+*/
 
 .excerpt .title a {
   color: black;
