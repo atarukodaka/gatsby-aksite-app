@@ -2,9 +2,9 @@ import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Layout from "../components/layout.js"
-import { PostCards } from "../components/post.js"
+import { PostExcerpt, PostCard, ostCards } from "../components/post.js"
 import { Pagination } from '@material-ui/lab'
-import { Paper } from '@material-ui/core'
+import { Paper, Box } from '@material-ui/core'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!, $pruneLength: Int!=200){
@@ -17,9 +17,10 @@ export const data = graphql`
       skip: $skip, limit: $limit){
       nodes {
         id
-        frontmatter { title, date(formatString: "YYYY-MM-DD") }
+        frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
         excerpt(pruneLength: $pruneLength)
-        fields { directory}
+        fields { directory, directory_name}
+        tableOfContents
         slug
       }
     }
@@ -42,13 +43,15 @@ const IndexTemplate = ( { data, pageContext } ) => {
   return (
     <Layout title={label}>  
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
-      <Paper>
-        { data.site.siteMetadata.description }
-      </Paper>
       
-      <PostCards nodes={data.allMdx.nodes} showExcerpt={true}/>
+      {data.allMdx.nodes.map(node=>(
+        <PostExcerpt node={node}/>
+      ))}
+      {/* <PostCards nodes={data.allMdx.nodes} showExcerpt={true}/> */}
       
+      <Box justifyContent="center">
       <Pagination style={{}} count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
+      </Box>
     </Layout>    
   )
 }

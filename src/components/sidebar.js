@@ -28,9 +28,9 @@ const Sidebar = () => {
                     sort: {fields: frontmatter___date, order: DESC}
                     ) {
                     nodes {
-                        frontmatter { title, date(formatString: "YYYY-MM-DD") }
+                        frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
                         slug
-                        fields { directory }
+                        fields { directory, directory_name }
                         id
                         excerpt(pruneLength: 100)
                     }
@@ -45,17 +45,17 @@ const Sidebar = () => {
             <h3 className={styles.title}>Profile</h3>
             <List>
                 <ListItem key="author">{site.siteMetadata.author}</ListItem>
-                <ListItem key="description">{site.siteMetadata.descriptino}</ListItem>
+                <ListItem key="description">{site.siteMetadata.description}</ListItem>
             </List>
+
+            <h3 className={styles.title}>Directories</h3>
+            <DirectoryArchives />
 
             <h3 className={styles.title}>Recent Posts</h3>
             {recentPosts.nodes.map(node => (
                 <PostCard node={node} showExcerpt={true}/>
             ))
             }
-            <h3 className={styles.title}>Directories</h3>
-            <DirectoryArchives />
-
             <h3 className={styles.title}>Monthly Archives</h3>
             <MonthlyArchives />
 

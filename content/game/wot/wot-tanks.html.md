@@ -1,6 +1,7 @@
 ---
 title: WoTはいいぞ
 date: 2015-12-21
+image: /images/wot.jpg
 ---
 ガルパンはいいぞ。
 

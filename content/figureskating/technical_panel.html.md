@@ -2,6 +2,7 @@
 title: テクニカルパネルのみなさま
 date: 2017-10-13
 published: false
+image: /images/technical_panel.png
 ---
 
 ## 構成と役割

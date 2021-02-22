@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import SEO from './seo'
 import "./layout.css"
-import { Drawer, IconButton, Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
 
 const query = graphql`
 {
@@ -20,12 +20,13 @@ const query = graphql`
         siteMetadata {
             title
             author
+            description
         }
     }
 }
 `
 
-const Header = ({ title }) => {
+const Header = ({ title, description }) => {
     //const data = useStaticQuery(query)
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
@@ -66,6 +67,13 @@ const Header = ({ title }) => {
                 </div>
 
             </Drawer>
+
+            <div className="siteTitle">
+                <Container>
+                    <h1>{title}</h1>
+                    <h3>{description}</h3>
+                </Container>
+            </div>
         </header>
     )
 }
@@ -74,11 +82,9 @@ const Header = ({ title }) => {
 const Footer = ({ author }) => {
 
     return (
-        <footer>
-            <Paper style={{ padding: "1em" }}>
+        <footer className="siteFooter">
                 written by {author} (C) {(new Date()).getFullYear()},
                 powered by Gatsby and its aksite starter
-            </Paper>
         </footer>
     )
 }
@@ -89,20 +95,22 @@ const Layout = ({ children, title }) => {
     return (
         <>
             <SEO title={title} />
-            <Header title={data.site.siteMetadata.title} />
+            <Header title={data.site.siteMetadata.title} description={data.site.siteMetadata.description} />
             <Container>
-                <Grid container spacing={6} className="main">
-                    <Grid item md={9} xs={12}>
+                <div className="main">
+                <Grid container spacing={6}>
+                    <Grid item md={8} xs={12}>
                         {children}
                     </Grid>
 
-                    <Grid item md={3} xs={12}>
-                        <Sidebar/>
+                    <Grid item md={4} xs={12}>
+                        <Sidebar />
                     </Grid>
                 </Grid>
-                </Container>
-            <Footer author={data.site.siteMetadata.author}/>
-            
+                </div>
+            </Container>
+            <Footer author={data.site.siteMetadata.author} />
+
         </>
     )
     /*

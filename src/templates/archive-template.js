@@ -16,10 +16,10 @@ export const query = graphql`
           excerpt(truncate: true, pruneLength: $pruneLength)
 
           frontmatter {
-            date(formatString: "YYYY-MM-DD"), title
+            date(formatString: "YYYY-MM-DD"), title, image
           }        
           fields { 
-            directory
+            directory, directory_name
           }
           slug
         }

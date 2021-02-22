@@ -15,10 +15,10 @@ export const query = graphql`
           excerpt(truncate: true, pruneLength: $pruneLength)
           slug
           frontmatter {
-            date(formatString: "YYYY-MM-DD"), title
+            date(formatString: "YYYY-MM-DD"), title, image
           }     
           fields { 
-            directory
+            directory, directory_name
           }   
           
         }
@@ -27,14 +27,14 @@ export const query = graphql`
   `
 
 export default function DirectoryTemplate({ data, pageContext }) {
-  const { directory } = pageContext
+  const { directory, directory_name } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
   const current_directory = directory.split('/').slice(-1)  
 
   return (
     <Layout title={"Directory: " + directory}>
       <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
-      <h1 className="pageTitle">DIRECTORY: {directory}</h1>
+      <h1 className="pageTitle">DIRECTORY: {directory_name}</h1>
       <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
     </Layout>
   )

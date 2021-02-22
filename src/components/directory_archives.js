@@ -16,6 +16,7 @@ const DirectoryArchives = () => {
               path
               context {
                 directory
+                directory_name
                 count
               }
             }
@@ -26,7 +27,8 @@ const DirectoryArchives = () => {
     const list = []
     directoryArchives.nodes.forEach(node => {
         const parts = node.context.directory.split('/')
-        const label = parts.pop() || node.context.directory
+        const label1 = parts.pop() || node.context.directory
+        const label = node.context.directory_name.split('/').pop()
         const parent_dir = parts.join('/')
         const parent = list.find(vv => vv.name === parent_dir)
         const parent_id = (parent) ? parent.id : 0
