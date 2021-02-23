@@ -1,9 +1,4 @@
 .post {
-  /*margin-top: 2em;
-  
-  padding: 2em;
-*/
-
   margin-top: 2em;
   margin-bottom: 2em;
   padding-bottom: 1em;
@@ -18,15 +13,17 @@
   padding-bottom: 1em;
   box-shadow: 0px 1px rgb(0 0 0 / 10%)
 }
+
 .title {
-    font-weight: bold;
-    /* border-bottom: 1px solid; */
-    padding-bottom: 1em;
+  font-weight: bold;
+  /* border-bottom: 1px solid; */
+  padding-bottom: 1em;
   /*   margin-bottom: 1px;     */
 }
+
 .title a {
   text-decoration: none;
-  color: black 
+  color: black
 }
 
 .directory {
@@ -35,12 +32,12 @@
   background-color: #cdd;
   padding-left: 0.5em;
   padding-right: 0.5em;
- 
 }
 
 .directory a {
   text-decoration: none;
 }
+
 /*
 .date {
   font-size: small;
@@ -50,32 +47,34 @@
 .excerpt .title a {
   color: black;
 }
+
 .postInfo {
-    font-size: small;
-    text-align: right;
-    margin-bottom: 1em;
+  font-size: small;
+  text-align: right;
+  margin-bottom: 1em;
 }
+
 .continueReading {
-    text-align: right;
-    font-style: italic;
-    padding-right: 2em;    
-    
+  text-align: right;
+  font-style: italic;
+  padding-right: 2em;
 }
-.continueReading > a {
-    text-decoration: none;
-    background-color: #455;
-    color: white;
+
+.continueReading>a {
+  text-decoration: none;
+  background-color: #455;
+  color: white;
 }
 
 /* ******************* */
+
 /* *** Post Card *** */
+
 .postCard {
   margin-top: 1em;
   padding-top: 1em;
   padding-bottom: 1em;
-
   box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
-
   /* display: block; */
 }
 
@@ -83,6 +82,7 @@
   background: #eee;
   opacity: 70%;
 }
+
 .postCardDate {
   font-size: small;
 }
@@ -109,3 +109,124 @@
   padding-left: 1em;
   padding-right: 1em;
 }
+
+/* *** Table of Contents *** */
+.tableOfContents  {
+  margin-right: 2em;
+  margin-left: 2em;
+  margin-bottom: 2em;
+  padding-bottom: 0em;
+  /* padding: 1em; */
+  
+  /*  border-bottom: solid 1px;*/
+  /* background-color: #fee; */
+}
+.tableOfContents ol {
+  margin-bottom: 0em;
+}
+.tableOfContents h3, h4 {
+  margin-bottom: 0em;
+
+}
+.tableOfContentsTitle:hover {
+  background: #eee;
+  
+  /* opacity: 70%; */
+}
+/* ********************************************* */
+/* markdown */
+
+.post h1 {
+  font-weight: bold;
+  border-bottom: 1px solid #888;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.post h2 {
+  font-weight: bold;
+  border-bottom: 1px solid #888;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.post h3 {
+  font-weight: bold;
+  border-bottom: 1px solid #888;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.post h4 {
+  font-weight: bold;
+  border-bottom: 1px solid #888;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+/* header numbering */
+
+body {
+  counter-reset: h1; counter-reset: h2; 
+}
+
+/* line 191, style.css.scss */
+.numbering_headings h1 {
+  counter-increment: h1;
+  counter-reset: h2; }
+/* line 195, style.css.scss */
+.numbering_headings h1:before {
+  color: #888;
+  font-size: large; }
+/* line 191, style.css.scss */
+.numbering_headings h2 {
+  counter-increment: h2;
+  counter-reset: h3; }
+/* line 195, style.css.scss */
+.numbering_headings h2:before {
+  color: #888;
+  font-size: large; }
+/* line 191, style.css.scss */
+.numbering_headings h3 {
+  counter-increment: h3;
+  counter-reset: h4; }
+/* line 195, style.css.scss */
+.numbering_headings h3:before {
+  color: #888;
+  font-size: large; }
+/* line 191, style.css.scss */
+.numbering_headings h4 {
+  counter-increment: h4;
+  counter-reset: h5; }
+/* line 195, style.css.scss */
+.numbering_headings h4:before {
+  color: #888;
+  font-size: large; }
+/* line 191, style.css.scss */
+.numbering_headings h5 {
+  counter-increment: h5;
+  counter-reset: h6; }
+/* line 195, style.css.scss */
+.numbering_headings h5:before {
+  color: #888;
+  font-size: large; }
+/* line 191, style.css.scss */
+.numbering_headings h6 {
+  counter-increment: h6;
+  counter-reset: h7; }
+/* line 195, style.css.scss */
+.numbering_headings h6:before {
+  color: #888;
+  font-size: large; }
+/* line 199, style.css.scss */
+.numbering_headings h2:before {
+  content: counter(h2) ". "; }
+/* line 200, style.css.scss */
+.numbering_headings h3:before {
+  content: counter(h2) "." counter(h3) ". "; }
+/* line 201, style.css.scss */
+.numbering_headings h4:before {
+  content: counter(h2) "." counter(h3) "." counter(h4) ". "; }
+/* line 202, style.css.scss */
+.numbering_headings h5:before {
+  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "; }

@@ -1,13 +1,13 @@
 import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { Box, Grid } from '@material-ui/core'
+import { Box } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 
 import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
 
-const config = require('../../config')
+//const config = require('../../config')
 
 export const query = graphql`
     query($regex: String!, $pruneLength: Int!=200, $skip: Int!, $limit: Int!){        
@@ -38,19 +38,19 @@ const handleChange = (directory, p) => {
 export default function DirectoryTemplate({ data, pageContext }) {
   const { directory, numberOfPages, humanPageNumber } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
-  const current_directory = directory.split('/').slice(-1)
-
+  //const current_directory = directory.split('/').slice(-1)
   const label = crumbs.slice(1).map(v=> v.crumbLabel).join('/')
+  const title = `DIRECTORY: ${label}`
 
-  console.log("directory template: ", label)
-  console.log("directory index crumbs: ", crumbs)
+  //console.log("directory template: ", label)
+  //console.log("directory index crumbs: ", crumbs)
   return (
-    <Layout title={`Directory: ${label}`}>
+    <Layout title={title}>
       <Breadcrumb crumbs={crumbs} />
-      <h1 className="pageTitle">DIRECTORY: {label}</h1>
+      <h1 className="pageTitle">{title}</h1>
       <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
 
-       <Box display="flex" justifyContent="center" alignItems="center">
+      <Box display="flex" justifyContent="center" alignItems="center">
         <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e,p) => { handleChange(directory, p) }} />
       </Box>
     </Layout>
