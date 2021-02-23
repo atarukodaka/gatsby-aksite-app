@@ -67,14 +67,13 @@ exports.createPages = async ({ graphql, actions }) => {
     // markdown pages
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
-        const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
+        //const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
 
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
-                node: node,
-                siblings: siblings,
+                slug: node.slug
             },
         })
     })
@@ -96,9 +95,11 @@ exports.createPages = async ({ graphql, actions }) => {
     directories.forEach(directory => {
         const re = new RegExp(`^${directory}`)
 
+        const nodes = mdxPages.nodes.filter(node=>re.test(node.fields.directory))
+
         paginate({
             createPage,
-            items: mdxPages.nodes.filter(node=>re.test(node.fields.directory)),
+            items: nodes,
             itemsPerPage: 12,
             pathPrefix: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
@@ -106,6 +107,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 archive: 'directory',
                 directory: directory,
                 regex: re.toString(),
+                count: nodes.length
             }
         })
     })

@@ -3,47 +3,35 @@ import { useStaticQuery, Link, graphql } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
 import styles from './sidebar.module.css'
 //import { Button } from '@material-ui/core'
-const config = require('../../config')
+//const config = require('../../config')
+import DirectoryLabel from './directory_label'
 
 const ListToTree = require('list-to-tree')
 
+const query = graphql`
+{
+    mdxPages: allMdx {
+        nodes {
+            id, slug
+            fields { directory }
+        }
+    }
+}
+`
+
 const DirectoryArchives = () => {
-
-   /*
-        directoryArchives: allSitePage(filter: {context: {archive: {eq: "directory"}}}) {
-            nodes {
-              id
-              path
-              context {
-                directory
-               
-                count
-              }
-            }
-          }
-        
-    */
-    const data = useStaticQuery(
-        graphql`
-        {
-            mdxPages: allMdx {
-                nodes {
-                    id, slug
-                    fields { directory }
-                }
-            }
-   
-        }`)
-
+    const data = useStaticQuery(query)
 
     const list = []
+    
     data.mdxPages.nodes.filter(v=>v.fields.directory !== "").forEach(node => {
         const directory = node.fields.directory
         const item = list.find(v => v.name === directory)
         if (item === undefined){
             const parts = directory.split('/')
             //const label = parts.pop()
-            const label = config.directory_labels[`/${parts.join('/')}`] || parts.slice(-1)
+            //const label = config.directory_labels[`/${parts.join('/')}`] || parts.slice(-1)
+            const label = DirectoryLabel(directory).split('/').pop()
             parts.pop()
 
             //const label = node.fields.directory_name.split('/').pop()
@@ -60,18 +48,7 @@ const DirectoryArchives = () => {
         const re = new RegExp(`^${node.name}`)
         node.totalCount = data.mdxPages.nodes.filter(v=> re.test(v.fields.directory)).length
     })
-    /*
-    directoryArchives.nodes.forEach(node => {
-        const parts = node.context.directory.split('/')
-        const label1 = parts.pop() || node.context.directory
-        const label = node.context.directory_name.split('/').pop()
-        const parent_dir = parts.join('/')
-        const parent = list.find(vv => vv.name === parent_dir)
-        const parent_id = (parent) ? parent.id : 0
-
-        list.push({ id: node.context.directory, parent: parent_id, name: node.context.directory, label: label, totalCount: node.context.count })
-    })
-    */
+  
     const tree = new ListToTree(list).GetTree()
     return (
         <Tree nodes={tree} />

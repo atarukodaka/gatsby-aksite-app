@@ -41,7 +41,7 @@ const TocBox = ({ node }) => (
             </AccordionSummary>
 
             <AccordionDetails>
-                <TableOfContents toc={node.tableOfContents} />
+              { /* <TableOfContents toc={node.tableOfContents} /> */ }
             </AccordionDetails>
         
     </Accordion>

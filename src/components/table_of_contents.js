@@ -24,7 +24,7 @@ const Tree = ({ nodes }) => (
 
 
 const TableOfContents = ({ toc }) => (
-    <Tree nodes={toc.items} />
+     <Tree nodes={toc.items} /> 
 )
 
 
