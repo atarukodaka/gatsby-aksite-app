@@ -77,15 +77,18 @@ nav.breadcrumb {
 }
 
 /* *** Directories *** */
+/*
 .directory a {
   color: black
 }
 .directory a:visited {
   color: black
 }
+
 .directory a:hover {
   background-color: #eee
 }
+*/
 /*
 pre {
   max-width: 100%;

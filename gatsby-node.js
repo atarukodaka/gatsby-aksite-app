@@ -45,7 +45,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, sibling_nodes } } = await graphql(`
+    const { data: { mdxPages } } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
@@ -58,20 +58,15 @@ exports.createPages = async ({ graphql, actions }) => {
                 fields {
                     directory
                 }
-                body
                 slug
-                tableOfContents
                 id
-                excerpt(pruneLength: 200)
             }            
         }
-
     }`)
 
     // markdown pages
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
-        //console.log(`create markdown page: ${node.slug}`)
         const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
 
         createPage({

@@ -6,8 +6,22 @@ import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
 //import Img from 'gatsby-image'
 import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+const config = require('../../config')
 
 const shortcuts = {}
+
+const DirectoryLabel = (directory) => {
+
+    const parts = directory.split('/')
+
+    let i = 0
+    return parts.map(v => {
+        i = i + 1
+        return config.directory_labels[`/${parts.slice(0, i).join('/')}`] || v
+    }).join(' / ')
+    
+    //return `!!!${directory}!!!`
+}
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -19,7 +33,7 @@ const PostHeader = ({ node }) => (
         </h1>
         <div className={styles.directory}>
             <Link to={'/' + node.fields.directory}>
-                {node.fields.directory}
+                {DirectoryLabel(node.fields.directory)}
             </Link>
         </div>
 
@@ -102,7 +116,7 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                     }
                 </h4>
                 <div className={styles.postCardDirectory}>
-                    <Link to={'/' + node.fields.directory}>{node.fields.directory}</Link>
+                    <Link to={'/' + node.fields.directory}>{DirectoryLabel(node.fields.directory)}</Link>
                 </div>
                 {showExcerpt && (
                     <div className={styles.postCardExcerpt}>

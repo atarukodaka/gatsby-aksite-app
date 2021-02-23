@@ -34,7 +34,6 @@ const IndexTemplate = ( { data, pageContext } ) => {
   //console.log("crumbs: ", crumbs)
 
   const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : `index [${humanPageNumber}]`
-
   
   const handleChange = (_event, p) => {
     navigate((p === 1) ? '/' : `/${p}`)

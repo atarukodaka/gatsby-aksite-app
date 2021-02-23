@@ -38,7 +38,9 @@
 .directory a {
   text-decoration: none;
 }
-
+.directory a:hover {
+  background-color: #eee
+}
 /*
 .date {
   font-size: small;

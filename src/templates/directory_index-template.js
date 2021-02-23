@@ -10,7 +10,7 @@ import Layout from "../components/layout.js"
 //const config = require('../../config')
 
 export const query = graphql`
-    query($regex: String!, $pruneLength: Int!=200, $skip: Int!, $limit: Int!){        
+    query($regex: String!, $pruneLength: Int!=100, $skip: Int!, $limit: Int!){        
       allMdx(sort:  {fields: frontmatter___date, order: DESC},
         filter: {fields: {directory: {regex: $regex}}},
         skip: $skip, limit: $limit

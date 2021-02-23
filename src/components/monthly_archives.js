@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useStaticQuery, graphql, navigate } from "gatsby"
+import { useStaticQuery, graphql, navigate } from "gatsby"
 import { TreeView, TreeItem } from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
