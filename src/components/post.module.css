@@ -74,9 +74,15 @@
   padding-top: 1em;
   padding-bottom: 1em;
 
-  box-shadow: 2px 2px 1px rgb(0 0 0 / 20%)
+  box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
+
+  /* display: block; */
 }
 
+.postCard:hover {
+  background: #eee;
+  opacity: 70%;
+}
 .postCardDate {
   font-size: small;
 }

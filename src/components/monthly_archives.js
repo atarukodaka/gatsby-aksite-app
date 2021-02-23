@@ -81,10 +81,10 @@ const MonthlyArchives = ( { expandAll }) => {
             defaultExpanded={defaultExpanded}
         >
             {data.monthlyArchivesByYear.group.sort((a, b) => b.year - a.year).map(year_node => (
-                <TreeItem nodeId={year_node.year} label={year_node.year + ' ('+countByYear[year_node.year]+')'}>
+                <TreeItem key={year_node.year} nodeId={year_node.year} label={year_node.year + ' ('+countByYear[year_node.year]+')'}>
                     {
                         year_node.nodes.sort((a, b) => a.context.month - b.context.month).map(node => (
-                            <TreeItem nodeId={node.id} label={formatLabel(node)} onLabelClick={() => { handleClick(node) }}>
+                            <TreeItem key={node.id} nodeId={node.id} label={formatLabel(node)} onLabelClick={() => { handleClick(node) }}>
                             </TreeItem>
                         ))
                     }

@@ -2,9 +2,9 @@ import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 
-import { PostExcerpt, PostCards } from "../components/post.js"
+import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
-import config from '../../config.js'
+
 
 
 export const query = graphql`

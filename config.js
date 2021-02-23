@@ -3,7 +3,7 @@ const config = {
     title: 'Ataru Kodaka Site',
     author: 'Ataru KODAKA',
     email: 'ataru.kodaka@gmail.com',
-    description: 'THIS SITE IS ......WHATS THE FXXK ?',
+    description: 'THIS SITE IS ......WHATS THE FUNNY ?',
     siteUrl: `http://localhost:8000/`,
     social: {
       twitter: 'ataru_kodaka,'

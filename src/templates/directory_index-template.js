@@ -1,9 +1,9 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { Grid } from '@material-ui/core'
+//import { Grid } from '@material-ui/core'
 
-import { PostExcerpt, PostCards } from "../components/post.js"
+import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
 
 export const query = graphql`
