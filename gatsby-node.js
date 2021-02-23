@@ -1,9 +1,7 @@
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
-const { paginate } = require('gatsby-awesome-pagination')
-const { findDOMNode } = require('react-dom')
-const config = require(`./config`)
+const { paginate } = require('gatsby-awesome-pagination');
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
@@ -110,48 +108,36 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
 
-    /*
-    directories.group.forEach(({ directory, totalCount }) => {
-        //console.log(directory)
-        const re = new RegExp(`^${directory}`)
-        const count = mdxPages.nodes.filter(node => re.test(node.fields.directory)).length
-        console.log("directory count: ", directory, count)
-        //const directory_name = (config.directory_names[directory]) ? config.directory_names[directory].split('/').pop() : directory
-        const directory_name = config.directory_names[directory] || directory
-
-        console.log("drecotyr index count: ", directory, count)
-
-        paginate({
-            createPage,
-            items: mdxPages.nodes.filter(node => re.test(node.fields.directory)),
-            pathPrefix: `/${directory}`,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
-            context: {
-                archive: 'directory',
-                directory: directory,
-                directory_name: directory_name,
-                regex: `/^${directory}/`,
-                count: count,
-            }
-        }) */
-        /*
+    console.log("** creating monthly archives")
+    const list = []
+    mdxPages.nodes.forEach(node=>{
+        const date = new Date(node.frontmatter.date)
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
+        if (!list.find(v=> v.year === year && v.month === month)){
+            list.push({year: year, month: month})
+        }
+    })
+    console.log(list)
+    list.forEach(node=>{
+        const fromDate = new Date(node.year, node.month - 1, 1)
+        const toDate = new Date(node.year, node.month, 1)
         createPage({
-            path: `/${directory}`,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
+            path: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
+            component: path.resolve(`./src/templates/archive-template.js`),
             context: {
-                archive: 'directory',
-                directory: directory,
-                directory_name: directory_name,
-                regex: `/^${directory}/`,
-                count: count,
+                archive: 'monthly',
+                year: node.year,
+                month: node.month,
+                fromDate: fromDate.toISOString(),
+                toDate: toDate.toISOString(),
             }
         })
-        */ /*
-    })*/
-
-    // monthly archives    
-    console.log("** creating monthly archives")
+    })
+    /*
     const ym1s = new Map()
+
+   
 
     mdxPages.nodes.forEach(node => {
         let date = new Date(node.frontmatter.date)
@@ -161,17 +147,11 @@ exports.createPages = async ({ graphql, actions }) => {
     })
     //console.log(ym1s)
 
-    /*
-    const dates = mdxPages.nodes.map(node=>new Date(node.frontmatter.date))
-    const ym1s = dates.filter((date, i, self) => 
-        self.findIndex(d => 
-            (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
-        ) === i)
-    */
+
     ym1s.forEach(function (v, k) { //} => { //(ym1, count) => {
         const year = parseInt(k.slice(0, 4))
         const month = parseInt(k.slice(5))
-        const count = v
+        //const count = v
         const fromDate = new Date(year, month - 1, 1)
         const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
 
@@ -185,8 +165,9 @@ exports.createPages = async ({ graphql, actions }) => {
                 month: month,
                 fromDate: fromDate.toISOString(),
                 toDate: toDate.toISOString(),
-                count: count,
+                //count: count,
             }
         })
     })
+    */
 }
