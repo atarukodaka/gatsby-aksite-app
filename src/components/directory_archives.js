@@ -8,40 +8,42 @@ const ListToTree = require('list-to-tree')
 
 const DirectoryArchives = () => {
 
-    const data = useStaticQuery(
-        graphql`
-        {
-            mdxPages: allMdx {
-                nodes {
-                    id, slug
-                    fields { directory, directory_name }
-                }
-            }
-   
+   /*
         directoryArchives: allSitePage(filter: {context: {archive: {eq: "directory"}}}) {
             nodes {
               id
               path
               context {
                 directory
-                directory_name
+               
                 count
               }
             }
           }
-        }
-        `)
+        
+    */
+    const data = useStaticQuery(
+        graphql`
+        {
+            mdxPages: allMdx {
+                nodes {
+                    id, slug
+                    fields { directory }
+                }
+            }
+   
+        }`)
 
 
     const list = []
-    data.mdxPages.nodes.filter(v=>v.fields.directory != "").map(node => {
+    data.mdxPages.nodes.filter(v=>v.fields.directory !== "").map(node => {
         const directory = node.fields.directory
         const item = list.find(v => v.name == directory)
         if (item === undefined){
             const parts = directory.split('/')
-            //const label = parts.pop() || directory
-            const label = node.fields.directory_name.split('/').pop()
-            parts.pop()
+            const label = parts.pop() || directory
+            //const label = node.fields.directory_name.split('/').pop()
+            //parts.pop()
             const parent_dir = parts.join('/')
             const parent = list.find(v => v.name == parent_dir)
             const parent_id = (parent) ? parent.id : 0

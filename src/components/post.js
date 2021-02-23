@@ -20,7 +20,7 @@ const PostHeader = ({ node }) => (
         </h1>
         <div className={styles.directory}>
             <Link to={'/' + node.fields.directory}>
-                {node.fields.directory_name}
+                {node.fields.directory}
             </Link>
         </div>
         
@@ -95,7 +95,7 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                 }
             </h4>
             <div className={styles.postCardDirectory}>
-                <Link to={'/'+node.fields.directory}>{node.fields.directory_name}</Link>
+                <Link to={'/'+node.fields.directory}>{node.fields.directory}</Link>
             </div>
             { showExcerpt && (
             <div className={styles.postCardExcerpt}>

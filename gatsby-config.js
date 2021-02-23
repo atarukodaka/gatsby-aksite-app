@@ -81,13 +81,54 @@ module.exports = {
         excludeOptions: {
           separator: '.'
         },
+        
         crumbLabelUpdates: [
           {
-            pathname: '/book',
-            crumbLabel: 'Books'
-          }
+            pathname: '/game',
+            crumbLabel: 'ゲーム'
+
+          },
+          {
+            pathname: '/game/wot',
+            crumbLabel: 'ワールドオブタンクス'
+          },
+          {
+            pathname: '/game/kancolle',
+            crumbLabel: '艦これ'
+          },
+          {
+            pathname: '/game/kancolle/event',
+            crumbLabel: 'イベント'
+          },
+          {
+            pathname: '/wot',
+            crumbLabel: 'World of Tanks'
+          },
+
+          {
+            pathname: '/workout',
+            crumbLabel: 'ワークアウト'
+          },
+          {
+            pathname: '/figureskating',
+            crumbLabel: 'フィギュアスケート'
+          },
+          {
+            pathname: '/figureskating/practise',
+            crumbLabel: '銀盤練習'
+          },
+          {
+            pathname: '/hobby',
+            crumbLabel: '趣味'
+          },
+          {
+            pathname: '/software',
+            crumbLabel: 'ソフトウェア'
+          },
+
+
         ],
-        trailingSlashes: false,
+        //trailingSlashes: true,
       }
     },
     {

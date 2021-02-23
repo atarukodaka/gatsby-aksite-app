@@ -30,7 +30,7 @@ const Sidebar = () => {
                     nodes {
                         frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
                         slug
-                        fields { directory, directory_name }
+                        fields { directory}
                         id
                         excerpt(pruneLength: 100)
                     }

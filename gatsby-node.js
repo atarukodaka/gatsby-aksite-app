@@ -25,23 +25,27 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         const directory = slug.split("/").slice(1, -2).join("/")
         // add directory field
         //console.log("create node fields directory", directory)
-        
+
         createNodeField({
             node,
             name: 'directory',
             value: directory
         })
-        createNodeField({
-            node,
-            name: 'directory_name',
-            value: config.directory_names[directory] || directory,
-        })
+
+        if (node.frontmatter.date) {
+            const date = new Date(node.frontmatter.date)
+            createNodeField({
+                node,
+                name: 'yearmonth',
+                value: date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, 0)
+            })
+        }
     }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, directories, sibling_nodes } } = await graphql(`
+    const { data: { mdxPages, sibling_nodes } } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
@@ -52,39 +56,24 @@ exports.createPages = async ({ graphql, actions }) => {
                     image
                 }
                 fields {
-                    directory, directory_name
+                    directory
                 }
                 body
                 slug
                 tableOfContents
                 id
+                excerpt(pruneLength: 200)
             }            
         }
-        sibling_nodes: allMdx  (sort: {fields: frontmatter___date, order: DESC}) {
-            nodes {
-                frontmatter {
-                    title, date(formatString: "YYYY-MM-DD")
-                }
-                fields { directory, directory_name }
-                id
-                slug
-                excerpt(pruneLength: 200)
-            }
-        }
-        directories: allMdx(filter: {fields: {directory: {ne: ""}}}) {
-            group(field: fields___directory) {
-              directory: fieldValue
-              totalCount
-            }
-        }
+
     }`)
 
     // markdown pages
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
         //console.log(`create markdown page: ${node.slug}`)
-        const siblings = sibling_nodes.nodes.filter(v=> (v.fields.directory === node.fields.directory) && v.slug != node.slug )
-                
+        const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
+
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
@@ -108,15 +97,49 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // directory index   
     console.log("** creating directory index")
+    const directories = [...new Set(mdxPages.nodes.map(node => node.fields.directory ))]
+    directories.forEach(directory => {
+        const re = new RegExp(`^${directory}`)
 
+        paginate({
+            createPage,
+            items: mdxPages.nodes.filter(node=>re.test(node.fields.directory)),
+            itemsPerPage: 12,
+            pathPrefix: `/${directory}`,
+            component: path.resolve(`./src/templates/directory_index-template.js`),
+            context: {
+                archive: 'directory',
+                directory: directory,
+                regex: re.toString(),
+            }
+        })
+    })
+
+    /*
     directories.group.forEach(({ directory, totalCount }) => {
         //console.log(directory)
         const re = new RegExp(`^${directory}`)
-        const count = mdxPages.nodes.filter(node=> re.test(node.fields.directory)).length
+        const count = mdxPages.nodes.filter(node => re.test(node.fields.directory)).length
         console.log("directory count: ", directory, count)
         //const directory_name = (config.directory_names[directory]) ? config.directory_names[directory].split('/').pop() : directory
         const directory_name = config.directory_names[directory] || directory
-            
+
+        console.log("drecotyr index count: ", directory, count)
+
+        paginate({
+            createPage,
+            items: mdxPages.nodes.filter(node => re.test(node.fields.directory)),
+            pathPrefix: `/${directory}`,
+            component: path.resolve(`./src/templates/directory_index-template.js`),
+            context: {
+                archive: 'directory',
+                directory: directory,
+                directory_name: directory_name,
+                regex: `/^${directory}/`,
+                count: count,
+            }
+        }) */
+        /*
         createPage({
             path: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
@@ -128,7 +151,8 @@ exports.createPages = async ({ graphql, actions }) => {
                 count: count,
             }
         })
-    })
+        */ /*
+    })*/
 
     // monthly archives    
     console.log("** creating monthly archives")
