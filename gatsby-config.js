@@ -6,6 +6,12 @@
 
 const config = require('./config.js')
 
+const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directory_labels).map(k=>{ 
+  return { pathname: k, crumbLabel: config.directory_labels[k] }
+}) : []
+
+console.log("crumblabelupdates: ", crumbLabelUpdates)
+
 module.exports = {
   siteMetadata: config.siteMetadata,
   plugins: [
@@ -81,16 +87,11 @@ module.exports = {
         excludeOptions: {
           separator: '.'
         },
-        
-        crumbLabelUpdates: [
+        crumbLabelUpdates: crumbLabelUpdates,
+        crumbLabelUpdatesOrig: [
           {
             pathname: '/game',
             crumbLabel: 'ゲーム'
-
-          },
-          {
-            pathname: '/game/wot',
-            crumbLabel: 'ワールドオブタンクス'
           },
           {
             pathname: '/game/kancolle',

@@ -3,6 +3,7 @@ import { useStaticQuery, Link, graphql, navigate } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
 import styles from './sidebar.module.css'
 import { Button } from '@material-ui/core'
+const config = require('../../config')
 
 const ListToTree = require('list-to-tree')
 
@@ -41,7 +42,10 @@ const DirectoryArchives = () => {
         const item = list.find(v => v.name == directory)
         if (item === undefined){
             const parts = directory.split('/')
-            const label = parts.pop() || directory
+            //const label = parts.pop()
+            const label = config.directory_labels[`/${parts.join('/')}`] || parts.slice(-1)
+            parts.pop()
+
             //const label = node.fields.directory_name.split('/').pop()
             //parts.pop()
             const parent_dir = parts.join('/')

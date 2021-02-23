@@ -7,6 +7,8 @@ import { Pagination } from '@material-ui/lab'
 import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
 
+const config = require('../../config')
+
 export const query = graphql`
     query($regex: String!, $pruneLength: Int!=200, $skip: Int!, $limit: Int!){        
       allMdx(sort:  {fields: frontmatter___date, order: DESC},
@@ -38,12 +40,14 @@ export default function DirectoryTemplate({ data, pageContext }) {
   const { breadcrumb: { crumbs } } = pageContext
   const current_directory = directory.split('/').slice(-1)
 
-  console.log("directory template: ", directory)
+  const label = crumbs.slice(1).map(v=> v.crumbLabel).join('/')
 
+  console.log("directory template: ", label)
+  console.log("directory index crumbs: ", crumbs)
   return (
-    <Layout title={"Directory: " + directory}>
+    <Layout title={`Directory: ${label}`}>
       <Breadcrumb crumbs={crumbs} />
-      <h1 className="pageTitle">DIRECTORY: {directory}</h1>
+      <h1 className="pageTitle">DIRECTORY: {label}</h1>
       <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
 
        <Box display="flex" justifyContent="center" alignItems="center">
