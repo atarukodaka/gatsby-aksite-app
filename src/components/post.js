@@ -41,7 +41,7 @@ const TocBox = ({ node }) => (
             </AccordionSummary>
 
             <AccordionDetails>
-              { /* <TableOfContents toc={node.tableOfContents} /> */ }
+              <TableOfContents toc={node.tableOfContents} />
             </AccordionDetails>
         
     </Accordion>
@@ -57,9 +57,7 @@ export const Post = ({ node }) => (
             <MDXProvider components={shortcuts}>
                 <div className={styles.numbering_headings}>
                     <MDXRenderer>
-
                         {node.body}
-
                     </MDXRenderer>
                 </div>
             </MDXProvider>

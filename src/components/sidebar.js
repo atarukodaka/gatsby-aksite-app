@@ -55,7 +55,7 @@ const Sidebar = () => {
             ))
             }
             <h3 className={styles.title}>Monthly Archives</h3>
-            <MonthlyArchives />
+            <MonthlyArchives/>
         </div>
     )
 }

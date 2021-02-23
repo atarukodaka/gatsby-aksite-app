@@ -1,11 +1,17 @@
 import React from "react"
-import { useStaticQuery, graphql, navigate } from "gatsby"
+import { useStaticQuery, graphql, navigate, Link } from "gatsby"
 import { TreeView, TreeItem } from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 const query = graphql`
 {
+    mdxPages: allMdx {
+        nodes {
+            id, slug
+            frontmatter { date(formatString: "YYYY-MM") }
+        }
+    }
     monthlyArchives: allSitePage(sort: {fields: context___fromDate, order: DESC}, 
         filter: {context: {archive: {eq: "monthly"} }}){    
         nodes {
@@ -41,21 +47,71 @@ const query = graphql`
 }                
 `
 
+const MonthlyArchivePath = ( year, month ) => {
+    return `/archives/${year}${month.toString().padStart(2,0)}`
+}
+
+const CreateMonthlyArchivesList = ( { nodes } ) => {
+    
+}
+const MonthlyArchives = ( { expandAll } ) => {
+    const data = useStaticQuery(query)
+    const list = []
+    const year_nodes = []
+    data.mdxPages.nodes.forEach(node=>{
+        const date = new Date(node.frontmatter.date)
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
+        const yyyymm = year.toString() + (month).toString().padStart(2,0)
+    
+        const item = list.find(v=>v.id === yyyymm)
+        if (item === undefined){
+            list.push({id: yyyymm, year: year, month: month, count: 1})
+        } else {
+            item.count ++
+        }
+    })
+    list.forEach(item => {
+        let y_item = year_nodes[item.year]
+        if (y_item === undefined){
+            y_item = year_nodes[item.year] = {year: item.year, child: [], count: 0}
+        }
+        y_item.child[item.month] = item
+        y_item.count += item.count
+
+    })
+    const defaultExpanded = ( expandAll) ? year_nodes.map(v=>v.year) : []
+
+    
+    const handleClick = (node) => {
+        navigate(MonthlyArchivePath(node.year, node.month))
+    }
+    return (
+        <TreeView
+        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpandIcon={<ChevronRightIcon />}
+        defaultExpanded={defaultExpanded}
+    >
+            {
+                year_nodes.sort((a, b) => b.year - a.year).map(y_node=>(
+                    <TreeItem key={y_node.year} nodeId={y_node.year} label={ `${y_node.year} (${y_node.count})`}>
+                        {
+                            y_node.child.map(m_node=>(
+                                <TreeItem key={m_node.id} nodeId={m_node.id} label={`${m_node.year}/${m_node.month} (${m_node.count})`} onLabelClick={() => { handleClick(m_node) }}/>
+                            ))
+                        }
+                    </TreeItem>
+
+                ))
+            }
+        </TreeView>
+    )
+}
+
+/*
 const MonthlyArchives = ( { expandAll }) => {
     const data = useStaticQuery(query)
-    /*
-        return (
-            <TreeView  defaultCollapseIcon={<ExpandMoreIcon />}
-            defaultExpandIcon={<ChevronRightIcon />}>
-                <TreeItem nodeId="2021" label="2021">
-                    <TreeItem nodeId="202103" label="3"/>
-                    <TreeItem nodeId="202103" label="4"/>
-    
-                </TreeItem>
-                <TreeItem label="2020"></TreeItem>
-            </TreeView>
-        )
-    */
+
     const handleClick = (node) => {
         navigate(node.path)
     }
@@ -93,19 +149,6 @@ const MonthlyArchives = ( { expandAll }) => {
         </TreeView>
     )
 
-    /*    
-        return (
-            <ul>
-                {
-                    data.monthlyArchives.nodes.map(node => (
-                        <li key={node.id}>
-                            <Link to={node.path}>{node.context.year}/{node.context.month}</Link> ({node.context.count})
-                        </li>
-                    ))
-                }
-            </ul>
-        )
-        */
 }
-
+*/
 export default MonthlyArchives
