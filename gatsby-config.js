@@ -6,6 +6,12 @@
 
 const config = require('./config.js')
 
+const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directory_labels).map(k=>{ 
+  return { pathname: k, crumbLabel: config.directory_labels[k] }
+}) : []
+
+console.log("crumblabelupdates: ", crumbLabelUpdates)
+
 module.exports = {
   siteMetadata: config.siteMetadata,
   plugins: [
@@ -81,13 +87,49 @@ module.exports = {
         excludeOptions: {
           separator: '.'
         },
-        crumbLabelUpdates: [
+        crumbLabelUpdates: crumbLabelUpdates,
+        crumbLabelUpdatesOrig: [
           {
-            pathname: '/book',
-            crumbLabel: 'Books'
-          }
+            pathname: '/game',
+            crumbLabel: 'ゲーム'
+          },
+          {
+            pathname: '/game/kancolle',
+            crumbLabel: '艦これ'
+          },
+          {
+            pathname: '/game/kancolle/event',
+            crumbLabel: 'イベント'
+          },
+          {
+            pathname: '/wot',
+            crumbLabel: 'World of Tanks'
+          },
+
+          {
+            pathname: '/workout',
+            crumbLabel: 'ワークアウト'
+          },
+          {
+            pathname: '/figureskating',
+            crumbLabel: 'フィギュアスケート'
+          },
+          {
+            pathname: '/figureskating/practise',
+            crumbLabel: '銀盤練習'
+          },
+          {
+            pathname: '/hobby',
+            crumbLabel: '趣味'
+          },
+          {
+            pathname: '/software',
+            crumbLabel: 'ソフトウェア'
+          },
+
+
         ],
-        trailingSlashes: false,
+        //trailingSlashes: true,
       }
     },
     {

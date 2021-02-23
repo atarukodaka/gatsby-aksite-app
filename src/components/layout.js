@@ -1,6 +1,6 @@
 import React from "react"
 
-import Paper from '@material-ui/core/Paper'
+//import Paper from '@material-ui/core/Paper'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Grid from '@material-ui/core/Grid'
@@ -10,9 +10,11 @@ import Sidebar from './sidebar.js'
 import { graphql, useStaticQuery, Link } from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
+import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
+
 import SEO from './seo'
 import "./layout.css"
-import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
+import "./syntax_hilight.css"
 
 const query = graphql`
 {

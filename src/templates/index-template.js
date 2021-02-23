@@ -19,7 +19,7 @@ export const data = graphql`
         id
         frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
         excerpt(pruneLength: $pruneLength)
-        fields { directory, directory_name}
+        fields { directory }
         tableOfContents
         slug
       }

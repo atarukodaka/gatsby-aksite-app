@@ -1,15 +1,20 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { Grid } from '@material-ui/core'
+import { Box } from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
 
-import { PostExcerpt, PostCards } from "../components/post.js"
+import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
 
+//const config = require('../../config')
+
 export const query = graphql`
-    query($regex: String!, $pruneLength: Int!=200){        
+    query($regex: String!, $pruneLength: Int!=200, $skip: Int!, $limit: Int!){        
       allMdx(sort:  {fields: frontmatter___date, order: DESC},
-        filter: {fields: {directory: {regex: $regex}}} ) {
+        filter: {fields: {directory: {regex: $regex}}},
+        skip: $skip, limit: $limit
+         ) {
         nodes { 
           id
           excerpt(truncate: true, pruneLength: $pruneLength)
@@ -18,7 +23,7 @@ export const query = graphql`
             date(formatString: "YYYY-MM-DD"), title, image
           }     
           fields { 
-            directory, directory_name
+            directory
           }   
           
         }
@@ -26,16 +31,28 @@ export const query = graphql`
     }
   `
 
-export default function DirectoryTemplate({ data, pageContext }) {
-  const { directory, directory_name } = pageContext
-  const { breadcrumb: { crumbs } } = pageContext
-  const current_directory = directory.split('/').slice(-1)  
+const handleChange = (directory, p) => {
+  navigate((p === 1) ? `/${directory}` : `/${directory}/${p}`)
+}
 
+export default function DirectoryTemplate({ data, pageContext }) {
+  const { directory, numberOfPages, humanPageNumber } = pageContext
+  const { breadcrumb: { crumbs } } = pageContext
+  //const current_directory = directory.split('/').slice(-1)
+  const label = crumbs.slice(1).map(v=> v.crumbLabel).join('/')
+  const title = `DIRECTORY: ${label}`
+
+  //console.log("directory template: ", label)
+  //console.log("directory index crumbs: ", crumbs)
   return (
-    <Layout title={"Directory: " + directory}>
-      <Breadcrumb crumbs={crumbs} crumbLabel={current_directory}/>
-      <h1 className="pageTitle">DIRECTORY: {directory_name}</h1>
+    <Layout title={title}>
+      <Breadcrumb crumbs={crumbs} />
+      <h1 className="pageTitle">{title}</h1>
       <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
+
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e,p) => { handleChange(directory, p) }} />
+      </Box>
     </Layout>
   )
 }

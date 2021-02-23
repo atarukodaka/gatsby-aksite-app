@@ -1,0 +1,65 @@
+
+/*******************************/
+/*  syntax hilight */
+div.gatsby-code-title > span {
+    margin-bottom: -0.6rem;
+    padding: 0.3em;
+    font-family: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
+      'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+      'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier,
+      monospace;
+  
+    background-color: #444;
+    color: white;
+    z-index: 0;
+  
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+  }
+
+  .gatsby-highlight {
+    position: relative;
+  }
+  
+  .gatsby-highlight pre[class*="language-"]::before {
+    background: lightgray;
+    border-radius: 0 0 0.25rem 0.25rem;
+    color: black;
+    font-size: 12px;
+    letter-spacing: 0.025rem;
+    padding: 0.1rem 0.5rem;
+    position: absolute;
+    right: 1rem;
+    text-align: right;
+    top: 0;
+
+    /*overflow: auto;
+    float: left;
+    min-width: 100%;*/
+  }  
+  
+.gatsby-highlight pre[class="language-js"]::before {
+    content: "JavaScript";
+}
+.gatsby-highlight pre[class="language-sh"]::before {
+  content: "sh";
+}
+.gatsby-highlight pre[class="language-bash"]::before {
+  content: "Bash";
+}  
+.gatsby-highlight pre[class="language-ruby"]::before {
+  content: "Ruby";
+}  
+.gatsby-highlight pre[class="language-md"]::before {
+  content: "Markdown";
+}  
+.gatsby-highlight pre[class="language-css"]::before {
+  content: "CSS";
+}  
+.gatsby-highlight pre[class="language-html"]::before {
+  content: "HTML";
+}  
+.gatsby-highlight pre[class="language-xml"]::before {
+  content: "XML";
+}  
+

@@ -3,26 +3,28 @@ const config = {
     title: 'Ataru Kodaka Site',
     author: 'Ataru KODAKA',
     email: 'ataru.kodaka@gmail.com',
-    description: 'THIS SITE IS ......WHATS THE FXXK ?',
+    description: 'THIS SITE IS ......WHATS THE FUNNY ?',
     siteUrl: `http://localhost:8000/`,
     social: {
       twitter: 'ataru_kodaka,'
     }
   },
 
-  directory_names: {
-    "workout": "ワークアウト",
-    "game": "ゲーム",
-    "game/kancolle": "ゲーム/艦これ",
-    "game/kancolle/event": "ゲーム/艦これ/イベント",
-    "game/wot": "ゲーム/wot",
-    "software": "ソフトウェア",
-    "software/middleman": "ソフトウェア/middleman",
-    "software/middleman/susume": "ソフトウェア/middleman/すすめ",
-    "figureskating": "フィギュアスケート",
-    "figureskating/practise": "フィギュアスケート/銀盤練習",
-    "hoby": "趣味"
+  directory_labels: {
+    "/workout": "ワークアウト",
+    "/game": "ゲーム",
+    "/game/kancolle": "艦これ",
+    "/game/kancolle/event": "イベント",
+    "/game/wot": "World of Tanks",
+    "/software": "ソフトウェア",
+    "/software/gatsby": "Gatsby",
+    "/software/middleman/susume": "Middlemanのすすめ",
+    "/figureskating": "フィギュアスケート",
+    "/figureskating/practise": "銀盤練習",
+    "/hobby": "趣味"
   },
+
+
 }
 
 module.exports = config;
