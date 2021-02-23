@@ -6,6 +6,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Layout from "../components/layout.js"
 import { Post } from "../components/post.js"
 import Siblings from '../components/siblings'
+import DirectoryLabel from '../components/directory_label'
 
 
 
@@ -25,7 +26,7 @@ export default function PostTemplate({ pageContext }) {
 
       <Post node={node} />
 
-      <h4>Siblings on '{node.fields.directory}'</h4>
+      <h4>Siblings on '{DirectoryLabel(node.fields.directory)}'</h4>
       <Siblings node={node} />
     </Layout>
   )
