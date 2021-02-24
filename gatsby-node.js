@@ -1,9 +1,7 @@
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
-const { paginate } = require('gatsby-awesome-pagination')
-const { findDOMNode } = require('react-dom')
-const config = require(`./config`)
+const { paginate } = require('gatsby-awesome-pagination');
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
@@ -24,68 +22,49 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         const slug = createFilePath({ node, getNode, basePath: `pages` })
         const directory = slug.split("/").slice(1, -2).join("/")
         // add directory field
-        //console.log("create node fields directory", directory)
-
         createNodeField({
             node,
             name: 'directory',
             value: directory
         })
-
-        if (node.frontmatter.date) {
-            const date = new Date(node.frontmatter.date)
-            createNodeField({
-                node,
-                name: 'yearmonth',
-                value: date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, 0)
-            })
-        }
     }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
-    const { data: { mdxPages, sibling_nodes } } = await graphql(`
+    const { data: { mdxPages } } = await graphql(`
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
-                    toc
-                    image
                 }
                 fields {
                     directory
                 }
-                body
                 slug
-                tableOfContents
                 id
-                excerpt(pruneLength: 200)
             }            
         }
-
     }`)
 
     // markdown pages
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
-        //console.log(`create markdown page: ${node.slug}`)
-        const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
+        //const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
 
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
-                node: node,
-                siblings: siblings,
+                slug: node.slug
             },
         })
     })
     // index paginate
     console.log("** index paginate")
-    const itemsPerPage = 10
+    const itemsPerPage = 12
     paginate({
         createPage,
         items: mdxPages.nodes,
@@ -101,97 +80,66 @@ exports.createPages = async ({ graphql, actions }) => {
     directories.forEach(directory => {
         const re = new RegExp(`^${directory}`)
 
+        const nodes = mdxPages.nodes.filter(node=>re.test(node.fields.directory))
+
         paginate({
             createPage,
-            items: mdxPages.nodes.filter(node=>re.test(node.fields.directory)),
-            itemsPerPage: 12,
+            items: nodes,
+            itemsPerPage: itemsPerPage,
             pathPrefix: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
             context: {
                 archive: 'directory',
                 directory: directory,
                 regex: re.toString(),
+                count: nodes.length
             }
         })
     })
 
-    /*
-    directories.group.forEach(({ directory, totalCount }) => {
-        //console.log(directory)
-        const re = new RegExp(`^${directory}`)
-        const count = mdxPages.nodes.filter(node => re.test(node.fields.directory)).length
-        console.log("directory count: ", directory, count)
-        //const directory_name = (config.directory_names[directory]) ? config.directory_names[directory].split('/').pop() : directory
-        const directory_name = config.directory_names[directory] || directory
-
-        console.log("drecotyr index count: ", directory, count)
-
+    console.log("** creating monthly archives")
+    const list = []
+    mdxPages.nodes.forEach(node=>{
+        const date = new Date(node.frontmatter.date)
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
+        if (!list.find(v=> v.year === year && v.month === month)){
+            list.push({year: year, month: month})
+        }
+    })
+    //console.log(list)
+    list.forEach(node=>{
+        const fromDate = new Date(node.year, node.month - 1, 1)
+        const toDate = new Date(node.year, node.month, 1)
+        const nodes = mdxPages.nodes.filter(v => { const dt = new Date(v.frontmatter.date); return fromDate <= dt && dt < toDate})
+        console.log(node.year, node.month, nodes.length)
         paginate({
             createPage,
-            items: mdxPages.nodes.filter(node => re.test(node.fields.directory)),
-            pathPrefix: `/${directory}`,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
-            context: {
-                archive: 'directory',
-                directory: directory,
-                directory_name: directory_name,
-                regex: `/^${directory}/`,
-                count: count,
-            }
-        }) */
-        /*
-        createPage({
-            path: `/${directory}`,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
-            context: {
-                archive: 'directory',
-                directory: directory,
-                directory_name: directory_name,
-                regex: `/^${directory}/`,
-                count: count,
-            }
-        })
-        */ /*
-    })*/
-
-    // monthly archives    
-    console.log("** creating monthly archives")
-    const ym1s = new Map()
-
-    mdxPages.nodes.forEach(node => {
-        let date = new Date(node.frontmatter.date)
-        const k = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, 0)
-        const v = ym1s.get(k) || 0
-        ym1s.set(k, v + 1)
-    })
-    //console.log(ym1s)
-
-    /*
-    const dates = mdxPages.nodes.map(node=>new Date(node.frontmatter.date))
-    const ym1s = dates.filter((date, i, self) => 
-        self.findIndex(d => 
-            (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
-        ) === i)
-    */
-    ym1s.forEach(function (v, k) { //} => { //(ym1, count) => {
-        const year = parseInt(k.slice(0, 4))
-        const month = parseInt(k.slice(5))
-        const count = v
-        const fromDate = new Date(year, month - 1, 1)
-        const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
-
-        //console.log(`${year}/${month}`)
-        createPage({
-            path: `/archives/${year}${month.toString().padStart(2, 0)}`,
+            items: nodes,
+            itemsPerPage: itemsPerPage,
+            pathPrefix: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),
             context: {
                 archive: 'monthly',
-                year: year,
-                month: month,
+                year: node.year,
+                month: node.month,
                 fromDate: fromDate.toISOString(),
                 toDate: toDate.toISOString(),
-                count: count,
             }
         })
+        /*
+        createPage({
+            path: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
+            component: path.resolve(`./src/templates/archive-template.js`),
+            context: {
+                archive: 'monthly',
+                year: node.year,
+                month: node.month,
+                fromDate: fromDate.toISOString(),
+                toDate: toDate.toISOString(),
+            }
+        })
+        */
     })
+  
 }

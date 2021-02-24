@@ -20,9 +20,9 @@ const Sidebar = () => {
                     siteMetadata {
                         title
                         author
+                        description
                     }                    
                 }
-
                 recentPosts: allMdx(
                     limit: 5,
                     sort: {fields: frontmatter___date, order: DESC}
@@ -30,7 +30,7 @@ const Sidebar = () => {
                     nodes {
                         frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
                         slug
-                        fields { directory}
+                        fields { directory }
                         id
                         excerpt(pruneLength: 100)
                     }
@@ -41,7 +41,6 @@ const Sidebar = () => {
     )
     return (
         <div className="sidebar">
-
             <h3 className={styles.title}>Profile</h3>
             <List>
                 <ListItem key="author">{site.siteMetadata.author}</ListItem>
@@ -57,8 +56,7 @@ const Sidebar = () => {
             ))
             }
             <h3 className={styles.title}>Monthly Archives</h3>
-            <MonthlyArchives />
-
+            <MonthlyArchives/>
         </div>
     )
 }

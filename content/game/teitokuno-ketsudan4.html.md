@@ -1,7 +1,7 @@
 ---
 title: 提督の決断４tips
 date: 2016-06-22
-
+image: teitoku4.jpg
 ---
 
 ## 基本戦術
