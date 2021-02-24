@@ -4,6 +4,7 @@ const typography = new Typography({
     //baseFontSize: "18px",
     //baseLineHeight: 1.666,
     headerFontFamily: [
+      "Segoe UI", "Meiryo",
       "Avenir Next",
       "Helvetica Neue",
       "Segoe UI",

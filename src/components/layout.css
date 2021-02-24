@@ -8,6 +8,16 @@ body {
   padding-bottom: 40px;
   border-bottom: 2px solid #111;
 }
+.siteTitle h1 {
+  font-size: 4em;
+}
+.siteTitle a {
+  text-decoration: none;
+  color: black;
+}
+.siteTitle a:visited {
+  color: black;
+}
 .siteFooter {
   border-top: 2px solid #111;
   margin-top: 1em;

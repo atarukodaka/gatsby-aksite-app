@@ -13,6 +13,7 @@ import Hidden from '@material-ui/core/Hidden'
 import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
 import { TwitterIcon } from 'react-share'
 import SEO from './seo'
+import Typography from '@material-ui/core/Typography'
 
 import "./layout.css"
 import "./syntax_hilight.css"
@@ -74,7 +75,7 @@ const Header = ({ siteTitle, siteDescription }) => {
 
             <div className="siteTitle">
                 <Container>
-                    <h1>{siteTitle}</h1>
+                    <h1><Link to="/">{siteTitle}</Link></h1>
                     <h3>{siteDescription}</h3>
                 </Container>
             </div>
