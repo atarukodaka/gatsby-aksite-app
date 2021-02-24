@@ -6,7 +6,8 @@ import DirectoryArchives from './directory_archives'
 //import { Paper, Box } from '@material-ui/core'
 /*
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight' */
+import ChevronRightIcon from '@material-ui/icons/ChevronRight' 
+*/
 import { List, ListItem } from '@material-ui/core'
 import styles from './sidebar.module.css'
 /* import Typography from '@material-ui/core' */
