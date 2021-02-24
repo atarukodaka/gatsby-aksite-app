@@ -6,7 +6,7 @@ const config = {
     description: 'THIS SITE IS ......WHATS THE FUNNY ?',
     siteUrl: `http://localhost:8000/`,
     social: {
-      twitter: 'ataru_kodaka,'
+      twitter: 'ataru_kodaka'
     }
   },
 

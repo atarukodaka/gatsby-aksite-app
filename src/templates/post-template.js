@@ -15,6 +15,7 @@ export const query = graphql`
         slug
         tableOfContents
         body
+        excerpt(pruneLength: 100)
         frontmatter {
           title
           date(formatString: "YYYY-MM-DD")
@@ -36,7 +37,7 @@ export default function PostTemplate({ data, pageContext }) {
   console.log(`create/template: ${node.slug} toc: ${node.frontmatter.toc}`)
 
   return (
-    <Layout title={node.frontmatter.title}>
+    <Layout title={node.frontmatter.title} description={node.excerpt} image={node.frontmatter.image}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
       <Post node={node} />
