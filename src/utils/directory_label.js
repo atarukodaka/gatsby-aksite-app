@@ -1,6 +1,6 @@
 const config = require('../../config')
 
-const DirectoryLabel = (directory) => {
+const directoryLabel = (directory) => {
 
     const parts = directory.split('/')
 
@@ -13,4 +13,4 @@ const DirectoryLabel = (directory) => {
     //return `!!!${directory}!!!`
 }
 
-export default DirectoryLabel
+export default directoryLabel

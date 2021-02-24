@@ -4,7 +4,7 @@ import { useStaticQuery, Link, graphql } from "gatsby"
 import styles from './sidebar.module.css'
 //import { Button } from '@material-ui/core'
 //const config = require('../../config')
-import DirectoryLabel from './directory_label'
+import directoryLabel from '../utils/directory_label'
 
 const ListToTree = require('list-to-tree')
 
@@ -31,7 +31,7 @@ const DirectoryArchives = () => {
             const parts = directory.split('/')
             //const label = parts.pop()
             //const label = config.directory_labels[`/${parts.join('/')}`] || parts.slice(-1)
-            const label = DirectoryLabel(directory).split('/').pop()
+            const label = directoryLabel(directory).split('/').pop()
             parts.pop()
 
             //const label = node.fields.directory_name.split('/').pop()
