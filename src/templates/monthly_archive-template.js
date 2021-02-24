@@ -6,8 +6,7 @@ import { Box } from '@material-ui/core'
 
 import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
-
-
+import { monthlyArchivePath } from '../utils/archive_path'
 
 export const query = graphql`
     query($fromDate: Date!, $toDate: Date!, $pruneLength: Int!=200, $skip: Int!, $limit: Int!){        
@@ -30,7 +29,8 @@ export const query = graphql`
     }
   `
 const handleChange = (year, month, p) => {
-  const pathPrefix = `/archives/${year}${month.toString().padStart(2, 0)}`
+  //const pathPrefix = `/archives/${year}${month.toString().padStart(2, 0)}`
+  const pathPrefix = monthlyArchivePath(year, month)
   navigate((p === 1) ? pathPrefix : `${pathPrefix}/${p}`)
 }
 

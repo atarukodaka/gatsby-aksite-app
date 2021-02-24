@@ -6,6 +6,7 @@ import { Pagination } from '@material-ui/lab'
 
 import { PostCards } from "../components/post.js"
 import Layout from "../components/layout.js"
+import { directoryArchivePath} from '../utils/archive_path'
 
 //const config = require('../../config')
 
@@ -32,7 +33,8 @@ export const query = graphql`
   `
 
 const handleChange = (directory, p) => {
-  navigate((p === 1) ? `/${directory}` : `/${directory}/${p}`)
+  const path = directoryArchivePath(directory)
+  navigate((p === 1) ? path : `/${path}/${p}`)
 }
 
 export default function DirectoryTemplate({ data, pageContext }) {

@@ -1,15 +1,13 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-//import { Grid } from '@material-ui/core'
 import { useLocation } from "@reach/router"
 
 import Layout from "../components/layout.js"
 import { Post } from "../components/post.js"
 import Siblings from '../components/siblings'
-import DirectoryLabel from '../components/directory_label'
+import directoryLabel from '../utils/directory_label'
 import Share from '../components/share'
-import Img from 'gatsby-image'
 
 export const query = graphql`
     query ($slug: String!) {
@@ -49,7 +47,7 @@ export default function PostTemplate({ data, pageContext }) {
 
       <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
 
-      <h4>Siblings on '{DirectoryLabel(node.fields.directory)}'</h4>
+      <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
       <Siblings node={node} />
     </Layout>
   )

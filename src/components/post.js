@@ -4,9 +4,9 @@ import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
-import Img from 'gatsby-image'
+//import Img from 'gatsby-image'
 import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
-import DirectoryLabel from './directory_label'
+import directoryLabel from '../utils/directory_label'
 import Image from './image'
 
 const shortcuts = { Image }
@@ -20,9 +20,9 @@ const PostHeader = ({ node }) => (
             </Link>
         </h1>
         <div className={styles.directory}>
-            <Link to={'/' + node.fields.directory}>
-                {DirectoryLabel(node.fields.directory)}
-            </Link>
+            { /* <Link to={'/' + node.fields.directory}> */ }
+                {directoryLabel(node.fields.directory)}
+            { /* </Link> */ }
         </div>
 
         { node.frontmatter.image && (
@@ -35,7 +35,6 @@ const PostHeader = ({ node }) => (
 )
 
 const TocBox = ({ node }) => (
-
     <div className={styles.tableOfContents}>
     <Accordion defaultExpanded={true} >
         
@@ -66,19 +65,23 @@ export const Post = ({ node }) => (
             </MDXProvider>
 
         </main>
+        
     </div>
 )
 
 export const PostExcerpt = ({ node }) => (
-    <div className={styles.post}>
+    <div className={styles.postexcerpt}>
+        <Link to={'/' + node.slug}>
         <PostHeader node={node} />
         <main>
             { /* node.frontmatter.image && (<img src={node.frontmatter.image} className="eyecatchImageSmall"></img>) */}
             <div className={styles.excerpt}>{node.excerpt}</div>
-            <div className={styles.continueReading}>
+            { /* <div className={styles.continueReading}>
                 <Link to={'/' + node.slug}>...continue reading</Link>
             </div>
+            */ }
         </main>
+        </Link>
     </div>
 )
 
@@ -104,7 +107,7 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                     }
                 </h4>
                 <div className={styles.postCardDirectory}>
-                    <Link to={'/' + node.fields.directory}>{DirectoryLabel(node.fields.directory)}</Link>
+                    <Link to={'/' + node.fields.directory}>{directoryLabel(node.fields.directory)}</Link>
                 </div>
                 {showExcerpt && (
                     <div className={styles.postCardExcerpt}>

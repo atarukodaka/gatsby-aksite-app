@@ -4,6 +4,8 @@ import { TreeView, TreeItem } from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
+import { monthlyArchivePath } from '../utils/archive_path'
+
 const query = graphql`
 {
     mdxPages: allMdx {
@@ -16,9 +18,11 @@ const query = graphql`
 }                
 `
 
+/*
 const monthlyArchivePath = ( year, month ) => {
     return `/archives/${year}${month.toString().padStart(2,0)}`
 }
+*/
 
 const createMonthlyArchiveList = (  nodes  ) => {
     const list = []
