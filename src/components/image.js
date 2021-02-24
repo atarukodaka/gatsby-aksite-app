@@ -27,9 +27,9 @@ const Image = ( props ) => {
         node.relativePath === props.filename
     )
 
-    if (!image) { return (<span>NO SUCH IMAGE: {props.filename}</span>)}
-    //return (<div>{image.childImageSharp.sizes.src}</div>)
-    
+    if (!image) { 
+        return (<span>NO SUCH IMAGE: {props.filename}</span>)
+    } 
     return (<Img fluid={image.childImageSharp.fluid} />)
 }
 

@@ -20,9 +20,9 @@ const PostHeader = ({ node }) => (
             </Link>
         </h1>
         <div className={styles.directory}>
-            <Link to={'/' + node.fields.directory}>
+            { /* <Link to={'/' + node.fields.directory}> */ }
                 {directoryLabel(node.fields.directory)}
-            </Link>
+            { /* </Link> */ }
         </div>
 
         { node.frontmatter.image && (
@@ -35,7 +35,6 @@ const PostHeader = ({ node }) => (
 )
 
 const TocBox = ({ node }) => (
-
     <div className={styles.tableOfContents}>
     <Accordion defaultExpanded={true} >
         
@@ -66,19 +65,23 @@ export const Post = ({ node }) => (
             </MDXProvider>
 
         </main>
+        
     </div>
 )
 
 export const PostExcerpt = ({ node }) => (
-    <div className={styles.post}>
+    <div className={styles.postexcerpt}>
+        <Link to={'/' + node.slug}>
         <PostHeader node={node} />
         <main>
             { /* node.frontmatter.image && (<img src={node.frontmatter.image} className="eyecatchImageSmall"></img>) */}
             <div className={styles.excerpt}>{node.excerpt}</div>
-            <div className={styles.continueReading}>
+            { /* <div className={styles.continueReading}>
                 <Link to={'/' + node.slug}>...continue reading</Link>
             </div>
+            */ }
         </main>
+        </Link>
     </div>
 )
 
