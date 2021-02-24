@@ -1,12 +1,13 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
-//import Img from 'gatsby-image'
+import Img from 'gatsby-image'
 import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import DirectoryLabel from './directory_label'
+import Image from './image'
 
 const shortcuts = {}
 
@@ -25,9 +26,10 @@ const PostHeader = ({ node }) => (
         </div>
 
         { node.frontmatter.image && (
-            <div className="eyecatchImageWrapper" style={{ backgroundImage: `url(${node.frontmatter.image})` }}></div>
+            <div className="eyecatchImageWrapper">
+                <Image filename={node.frontmatter.image}/>
+            </div>
         )}
-
     </header>
 )
 
@@ -83,13 +85,16 @@ export const PostExcerpt = ({ node }) => (
 export const PostCard = ({ node, disableLink, showExcerpt }) => {
     if (showExcerpt === undefined) { showExcerpt = true }
 
-    const noImageAvailable = "/images/no_image_available.png"
+    const noImageAvailable = "no_image_available.png"
     const imgsrc = node.frontmatter.image || noImageAvailable
     return (
         <div className={styles.postCard}>
             <Link to={'/' + node.slug} key={node.id}>
                 <div>
-                    <img src={imgsrc} className="eyecatchImageSmall" alt="post card alt" />
+                    <div className="eyecatchImageSmallWrapper">
+                        <Image filename={imgsrc}/>
+                    </div>
+                    { /* <img src={imgsrc} className="eyecatchImageSmall" alt="post card alt" /> */ }
                     { /* { node.frontmatter.image && (<img src={imgsrc} className="eyecatchImageSmall" alt="eye catch image"/>) } */}
 
                 </div>
@@ -120,8 +125,8 @@ export const PostCards = ({ nodes, showExcerpt }) => {
         <Grid container spacing={3}>
             {
                 nodes.map(node => (
-                    <Grid item xs={12} sm={6} md={4}>
-                        <PostCard node={node} key={node.id} showExcerpt={showExcerpt} />
+                    <Grid item xs={12} sm={6} md={4} key={node.id}>
+                        <PostCard node={node} showExcerpt={showExcerpt} />
                     </Grid>
                 ))
             }

@@ -61,7 +61,7 @@ const MonthlyArchives = ( { expandAll } ) => {
                 years.map(year=>{
                     const nodes = list.filter(v=> v.year === year)
                     const countTotal = nodes.reduce((prev, curr) => prev + curr.countTotal, 0)
-                    return (<TreeItem key={year} nodeId={year} label={ `${year} (${countTotal})`}>
+                    return (<TreeItem key={year} nodeId={year.toString()} label={ `${year} (${countTotal})`}>
                         {
                             nodes.map(node=>(
                                 <TreeItem key={node.id} nodeId={node.id} label={`${node.year}/${node.month} (${node.countTotal})`} onLabelClick={() => { handleClick(node) }}/>

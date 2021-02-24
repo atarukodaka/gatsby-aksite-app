@@ -1,7 +1,7 @@
 ---
 title: 揃えるべきツール
 date: 2020-12-20
-image: /images/matt.jpg
+image: matt.jpg
 ---
 
 ### ヨガマット　★★★★★ / 2000円程度

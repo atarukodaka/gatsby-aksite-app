@@ -1,7 +1,7 @@
 ---
 title: luchs を愛でる
 date: 2017-10-31
-image: /images/luchs.jpg
+image: luchs.jpg
 ---
 
 ひたすらルクスを愛でてます。2,000戦で WN8 が 2,100、平均与ダメ430、キルレシオ2.1、ダメージレシオ1.6程度。
