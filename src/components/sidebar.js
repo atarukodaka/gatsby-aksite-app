@@ -20,6 +20,7 @@ const Sidebar = () => {
                     siteMetadata {
                         title
                         author
+                        description
                     }                    
                 }
                 recentPosts: allMdx(

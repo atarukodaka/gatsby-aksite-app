@@ -30,16 +30,11 @@ export const query = graphql`
 `
 
 export default function PostTemplate({ data, pageContext }) {
-  //const { node } = pageContext
   const node = data.mdx
   const { breadcrumb: { crumbs } } = pageContext
 
   console.log(`create/template: ${node.slug} toc: ${node.frontmatter.toc}`)
-  //const siblings = node.filter(v=>v.fields.directory == node.fields.directory)
 
-  //console.log("siblings: ", siblings.length)
-
-  //(v.slug === node.slug) ? v.frontmatter.title : <Link to={'/' + v.slug}>{v.frontmatter.title}</Link>
   return (
     <Layout title={node.frontmatter.title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />

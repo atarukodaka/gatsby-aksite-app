@@ -38,7 +38,7 @@ export default function ArchiveTemplate({ data, pageContext }) {
   const { year, month, numberOfPages, humanPageNumber } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
   const title = `MONTHLY ARCHIVE: ${year}/${month}`
-  console.log(title)
+  //console.log(title)
 
   return (
     <Layout title={title}>

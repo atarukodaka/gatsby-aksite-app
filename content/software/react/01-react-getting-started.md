@@ -1,6 +1,7 @@
 ---
 title: getting started
 date: 2021-02-18 00:00:00
+image: react.png
 ---
 
 ```html:title=index.html

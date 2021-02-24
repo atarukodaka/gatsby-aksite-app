@@ -14,6 +14,7 @@ const Siblings = ({ node }) => {
           frontmatter {
             title
             date(formatString: "YYYY-MM-DD")
+            image
           }
           fields { directory }
           excerpt(pruneLength: 100)

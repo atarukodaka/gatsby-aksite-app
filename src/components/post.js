@@ -1,15 +1,15 @@
 import React from "react"
-import { Link, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
-import Img from 'gatsby-image'
+//import Img from 'gatsby-image'
 import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import DirectoryLabel from './directory_label'
 import Image from './image'
 
-const shortcuts = {}
+const shortcuts = { Image }
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -94,9 +94,6 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                     <div className="eyecatchImageSmallWrapper">
                         <Image filename={imgsrc}/>
                     </div>
-                    { /* <img src={imgsrc} className="eyecatchImageSmall" alt="post card alt" /> */ }
-                    { /* { node.frontmatter.image && (<img src={imgsrc} className="eyecatchImageSmall" alt="eye catch image"/>) } */}
-
                 </div>
 
                 <div className={styles.postCardDate}>{node.frontmatter.date}</div>

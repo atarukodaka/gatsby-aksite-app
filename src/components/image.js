@@ -10,8 +10,8 @@ const query = graphql`
                 relativePath
                 name
                 childImageSharp {
-                    sizes(maxWidth: 800){
-                        ...GatsbyImageSharpSizes
+                    fluid(maxWidth: 800){
+                        ...GatsbyImageSharpFluid
                     }
                 }
             }
@@ -20,17 +20,17 @@ const query = graphql`
     }
 `
 
-const Image = ( {filename} ) => {
+const Image = ( props ) => {
     const data = useStaticQuery(query)
     
     const image = data.images.nodes.find(node => 
-        node.relativePath === filename
+        node.relativePath === props.filename
     )
 
-    if (!image) { return (<>NO SUCH IMAGE: {filename}</>)}
+    if (!image) { return (<span>NO SUCH IMAGE: {props.filename}</span>)}
     //return (<div>{image.childImageSharp.sizes.src}</div>)
-    const imageSizes = image.childImageSharp.sizes
-    return (<Img sizes={imageSizes} />)
+    
+    return (<Img fluid={image.childImageSharp.fluid} />)
 }
 
 export default Image

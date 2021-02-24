@@ -42,8 +42,6 @@ export default function DirectoryTemplate({ data, pageContext }) {
   const label = crumbs.slice(1).map(v=> v.crumbLabel).join('/')
   const title = `DIRECTORY: ${label}`
 
-  //console.log("directory template: ", label)
-  //console.log("directory index crumbs: ", crumbs)
   return (
     <Layout title={title}>
       <Breadcrumb crumbs={crumbs} />

@@ -2,6 +2,7 @@
 title: Gatsby - [5] Archives
 date: 2021-02-11
 toc: true
+image: gatsby.png
 ---
 ## やること
 
