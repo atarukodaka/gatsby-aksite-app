@@ -22,22 +22,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         const slug = createFilePath({ node, getNode, basePath: `pages` })
         const directory = slug.split("/").slice(1, -2).join("/")
         // add directory field
-        //console.log("create node fields directory", directory)
-
         createNodeField({
             node,
             name: 'directory',
             value: directory
         })
-
-        if (node.frontmatter.date) {
-            const date = new Date(node.frontmatter.date)
-            createNodeField({
-                node,
-                name: 'yearmonth',
-                value: date.getFullYear().toString() + (date.getMonth() + 1).toString().padStart(2, 0)
-            })
-        }
     }
 }
 
@@ -75,7 +64,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
     // index paginate
     console.log("** index paginate")
-    const itemsPerPage = 10
+    const itemsPerPage = 12
     paginate({
         createPage,
         items: mdxPages.nodes,
@@ -96,7 +85,7 @@ exports.createPages = async ({ graphql, actions }) => {
         paginate({
             createPage,
             items: nodes,
-            itemsPerPage: 12,
+            itemsPerPage: itemsPerPage,
             pathPrefix: `/${directory}`,
             component: path.resolve(`./src/templates/directory_index-template.js`),
             context: {
@@ -118,10 +107,27 @@ exports.createPages = async ({ graphql, actions }) => {
             list.push({year: year, month: month})
         }
     })
-    console.log(list)
+    //console.log(list)
     list.forEach(node=>{
         const fromDate = new Date(node.year, node.month - 1, 1)
         const toDate = new Date(node.year, node.month, 1)
+        const nodes = mdxPages.nodes.filter(v => { const dt = new Date(v.frontmatter.date); return fromDate <= dt && dt < toDate})
+        console.log(node.year, node.month, nodes.length)
+        paginate({
+            createPage,
+            items: nodes,
+            itemsPerPage: itemsPerPage,
+            pathPrefix: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
+            component: path.resolve(`./src/templates/archive-template.js`),
+            context: {
+                archive: 'monthly',
+                year: node.year,
+                month: node.month,
+                fromDate: fromDate.toISOString(),
+                toDate: toDate.toISOString(),
+            }
+        })
+        /*
         createPage({
             path: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),
@@ -133,41 +139,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 toDate: toDate.toISOString(),
             }
         })
+        */
     })
-    /*
-    const ym1s = new Map()
-
-   
-
-    mdxPages.nodes.forEach(node => {
-        let date = new Date(node.frontmatter.date)
-        const k = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, 0)
-        const v = ym1s.get(k) || 0
-        ym1s.set(k, v + 1)
-    })
-    //console.log(ym1s)
-
-
-    ym1s.forEach(function (v, k) { //} => { //(ym1, count) => {
-        const year = parseInt(k.slice(0, 4))
-        const month = parseInt(k.slice(5))
-        //const count = v
-        const fromDate = new Date(year, month - 1, 1)
-        const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
-
-        //console.log(`${year}/${month}`)
-        createPage({
-            path: `/archives/${year}${month.toString().padStart(2, 0)}`,
-            component: path.resolve(`./src/templates/archive-template.js`),
-            context: {
-                archive: 'monthly',
-                year: year,
-                month: month,
-                fromDate: fromDate.toISOString(),
-                toDate: toDate.toISOString(),
-                //count: count,
-            }
-        })
-    })
-    */
+  
 }

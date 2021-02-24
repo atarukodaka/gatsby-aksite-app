@@ -39,11 +39,12 @@ module.exports = {
           {
             resolve: "gatsby-remark-embed-video",
             options: {
-              width: 600,
+              width: "100%",
               ratio: 1.77, // Optional: Defaults to 16/9 = 1.77
-              height: 400, // Optional: Overrides optional.ratio
+              //height: 400, // Optional: Overrides optional.ratio
               related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
               noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
+              /*
               urlOverrides: [
                 {
                   id: "youtube",
@@ -51,6 +52,7 @@ module.exports = {
                     `https://www.youtube-nocookie.com/embed/${videoId}`,
                 },
               ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
+              */
               containerClass: "embedVideo-container", //Optional: Custom CSS class for iframe container, for multiple classes separate them by space
             },
           },    
@@ -70,6 +72,7 @@ module.exports = {
               maxWidth: 700,
             },
           },
+          `gatsby-remark-responsive-iframe`,
         ]
       }
     },
@@ -88,47 +91,6 @@ module.exports = {
           separator: '.'
         },
         crumbLabelUpdates: crumbLabelUpdates,
-        crumbLabelUpdatesOrig: [
-          {
-            pathname: '/game',
-            crumbLabel: 'ゲーム'
-          },
-          {
-            pathname: '/game/kancolle',
-            crumbLabel: '艦これ'
-          },
-          {
-            pathname: '/game/kancolle/event',
-            crumbLabel: 'イベント'
-          },
-          {
-            pathname: '/wot',
-            crumbLabel: 'World of Tanks'
-          },
-
-          {
-            pathname: '/workout',
-            crumbLabel: 'ワークアウト'
-          },
-          {
-            pathname: '/figureskating',
-            crumbLabel: 'フィギュアスケート'
-          },
-          {
-            pathname: '/figureskating/practise',
-            crumbLabel: '銀盤練習'
-          },
-          {
-            pathname: '/hobby',
-            crumbLabel: '趣味'
-          },
-          {
-            pathname: '/software',
-            crumbLabel: 'ソフトウェア'
-          },
-
-
-        ],
         //trailingSlashes: true,
       }
     },

@@ -101,8 +101,8 @@ const Layout = ({ children, title }) => {
             <Container>
                 <div className="main">
                 <Grid container spacing={6}>
-                    <Grid item md={8} xs={12}>
-                        {children}
+                <Grid item md={8} xs={12}>
+                    {children}
                     </Grid>
 
                     <Grid item md={4} xs={12}>
