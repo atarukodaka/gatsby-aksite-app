@@ -4,7 +4,7 @@ import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
-//import Img from 'gatsby-image'
+import Img from 'gatsby-image'
 import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import DirectoryLabel from './directory_label'
 import Image from './image'
@@ -28,6 +28,7 @@ const PostHeader = ({ node }) => (
         { node.frontmatter.image && (
             <div className="eyecatchImageWrapper">
                 <Image filename={node.frontmatter.image}/>
+                { /* <Img fluid={node.frontmatter.image.childImageSharp.fluid}/> */ }
             </div>
         )}
     </header>

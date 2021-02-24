@@ -21,7 +21,7 @@ const Sidebar = () => {
                     siteMetadata {
                         title
                         author
-                        description
+                        social { twitter }
                     }                    
                 }
                 recentPosts: allMdx(
@@ -40,12 +40,13 @@ const Sidebar = () => {
 
         `
     )
+    const twitterUrl = `http://www.twitter.com/${site.siteMetadata.social.twitter}`
     return (
         <div className="sidebar">
             <h3 className={styles.title}>Profile</h3>
             <List>
-                <ListItem key="author">{site.siteMetadata.author}</ListItem>
-                <ListItem key="description">{site.siteMetadata.description}</ListItem>
+                <ListItem key="author">Author: {site.siteMetadata.author}</ListItem>
+                <ListItem key="twitter">Twitter: <a href={twitterUrl}>{site.siteMetadata.social.twitter}</a></ListItem>
             </List>
 
             <h3 className={styles.title}>Directories</h3>

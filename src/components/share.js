@@ -7,12 +7,12 @@ const Share = ({ title, url }) => (
 
         <div className={styles.shareItem}>
             <FacebookShareButton url={url} title={title}>
-                <FacebookIcon size={32} />
+                <FacebookIcon size={32} round />
             </FacebookShareButton>
         </div>
         <div className={styles.shareItem}>
             <TwitterShareButton url={url} title={title}>
-                <TwitterIcon size={32} />
+                <TwitterIcon size={32} round/>
             </TwitterShareButton>
         </div>
 

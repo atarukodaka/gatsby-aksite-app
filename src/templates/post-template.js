@@ -9,6 +9,7 @@ import { Post } from "../components/post.js"
 import Siblings from '../components/siblings'
 import DirectoryLabel from '../components/directory_label'
 import Share from '../components/share'
+import Img from 'gatsby-image'
 
 export const query = graphql`
     query ($slug: String!) {
@@ -46,7 +47,7 @@ export default function PostTemplate({ data, pageContext }) {
 
       <Post node={node} />
 
-      <Share url={ `${data.site.siteMetadata.siteUrl}${pathname}` } title={node.frontmatter.title}/>
+      <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
 
       <h4>Siblings on '{DirectoryLabel(node.fields.directory)}'</h4>
       <Siblings node={node} />
