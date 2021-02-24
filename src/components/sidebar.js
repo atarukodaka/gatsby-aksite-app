@@ -12,6 +12,7 @@ import { List, ListItem } from '@material-ui/core'
 import styles from './sidebar.module.css'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
+import { TwitterIcon } from "react-share"
 
 const Sidebar = () => {
     const { site, recentPosts } = useStaticQuery(
@@ -46,7 +47,7 @@ const Sidebar = () => {
             <h3 className={styles.title}>Profile</h3>
             <List>
                 <ListItem key="author">Author: {site.siteMetadata.author}</ListItem>
-                <ListItem key="twitter">Twitter: <a href={twitterUrl}>{site.siteMetadata.social.twitter}</a></ListItem>
+                <ListItem key="twitter">Twitter:<a href={twitterUrl}>{site.siteMetadata.social.twitter}</a></ListItem>
             </List>
 
             <h3 className={styles.title}>Directories</h3>

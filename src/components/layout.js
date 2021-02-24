@@ -47,7 +47,7 @@ const Header = ({ siteTitle, siteDescription }) => {
             <AppBar position="relative" color="primary">
                 <Toolbar>
                     <Hidden mdUp>
-                        <IconButton onClick={handleDrawerOpen}>
+                        <IconButton onClick={handleDrawerOpen}  color="inherit">
                             <MenuIcon />
                         </IconButton>
                     </Hidden>
@@ -60,7 +60,7 @@ const Header = ({ siteTitle, siteDescription }) => {
             <Drawer open={open}>
                 <div>
                     <IconButton onClick={handleDrawerClose}>
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Divider />
 
@@ -87,13 +87,8 @@ const Footer = ({ author, social }) => {
 
     return (
         <footer className="siteFooter">
-            written by {author} (C) {(new Date()).getFullYear()},
-                powered by Gatsby and its aksite starter.
-
-            <a href={`https://twitter.com/${social.twitter}`}>
-                <TwitterIcon size={32} />
-            </a>
-
+            (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved. 
+                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
         </footer>
     )
 }
