@@ -4,7 +4,7 @@ import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
-import Img from 'gatsby-image'
+//import Img from 'gatsby-image'
 import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'

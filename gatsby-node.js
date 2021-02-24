@@ -2,6 +2,7 @@
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const { paginate } = require('gatsby-awesome-pagination');
+const { monthlyArchivePath, directoryArchivePath } = require('./src/utils/archive_path')
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
@@ -29,6 +30,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         })
     }
 }
+
 
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
@@ -86,8 +88,9 @@ exports.createPages = async ({ graphql, actions }) => {
             createPage,
             items: nodes,
             itemsPerPage: itemsPerPage,
-            pathPrefix: `/${directory}`,
-            component: path.resolve(`./src/templates/directory_index-template.js`),
+            //pathPrefix: `/${directory}`,
+            pathPrefix: directoryArchivePath(directory),
+            component: path.resolve(`./src/templates/directory_archive-template.js`),
             context: {
                 archive: 'directory',
                 directory: directory,
@@ -117,8 +120,9 @@ exports.createPages = async ({ graphql, actions }) => {
             createPage,
             items: nodes,
             itemsPerPage: itemsPerPage,
-            pathPrefix: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
-            component: path.resolve(`./src/templates/archive-template.js`),
+            //pathPrefix: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
+            pathPrefix: monthlyArchivePath(node.year, node.month),
+            component: path.resolve(`./src/templates/monthly_archive-template.js`),
             context: {
                 archive: 'monthly',
                 year: node.year,

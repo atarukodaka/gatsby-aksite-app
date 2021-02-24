@@ -5,6 +5,7 @@ import styles from './sidebar.module.css'
 //import { Button } from '@material-ui/core'
 //const config = require('../../config')
 import directoryLabel from '../utils/directory_label'
+import { directoryArchivePath } from '../utils/archive_path'
 
 const ListToTree = require('list-to-tree')
 
@@ -62,7 +63,7 @@ const Tree = ({ nodes }) => {
             {
                 nodes.map(v => (
                     <li key={v.id} className="directory">
-                        <Link to={'/' + v.name}>{v.label || v.name} ({v.totalCount})</Link>
+                        <Link to={directoryArchivePath(v.name)}>{v.label || v.name} ({v.totalCount})</Link>
                         { v.child && (<Tree nodes={v.child}></Tree>)}
                     </li>
                 )

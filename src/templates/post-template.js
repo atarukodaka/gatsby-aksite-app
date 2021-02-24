@@ -1,7 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-//import { Grid } from '@material-ui/core'
 import { useLocation } from "@reach/router"
 
 import Layout from "../components/layout.js"
@@ -9,7 +8,6 @@ import { Post } from "../components/post.js"
 import Siblings from '../components/siblings'
 import directoryLabel from '../utils/directory_label'
 import Share from '../components/share'
-import Img from 'gatsby-image'
 
 export const query = graphql`
     query ($slug: String!) {
