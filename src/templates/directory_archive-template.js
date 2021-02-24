@@ -50,7 +50,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
       <h1 className="pageTitle">{title}</h1>
       <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
 
-      <Box display="flex" justifyContent="center" alignItems="center">
+      <Box display="flex" justifyContent="center" m={3}>
         <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e,p) => { handleChange(directory, p) }} />
       </Box>
     </Layout>

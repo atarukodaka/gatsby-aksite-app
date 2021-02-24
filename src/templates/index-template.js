@@ -46,7 +46,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       ))}
       {/* <PostCards nodes={data.allMdx.nodes} showExcerpt={true}/> */}
       
-      <Box justifyContent="center">
+      <Box display="flex" justifyContent="center" m={3}>
       <Pagination style={{}} count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
       </Box>
     </Layout>    
