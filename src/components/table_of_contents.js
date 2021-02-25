@@ -24,7 +24,8 @@ const Tree = ({ nodes }) => (
 
 
 const TableOfContents = ({ toc }) => (
-     <Tree nodes={toc.items} /> 
+
+    (toc.items) ? (<Tree nodes={toc.items} />) : null
 )
 
 

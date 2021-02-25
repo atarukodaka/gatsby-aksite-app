@@ -1,0 +1,29 @@
+.title {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #111;
+}
+
+.title h1 {
+    font-size: 4em;
+}
+
+.title a {
+    text-decoration: none;
+    color: black;
+}
+
+.title a:visited {
+    color: black;
+}
+
+.footer {
+    border-top: 2px solid #111;
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.main {
+    margin-top: 40px;
+    background-color: white;
+}

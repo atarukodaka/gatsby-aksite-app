@@ -10,23 +10,21 @@ const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directo
   return { pathname: k, crumbLabel: config.directory_labels[k] }
 }) : []
 
-//console.log("crumblabelupdates: ", crumbLabelUpdates)
-
 module.exports = {
   siteMetadata: config.siteMetadata,
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `content`,
-        path: `${__dirname}/content`,
+        name: `posts`,
+        path: `${__dirname}/content/posts`,
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/static/images`,
+        path: `${__dirname}/content/images`,
       },
     },
     {
@@ -34,8 +32,12 @@ module.exports = {
       options: {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
-          `gatsby-remark-autolink-headers`,
-
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              isIconAfterHeader: true,
+            }
+          },
           {
             resolve: "gatsby-remark-embed-video",
             options: {

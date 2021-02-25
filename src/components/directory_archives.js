@@ -1,11 +1,12 @@
 import React from 'react'
 import { useStaticQuery, Link, graphql } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
-import styles from './sidebar.module.css'
+
 //import { Button } from '@material-ui/core'
 //const config = require('../../config')
 import directoryLabel from '../utils/directory_label'
 import { directoryArchivePath } from '../utils/archive_path'
+import styles from './directory_archives.module.css'
 
 const ListToTree = require('list-to-tree')
 
@@ -52,14 +53,14 @@ const DirectoryArchives = () => {
   
     const tree = new ListToTree(list).GetTree()
     return (
-        <Tree nodes={tree} />
+        <div className={styles.tree}>
+            <Tree nodes={tree}/>
+        </div>
     )
 }
 
-const Tree = ({ nodes }) => {
-
-    return (
-        <ul className={styles.tree}>
+const Tree = ({ nodes }) => (
+        <ul>
             {
                 nodes.map(v => (
                     <li key={v.id} className="directory">
@@ -70,6 +71,5 @@ const Tree = ({ nodes }) => {
                 )
             }
         </ul>)
-}
 
 export default DirectoryArchives

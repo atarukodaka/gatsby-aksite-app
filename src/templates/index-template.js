@@ -17,7 +17,7 @@ export const data = graphql`
       skip: $skip, limit: $limit){
       nodes {
         id
-        frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
+        frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
         excerpt(pruneLength: $pruneLength)
         fields { directory }
         tableOfContents
@@ -46,7 +46,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       ))}
       {/* <PostCards nodes={data.allMdx.nodes} showExcerpt={true}/> */}
       
-      <Box justifyContent="center">
+      <Box display="flex" justifyContent="center" m={3}>
       <Pagination style={{}} count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
       </Box>
     </Layout>    

@@ -11,12 +11,25 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
-import { TwitterIcon } from 'react-share'
+//import { TwitterIcon } from 'react-share'
 import SEO from './seo'
+//import Typography from '@material-ui/core/Typography'
 
-import "./layout.css"
-import "./syntax_hilight.css"
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
 
+import styles from './layout.module.css'
+
+const theme = createMuiTheme({  // #1
+    palette: {
+      primary: {
+        light: '#ffff8b',
+        main: '#222277',
+        dark: '#c9bc1f',
+        contrastText: '#ffffff',
+
+      }
+    },
+  })
 const query = graphql`
 {
     site {
@@ -43,10 +56,10 @@ const Header = ({ siteTitle, siteDescription }) => {
 
     return (
         <header>
-            <AppBar position="relative" color="primary">
+            <AppBar position="relative">
                 <Toolbar>
                     <Hidden mdUp>
-                        <IconButton onClick={handleDrawerOpen}>
+                        <IconButton onClick={handleDrawerOpen}  color="inherit">
                             <MenuIcon />
                         </IconButton>
                     </Hidden>
@@ -59,7 +72,7 @@ const Header = ({ siteTitle, siteDescription }) => {
             <Drawer open={open}>
                 <div>
                     <IconButton onClick={handleDrawerClose}>
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Divider />
 
@@ -69,12 +82,11 @@ const Header = ({ siteTitle, siteDescription }) => {
                         <ListItem button component={Link} to="/directories">Directories</ListItem>
                     </List>
                 </div>
-
             </Drawer>
 
-            <div className="siteTitle">
+            <div className={styles.title}>
                 <Container>
-                    <h1>{siteTitle}</h1>
+                    <h1><Link to="/">{siteTitle}</Link></h1>
                     <h3>{siteDescription}</h3>
                 </Container>
             </div>
@@ -82,20 +94,12 @@ const Header = ({ siteTitle, siteDescription }) => {
     )
 }
 
-const Footer = ({ author, social }) => {
-
-    return (
-        <footer className="siteFooter">
-            written by {author} (C) {(new Date()).getFullYear()},
-                powered by Gatsby and its aksite starter.
-
-            <a href={`https://twitter.com/${social.twitter}`}>
-                <TwitterIcon size={32} />
-            </a>
-
+const Footer = ({ author }) => (
+        <footer className={styles.footer}>
+            (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved. 
+                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
         </footer>
-    )
-}
+)
 
 const Layout = ({ children, title, description, image }) => {
     const data = useStaticQuery(query)
@@ -106,11 +110,11 @@ const Layout = ({ children, title, description, image }) => {
     if (description === undefined) { description = siteDescription }
 
     return (
-        <div>
+        <MuiThemeProvider theme={theme}>
             <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
             <Header siteTitle={siteTitle} siteDescription={siteDescription} />
             <Container>
-                <div className="main">
+                <div className={styles.main}>
                     <Grid container spacing={6}>
                         <Grid item md={8} xs={12}>
                             {children}
@@ -123,9 +127,7 @@ const Layout = ({ children, title, description, image }) => {
                 </div>
             </Container>
             <Footer author={author} social={data.site.siteMetadata.social} />
-
-        </div>
+        </MuiThemeProvider>
     )
-
 }
 export default Layout
