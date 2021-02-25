@@ -59,8 +59,7 @@ const DirectoryArchives = () => {
     )
 }
 
-const Tree = ({ nodes }) => {
-    return (
+const Tree = ({ nodes }) => (
         <ul>
             {
                 nodes.map(v => (
@@ -72,6 +71,5 @@ const Tree = ({ nodes }) => {
                 )
             }
         </ul>)
-}
 
 export default DirectoryArchives

@@ -10,8 +10,6 @@ const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directo
   return { pathname: k, crumbLabel: config.directory_labels[k] }
 }) : []
 
-//console.log("crumblabelupdates: ", crumbLabelUpdates)
-
 module.exports = {
   siteMetadata: config.siteMetadata,
   plugins: [

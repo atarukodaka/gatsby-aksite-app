@@ -1,7 +1,8 @@
 
-const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
+const { createFilePath } = require(`gatsby-source-filesystem`)
 const { paginate } = require('gatsby-awesome-pagination');
+
 const { monthlyArchivePath, directoryArchivePath } = require('./src/utils/archive_path')
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
@@ -9,11 +10,9 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       type Mdx implements Node {
         frontmatter: MdxFrontmatter
       }
-  
-      type MdxFrontmatter {
+        type MdxFrontmatter {
         toc: Boolean
       }
-
       type MdxFrontmatter {
           description: String
       }
@@ -35,7 +34,6 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     }
 }
 
-
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
     const { data: { mdxPages } } = await graphql(`
@@ -55,11 +53,10 @@ exports.createPages = async ({ graphql, actions }) => {
         }
     }`)
 
-    // markdown pages
+    ////////////////////////////////////////////////////////////////
+        // markdown pages
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
-        //const siblings = mdxPages.nodes.filter(v => (v.fields.directory === node.fields.directory) && v.slug != node.slug)
-
         createPage({
             path: node.slug,
             component: path.resolve(`./src/templates/post-template.js`),
@@ -68,6 +65,7 @@ exports.createPages = async ({ graphql, actions }) => {
             },
         })
     })
+    ////////////////
     // index paginate
     console.log("** index paginate")
     const itemsPerPage = 10
@@ -80,6 +78,7 @@ exports.createPages = async ({ graphql, actions }) => {
         component: path.resolve("./src/templates/index-template.js")
     })
 
+    ////////////////
     // directory index   
     console.log("** creating directory index")
     const directories = [...new Set(mdxPages.nodes.map(node => node.fields.directory ))]
@@ -104,6 +103,8 @@ exports.createPages = async ({ graphql, actions }) => {
         })
     })
 
+    ////////////////
+    // monthly archive
     console.log("** creating monthly archives")
     const list = []
     mdxPages.nodes.forEach(node=>{
@@ -114,7 +115,6 @@ exports.createPages = async ({ graphql, actions }) => {
             list.push({year: year, month: month})
         }
     })
-    //console.log(list)
     list.forEach(node=>{
         const fromDate = new Date(node.year, node.month - 1, 1)
         const toDate = new Date(node.year, node.month, 1)
@@ -124,7 +124,6 @@ exports.createPages = async ({ graphql, actions }) => {
             createPage,
             items: nodes,
             itemsPerPage: itemsPerPage,
-            //pathPrefix: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
             pathPrefix: monthlyArchivePath(node.year, node.month),
             component: path.resolve(`./src/templates/monthly_archive-template.js`),
             context: {
@@ -135,19 +134,5 @@ exports.createPages = async ({ graphql, actions }) => {
                 toDate: toDate.toISOString(),
             }
         })
-        /*
-        createPage({
-            path: `/archives/${node.year}${node.month.toString().padStart(2, 0)}`,
-            component: path.resolve(`./src/templates/archive-template.js`),
-            context: {
-                archive: 'monthly',
-                year: node.year,
-                month: node.month,
-                fromDate: fromDate.toISOString(),
-                toDate: toDate.toISOString(),
-            }
-        })
-        */
     })
-  
 }

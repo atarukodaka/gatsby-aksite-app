@@ -82,7 +82,6 @@ const Header = ({ siteTitle, siteDescription }) => {
                         <ListItem button component={Link} to="/directories">Directories</ListItem>
                     </List>
                 </div>
-
             </Drawer>
 
             <div className={styles.title}>
@@ -95,15 +94,12 @@ const Header = ({ siteTitle, siteDescription }) => {
     )
 }
 
-const Footer = ({ author }) => {
-
-    return (
+const Footer = ({ author }) => (
         <footer className={styles.footer}>
             (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved. 
                 Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
         </footer>
-    )
-}
+)
 
 const Layout = ({ children, title, description, image }) => {
     const data = useStaticQuery(query)
@@ -131,9 +127,7 @@ const Layout = ({ children, title, description, image }) => {
                 </div>
             </Container>
             <Footer author={author} social={data.site.siteMetadata.social} />
-
         </MuiThemeProvider>
     )
-
 }
 export default Layout
