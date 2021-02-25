@@ -1,6 +1,7 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
+import styles from '../components/test.module.css'
 
 const query = graphql`
   {
@@ -19,6 +20,17 @@ const ImageTest = () => {
     
     return (
     <div>
+      
+      <div className={styles.moduledClass}>
+        CSS MODULED
+
+        <div className="globalClass">
+        GLOBAL CLASS
+      </div>
+
+      </div>
+
+
       <h1>Hello gatsby-image</h1>
       <Img fluid={data.file.childImageSharp.fluid} />
     </div>

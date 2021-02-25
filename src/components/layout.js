@@ -11,10 +11,11 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
-import { TwitterIcon } from 'react-share'
+//import { TwitterIcon } from 'react-share'
 import SEO from './seo'
-import Typography from '@material-ui/core/Typography'
+//import Typography from '@material-ui/core/Typography'
 
+import styles from './layout.module.css'
 import "./layout.css"
 import "./syntax_hilight.css"
 
@@ -73,7 +74,7 @@ const Header = ({ siteTitle, siteDescription }) => {
 
             </Drawer>
 
-            <div className="siteTitle">
+            <div className={styles.title}>
                 <Container>
                     <h1><Link to="/">{siteTitle}</Link></h1>
                     <h3>{siteDescription}</h3>
@@ -86,7 +87,7 @@ const Header = ({ siteTitle, siteDescription }) => {
 const Footer = ({ author, social }) => {
 
     return (
-        <footer className="siteFooter">
+        <footer className={styles.footer}>
             (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved. 
                 Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
         </footer>
@@ -106,7 +107,7 @@ const Layout = ({ children, title, description, image }) => {
             <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
             <Header siteTitle={siteTitle} siteDescription={siteDescription} />
             <Container>
-                <div className="main">
+                <div className={styles.main}>
                     <Grid container spacing={6}>
                         <Grid item md={8} xs={12}>
                             {children}

@@ -1,12 +1,12 @@
 import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { Box } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
 import { Pagination } from '@material-ui/lab'
 
-import { PostCards, PostExcerpt } from "../components/post.js"
+import { PostExcerpt } from "../components/post.js"
 import Layout from "../components/layout.js"
-import { directoryArchivePath} from '../utils/archive_path'
+import { directoryArchivePath } from '../utils/archive_path'
 
 //const config = require('../../config')
 
@@ -57,7 +57,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
       }
 
       <Box display="flex" justifyContent="center" m={3}>
-        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e,p) => { handleChange(directory, p) }} />
+        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(_e,p) => { handleChange(directory, p) }} />
       </Box>
     </Layout>
   )
