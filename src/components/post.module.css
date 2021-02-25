@@ -46,7 +46,7 @@ a.anchor {
   /*   margin-bottom: 1px;     */
 
   /* background: linear-gradient(to bottom, white 80%, gray 100%); */
-  background: linear-gradient(to bottom,  #484848 0%,#121212 100%); 
+  background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
   
 }
 
@@ -113,6 +113,7 @@ a.anchor {
 
 .postCard {
   margin-top: 1em;
+  margin-bottom: 1em;
   padding-top: 1em;
   padding-bottom: 1em;
   box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);

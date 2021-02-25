@@ -12,16 +12,14 @@ nav.breadcrumb {
     /* margin-top: 1em; */
 }
 
-/* ************** */
 .pageTitle {
     margin-top: 1em;
     margin-bottom: 2em;
-  }
-  
-  
+}
 
-/* ************** */
-/* Eyecatch Image */
+/* -----------------------
+    Eyecatch Image
+   -----------------------*/
 
 .eyecatchImageWrapper .gatsby-image-wrapper {
     height: 150px;
@@ -41,8 +39,9 @@ nav.breadcrumb {
     height: 100%;
 }
 
-/* ******************* */
-/* youtube iframe */
+/* -----------------------
+    Youtube iframe
+   -----------------------*/
 
 .embedVideo-container {
     position: relative;

@@ -70,7 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
     // index paginate
     console.log("** index paginate")
-    const itemsPerPage = 12
+    const itemsPerPage = 10
     paginate({
         createPage,
         items: mdxPages.nodes,
@@ -119,7 +119,7 @@ exports.createPages = async ({ graphql, actions }) => {
         const fromDate = new Date(node.year, node.month - 1, 1)
         const toDate = new Date(node.year, node.month, 1)
         const nodes = mdxPages.nodes.filter(v => { const dt = new Date(v.frontmatter.date); return fromDate <= dt && dt < toDate})
-        console.log(node.year, node.month, nodes.length)
+        //console.log(node.year, node.month, nodes.length)
         paginate({
             createPage,
             items: nodes,

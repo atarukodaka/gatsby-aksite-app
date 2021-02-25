@@ -15,10 +15,21 @@ import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
 import SEO from './seo'
 //import Typography from '@material-ui/core/Typography'
 
-import styles from './layout.module.css'
-import "./layout.css"
-import "./syntax_hilight.css"
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
 
+import styles from './layout.module.css'
+
+const theme = createMuiTheme({  // #1
+    palette: {
+      primary: {
+        light: '#ffff8b',
+        main: '#222277',
+        dark: '#c9bc1f',
+        contrastText: '#ffffff',
+
+      }
+    },
+  })
 const query = graphql`
 {
     site {
@@ -45,7 +56,7 @@ const Header = ({ siteTitle, siteDescription }) => {
 
     return (
         <header>
-            <AppBar position="relative" color="primary">
+            <AppBar position="relative">
                 <Toolbar>
                     <Hidden mdUp>
                         <IconButton onClick={handleDrawerOpen}  color="inherit">
@@ -84,7 +95,7 @@ const Header = ({ siteTitle, siteDescription }) => {
     )
 }
 
-const Footer = ({ author, social }) => {
+const Footer = ({ author }) => {
 
     return (
         <footer className={styles.footer}>
@@ -103,7 +114,7 @@ const Layout = ({ children, title, description, image }) => {
     if (description === undefined) { description = siteDescription }
 
     return (
-        <div>
+        <MuiThemeProvider theme={theme}>
             <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
             <Header siteTitle={siteTitle} siteDescription={siteDescription} />
             <Container>
@@ -121,7 +132,7 @@ const Layout = ({ children, title, description, image }) => {
             </Container>
             <Footer author={author} social={data.site.siteMetadata.social} />
 
-        </div>
+        </MuiThemeProvider>
     )
 
 }

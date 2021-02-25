@@ -35,7 +35,7 @@ export const query = graphql`
 
 const handleChange = (directory, p) => {
   const path = directoryArchivePath(directory)
-  navigate((p === 1) ? path : `/${path}/${p}`)
+  navigate((p === 1) ? path : `${path}/${p}`)
 }
 
 export default function DirectoryTemplate({ data, pageContext }) {

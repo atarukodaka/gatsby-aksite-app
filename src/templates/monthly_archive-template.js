@@ -1,10 +1,10 @@
 import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { Pagination } from '@material-ui/lab'
-import { Box } from '@material-ui/core'
+import Pagination from '@material-ui/lab/Pagination'
+import Box from '@material-ui/core/Box'
 
-import { PostCards, PostExcerpt } from "../components/post.js"
+import { PostExcerpt } from "../components/post.js"
 import Layout from "../components/layout.js"
 import { monthlyArchivePath } from '../utils/archive_path'
 
@@ -35,7 +35,7 @@ const handleChange = (year, month, p) => {
   navigate((p === 1) ? pathPrefix : `${pathPrefix}/${p}`)
 }
 
-export default function ArchiveTemplate({ data, pageContext }) {
+export default function MonthlyArchiveTemplate({ data, pageContext }) {
   const { year, month, numberOfPages, humanPageNumber } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
   const title = `MONTHLY ARCHIVE: ${year}/${month}`
@@ -47,13 +47,10 @@ export default function ArchiveTemplate({ data, pageContext }) {
       <h1 className="pageTitle">{title}</h1>
       { /* <PostCards nodes={data.allMdx.nodes} showExcerpt={true} /> */ }
       {
-        
         data.allMdx.nodes.map(node=>(
           <PostExcerpt node={node}/>
         ))
-        
       }
-
 
       <Box display="flex" justifyContent="center" alignItems="center">
         <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e, p) => { handleChange(year, month, p) }} />

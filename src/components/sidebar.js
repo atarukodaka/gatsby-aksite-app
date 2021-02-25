@@ -9,43 +9,50 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight' 
 */
 import { List, ListItem } from '@material-ui/core'
-import styles from './sidebar.module.css'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
 
+const query = graphql`
+{
+    site {
+        siteMetadata {
+            title
+            author
+            social { twitter }
+        }                    
+    }
+    recentPosts: allMdx(
+        limit: 5,
+        sort: {fields: frontmatter___date, order: DESC}
+        ) {
+        nodes {
+            frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
+            slug
+            fields { directory }
+            id
+            excerpt(pruneLength: 100)
+        }
+    }
+}
+`
+
+const RecentPosts = ( { nodes} ) => {
+    return (<nav>
+        {nodes.map(node => (
+            <PostCard node={node} key={node.id} />
+        ))}
+    </nav>)
+}
+
 
 const Sidebar = () => {
-    const { site, recentPosts } = useStaticQuery(
-        graphql`
-            {
-                site {
-                    siteMetadata {
-                        title
-                        author
-                        social { twitter }
-                    }                    
-                }
-                recentPosts: allMdx(
-                    limit: 5,
-                    sort: {fields: frontmatter___date, order: DESC}
-                    ) {
-                    nodes {
-                        frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
-                        slug
-                        fields { directory }
-                        id
-                        excerpt(pruneLength: 100)
-                    }
-                }
-            }
+    const { site, recentPosts } = useStaticQuery(query)
 
-        `
-    )
     const twitterUrl = `http://www.twitter.com/${site.siteMetadata.social.twitter}`
     return (
         <div className="sidebar">
             <div>
-                <h3 className={styles.title}>Profile</h3>
+                <h3>Profile</h3>
                 <List>
                     <ListItem key="author">Author: {site.siteMetadata.author}</ListItem>
                     <ListItem key="twitter">Twitter:<a href={twitterUrl}>{site.siteMetadata.social.twitter}</a></ListItem>
@@ -53,18 +60,16 @@ const Sidebar = () => {
             </div>
 
             <div>
-                <h3 className={styles.title}>Directories</h3>
+                <h3>Directories</h3>
                 <DirectoryArchives />
             </div>
             <div>
-                <h3 className={styles.title}>Recent Posts</h3>
-                {recentPosts.nodes.map(node => (
-                    <PostCard node={node} key={node.id} />
-                ))
-                }
+                <h3>Recent Posts</h3>
+                <RecentPosts nodes={recentPosts.nodes}/>
+               
             </div>
             <div>
-                <h3 className={styles.title}>Monthly Archives</h3>
+                <h3>Monthly Archives</h3>
                 <MonthlyArchives />
             </div>
         </div>

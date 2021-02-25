@@ -18,12 +18,6 @@ const query = graphql`
 }                
 `
 
-/*
-const monthlyArchivePath = ( year, month ) => {
-    return `/archives/${year}${month.toString().padStart(2,0)}`
-}
-*/
-
 const createMonthlyArchiveList = (  nodes  ) => {
     const list = []
     nodes.forEach(node=>{
@@ -65,6 +59,7 @@ const MonthlyArchives = ( { expandAll } ) => {
                 years.map(year=>{
                     const nodes = list.filter(v=> v.year === year)
                     const countTotal = nodes.reduce((prev, curr) => prev + curr.countTotal, 0)
+                    
                     return (<TreeItem key={year} nodeId={year.toString()} label={ `${year} (${countTotal})`}>
                         {
                             nodes.map(node=>(

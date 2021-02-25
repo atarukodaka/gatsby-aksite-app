@@ -21,9 +21,9 @@ const PostHeader = ({ node }) => (
             </Link>
         </h1>
         <div className={styles.directory}>
-            { /* <Link to={'/' + node.fields.directory}> */ }
+            <Link to={'/' + node.fields.directory}>
                 {directoryLabel(node.fields.directory)}
-            { /* </Link> */ }
+            </Link>
         </div>
 
         { node.frontmatter.image && (
