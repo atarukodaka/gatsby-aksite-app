@@ -1,3 +1,7 @@
+a.anchor {
+  opacity: 0.4;
+}
+
 .post {
   margin-top: 2em;
   margin-bottom: 2em;
@@ -37,15 +41,22 @@
 .title {
   font-weight: bold;
   /* border-bottom: 1px solid; */
-  padding-bottom: 1em;
+  /* padding-bottom: 1em; */
+  padding: 0.5em;
   /*   margin-bottom: 1px;     */
+
+  /* background: linear-gradient(to bottom, white 80%, gray 100%); */
+  background: linear-gradient(to bottom,  #484848 0%,#121212 100%); 
+  
 }
 
 .title a {
   text-decoration: none;
-  color: black
+  color: white; 
 }
-
+.title a:visited {
+  color: white;
+}
 .directory {
   font-size: small;
   display: inline-block;
@@ -66,6 +77,9 @@
 }
 */
 
+
+
+  
 .excerpt .title a {
   color: black;
 }
@@ -88,6 +102,11 @@
   color: white;
 }
 
+.description {
+  
+  padding: 1em;
+  
+}
 /* ******************* */
 
 /* *** Post Card *** */
@@ -114,9 +133,13 @@
 }
 
 .postCardTitle {
+  /* background: linear-gradient(to bottom,  #484848 0%,#121212 100%);  */
   margin-bottom: 0.5em;
 }
 
+.postCardTitle a {
+  /* color: white; */
+}
 .postCardDirectory {
   font-size: small;
   display: inline-block;
@@ -134,6 +157,8 @@
 
 /* *** Table of Contents *** */
 .tableOfContents  {
+  box-shadow: 2px 1px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  background-color: #f8f8f8;
   margin-right: 2em;
   margin-left: 2em;
   margin-bottom: 2em;

@@ -17,7 +17,7 @@ export const data = graphql`
       skip: $skip, limit: $limit){
       nodes {
         id
-        frontmatter { title, date(formatString: "YYYY-MM-DD"), image }
+        frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
         excerpt(pruneLength: $pruneLength)
         fields { directory }
         tableOfContents

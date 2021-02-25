@@ -49,14 +49,7 @@ nav.breadcrumb {
     /* margin-top: 1em; */
 
 }
-/*
-.eyecatchImageWrapper {
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center center;
-}
-*/
+
 .eyecatchImageWrapper .gatsby-image-wrapper {
   height: 150px;
 }
@@ -75,24 +68,6 @@ nav.breadcrumb {
   width: 100%;
   height: 100%;   
 }
-
-/*
-.eyecatchImage img {
-  display: block;
-  height: 200px;
-  object-fit: none;
-  width: 100%
-
-}
-
-.eyecatchImage {
-  max-width: 100%;
-  height: 200px;
-  object-fit: cover;
-  box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
-  
-}
-*/
 
 .pageTitle {
   margin-top: 1em;

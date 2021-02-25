@@ -4,7 +4,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { Box } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 
-import { PostCards } from "../components/post.js"
+import { PostCards, PostExcerpt } from "../components/post.js"
 import Layout from "../components/layout.js"
 import { directoryArchivePath} from '../utils/archive_path'
 
@@ -20,8 +20,9 @@ export const query = graphql`
           id
           excerpt(truncate: true, pruneLength: $pruneLength)
           slug
+          tableOfContents
           frontmatter {
-            date(formatString: "YYYY-MM-DD"), title, image
+            date(formatString: "YYYY-MM-DD"), title, image, description
           }     
           fields { 
             directory
@@ -48,7 +49,12 @@ export default function DirectoryTemplate({ data, pageContext }) {
     <Layout title={title}>
       <Breadcrumb crumbs={crumbs} />
       <h1 className="pageTitle">{title}</h1>
-      <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
+      { /* <PostCards nodes={data.allMdx.nodes} showExcerpt={true} /> */}
+      {
+        data.allMdx.nodes.map(node=>(
+          <PostExcerpt node={node}/>
+        ))
+      }
 
       <Box display="flex" justifyContent="center" m={3}>
         <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e,p) => { handleChange(directory, p) }} />

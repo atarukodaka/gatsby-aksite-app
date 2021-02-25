@@ -5,9 +5,10 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import TableOfContents from './table_of_contents'
 //import Img from 'gatsby-image'
-import { Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
+
 
 const shortcuts = { Image }
 
@@ -34,26 +35,36 @@ const PostHeader = ({ node }) => (
     </header>
 )
 
-const TocBox = ({ node }) => (
-    <div className={styles.tableOfContents}>
-    <Accordion defaultExpanded={true} >
-        
-            <AccordionSummary>
-                <h3>Table Of Contents</h3>
-            </AccordionSummary>
+const TocBox = ({ node, title, useAccordion }) => {
+    const defaultTitle = "Table of Contents"
 
-            <AccordionDetails>
-              <TableOfContents toc={node.tableOfContents} />
-            </AccordionDetails>
-        
-    </Accordion>
-    </div>
-)
+    return (
+        <div className={styles.tableOfContents}>
+            { (useAccordion) ?
+                (<Accordion defaultExpanded={true}>
+                    <AccordionSummary>
+                        <h3>{title || defaultTitle}</h3>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <TableOfContents toc={node.tableOfContents} />
+                    </AccordionDetails>
+                </Accordion>) :
+                <Box p={2}>
+                    <TableOfContents toc={node.tableOfContents} />
+                </Box>
+            }
+        </div>
+        )
+    }
 
 export const Post = ({ node }) => (
     <div className={styles.post}>
         <PostHeader node={node} />
         <main>
+            <div className={styles.description}>
+                {node.frontmatter.description}                
+            </div>
+    
             {node.frontmatter.toc === true && (<TocBox node={node} />)}
 
             <MDXProvider components={shortcuts}>
@@ -74,7 +85,15 @@ export const PostExcerpt = ({ node }) => (
         <Link to={'/' + node.slug}>
         <PostHeader node={node} />
         <main>
+            { node.frontmatter.description && (<div className={styles.description}>{ node.frontmatter.description}</div>)}
             { /* node.frontmatter.image && (<img src={node.frontmatter.image} className="eyecatchImageSmall"></img>) */}
+            { node.tableOfContents?.items && 
+            (<div className={styles.tableOfContents}>
+                <TableOfContents toc={node.tableOfContents} />
+             </div>
+            )
+            }
+            
             <div className={styles.excerpt}>{node.excerpt}</div>
             { /* <div className={styles.continueReading}>
                 <Link to={'/' + node.slug}>...continue reading</Link>
@@ -111,7 +130,7 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                 </div>
                 {showExcerpt && (
                     <div className={styles.postCardExcerpt}>
-                        {node.excerpt}
+                        {node.frontmatter.description || node.excerpt}
                     </div>
 
                 )}

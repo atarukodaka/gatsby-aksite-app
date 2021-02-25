@@ -4,7 +4,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { Pagination } from '@material-ui/lab'
 import { Box } from '@material-ui/core'
 
-import { PostCards } from "../components/post.js"
+import { PostCards, PostExcerpt } from "../components/post.js"
 import Layout from "../components/layout.js"
 import { monthlyArchivePath } from '../utils/archive_path'
 
@@ -18,12 +18,13 @@ export const query = graphql`
           excerpt(truncate: true, pruneLength: $pruneLength)
 
           frontmatter {
-            date(formatString: "YYYY-MM-DD"), title, image
+            date(formatString: "YYYY-MM-DD"), title, image, description
           }        
           fields { 
             directory
           }
           slug
+          tableOfContents
         }
       }
     }
@@ -44,7 +45,15 @@ export default function ArchiveTemplate({ data, pageContext }) {
     <Layout title={title}>
       <Breadcrumb crumbs={crumbs} crumbLabel={year + "-" + month} />
       <h1 className="pageTitle">{title}</h1>
-      <PostCards nodes={data.allMdx.nodes} showExcerpt={true} />
+      { /* <PostCards nodes={data.allMdx.nodes} showExcerpt={true} /> */ }
+      {
+        
+        data.allMdx.nodes.map(node=>(
+          <PostExcerpt node={node}/>
+        ))
+        
+      }
+
 
       <Box display="flex" justifyContent="center" alignItems="center">
         <Pagination count={numberOfPages} page={humanPageNumber} onChange={(e, p) => { handleChange(year, month, p) }} />

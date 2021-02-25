@@ -13,6 +13,10 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       type MdxFrontmatter {
         toc: Boolean
       }
+
+      type MdxFrontmatter {
+          description: String
+      }
     `);
 };
 
