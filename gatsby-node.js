@@ -43,7 +43,8 @@ exports.createPages = async ({ graphql, actions }) => {
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
-                }
+                    year: date(formatString: "YYYY")
+                    month: date(formatString: "MM")
                 fields {
                     directory
                 }

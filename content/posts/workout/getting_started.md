@@ -2,10 +2,19 @@
 title: 宅トレことはじめ
 date: 2021-02-21
 image: udetate_man.png
-hero: udetate_man.png
 toc: true
 description: 自宅トレーニングをはじめるにあたってのおぼえがき
 ---
+
+`oembed: https://www.youtube.com/watch?v=XxmvSnNjRhA&t=312s`
+
+`oembed: https://twitter.com/pijyon/status/1364958938295377925`
+
+`oembed: https://takumon.com/iframely`
+
+
+https://twitter.com/pijyon/status/1364958938295377925
+
 
 ## 構成
 

@@ -7,7 +7,8 @@ const config = {
     siteUrl: 'https://cranky-williams-77ca16.netlify.app',
     //siteUrl: `http://localhost:8000/`,
     social: {
-      twitter: 'ataru_kodaka'
+      twitter: 'ataru_kodaka',
+      github: 'atarukodaka',
     }
   },
 
