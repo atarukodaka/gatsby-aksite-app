@@ -1,6 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { Box } from '@material-ui/core'
+//import { Box } from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
@@ -12,7 +12,7 @@ import DirectoryArchives from './directory_archives'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight' 
 */
-import { List, ListItem } from '@material-ui/core'
+//import { List, ListItem } from '@material-ui/core'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
 
@@ -57,13 +57,12 @@ const Sidebar = () => {
         <div className="sidebar">
             <div>
                 <h3>Profile</h3>
-                <List>
-                    <ListItem>Author: {site.siteMetadata.author}</ListItem>
-                    <ListItem>
-                        <Box m={1}><a href={twitterUrl}><TwitterIcon label="button"/></a></Box>
-                        <Box m={1}><a href={gitHubUrl}><GitHubIcon  role="button"/></a></Box>
-                    </ListItem>
-                </List>
+
+                    <div>Author: {site.siteMetadata.author}</div>
+                    <div>
+                        <a href={twitterUrl}><TwitterIcon aria-label="button"/></a>
+                        <a href={gitHubUrl}><GitHubIcon  aria-label="button"/></a>
+                    </div>
             </div>
 
             <div>

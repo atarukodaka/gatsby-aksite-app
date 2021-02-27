@@ -10,12 +10,11 @@ const Tree = ({ nodes }) => (
     <ol>
         {
             nodes.map(v => (
-                <>
                     <li key={v.url}>
                         <Link to={v.url} style={{ textDecoration: 'none' }}>{v.title}</Link>
-                    </li>
+                    
                     {v.items && (<Tree nodes={v.items} />)}
-                </>
+                    </li>
             ))
         }
     </ol>

@@ -43,12 +43,12 @@ export default function MonthlyArchiveTemplate({ data, pageContext }) {
 
   return (
     <Layout title={title}>
-      <Breadcrumb crumbs={crumbs} crumbLabel={year + "-" + month} />
+      <Breadcrumb crumbs={crumbs}/>
       <h1 className="pageTitle">{title}</h1>
       { /* <PostCards nodes={data.allMdx.nodes} showExcerpt={true} /> */ }
       {
         data.allMdx.nodes.map(node=>(
-          <PostExcerpt node={node}/>
+          <PostExcerpt node={node} key={node.id}/>
         ))
       }
 
