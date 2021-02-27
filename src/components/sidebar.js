@@ -49,7 +49,7 @@ const RecentPosts = ( { nodes} ) => {
 }
 
 const SearchBox = () => {
-    const google_cx = process.env.GSCE_CX
+    const google_cx = process.env.GCSE_CX
     const src = `https://cse.google.com/cse.js?cx=${google_cx}`
     return (
         <div>

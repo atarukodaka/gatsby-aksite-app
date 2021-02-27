@@ -10,6 +10,10 @@ require("dotenv").config({
   path: `.env.${activeEnv}`,
 })
 
+console.log("tracking id", process.env.GA_TRACKING_ID)
+console.log("google sce: ", process.env.GCSE_CX)
+console.log("foo", process.env.FOO)
+
 const config = require('./config.js')
 
 const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directory_labels).map(k=>{ 
