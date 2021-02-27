@@ -10,9 +10,8 @@ require("dotenv").config({
   path: `.env.${activeEnv}`,
 })
 
-console.log("tracking id", process.env.GA_TRACKING_ID)
-console.log("google sce: ", process.env.GCSE_CX)
-console.log("foo", process.env.FOO)
+//console.log("tracking id", process.env.GA_TRACKING_ID)
+//console.log("google sce: ", process.env.GCSE_CX)
 
 const config = require('./config.js')
 

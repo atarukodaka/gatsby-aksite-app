@@ -16,6 +16,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
 import SearchBox from './search_box'
+import ClientOnly from './client_only'
 
 const query = graphql`
 {
@@ -57,7 +58,9 @@ const Sidebar = () => {
     const gitHubUrl = `http://github.com/${site.siteMetadata.social.github}`
     return (
         <div className="sidebar">
-            <SearchBox/>
+            <ClientOnly>
+                <SearchBox/>
+            </ClientOnly>
 
             <div>
                 <h3>Profile</h3>
