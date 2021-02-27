@@ -115,7 +115,7 @@ const Layout = ({ children, title, description, image }) => {
             <Header siteTitle={siteTitle} siteDescription={siteDescription} />
             <Container>
                 <div className={styles.main}>
-                    <Grid container spacing={6}>
+                    <Grid container spacing={2}>
                         <Grid item md={8} xs={12}>
                             {children}
                         </Grid>
