@@ -15,6 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 //import { List, ListItem } from '@material-ui/core'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
+import SearchBox from './search_box'
 
 const query = graphql`
 {
@@ -48,16 +49,6 @@ const RecentPosts = ( { nodes} ) => {
     </nav>)
 }
 
-const SearchBox = () => {
-    const google_cx = process.env.GCSE_CX
-    const src = `https://cse.google.com/cse.js?cx=${google_cx}`
-    return (
-        <div>
-            <script async src={src}></script>
-            <div className="gcse-search"></div>
-        </div>
-    )
-}
 
 const Sidebar = () => {
     const { site, recentPosts } = useStaticQuery(query)
