@@ -14,22 +14,24 @@ import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
 //import { TwitterIcon } from 'react-share'
 import SEO from './seo'
 //import Typography from '@material-ui/core/Typography'
+import MonthlyArchives from './monthly_archives'
+import DirectoryArchives from './directory_archives'
 
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
 import styles from './layout.module.css'
 
 const theme = createMuiTheme({  // #1
     palette: {
-      primary: {
-        light: '#ffff8b',
-        main: '#222277',
-        dark: '#c9bc1f',
-        contrastText: '#ffffff',
+        primary: {
+            light: '#ffff8b',
+            main: '#222277',
+            dark: '#c9bc1f',
+            contrastText: '#ffffff',
 
-      }
+        }
     },
-  })
+})
 const query = graphql`
 {
     site {
@@ -59,7 +61,7 @@ const Header = ({ siteTitle, siteDescription }) => {
             <AppBar position="relative">
                 <Toolbar>
                     <Hidden mdUp>
-                        <IconButton onClick={handleDrawerOpen}  color="inherit">
+                        <IconButton onClick={handleDrawerOpen} color="inherit">
                             <MenuIcon />
                         </IconButton>
                     </Hidden>
@@ -71,16 +73,19 @@ const Header = ({ siteTitle, siteDescription }) => {
 
             <Drawer open={open}>
                 <div>
+
                     <IconButton onClick={handleDrawerClose}>
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                     <Divider />
 
-                    <List component="nav">
-                        <ListItem button component={Link} to="/about">About</ListItem>
-                        <ListItem button component={Link} to="/archives">Archives</ListItem>
-                        <ListItem button component={Link} to="/directories">Directories</ListItem>
-                    </List>
+                    <nav>
+                        <h3>Directories</h3>
+                        <DirectoryArchives />
+                        <Divider />
+                        <h3>Monthly</h3>
+                        <MonthlyArchives />
+                    </nav>
                 </div>
             </Drawer>
 
@@ -95,10 +100,10 @@ const Header = ({ siteTitle, siteDescription }) => {
 }
 
 const Footer = ({ author }) => (
-        <footer className={styles.footer}>
-            (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved. 
+    <footer className={styles.footer}>
+        (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved.
                 Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
-        </footer>
+    </footer>
 )
 
 const Layout = ({ children, title, description, image }) => {
