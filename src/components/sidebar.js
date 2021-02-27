@@ -1,5 +1,9 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+//import { Box } from '@material-ui/core'
+import GitHubIcon from '@material-ui/icons/GitHub';
+import TwitterIcon from '@material-ui/icons/Twitter';
+
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
 
@@ -8,9 +12,10 @@ import DirectoryArchives from './directory_archives'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight' 
 */
-import { List, ListItem } from '@material-ui/core'
+//import { List, ListItem } from '@material-ui/core'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
+import SearchBox from './search_box'
 
 const query = graphql`
 {
@@ -18,7 +23,7 @@ const query = graphql`
         siteMetadata {
             title
             author
-            social { twitter }
+            social { twitter, github }
         }                    
     }
     recentPosts: allMdx(
@@ -49,14 +54,19 @@ const Sidebar = () => {
     const { site, recentPosts } = useStaticQuery(query)
 
     const twitterUrl = `http://www.twitter.com/${site.siteMetadata.social.twitter}`
+    const gitHubUrl = `http://github.com/${site.siteMetadata.social.github}`
     return (
         <div className="sidebar">
+            <SearchBox/>
+
             <div>
                 <h3>Profile</h3>
-                <List>
-                    <ListItem key="author">Author: {site.siteMetadata.author}</ListItem>
-                    <ListItem key="twitter">Twitter:<a href={twitterUrl}>{site.siteMetadata.social.twitter}</a></ListItem>
-                </List>
+
+                    <div>Author: {site.siteMetadata.author}</div>
+                    <div>
+                        <a href={twitterUrl}><TwitterIcon aria-label="button"/></a>
+                        <a href={gitHubUrl}><GitHubIcon  aria-label="button"/></a>
+                    </div>
             </div>
 
             <div>

@@ -4,6 +4,16 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+const activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+console.log(`Using environment config: '${activeEnv}'`)
+require("dotenv").config({
+  path: `.env.${activeEnv}`,
+})
+
+console.log("tracking id", process.env.GA_TRACKING_ID)
+console.log("google sce: ", process.env.GCSE_CX)
+console.log("foo", process.env.FOO)
+
 const config = require('./config.js')
 
 const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directory_labels).map(k=>{ 
@@ -31,6 +41,10 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.md`, `.mdx`],
+        /* 
+        defaultLayouts: {
+          default: require.resolve("./src/templates/post-template.js"),
+        },*/
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-autolink-headers`,
@@ -46,7 +60,7 @@ module.exports = {
               //height: 400, // Optional: Overrides optional.ratio
               related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
               noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
-              /*
+              
               urlOverrides: [
                 {
                   id: "youtube",
@@ -54,7 +68,7 @@ module.exports = {
                     `https://www.youtube-nocookie.com/embed/${videoId}`,
                 },
               ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
-              */
+              
               containerClass: "embedVideo-container", //Optional: Custom CSS class for iframe container, for multiple classes separate them by space
             },
           },    
@@ -96,6 +110,18 @@ module.exports = {
         //trailingSlashes: true,
       }
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GA_TRACKING_ID,
+        // Puts tracking script in the head instead of the body
+        head: true,
+        // Setting this parameter is optional
+        anonymize: true,
+        // Setting this parameter is also optional
+        respectDNT: true,
+      },
+    },    
     {
       resolve: `gatsby-plugin-typography`,
       options: {

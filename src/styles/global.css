@@ -43,7 +43,7 @@ nav.breadcrumb {
     Youtube iframe
    -----------------------*/
 
-.embedVideo-container {
+   .embedVideo-container {
     position: relative;
     overflow: hidden;
     padding-bottom: 56.25%;
@@ -59,3 +59,11 @@ nav.breadcrumb {
     width: 100%;
     height: 100%;
 }
+
+/* -----------------------
+    GCSE
+   -----------------------*/
+
+.gsc-input table {
+    margin-bottom: 0em;
+}   

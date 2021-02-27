@@ -8,7 +8,7 @@ import TableOfContents from './table_of_contents'
 import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
-
+import './table_of_contents'
 
 const shortcuts = { Image }
 

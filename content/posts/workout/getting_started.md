@@ -2,7 +2,6 @@
 title: 宅トレことはじめ
 date: 2021-02-21
 image: udetate_man.png
-hero: udetate_man.png
 toc: true
 description: 自宅トレーニングをはじめるにあたってのおぼえがき
 ---
