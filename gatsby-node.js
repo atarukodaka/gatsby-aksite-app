@@ -107,16 +107,16 @@ exports.createPages = async ({ graphql, actions }) => {
     ////////////////
     // monthly archive
     console.log("** creating monthly archives")
-    const yearMonths = new Set(mdxPages.nodes.map(node=> node.frontmatter.yearmonth))
+    const yearMonths = new Set(mdxPages.nodes.filter(v=>v.frontmatter.yearmonth).map(node=> node.frontmatter.yearmonth))
     //console.log("yearmonths: ", yearMonths)  
     yearMonths.forEach(node=>{
         const [year, month] = node.split('-').map(v=>parseInt(v))
         const fromDate = new Date(year, month - 1, 1)
-        const nextMonth = new Date(fromDate.setMonth(month))
+        const nextMonth = new Date(year, month, 1)
         const toDate = new Date(nextMonth.getTime() -1)
-        //const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth()+1, 1)
-        const items = mdxPages.nodes.filter(v => { const dt = new Date(v.frontmatter.date); return fromDate <= dt && dt < toDate})
-        //console.log(node.year, node.month, nodes.length)
+        const items = mdxPages.nodes.filter(v => { 
+            const dt = new Date(v.frontmatter.date); return fromDate <= dt && dt < toDate
+        })
         console.log(`monthly archive: ${year}/${month} (${items.length}) [${monthlyArchivePath(year, month)}]`)
         paginate({
             createPage,
