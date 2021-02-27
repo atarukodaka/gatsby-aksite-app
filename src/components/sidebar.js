@@ -48,6 +48,17 @@ const RecentPosts = ( { nodes} ) => {
     </nav>)
 }
 
+const SearchBox = () => {
+    const google_cx = process.env.GSCE_CX
+    const src = `https://cse.google.com/cse.js?cx=${google_cx}`
+    return (
+        <div>
+            <script async src={src}></script>
+            <div className="gcse-search"></div>
+        </div>
+    )
+}
+
 const Sidebar = () => {
     const { site, recentPosts } = useStaticQuery(query)
 
@@ -55,6 +66,8 @@ const Sidebar = () => {
     const gitHubUrl = `http://github.com/${site.siteMetadata.social.github}`
     return (
         <div className="sidebar">
+            <SearchBox/>
+
             <div>
                 <h3>Profile</h3>
 

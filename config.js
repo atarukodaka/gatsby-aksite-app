@@ -12,6 +12,8 @@ const config = {
     }
   },
 
+  google_cx: "xxxxxxx",
+  
   directory_labels: {
     "/workout": "ワークアウト",
     "/game": "ゲーム",
