@@ -6,7 +6,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
-
+//import Divider from '@material-ui/core/Divider'
 //import { Paper, Box } from '@material-ui/core'
 /*
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -15,7 +15,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 //import { List, ListItem } from '@material-ui/core'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post'
-import SearchBox from './search_box'
 
 const query = graphql`
 {
@@ -49,6 +48,12 @@ const RecentPosts = ( { nodes} ) => {
     </nav>)
 }
 
+const Card = ( { children } ) => (
+    <div style={{boxShadow: "2px 2px 1px rgb(0 0 0 / 20%)", marginBottom: "1rem"}}>
+        {children}
+    </div>
+)
+
 
 const Sidebar = () => {
     const { site, recentPosts } = useStaticQuery(query)
@@ -57,31 +62,29 @@ const Sidebar = () => {
     const gitHubUrl = `http://github.com/${site.siteMetadata.social.github}`
     return (
         <div className="sidebar">
-            <SearchBox/>
-
-            <div>
+            <Card>
                 <h3>Profile</h3>
-
                     <div>Author: {site.siteMetadata.author}</div>
                     <div>
                         <a href={twitterUrl}><TwitterIcon aria-label="button"/></a>
                         <a href={gitHubUrl}><GitHubIcon  aria-label="button"/></a>
                     </div>
-            </div>
-
-            <div>
+            </Card>
+            
+            <Card>
                 <h3>Directories</h3>
                 <DirectoryArchives />
-            </div>
-            <div>
+            </Card>
+
+            <Card>
                 <h3>Recent Posts</h3>
                 <RecentPosts nodes={recentPosts.nodes}/>
-               
-            </div>
-            <div>
+            </Card>
+            
+            <Card>
                 <h3>Monthly Archives</h3>
                 <MonthlyArchives />
-            </div>
+            </Card>
         </div>
     )
 }

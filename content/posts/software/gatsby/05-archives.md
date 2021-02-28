@@ -44,23 +44,20 @@ query でfrontmatter { date }も取ります。フォーマットも扱いやす
 という流れで行きます。
 
 ```js:title=gatsby-node.js
-    const ym1s = dates.filter((date, i, self) => 
-        self.findIndex(d => 
-            (date.getFullYear() == d.getFullYear() && date.getMonth() == d.getMonth())
-        ) === i)
+  const yearMonths = new Set(mdxPages.nodes.filter(v=>v.frontmatter.yearmonth).map(node=> node.frontmatter.yearmonth))
 ```
 
 各 mdxリソースの年月の月初日 uniq を取ります。[2020-02-02, 2020-02-04, 2020-04-12] から [2020-02-01, 2020-04-01]を取り出すわけですね。
-filter() や findIndex()で uniq() のような働きをしています。
 
 ```js
-    ym1s.forEach(ym1 => {
-        const year = ym1.getFullYear()
-        const month = ym1.getMonth()+1
-        const fromDate = ym1
-        const toDate = new Date(fromDate.getFullYear(), fromDate.getMonth() + 1)
-
-        console.log(`${year}/${month}`)
+const yearMonths = new Set(mdxPages.nodes.filter(v=>v.frontmatter.yearmonth).map(node=> node.frontmatter.yearmonth))
+    //console.log("yearmonths: ", yearMonths)  
+    yearMonths.forEach(node=>{
+        const [year, month] = node.split('-').map(v=>parseInt(v))
+        const fromDate = new Date(year, month - 1, 1)
+        const nextMonth = new Date(year, month, 1)
+        const toDate = new Date(nextMonth.getTime() -1)
+        console.log(`monthly archive: ${year}/${month} (${items.length}) [${monthlyArchivePath(year, month)}]`)
         createPage({
             path: `/archives/${year}${month.toString().padStart(2, 0)}`,
             component: path.resolve(`./src/templates/archive-template.js`),
@@ -75,7 +72,7 @@ filter() や findIndex()で uniq() のような働きをしています。
     })
 ```
 
-そしてその YYYYMM01 ごとにテンプレートを経由して月別アーカイブを作成します。
+そしてその年月ごとにテンプレートを経由して月別アーカイブを作成します。
 
 - date の getMonth() は０スタートの数字を返す:2020-02-01 なら 1
 - padStart()はゼロパディングをしてくれる:　3 -> "03"

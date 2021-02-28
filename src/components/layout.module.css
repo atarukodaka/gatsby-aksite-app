@@ -27,3 +27,12 @@
     margin-top: 40px;
     background-color: white;
 }
+
+.sidebar {
+    margin-right: 2rem;
+}
+.tableOfContents {
+    position: sticky;
+    top: 0;
+}
+    

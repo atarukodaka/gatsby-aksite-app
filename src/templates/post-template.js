@@ -4,13 +4,14 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import { useLocation } from "@reach/router"
 
 import Layout from "../components/layout.js"
-import { Post } from "../components/post.js"
-import Siblings from '../components/siblings'
+import { Post, PostCard } from "../components/post.js"
+//import Siblings from '../components/siblings'
 import directoryLabel from '../utils/directory_label'
 import Share from '../components/share'
+import Grid from '@material-ui/core/Grid'
 
 export const query = graphql`
-    query ($slug: String!) {
+    query ($slug: String!, $directory: String!) {
       site { siteMetadata { siteUrl }}
       mdx(slug: { eq: $slug }){
         id
@@ -29,19 +30,44 @@ export const query = graphql`
           directory
         }        
       }
+      siblings: allMdx(filter: { fields: { directory: { eq: $directory} }}){
+        nodes {
+          id, slug
+          excerpt(pruneLength: 100)
+          frontmatter {
+            title
+            date(formatString: "YYYY-MM-DD")
+            image
+            description
+          }
+          fields {
+            directory
+          }
+        }
+      }
     }
 
 `
+
+const Siblings = ( { nodes }) => (
+  <nav>
+    <Grid container spacing={3}>
+      {nodes.slice(0, 9).map(v =>
+        (<Grid item xs={12} sm={6} key={v.id}><PostCard node={v} /></Grid>))
+      }
+    </Grid>
+  </nav>
+)
 
 export default function PostTemplate({ data, pageContext }) {
   const node = data.mdx
   const { breadcrumb: { crumbs } } = pageContext
   const { pathname } = useLocation()
 
-  console.log(`create/template: ${node.slug} toc: ${node.frontmatter.toc}`)
+  console.log(`create/template: ${node.slug}`)
 
   return (
-    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} image={node.frontmatter.image}>
+    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} image={node.frontmatter.image} node={node}>
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
       <Post node={node} />
@@ -49,7 +75,7 @@ export default function PostTemplate({ data, pageContext }) {
       <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
-      <Siblings node={node} />
+      <Siblings nodes={data.siblings.nodes.filter(v => v.slug !== node.slug)} />
     </Layout>
   )
 }
