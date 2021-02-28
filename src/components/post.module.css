@@ -135,11 +135,16 @@ a.anchor {
 
 .postCardTitle {
   /* background: linear-gradient(to bottom,  #484848 0%,#121212 100%);  */
-  margin-bottom: 0.5em;
+  /* margin-bottom: 0.5em; */
+  font-weight: bold;
+  color: black;
 }
 
 .postCardTitle a {
-  /* color: white; */
+  color: black;
+}
+.postCardTitle a:visited {
+  color: black;
 }
 .postCardDirectory {
   font-size: small;

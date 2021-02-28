@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
@@ -8,9 +8,37 @@ import styles from "./post.module.css"
 import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
-import './table_of_contents'
+//import './table_of_contents'
 
-const shortcuts = { Image }
+const query = graphql`
+    {
+        allMdx {
+            nodes {
+                id, slug
+                frontmatter {
+                    title
+                    date(formatString: "YYYY-MM-DD")
+                    image
+                    description
+                }
+                excerpt
+                fields { directory }
+            }
+        }
+    }
+`
+
+const PostLink = ( {slug}) => {
+    const data = useStaticQuery(query)
+    const node = data.allMdx.nodes.find(v=>v.slug === slug)
+    if (node === undefined) { return<div>NO SUCH SLUG: {slug}</div>}
+
+    console.log("postlink node", node)
+
+    return (
+        <PostCard node={node}/>
+    )
+}
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -60,7 +88,9 @@ const TocBox = ({ node, title, useAccordion }) => {
 
 
 
-export const Post = ({ node }) => (
+export const Post = ({ node }) => {
+    const shortcuts = { Image, PostLink }
+    return (
     <div className={styles.post}>
         <PostHeader node={node} />
         <main>
@@ -69,7 +99,6 @@ export const Post = ({ node }) => (
             </div>
     
             { /* node.frontmatter.toc === true && (<TocBox node={node} />) */}
-
             <MDXProvider components={shortcuts}>
                 <div className={styles.numbering_headings}>
                     <MDXRenderer>
@@ -81,7 +110,8 @@ export const Post = ({ node }) => (
         </main>
         
     </div>
-)
+    )
+}
 
 export const PostExcerpt = ({ node }) => (
     <div className={styles.postexcerpt}>
@@ -107,8 +137,7 @@ export const PostExcerpt = ({ node }) => (
     </div>
 )
 
-export const PostCard = ({ node, disableLink, showExcerpt }) => {
-    if (showExcerpt === undefined) { showExcerpt = true }
+export const PostCard = ({ node }) => {
 
     const noImageAvailable = "no_image_available.png"
     const imgsrc = node.frontmatter.image || noImageAvailable
@@ -122,33 +151,28 @@ export const PostCard = ({ node, disableLink, showExcerpt }) => {
                 </div>
 
                 <div className={styles.postCardDate}>{node.frontmatter.date}</div>
-                <h4 className={styles.postCardTitle}>
-                    {(disableLink) ? node.frontmatter.title :
-                        <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
-                    }
-                </h4>
+                <div className={styles.postCardTitle}>
+                    <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                </div>
                 <div className={styles.postCardDirectory}>
                     <Link to={'/' + node.fields.directory}>{directoryLabel(node.fields.directory)}</Link>
                 </div>
-                {showExcerpt && (
-                    <div className={styles.postCardExcerpt}>
-                        {node.frontmatter.description || node.excerpt}
-                    </div>
-
-                )}
+                <div className={styles.postCardExcerpt}>
+                    {node.frontmatter.description || node.excerpt}
+                </div>
                 <div style={{ clear: "both" }} />
             </Link>
         </div>
     )
 }
 
-export const PostCards = ({ nodes, showExcerpt }) => {
+export const PostCards = ({ nodes }) => {
     return (
         <Grid container spacing={3}>
             {
                 nodes.map(node => (
                     <Grid item xs={12} sm={6} md={4} key={node.id}>
-                        <PostCard node={node} showExcerpt={showExcerpt} />
+                        <PostCard node={node} />
                     </Grid>
                 ))
             }

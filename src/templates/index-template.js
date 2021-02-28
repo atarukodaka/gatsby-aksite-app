@@ -44,8 +44,6 @@ const IndexTemplate = ( { data, pageContext } ) => {
       {data.allMdx.nodes.map(node=>(
         <PostExcerpt node={node} key={node.id}/>
       ))}
-      {/* <PostCards nodes={data.allMdx.nodes} showExcerpt={true}/> */}
-      
       <Box display="flex" justifyContent="center" m={3}>
       <Pagination style={{}} count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
       </Box>
