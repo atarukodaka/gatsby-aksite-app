@@ -10,7 +10,7 @@ import directoryLabel from '../utils/directory_label'
 import Share from '../components/share'
 
 export const query = graphql`
-    query ($slug: String!) {
+    query ($slug: String!, $directory: String!) {
       site { siteMetadata { siteUrl }}
       mdx(slug: { eq: $slug }){
         id
@@ -28,6 +28,21 @@ export const query = graphql`
         fields {
           directory
         }        
+      }
+      siblings: allMdx(filter: { fields: { directory: { eq: $directory} }}){
+        nodes {
+          id, slug
+          excerpt(pruneLength: 100)
+          frontmatter {
+            title
+            date(formatString: "YYYY-MM-DD")
+            image
+            description
+          }
+          fields {
+            directory
+          }
+        }
       }
     }
 
@@ -49,7 +64,7 @@ export default function PostTemplate({ data, pageContext }) {
       <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
-      <Siblings node={node} />
+      <Siblings nodes={data.siblings.nodes.filter(v=>v.slug !== node.slug)} />
     </Layout>
   )
 }

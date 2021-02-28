@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core'
 
 import { PostCard } from './post'
 
-const Siblings = ({ node }) => {
+const Siblings = ({ nodes }) => {
     const data = useStaticQuery(graphql`
     {
       allMdx {
@@ -23,13 +23,13 @@ const Siblings = ({ node }) => {
       }
     }
     `)
-    const siblings = data.allMdx.nodes.filter(v=> (v.fields.directory === node.fields.directory) && v.slug !== node.slug)
+    //const siblings = data.allMdx.nodes.filter(v=> (v.fields.directory === node.fields.directory) && v.slug !== node.slug)
     const numberShow = 9
     return (
       <nav>
         <Grid container spacing={3}>
-          { siblings.slice(0, numberShow).map(v =>
-            (<Grid item xs={12} sm={6} md={4} key={v.id}><PostCard node={v} /></Grid>))}
+          { nodes.slice(0, numberShow).map(v =>
+            (<Grid item xs={12} sm={6} key={v.id}><PostCard node={v} /></Grid>))}
   
         </Grid>
       </nav>
