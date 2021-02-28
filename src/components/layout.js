@@ -19,6 +19,7 @@ import DirectoryArchives from './directory_archives'
 import TableOfContents from './table_of_contents'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import GoogleSearch from './google_search'
 
 import styles from './layout.module.css'
 
@@ -69,12 +70,14 @@ const Header = ({ siteTitle, siteDescription }) => {
 
                     <Button color="inherit" component={Link} to="/">{siteTitle}</Button>
                     <Button color="inherit" component={Link} to="/about">About</Button>
+                    <div style={{marginLeft: "auto"}}>
+                        <GoogleSearch/>
+                    </div>
                 </Toolbar>
             </AppBar>
 
             <Drawer open={open}>
                 <div>
-
                     <IconButton onClick={handleDrawerClose}>
                         <MenuIcon />
                     </IconButton>
@@ -122,17 +125,19 @@ const Layout = ({ children, title, description, image, node }) => {
             <Container>
                 <div className={styles.main}>
                     <Grid container spacing={3}>
-                        <Grid item md={3} xs={12}>
+                        <Hidden smDown>
+                        <Grid item md={3} xs={false}>
                             <div className={styles.sidebar}>
                                 <Sidebar/>
                             </div>
                         </Grid>
+                        </Hidden>
 
-                        <Grid item md={7} xs={12}>
+                        <Grid item md={6} xs={12}>
                             {children}
                         </Grid>
 
-                        <Grid item md={2} xs={12}>
+                        <Grid item md={3} xs={12}>
                             { node &&
                             (<div className={styles.tableOfContents}><h3>Table of Contents</h3><TableOfContents toc={node.tableOfContents}/></div>)
                             }

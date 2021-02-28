@@ -58,6 +58,8 @@ const TocBox = ({ node, title, useAccordion }) => {
     }
     */
 
+
+
 export const Post = ({ node }) => (
     <div className={styles.post}>
         <PostHeader node={node} />
@@ -104,7 +106,6 @@ export const PostExcerpt = ({ node }) => (
         </Link>
     </div>
 )
-
 
 export const PostCard = ({ node, disableLink, showExcerpt }) => {
     if (showExcerpt === undefined) { showExcerpt = true }
