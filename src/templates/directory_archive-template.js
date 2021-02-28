@@ -4,11 +4,9 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Box from '@material-ui/core/Box'
 import { Pagination } from '@material-ui/lab'
 
-import { Post, PostExcerpt } from "../components/post.js"
+import { Post } from "../components/post.js"
 import Layout from "../components/layout.js"
 import { directoryArchivePath } from '../utils/archive_path'
-
-//const config = require('../../config')
 
 export const query = graphql`
     query($regex: String!, $pruneLength: Int!=100, $skip: Int!, $limit: Int!){        

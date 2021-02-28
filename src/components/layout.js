@@ -70,9 +70,6 @@ const Header = ({ siteTitle, siteDescription }) => {
 
                     <Button color="inherit" component={Link} to="/">{siteTitle}</Button>
                     <Button color="inherit" component={Link} to="/about">About</Button>
-                    <div style={{marginLeft: "auto"}}>
-                        <GoogleSearch/>
-                    </div>
                 </Toolbar>
             </AppBar>
 
@@ -84,6 +81,7 @@ const Header = ({ siteTitle, siteDescription }) => {
                     <Divider />
 
                     <nav>
+                        <GoogleSearch/>
                         <h3>Directories</h3>
                         <DirectoryArchives />
                         <Divider />

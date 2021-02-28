@@ -5,7 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 //import TableOfContents from './table_of_contents'
 //import Img from 'gatsby-image'
-import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+//import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
 
@@ -105,12 +105,7 @@ const RenderMDX = ({ body }) => {
     )
 }
 
-export const Post = ({ node, excerptify }) => {
-    return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
-}
-
-
-export const PostEntire = ({ node }) => {
+const PostEntire = ({ node }) => {
     return (
         <div className={styles.post}>
             <PostHeader node={node} />
@@ -122,7 +117,7 @@ export const PostEntire = ({ node }) => {
 }
 
 
-export const PostExcerpt = ({ node }) => {
+const PostExcerpt = ({ node }) => {
     return (
         <div className={styles.post}>
             <Link to={'/' + node.slug} className={styles.postexcerpt}>
@@ -133,6 +128,10 @@ export const PostExcerpt = ({ node }) => {
             </Link>
         </div>
     )
+}
+
+export const Post = ({ node, excerptify }) => {
+    return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
 
 export const PostCard = ({ node }) => {
