@@ -10,7 +10,7 @@ import Sidebar from './sidebar.js'
 import { graphql, useStaticQuery, Link } from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
-import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
+import { Drawer, IconButton, Divider } from '@material-ui/core'
 //import { TwitterIcon } from 'react-share'
 import SEO from './seo'
 //import Typography from '@material-ui/core/Typography'

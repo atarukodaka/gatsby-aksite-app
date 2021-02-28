@@ -131,12 +131,22 @@ a.anchor {
 /* ********************************************* */
 /* markdown */
 
+.numbering_heading {
+  font-weight: bold;
+  border-bottom: 1px solid #888;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 1.8rem;
+}
 .post h1 {
   font-weight: bold;
   border-bottom: 1px solid #888;
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.8rem;
+
+  counter-increment: h1;
+  counter-reset: h2; 
 }
 
 .post h2 {
@@ -145,6 +155,9 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.6rem;
+
+  counter-increment: h2;
+  counter-reset: h3;
 }
 
 .post h3 {
@@ -153,6 +166,9 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.4rem;
+
+  counter-increment: h3;
+  counter-reset: h4;   
 }
 
 .post h4 {
@@ -161,71 +177,35 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.4rem;
+
+  counter-increment: h4;
+  counter-reset: h5;  
 }
 
 /* header numbering */
-
 body {
   counter-reset: h1; counter-reset: h2; 
 }
 
-
-.numbering_headings h1 {
-  counter-increment: h1;
-  counter-reset: h2; }
-
-.numbering_headings h1:before {
+.post h1:before {
   color: #888;
-  font-size: large; }
+  font-size: large; 
+}
 
-.numbering_headings h2 {
-  counter-increment: h2;
-  counter-reset: h3; }
-
-.numbering_headings h2:before {
+.post h2:before {
   color: #888;
-  font-size: large; }
+  font-size: large; 
+  content: counter(h2) ". "; 
+}
 
-.numbering_headings h3 {
-  counter-increment: h3;
-  counter-reset: h4; }
-
-.numbering_headings h3:before {
+.post h3:before {
   color: #888;
-  font-size: large; }
+  font-size: large; 
+  content: counter(h2) "." counter(h3) ". "; 
+}
 
-.numbering_headings h4 {
-  counter-increment: h4;
-  counter-reset: h5; }
-
-.numbering_headings h4:before {
+.post h4:before {
   color: #888;
-  font-size: large; }
-
-.numbering_headings h5 {
-  counter-increment: h5;
-  counter-reset: h6; }
-
-.numbering_headings h5:before {
-  color: #888;
-  font-size: large; }
-
-.numbering_headings h6 {
-  counter-increment: h6;
-  counter-reset: h7; }
-
-.numbering_headings h6:before {
-  color: #888;
-  font-size: large; }
-
-.numbering_headings h2:before {
-  content: counter(h2) ". "; }
-
-.numbering_headings h3:before {
-  content: counter(h2) "." counter(h3) ". "; }
-
-.numbering_headings h4:before {
-  content: counter(h2) "." counter(h3) "." counter(h4) ". "; }
-
-.numbering_headings h5:before {
-  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "; }
+  font-size: large; 
+  content: counter(h2) "." counter(h3) "." counter(h4) ". "; 
+}
