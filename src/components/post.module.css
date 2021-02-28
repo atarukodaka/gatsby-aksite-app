@@ -12,77 +12,46 @@ a.anchor {
   box-shadow: 2px 2px 1px rgb(0 0 0 / 20%)
 }
 
-.postexcerpt {
-  margin-top: 2em;
-  margin-bottom: 2  em;
-  padding-bottom: 1em;
-  padding-right: 1em;
-  padding-left: 0.5em;
-  padding-top: 0.5em;
-  /* background-color:white; */
-  /* box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);  */
-  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%)    /* , 0px 0px 2px 2px rgb(0 0 0 / 20%) */
-
+.header {
+  /* margin-bottom: 2em;
+  padding-bottom: 1em; */
+  box-shadow: 0px 1px rgb(0 0 0 / 10%)
 }
-.postexcerpt a {
+.postexcerpt  {
   text-decoration: none;
   color: black;
 }
 .postexcerpt a:visited {
   color: black;
 }
-.header {
-  margin-bottom: 2em;
-  /* border-bottom: 1px solid; */
-  padding-bottom: 1em;
-  box-shadow: 0px 1px rgb(0 0 0 / 10%)
-}
-
 .title {
   font-weight: bold;
-  /* border-bottom: 1px solid; */
-  /* padding-bottom: 1em; */
   padding: 0.5em;
-  /*   margin-bottom: 1px;     */
-
-  /* background: linear-gradient(to bottom, white 80%, gray 100%); */
-  background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
-  
+    background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
+    color: white; 
 }
 
-.title a {
-  text-decoration: none;
-  color: white; 
-}
-.title a:visited {
-  color: white;
-}
 .directory {
   font-size: small;
   display: inline-block;
   background-color: #cdd;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  /*padding-left: 0.5em;
+  padding-right: 0.5em;*/
 }
 
 .directory a {
   text-decoration: none;
 }
 .directory a:hover {
-  background-color: #eee
+   background-color: #eee 
 }
-/*
-.date {
-  font-size: small;
-}
-*/
 
-
-
-  
-.excerpt .title a {
+ 
+.excerpt a {
+  text-decoration: none;
   color: black;
 }
+
 
 .postInfo {
   font-size: small;
@@ -125,10 +94,6 @@ a.anchor {
   opacity: 0.7;
 }
 
-.postCardDate {
-  font-size: small;
-}
-
 .postCard a {
   text-decoration: none;
 }
@@ -146,12 +111,9 @@ a.anchor {
 .postCardTitle a:visited {
   color: black;
 }
-.postCardDirectory {
+
+.postCardDate {
   font-size: small;
-  display: inline-block;
-  background-color: #cdd;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
 }
 
 .postCardExcerpt {
@@ -196,6 +158,7 @@ a.anchor {
   border-bottom: 1px solid #888;
   padding-top: 10px;
   padding-bottom: 5px;
+  font-size: 1.8rem;
 }
 
 .post h2 {
@@ -203,6 +166,7 @@ a.anchor {
   border-bottom: 1px solid #888;
   padding-top: 10px;
   padding-bottom: 5px;
+  font-size: 1.6rem;
 }
 
 .post h3 {
@@ -210,6 +174,7 @@ a.anchor {
   border-bottom: 1px solid #888;
   padding-top: 10px;
   padding-bottom: 5px;
+  font-size: 1.4rem;
 }
 
 .post h4 {
@@ -217,6 +182,7 @@ a.anchor {
   border-bottom: 1px solid #888;
   padding-top: 10px;
   padding-bottom: 5px;
+  font-size: 1.4rem;
 }
 
 /* header numbering */

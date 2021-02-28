@@ -2,7 +2,7 @@ import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Layout from "../components/layout.js"
-import { PostExcerpt } from "../components/post.js"
+import { Post, PostExcerpt } from "../components/post.js"
 import { Pagination } from '@material-ui/lab'
 import { Box } from '@material-ui/core'
 
@@ -42,7 +42,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
       
       {data.allMdx.nodes.map(node=>(
-        <PostExcerpt node={node} key={node.id}/>
+        <Post node={node} excerptify={true} key={node.id}/>
       ))}
       <Box display="flex" justifyContent="center" m={3}>
       <Pagination style={{}} count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>

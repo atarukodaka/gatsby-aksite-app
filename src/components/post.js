@@ -28,39 +28,44 @@ const query = graphql`
     }
 `
 
-const PostLink = ( {slug}) => {
+const PostLink = ({ slug }) => {
     const data = useStaticQuery(query)
-    const node = data.allMdx.nodes.find(v=>v.slug === slug)
-    if (node === undefined) { return<div>NO SUCH SLUG: {slug}</div>}
+    const node = data.allMdx.nodes.find(v => v.slug === slug)
+    if (node === undefined) { return <div>NO SUCH SLUG: {slug}</div> }
 
-    console.log("postlink node", node)
+    //console.log("postlink node", node)
 
     return (
-        <PostCard node={node}/>
+        <PostCard node={node} />
     )
 }
 
+const DirectoryBox = ({ node }) => (
+    <div className={styles.directory}>
+        <Link to={'/' + node.fields.directory}>
+            {directoryLabel(node.fields.directory)}
+        </Link>
+    </div>
+
+)
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
         <div className={styles.date}>{node.frontmatter.date}</div>
         <h1 className={styles.title}>
-            <Link to={'/' + node.slug}>
-                {node.frontmatter.title}
-            </Link>
+            {node.frontmatter.title}
         </h1>
-        <div className={styles.directory}>
-            <Link to={'/' + node.fields.directory}>
-                {directoryLabel(node.fields.directory)}
-            </Link>
-        </div>
 
-        { node.frontmatter.image && (
+        <DirectoryBox node={node} />
+        {node.frontmatter.image && (
             <div className="eyecatchImageWrapper">
-                <Image filename={node.frontmatter.image}/>
-                { /* <Img fluid={node.frontmatter.image.childImageSharp.fluid}/> */ }
+                <Image filename={node.frontmatter.image} />
+                { /* <Img fluid={node.frontmatter.image.childImageSharp.fluid}/> */}
             </div>
         )}
+        <div className={styles.description}>
+            {node.frontmatter.description}
+        </div>
     </header>
 )
 /*
@@ -87,77 +92,66 @@ const TocBox = ({ node, title, useAccordion }) => {
     }
     */
 
-
-
-export const Post = ({ node }) => {
+const RenderMDX = ({ body }) => {
     const shortcuts = { Image, PostLink }
     return (
-    <div className={styles.post}>
-        <PostHeader node={node} />
-        <main>
-            <div className={styles.description}>
-                {node.frontmatter.description}                
+        <MDXProvider components={shortcuts}>
+            <div className={styles.numbering_headings}>
+                <MDXRenderer>
+                    {body}
+                </MDXRenderer>
             </div>
-    
-            { /* node.frontmatter.toc === true && (<TocBox node={node} />) */}
-            <MDXProvider components={shortcuts}>
-                <div className={styles.numbering_headings}>
-                    <MDXRenderer>
-                        {node.body}
-                    </MDXRenderer>
-                </div>
-            </MDXProvider>
-
-        </main>
-        
-    </div>
+        </MDXProvider>
     )
 }
 
-export const PostExcerpt = ({ node }) => (
-    <div className={styles.postexcerpt}>
-        <Link to={'/' + node.slug}>
-        <PostHeader node={node} />
-        <main>
-            { node.frontmatter.description && (<div className={styles.description}>{ node.frontmatter.description}</div>)}
-            { /* node.frontmatter.image && (<img src={node.frontmatter.image} className="eyecatchImageSmall"></img>) */}
-            { /* node.tableOfContents?.items && 
-            (<div className={styles.tableOfContents}>
-                <TableOfContents toc={node.tableOfContents} />
-             </div>
-            ) */
-            }
-            
-            <div className={styles.excerpt}>{node.excerpt}</div>
-            { /* <div className={styles.continueReading}>
-                <Link to={'/' + node.slug}>...continue reading</Link>
-            </div>
-            */ }
-        </main>
-        </Link>
-    </div>
-)
+export const Post = ({ node, excerptify }) => {
+    return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
+}
+
+
+export const PostEntire = ({ node }) => {
+    return (
+        <div className={styles.post}>
+            <PostHeader node={node} />
+            <main>
+                <RenderMDX body={node.body} />
+            </main>
+        </div>
+    )
+}
+
+
+export const PostExcerpt = ({ node }) => {
+    return (
+        <div className={styles.post}>
+            <Link to={'/' + node.slug} className={styles.postexcerpt}>
+                <PostHeader node={node} />
+                <main>
+                    {node.excerpt}
+                </main>
+            </Link>
+        </div>
+    )
+}
 
 export const PostCard = ({ node }) => {
-
     const noImageAvailable = "no_image_available.png"
     const imgsrc = node.frontmatter.image || noImageAvailable
     return (
         <div className={styles.postCard}>
             <Link to={'/' + node.slug} key={node.id}>
-                <div>
-                    <div className="eyecatchImageSmallWrapper">
-                        <Image filename={imgsrc}/>
-                    </div>
+                <div className="eyecatchImageSmallWrapper">
+                    <Image filename={imgsrc} />
                 </div>
 
-                <div className={styles.postCardDate}>{node.frontmatter.date}</div>
+                <div className={styles.postCardDate}>
+                    {node.frontmatter.date}
+                </div>
                 <div className={styles.postCardTitle}>
-                    <Link to={'/' + node.slug}>{node.frontmatter.title}</Link>
+                    {node.frontmatter.title}
                 </div>
-                <div className={styles.postCardDirectory}>
-                    <Link to={'/' + node.fields.directory}>{directoryLabel(node.fields.directory)}</Link>
-                </div>
+                <DirectoryBox node={node} />
                 <div className={styles.postCardExcerpt}>
                     {node.frontmatter.description || node.excerpt}
                 </div>
@@ -167,17 +161,4 @@ export const PostCard = ({ node }) => {
     )
 }
 
-export const PostCards = ({ nodes }) => {
-    return (
-        <Grid container spacing={3}>
-            {
-                nodes.map(node => (
-                    <Grid item xs={12} sm={6} md={4} key={node.id}>
-                        <PostCard node={node} />
-                    </Grid>
-                ))
-            }
-        </Grid>
-    )
-}
 export default Post
