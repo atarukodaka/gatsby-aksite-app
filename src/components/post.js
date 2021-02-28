@@ -8,37 +8,8 @@ import styles from "./post.module.css"
 import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
-//import './table_of_contents'
+import PostLink from './post_link'
 
-const query = graphql`
-    {
-        allMdx {
-            nodes {
-                id, slug
-                frontmatter {
-                    title
-                    date(formatString: "YYYY-MM-DD")
-                    image
-                    description
-                }
-                excerpt
-                fields { directory }
-            }
-        }
-    }
-`
-
-const PostLink = ( {slug}) => {
-    const data = useStaticQuery(query)
-    const node = data.allMdx.nodes.find(v=>v.slug === slug)
-    if (node === undefined) { return<div>NO SUCH SLUG: {slug}</div>}
-
-    console.log("postlink node", node)
-
-    return (
-        <PostCard node={node}/>
-    )
-}
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>

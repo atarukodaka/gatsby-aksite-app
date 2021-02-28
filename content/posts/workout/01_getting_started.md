@@ -1,7 +1,7 @@
 ---
 title: 宅トレことはじめ[1]
 date: 2021-02-21
-image: udetate_man.png
+image: fukkin_man.png
 toc: true
 description: 自宅トレーニングをはじめるにあたってのおぼえがき
 ---
@@ -30,6 +30,7 @@ description: 自宅トレーニングをはじめるにあたってのおぼえ�
 これがないとダメ！というものはない。まずは体一つで始める。強いて言えば、**ヨガマット**はあったほうが痛くないしやりやすい。
 あとは動きやすい服。ジャージでよい。
 
+## 連載記事
 <PostLink slug="workout/02_squat"/>
 <PostLink slug="workout/03_pushup"/>
 <PostLink slug="workout/04_pullup"/>

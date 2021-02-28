@@ -1,6 +1,7 @@
 ---
-title: 宅トレ - スクワット
+title: 宅トレ[2] - スクワット
 date: 2021-02-28
+image: undou_squat_man.png
 ---
 
 
