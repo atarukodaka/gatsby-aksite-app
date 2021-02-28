@@ -6,7 +6,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
-
+import Divider from '@material-ui/core/Divider'
 //import { Paper, Box } from '@material-ui/core'
 /*
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -71,16 +71,17 @@ const Sidebar = () => {
                         <a href={gitHubUrl}><GitHubIcon  aria-label="button"/></a>
                     </div>
             </div>
-
+            <Divider/>
             <div>
                 <h3>Directories</h3>
                 <DirectoryArchives />
             </div>
+            <Divider/>
             <div>
                 <h3>Recent Posts</h3>
                 <RecentPosts nodes={recentPosts.nodes}/>
-               
             </div>
+            <Divider/>
             <div>
                 <h3>Monthly Archives</h3>
                 <MonthlyArchives />

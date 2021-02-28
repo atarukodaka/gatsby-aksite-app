@@ -16,6 +16,7 @@ import SEO from './seo'
 //import Typography from '@material-ui/core/Typography'
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
+import TableOfContents from './table_of_contents'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
@@ -106,7 +107,7 @@ const Footer = ({ author }) => (
     </footer>
 )
 
-const Layout = ({ children, title, description, image }) => {
+const Layout = ({ children, title, description, image, node }) => {
     const data = useStaticQuery(query)
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
@@ -120,14 +121,23 @@ const Layout = ({ children, title, description, image }) => {
             <Header siteTitle={siteTitle} siteDescription={siteDescription} />
             <Container>
                 <div className={styles.main}>
-                    <Grid container spacing={2}>
-                        <Grid item md={8} xs={12}>
+                    <Grid container spacing={3}>
+                        <Grid item md={3} xs={12}>
+                            <div className={styles.sidebar}>
+                                <Sidebar/>
+                            </div>
+                        </Grid>
+
+                        <Grid item md={7} xs={12}>
                             {children}
                         </Grid>
 
-                        <Grid item md={4} xs={12}>
-                            <Sidebar />
+                        <Grid item md={2} xs={12}>
+                            { node &&
+                            (<div className={styles.tableOfContents}><h3>Table of Contents</h3><TableOfContents toc={node.tableOfContents}/></div>)
+                            }
                         </Grid>
+                    
                     </Grid>
                 </div>
             </Container>

@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
-import TableOfContents from './table_of_contents'
+//import TableOfContents from './table_of_contents'
 //import Img from 'gatsby-image'
 import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
@@ -34,7 +34,7 @@ const PostHeader = ({ node }) => (
         )}
     </header>
 )
-
+/*
 const TocBox = ({ node, title, useAccordion }) => {
     const defaultTitle = "Table of Contents"
 
@@ -56,6 +56,7 @@ const TocBox = ({ node, title, useAccordion }) => {
         </div>
         )
     }
+    */
 
 export const Post = ({ node }) => (
     <div className={styles.post}>
@@ -65,7 +66,7 @@ export const Post = ({ node }) => (
                 {node.frontmatter.description}                
             </div>
     
-            {node.frontmatter.toc === true && (<TocBox node={node} />)}
+            { /* node.frontmatter.toc === true && (<TocBox node={node} />) */}
 
             <MDXProvider components={shortcuts}>
                 <div className={styles.numbering_headings}>
@@ -87,11 +88,11 @@ export const PostExcerpt = ({ node }) => (
         <main>
             { node.frontmatter.description && (<div className={styles.description}>{ node.frontmatter.description}</div>)}
             { /* node.frontmatter.image && (<img src={node.frontmatter.image} className="eyecatchImageSmall"></img>) */}
-            { node.tableOfContents?.items && 
+            { /* node.tableOfContents?.items && 
             (<div className={styles.tableOfContents}>
                 <TableOfContents toc={node.tableOfContents} />
              </div>
-            )
+            ) */
             }
             
             <div className={styles.excerpt}>{node.excerpt}</div>
