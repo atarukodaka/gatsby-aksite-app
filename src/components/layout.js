@@ -16,7 +16,7 @@ import SEO from './seo'
 //import Typography from '@material-ui/core/Typography'
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
-import TableOfContents from './table_of_contents'
+import Tree from './tree'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import GoogleSearch from './google_search'
@@ -108,7 +108,14 @@ const Footer = ({ author }) => (
     </footer>
 )
 
-const Layout = ({ children, title, description, image, node }) => {
+const TableOfContents = ( { items} ) => (
+    <div className={styles.tableOfContents}>
+        <h3>Table of Contents</h3>
+        <Tree items={items}/>
+    </div>
+)
+
+const Layout = ({ children, title, description, image, tableOfContents }) => {
     const data = useStaticQuery(query)
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
@@ -136,9 +143,7 @@ const Layout = ({ children, title, description, image, node }) => {
                         </Grid>
 
                         <Grid item md={3} xs={12}>
-                            { node &&
-                            (<div className={styles.tableOfContents}><h3>Table of Contents</h3><TableOfContents toc={node.tableOfContents}/></div>)
-                            }
+                            { tableOfContents && (<TableOfContents items={tableOfContents.items}/>) }
                         </Grid>
                     
                     </Grid>

@@ -60,13 +60,16 @@ const Siblings = ( { nodes }) => (
 
 export default function PostTemplate({ data, pageContext }) {
   const node = data.mdx
+  
   const { breadcrumb: { crumbs } } = pageContext
   const { pathname } = useLocation()
 
   console.log(`create/template: ${node.fields.slug}`)
 
   return (
-    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} image={node.frontmatter.image} node={node}>
+    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} 
+     image={node.frontmatter.image} tableOfContents={node.tableOfContents} 
+     >
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
       <Post node={node} />
