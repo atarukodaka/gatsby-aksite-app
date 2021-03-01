@@ -10,7 +10,8 @@ const query = graphql`
 {
     mdxPages: allMdx {
         nodes {
-            id, slug
+            id
+            fields { slug }
             frontmatter { date(formatString: "YYYY-MM-DD") }
         }
     }

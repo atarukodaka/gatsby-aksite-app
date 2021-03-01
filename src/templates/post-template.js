@@ -13,9 +13,8 @@ import Grid from '@material-ui/core/Grid'
 export const query = graphql`
     query ($slug: String!, $directory: String!) {
       site { siteMetadata { siteUrl }}
-      mdx(slug: { eq: $slug }){
+      mdx(fields: { slug: { eq: $slug }}){
         id
-        slug
         tableOfContents
         body
         excerpt(pruneLength: 100)
@@ -27,12 +26,12 @@ export const query = graphql`
           description
         }
         fields {
-          directory
+          slug, directory
         }        
       }
       siblings: allMdx(filter: { fields: { directory: { eq: $directory} }}){
         nodes {
-          id, slug
+          id
           excerpt(pruneLength: 100)
           frontmatter {
             title
@@ -41,7 +40,7 @@ export const query = graphql`
             description
           }
           fields {
-            directory
+            slug, directory
           }
         }
       }
@@ -64,7 +63,7 @@ export default function PostTemplate({ data, pageContext }) {
   const { breadcrumb: { crumbs } } = pageContext
   const { pathname } = useLocation()
 
-  console.log(`create/template: ${node.slug}`)
+  console.log(`create/template: ${node.fields.slug}`)
 
   return (
     <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} image={node.frontmatter.image} node={node}>
@@ -75,7 +74,7 @@ export default function PostTemplate({ data, pageContext }) {
       <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
-      <Siblings nodes={data.siblings.nodes.filter(v => v.slug !== node.slug)} />
+      <Siblings nodes={data.siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />
     </Layout>
   )
 }

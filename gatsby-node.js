@@ -23,9 +23,15 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
 
     if (node.internal.type === `Mdx`) {
-        const slug = createFilePath({ node, getNode, basePath: `pages` })
+        const slug = createFilePath({ node, getNode })
         const directory = slug.split("/").slice(1, -2).join("/")
+        console.log("create node: ", slug, directory)
         // add directory field
+        createNodeField({
+            node,
+            name: 'slug',
+            value: slug
+        })
         createNodeField({
             node,
             name: 'directory',
@@ -40,16 +46,15 @@ exports.createPages = async ({ graphql, actions }) => {
     {
         mdxPages: allMdx (sort: {fields: frontmatter___date, order: DESC}) {
             nodes {
+                id
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
                     yearmonth: date(formatString: "YYYY-MM")
                 }
                 fields {
-                    directory
+                    slug, directory
                 }
-                slug
-                id
             }            
         }
     }`)
@@ -59,10 +64,10 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log("** all markdown pages")
     mdxPages.nodes.forEach(node => {
         createPage({
-            path: node.slug,
+            path: node.fields.slug,
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
-                slug: node.slug,
+                slug: node.fields.slug,
                 directory: node.fields.directory
             },
         })

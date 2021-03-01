@@ -21,9 +21,8 @@ export const query = graphql`
             date(formatString: "YYYY-MM-DD"), title, image, description
           }        
           fields { 
-            directory
+            slug, directory
           }
-          slug
           tableOfContents
         }
       }
