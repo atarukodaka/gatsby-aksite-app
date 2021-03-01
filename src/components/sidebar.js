@@ -14,7 +14,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 */
 //import { List, ListItem } from '@material-ui/core'
 /* import Typography from '@material-ui/core' */
-import { PostCard } from './post'
+import { PostCard } from './post_card'
 
 const query = graphql`
 {

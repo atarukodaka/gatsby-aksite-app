@@ -8,6 +8,7 @@ import styles from "./post.module.css"
 import Image from './image'
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
+import PostCard from './post_card'
 
 const query = graphql`
     {
@@ -98,35 +99,6 @@ const PostExcerpt = ({ node }) => {
 
 export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
-}
-export const PostCard = ({ node }) => {
-    const noImageAvailable = "no_image_available.png"
-    const imgsrc = node.frontmatter.image || noImageAvailable
-
-    return (
-        <LinkableWrapper to={node.fields.slug}>
-            <div className={styles.postCard}>
-
-                { /* <Link to={node.fields.slug} key={node.id} className={styles.linkWrapper}> */}
-                <div className="eyecatchImageSmallWrapper">
-                    <Image filename={imgsrc} />
-                </div>
-
-                <div className={styles.date}>
-                    {node.frontmatter.date}
-                </div>
-                <div className={styles.postCardTitle}>
-                    {node.frontmatter.title}
-                </div>
-                <DirectoryBox node={node} />
-                <div className={styles.excerpt}>
-                    {node.frontmatter.description || node.excerpt}
-                </div>
-                <div style={{ clear: "both" }} />
-            
-            </div>
-        </LinkableWrapper>
-    )
 }
 
 export default Post
