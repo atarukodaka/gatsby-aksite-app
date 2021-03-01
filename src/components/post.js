@@ -2,11 +2,12 @@ import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+//import { css } from '@emotion/react'
 
 import styles from "./post.module.css"
-import directoryLabel from '../utils/directory_label'
 import Image from './image'
 import LinkableWrapper from './linkable_wrapper'
+import DirectoryBox from './directory_box'
 
 const query = graphql`
     {
@@ -36,14 +37,6 @@ const PostLink = ({ slug }) => {
     )
 }
 
-const DirectoryBox = ({ node }) => (
-    <div className={styles.directory}>
-        <Link to={'/' + node.fields.directory}>
-            {directoryLabel(node.fields.directory)}
-        </Link>
-    </div>
-
-)
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
