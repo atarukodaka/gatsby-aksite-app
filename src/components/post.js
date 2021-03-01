@@ -6,7 +6,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
-
+import LinkableWrapper from './linkable_wrapper'
 
 const query = graphql`
     {
@@ -31,8 +31,6 @@ const PostLink = ({ slug }) => {
     const node = data.allMdx.nodes.find(v => v.fields.slug === slug)
     if (node === undefined) { return <div>NO SUCH SLUG: {slug}</div> }
 
-    //console.log("postlink node", node)
-
     return (
         <PostCard node={node} />
     )
@@ -45,14 +43,6 @@ const DirectoryBox = ({ node }) => (
         </Link>
     </div>
 
-)
-
-const LinkWrapper = ({ to, children }) => (
-    <div className={styles.linkWrapper}>
-        <Link to={to}>
-            {children}
-        </Link>
-    </div>
 )
 
 const PostHeader = ({ node }) => (
@@ -102,14 +92,14 @@ const PostEntire = ({ node }) => {
 
 const PostExcerpt = ({ node }) => {
     return (
-        <div className={styles.post}>
-            <LinkWrapper to={node.fields.slug}>
+        <LinkableWrapper to={node.fields.slug}>
+            <div className={styles.post}>
                 <PostHeader node={node} />
                 <main className={styles.excerpt}>
                     {node.excerpt}
                 </main>
-            </LinkWrapper>
-        </div>
+            </div>
+        </LinkableWrapper>
     )
 }
 
@@ -121,8 +111,9 @@ export const PostCard = ({ node }) => {
     const imgsrc = node.frontmatter.image || noImageAvailable
 
     return (
-        <div className={styles.postCard}>
-            <LinkWrapper to={node.fields.slug}>
+        <LinkableWrapper to={node.fields.slug}>
+            <div className={styles.postCard}>
+
                 { /* <Link to={node.fields.slug} key={node.id} className={styles.linkWrapper}> */}
                 <div className="eyecatchImageSmallWrapper">
                     <Image filename={imgsrc} />
@@ -139,8 +130,9 @@ export const PostCard = ({ node }) => {
                     {node.frontmatter.description || node.excerpt}
                 </div>
                 <div style={{ clear: "both" }} />
-            </LinkWrapper>
-        </div>
+            
+            </div>
+        </LinkableWrapper>
     )
 }
 
