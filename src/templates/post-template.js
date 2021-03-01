@@ -1,21 +1,18 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { useLocation } from "@reach/router"
+import Grid from '@material-ui/core/Grid'
 
 import Layout from "../components/layout.js"
-import { Post, PostCard } from "../components/post.js"
-//import Siblings from '../components/siblings'
 import directoryLabel from '../utils/directory_label'
-import Share from '../components/share'
-import Grid from '@material-ui/core/Grid'
+import Post from "../components/post.js"
+import PostCard from '../components/post_card'
 
 export const query = graphql`
     query ($slug: String!, $directory: String!) {
       site { siteMetadata { siteUrl }}
-      mdx(slug: { eq: $slug }){
+      mdx(fields: { slug: { eq: $slug }}){
         id
-        slug
         tableOfContents
         body
         excerpt(pruneLength: 100)
@@ -27,12 +24,12 @@ export const query = graphql`
           description
         }
         fields {
-          directory
+          slug, directory
         }        
       }
       siblings: allMdx(filter: { fields: { directory: { eq: $directory} }}){
         nodes {
-          id, slug
+          id
           excerpt(pruneLength: 100)
           frontmatter {
             title
@@ -41,7 +38,7 @@ export const query = graphql`
             description
           }
           fields {
-            directory
+            slug, directory
           }
         }
       }
@@ -61,21 +58,23 @@ const Siblings = ( { nodes }) => (
 
 export default function PostTemplate({ data, pageContext }) {
   const node = data.mdx
+  
   const { breadcrumb: { crumbs } } = pageContext
-  const { pathname } = useLocation()
-
-  console.log(`create/template: ${node.slug}`)
+  
+  console.log(`create/template: ${node.fields.slug}`)
 
   return (
-    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} image={node.frontmatter.image} node={node}>
+    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} 
+     image={node.frontmatter.image} tableOfContents={node.tableOfContents} 
+     >
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
       <Post node={node} />
 
-      <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
+      
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
-      <Siblings nodes={data.siblings.nodes.filter(v => v.slug !== node.slug)} />
+      <Siblings nodes={data.siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />
     </Layout>
   )
 }

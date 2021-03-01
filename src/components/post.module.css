@@ -5,8 +5,8 @@ a.anchor {
 .post {
   margin-top: 2em;
   margin-bottom: 2em;
-  padding-bottom: 1em;
-  padding-right: 1em;
+  /* padding-bottom: 1em; */
+  /* padding-right: 1em; */
   /* background-color:white; */
   /* box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);  */
   box-shadow: 2px 2px 1px rgb(0 0 0 / 20%)
@@ -17,138 +17,34 @@ a.anchor {
   padding-bottom: 1em; */
   box-shadow: 0px 1px rgb(0 0 0 / 10%)
 }
-.postexcerpt  {
-  text-decoration: none;
-  color: black;
-}
-.postexcerpt a:visited {
-  color: black;
-}
-.title {
-  font-weight: bold;
+.header a { text-decoration: none }
+
+.post .title {
+  margin-bottom: 0.5rem;
   padding: 0.5em;
-    background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
-    color: white; 
+  font-weight: bold;
+  
+  background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
+  color: white; 
 }
 
-.directory {
-  font-size: small;
-  display: inline-block;
-  background-color: #cdd;
-  /*padding-left: 0.5em;
-  padding-right: 0.5em;*/
-}
-
-.directory a {
-  text-decoration: none;
-}
-.directory a:hover {
-   background-color: #eee 
-}
-
- 
-.excerpt a {
-  text-decoration: none;
-  color: black;
-}
-
-
-.postInfo {
-  font-size: small;
-  text-align: right;
-  margin-bottom: 1em;
-}
-
-.continueReading {
-  text-align: right;
-  font-style: italic;
-  padding-right: 2em;
-}
-
-.continueReading>a {
-  text-decoration: none;
-  background-color: #455;
-  color: white;
-}
 
 .description {
-  
   padding: 1em;
-  
-}
-/* ******************* */
-
-/* *** Post Card *** */
-
-.postCard {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
-  /* display: block; */
 }
 
-.postCard:hover {
-  background: #eee;
-  opacity: 0.7;
+.post .excerpt {
+  padding: 1em;
 }
 
-.postCard a {
-  text-decoration: none;
+.post main {
+  padding-bottom: 1rem;
 }
 
-.postCardTitle {
-  /* background: linear-gradient(to bottom,  #484848 0%,#121212 100%);  */
-  /* margin-bottom: 0.5em; */
-  font-weight: bold;
-  color: black;
+footer {
+  border-top: solid 1px;
+  padding-top: 1rem;
 }
-
-.postCardTitle a {
-  color: black;
-}
-.postCardTitle a:visited {
-  color: black;
-}
-
-.postCardDate {
-  font-size: small;
-}
-
-.postCardExcerpt {
-  font-size: small;
-  color: #444;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-/* *** Table of Contents *** */
-.tableOfContents  {
-  box-shadow: 2px 1px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-  background-color: #f8f8f8;
-  margin-right: 2em;
-  margin-left: 2em;
-  margin-bottom: 2em;
-  padding-bottom: 0em;
-  /* padding: 1em; */
-  
-  /*  border-bottom: solid 1px;*/
-  /* background-color: #fee; */
-}
-.tableOfContents ol {
-  margin-bottom: 0em;
-}
-.tableOfContents h3, h4 {
-  margin-bottom: 0em;
-
-}
-.tableOfContentsTitle:hover {
-  background: #eee;
-  
-  /* opacity: 70%; */
-}
-
 
 /* ********************************************* */
 /* markdown */
@@ -159,6 +55,9 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.8rem;
+
+  counter-increment: h1;
+  counter-reset: h2; 
 }
 
 .post h2 {
@@ -167,6 +66,10 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.6rem;
+  margin-top: 3rem;
+
+  counter-increment: h2;
+  counter-reset: h3;
 }
 
 .post h3 {
@@ -175,6 +78,10 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.4rem;
+  margin-top: 2rem;
+
+  counter-increment: h3;
+  counter-reset: h4;   
 }
 
 .post h4 {
@@ -183,71 +90,35 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.4rem;
+
+  counter-increment: h4;
+  counter-reset: h5;  
 }
 
 /* header numbering */
-
 body {
   counter-reset: h1; counter-reset: h2; 
 }
 
-/* line 191, style.css.scss */
-.numbering_headings h1 {
-  counter-increment: h1;
-  counter-reset: h2; }
-/* line 195, style.css.scss */
-.numbering_headings h1:before {
+.post h1:before {
   color: #888;
-  font-size: large; }
-/* line 191, style.css.scss */
-.numbering_headings h2 {
-  counter-increment: h2;
-  counter-reset: h3; }
-/* line 195, style.css.scss */
-.numbering_headings h2:before {
+  font-size: large; 
+}
+
+.post h2:before {
   color: #888;
-  font-size: large; }
-/* line 191, style.css.scss */
-.numbering_headings h3 {
-  counter-increment: h3;
-  counter-reset: h4; }
-/* line 195, style.css.scss */
-.numbering_headings h3:before {
+  font-size: large; 
+  content: counter(h2) ". "; 
+}
+
+.post h3:before {
   color: #888;
-  font-size: large; }
-/* line 191, style.css.scss */
-.numbering_headings h4 {
-  counter-increment: h4;
-  counter-reset: h5; }
-/* line 195, style.css.scss */
-.numbering_headings h4:before {
+  font-size: large; 
+  content: counter(h2) "." counter(h3) ". "; 
+}
+
+.post h4:before {
   color: #888;
-  font-size: large; }
-/* line 191, style.css.scss */
-.numbering_headings h5 {
-  counter-increment: h5;
-  counter-reset: h6; }
-/* line 195, style.css.scss */
-.numbering_headings h5:before {
-  color: #888;
-  font-size: large; }
-/* line 191, style.css.scss */
-.numbering_headings h6 {
-  counter-increment: h6;
-  counter-reset: h7; }
-/* line 195, style.css.scss */
-.numbering_headings h6:before {
-  color: #888;
-  font-size: large; }
-/* line 199, style.css.scss */
-.numbering_headings h2:before {
-  content: counter(h2) ". "; }
-/* line 200, style.css.scss */
-.numbering_headings h3:before {
-  content: counter(h2) "." counter(h3) ". "; }
-/* line 201, style.css.scss */
-.numbering_headings h4:before {
-  content: counter(h2) "." counter(h3) "." counter(h4) ". "; }
-/* line 202, style.css.scss */
-.numbering_headings h5:before {
-  content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "; }
+  font-size: large; 
+  content: counter(h2) "." counter(h3) "." counter(h4) ". "; 
+}

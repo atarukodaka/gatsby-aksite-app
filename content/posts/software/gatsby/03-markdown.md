@@ -1,7 +1,6 @@
 ---
 title: Gatsby - [3] Markdown
 date: 2021-02-09 03:00:00
-toc: true
 image: gatsby.png
 ---
 

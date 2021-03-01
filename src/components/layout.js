@@ -10,13 +10,13 @@ import Sidebar from './sidebar.js'
 import { graphql, useStaticQuery, Link } from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
-import { Drawer, IconButton, Divider, List, ListItem } from '@material-ui/core'
+import { Drawer, IconButton, Divider } from '@material-ui/core'
 //import { TwitterIcon } from 'react-share'
 import SEO from './seo'
 //import Typography from '@material-ui/core/Typography'
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
-import TableOfContents from './table_of_contents'
+import Tree from './tree'
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import GoogleSearch from './google_search'
@@ -47,7 +47,7 @@ const query = graphql`
 }
 `
 
-const Header = ({ siteTitle, siteDescription }) => {
+const TopPane = ({ siteTitle, siteDescription }) => {
     //const data = useStaticQuery(query)
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
@@ -70,9 +70,6 @@ const Header = ({ siteTitle, siteDescription }) => {
 
                     <Button color="inherit" component={Link} to="/">{siteTitle}</Button>
                     <Button color="inherit" component={Link} to="/about">About</Button>
-                    <div style={{marginLeft: "auto"}}>
-                        <GoogleSearch/>
-                    </div>
                 </Toolbar>
             </AppBar>
 
@@ -84,6 +81,7 @@ const Header = ({ siteTitle, siteDescription }) => {
                     <Divider />
 
                     <nav>
+                        <GoogleSearch />
                         <h3>Directories</h3>
                         <DirectoryArchives />
                         <Divider />
@@ -103,14 +101,47 @@ const Header = ({ siteTitle, siteDescription }) => {
     )
 }
 
-const Footer = ({ author }) => (
-    <footer className={styles.footer}>
+const BottomPane = ({ author }) => (
+    <footer className={styles.bottomPane}>
         (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved.
-                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
+                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a>
+                and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
     </footer>
 )
 
-const Layout = ({ children, title, description, image, node }) => {
+const TableOfContents = ({ items }) => (
+    <div className={styles.tableOfContents}>
+        <h3>Table of Contents</h3>
+        <Tree items={items || []} />
+    </div>
+)
+
+const MiddlePane = ({ children, tableOfContents }) => (
+    <div className={styles.middlePane}>
+        <Container className={styles.middlePane}>
+            <Grid container spacing={3}>
+                <Hidden smDown>
+                    <Grid item md={3} xs={false}>
+                        <div className={styles.sidebar}>
+                            <Sidebar />
+                        </div>
+                    </Grid>
+                </Hidden>
+
+                <Grid item md={6} xs={12}>
+                    {children}
+                </Grid>
+
+                <Grid item md={3} xs={12}>
+                    {tableOfContents && (<TableOfContents items={tableOfContents.items} />)}
+                </Grid>
+
+            </Grid>
+        </Container>
+    </div>
+)
+
+const Layout = ({ children, title, description, image, tableOfContents }) => {
     const data = useStaticQuery(query)
     const siteTitle = data.site.siteMetadata.title
     const siteDescription = data.site.siteMetadata.description
@@ -121,32 +152,9 @@ const Layout = ({ children, title, description, image, node }) => {
     return (
         <MuiThemeProvider theme={theme}>
             <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
-            <Header siteTitle={siteTitle} siteDescription={siteDescription} />
-            <Container>
-                <div className={styles.main}>
-                    <Grid container spacing={3}>
-                        <Hidden smDown>
-                        <Grid item md={3} xs={false}>
-                            <div className={styles.sidebar}>
-                                <Sidebar/>
-                            </div>
-                        </Grid>
-                        </Hidden>
-
-                        <Grid item md={6} xs={12}>
-                            {children}
-                        </Grid>
-
-                        <Grid item md={3} xs={12}>
-                            { node &&
-                            (<div className={styles.tableOfContents}><h3>Table of Contents</h3><TableOfContents toc={node.tableOfContents}/></div>)
-                            }
-                        </Grid>
-                    
-                    </Grid>
-                </div>
-            </Container>
-            <Footer author={author} social={data.site.siteMetadata.social} />
+            <TopPane siteTitle={siteTitle} siteDescription={siteDescription} />
+            <MiddlePane tableOfContents={tableOfContents}>{children}</MiddlePane>
+            <BottomPane author={author} social={data.site.siteMetadata.social} />
         </MuiThemeProvider>
     )
 }

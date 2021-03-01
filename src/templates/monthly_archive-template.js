@@ -4,7 +4,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Pagination from '@material-ui/lab/Pagination'
 import Box from '@material-ui/core/Box'
 
-import { Post, PostExcerpt } from "../components/post.js"
+import { Post } from "../components/post.js"
 import Layout from "../components/layout.js"
 import { monthlyArchivePath } from '../utils/archive_path'
 
@@ -21,9 +21,8 @@ export const query = graphql`
             date(formatString: "YYYY-MM-DD"), title, image, description
           }        
           fields { 
-            directory
+            slug, directory
           }
-          slug
           tableOfContents
         }
       }

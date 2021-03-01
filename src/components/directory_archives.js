@@ -14,8 +14,8 @@ const query = graphql`
 {
     mdxPages: allMdx {
         nodes {
-            id, slug
-            fields { directory }
+            id
+            fields { slug, directory }
         }
     }
 }

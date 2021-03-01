@@ -17,22 +17,30 @@
     color: black;
 }
 
-.footer {
-    border-top: 2px solid #111;
-    margin-top: 1em;
-    padding: 1em;
-}
-
-.main {
+.middlePane {
     margin-top: 40px;
     background-color: white;
 }
 
 .sidebar {
     margin-right: 2rem;
+    font-size: 0.8rem;
 }
 .tableOfContents {
     position: sticky;
     top: 0;
 }
     
+.tableOfContents li {
+    font-size: 0.8rem;
+}
+main {
+    padding-right: 1rem;
+}
+
+
+.bottomPane {
+    border-top: 2px solid #111;
+    margin-top: 1em;
+    padding: 1em;
+}

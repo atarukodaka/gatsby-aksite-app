@@ -1,7 +1,6 @@
 ---
 title: Gatsby - [2] GraphQL
 date: 2021-02-09 02:00:00
-toc: true
 image: gatsby.png
 ---
 

@@ -4,11 +4,9 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Box from '@material-ui/core/Box'
 import { Pagination } from '@material-ui/lab'
 
-import { Post, PostExcerpt } from "../components/post.js"
+import { Post } from "../components/post.js"
 import Layout from "../components/layout.js"
 import { directoryArchivePath } from '../utils/archive_path'
-
-//const config = require('../../config')
 
 export const query = graphql`
     query($regex: String!, $pruneLength: Int!=100, $skip: Int!, $limit: Int!){        
@@ -19,13 +17,13 @@ export const query = graphql`
         nodes { 
           id
           excerpt(truncate: true, pruneLength: $pruneLength)
-          slug
+          
           tableOfContents
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title, image, description
           }     
           fields { 
-            directory
+            slug, directory
           }   
           
         }
@@ -38,7 +36,7 @@ const handleChange = (directory, p) => {
   navigate((p === 1) ? path : `${path}/${p}`)
 }
 
-export default function DirectoryTemplate({ data, pageContext }) {
+export default function DirectoryArchiveTemplate({ data, pageContext }) {
   const { directory, numberOfPages, humanPageNumber } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
   //const current_directory = directory.split('/').slice(-1)
@@ -51,7 +49,7 @@ export default function DirectoryTemplate({ data, pageContext }) {
       <h1 className="pageTitle">{title}</h1>
       {
         data.allMdx.nodes.map(node=>(
-          <Post excerptify={true} node={node}/>
+          <Post excerptify={true} node={node} key={node.id}/>
         ))
       }
 

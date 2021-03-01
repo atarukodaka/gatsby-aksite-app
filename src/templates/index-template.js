@@ -2,7 +2,7 @@ import React from "react"
 import { graphql, navigate } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Layout from "../components/layout.js"
-import { Post, PostExcerpt } from "../components/post.js"
+import { Post } from "../components/post.js"
 import { Pagination } from '@material-ui/lab'
 import { Box } from '@material-ui/core'
 
@@ -19,9 +19,8 @@ export const data = graphql`
         id
         frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
         excerpt(pruneLength: $pruneLength)
-        fields { directory }
+        fields { slug, directory }
         tableOfContents
-        slug
       }
     }
   }
@@ -44,8 +43,9 @@ const IndexTemplate = ( { data, pageContext } ) => {
       {data.allMdx.nodes.map(node=>(
         <Post node={node} excerptify={true} key={node.id}/>
       ))}
+      
       <Box display="flex" justifyContent="center" m={3}>
-      <Pagination style={{}} count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
+      <Pagination count={numberOfPages} page={humanPageNumber} onChange={handleChange}/>
       </Box>
     </Layout>    
   )

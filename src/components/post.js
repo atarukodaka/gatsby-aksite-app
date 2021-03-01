@@ -1,53 +1,15 @@
 import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import styles from "./post.module.css"
-//import TableOfContents from './table_of_contents'
-//import Img from 'gatsby-image'
-import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
-import directoryLabel from '../utils/directory_label'
+import { useLocation } from "@reach/router"
+
+import LinkableWrapper from './linkable_wrapper'
+import DirectoryBox from './directory_box'
+import PostLink from './post_link'
 import Image from './image'
-
-
-const query = graphql`
-    {
-        allMdx {
-            nodes {
-                id, slug
-                frontmatter {
-                    title
-                    date(formatString: "YYYY-MM-DD")
-                    image
-                    description
-                }
-                excerpt
-                fields { directory }
-            }
-        }
-    }
-`
-
-const PostLink = ({ slug }) => {
-    const data = useStaticQuery(query)
-    const node = data.allMdx.nodes.find(v => v.slug === slug)
-    if (node === undefined) { return <div>NO SUCH SLUG: {slug}</div> }
-
-    //console.log("postlink node", node)
-
-    return (
-        <PostCard node={node} />
-    )
-}
-
-const DirectoryBox = ({ node }) => (
-    <div className={styles.directory}>
-        <Link to={'/' + node.fields.directory}>
-            {directoryLabel(node.fields.directory)}
-        </Link>
-    </div>
-
-)
+import Share from '../components/share'
+import styles from "./post.module.css"
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -68,29 +30,6 @@ const PostHeader = ({ node }) => (
         </div>
     </header>
 )
-/*
-const TocBox = ({ node, title, useAccordion }) => {
-    const defaultTitle = "Table of Contents"
-
-    return (
-        <div className={styles.tableOfContents}>
-            { (useAccordion) ?
-                (<Accordion defaultExpanded={true}>
-                    <AccordionSummary>
-                        <h3>{title || defaultTitle}</h3>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <TableOfContents toc={node.tableOfContents} />
-                    </AccordionDetails>
-                </Accordion>) :
-                <Box p={2}>
-                    <TableOfContents toc={node.tableOfContents} />
-                </Box>
-            }
-        </div>
-        )
-    }
-    */
 
 const RenderMDX = ({ body }) => {
     const shortcuts = { Image, PostLink }
@@ -105,60 +44,43 @@ const RenderMDX = ({ body }) => {
     )
 }
 
-export const Post = ({ node, excerptify }) => {
-    return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
-}
+const query = graphql`
+    { site { siteMetadata { siteUrl }} }
+`    
 
+const PostEntire = ({ node }) => {
+    const data = useStaticQuery(query)
+    const { pathname } = useLocation()
 
-export const PostEntire = ({ node }) => {
     return (
         <div className={styles.post}>
             <PostHeader node={node} />
             <main>
                 <RenderMDX body={node.body} />
             </main>
+            <footer>
+                <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
+                  title={node.frontmatter.title} />
+            </footer>
         </div>
     )
 }
 
-
-export const PostExcerpt = ({ node }) => {
+const PostExcerpt = ({ node }) => {
     return (
-        <div className={styles.post}>
-            <Link to={'/' + node.slug} className={styles.postexcerpt}>
+        <LinkableWrapper to={node.fields.slug}>
+            <div className={styles.post}>
                 <PostHeader node={node} />
-                <main>
+                <main className={styles.excerpt}>
                     {node.excerpt}
                 </main>
-            </Link>
-        </div>
+            </div>
+        </LinkableWrapper>
     )
 }
 
-export const PostCard = ({ node }) => {
-    const noImageAvailable = "no_image_available.png"
-    const imgsrc = node.frontmatter.image || noImageAvailable
-    return (
-        <div className={styles.postCard}>
-            <Link to={'/' + node.slug} key={node.id}>
-                <div className="eyecatchImageSmallWrapper">
-                    <Image filename={imgsrc} />
-                </div>
-
-                <div className={styles.postCardDate}>
-                    {node.frontmatter.date}
-                </div>
-                <div className={styles.postCardTitle}>
-                    {node.frontmatter.title}
-                </div>
-                <DirectoryBox node={node} />
-                <div className={styles.postCardExcerpt}>
-                    {node.frontmatter.description || node.excerpt}
-                </div>
-                <div style={{ clear: "both" }} />
-            </Link>
-        </div>
-    )
+export const Post = ({ node, excerptify }) => {
+    return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
 
 export default Post
