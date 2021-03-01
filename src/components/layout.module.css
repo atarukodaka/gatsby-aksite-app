@@ -30,9 +30,13 @@
 
 .sidebar {
     margin-right: 2rem;
+    font-size: 0.8rem;
 }
 .tableOfContents {
     position: sticky;
     top: 0;
 }
     
+.tableOfContents li {
+    font-size: 0.8rem;
+}

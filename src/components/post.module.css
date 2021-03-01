@@ -131,13 +131,6 @@ a.anchor {
 /* ********************************************* */
 /* markdown */
 
-.numbering_heading {
-  font-weight: bold;
-  border-bottom: 1px solid #888;
-  padding-top: 10px;
-  padding-bottom: 5px;
-  font-size: 1.8rem;
-}
 .post h1 {
   font-weight: bold;
   border-bottom: 1px solid #888;
@@ -155,6 +148,7 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.6rem;
+  margin-top: 3rem;
 
   counter-increment: h2;
   counter-reset: h3;
@@ -166,6 +160,7 @@ a.anchor {
   padding-top: 10px;
   padding-bottom: 5px;
   font-size: 1.4rem;
+  margin-top: 2rem;
 
   counter-increment: h3;
   counter-reset: h4;   
