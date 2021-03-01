@@ -30,9 +30,9 @@ description: 自宅トレーニングをはじめるにあたってのおぼえ�
 あとは動きやすい服。ジャージでよい。
 
 ## 連載記事
-<PostLink slug="workout/02_squat"/>
-<PostLink slug="workout/03_pushup"/>
-<PostLink slug="workout/04_pullup"/>
+<PostLink slug="/workout/02_squat/"/>
+<PostLink slug="/workout/03_pushup/"/>
+<PostLink slug="/workout/04_pullup/"/>
 
 
 asefasef

@@ -1,43 +1,13 @@
 import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-//import { css } from '@emotion/react'
 
 import styles from "./post.module.css"
-import Image from './image'
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
-import PostCard from './post_card'
 
-const query = graphql`
-    {
-        allMdx {
-            nodes {
-                id
-                frontmatter {
-                    title
-                    date(formatString: "YYYY-MM-DD")
-                    image
-                    description
-                }
-                excerpt
-                fields { slug, directory }
-            }
-        }
-    }
-`
-
-const PostLink = ({ slug }) => {
-    const data = useStaticQuery(query)
-    const node = data.allMdx.nodes.find(v => v.fields.slug === slug)
-    if (node === undefined) { return <div>NO SUCH SLUG: {slug}</div> }
-
-    return (
-        <PostCard node={node} />
-    )
-}
-
+import PostLink from './post_link'
+import Image from './image'
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -82,7 +52,6 @@ const PostEntire = ({ node }) => {
         </div>
     )
 }
-
 
 const PostExcerpt = ({ node }) => {
     return (

@@ -1,11 +1,11 @@
 import React from 'react'
-import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 import Image from './image'
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
 
-const postcard = css`
+const PostCardBox = styled.div`
     margin-top: 1em;
     margin-bottom: 1em;
     padding-top: 1em;
@@ -13,19 +13,20 @@ const postcard = css`
     box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
 `
 
-const title = css`
+const Title = styled.div`
     font-weight: bold;
     color: black;
 `
 
-const date = css`
-    font-size: small;
-`
-const excerpt = css`
+const Excerpt = styled.div`
     font-size: small;
     color: #444;
     padding-left: 1em;
     padding-right: 1em;
+`
+
+const Date = styled.div`
+font-size: small;
 `
 
 export const PostCard = ({ node }) => {
@@ -34,24 +35,17 @@ export const PostCard = ({ node }) => {
 
     return (
         <LinkableWrapper to={node.fields.slug}>
-            <div css={postcard}>
+            <PostCardBox>
                 <div className="eyecatchImageSmallWrapper">
                     <Image filename={imgsrc} />
                 </div>
 
-                <div css={date}>
-                    {node.frontmatter.date}
-                </div>
-                <div css={title}>
-                    {node.frontmatter.title}
-                </div>
+                <Date>{node.frontmatter.date}</Date>
+                <Title>{node.frontmatter.title}</Title>
                 <DirectoryBox node={node} />
-                <div css={excerpt}>
-                    {node.frontmatter.description || node.excerpt}
-                </div>
+                <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
                 <div style={{ clear: "both" }} />
-            
-            </div>
+            </PostCardBox>
         </LinkableWrapper>
     )
 }
