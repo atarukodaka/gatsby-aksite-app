@@ -112,7 +112,7 @@ const BottomPane = ({ author }) => (
 const TableOfContents = ({ items }) => (
     <div className={styles.tableOfContents}>
         <h3>Table of Contents</h3>
-        <Tree items={items} />
+        <Tree items={items || []} />
     </div>
 )
 

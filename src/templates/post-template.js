@@ -1,12 +1,10 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import { useLocation } from "@reach/router"
 import Grid from '@material-ui/core/Grid'
 
 import Layout from "../components/layout.js"
 import directoryLabel from '../utils/directory_label'
-import Share from '../components/share'
 import Post from "../components/post.js"
 import PostCard from '../components/post_card'
 
@@ -62,8 +60,7 @@ export default function PostTemplate({ data, pageContext }) {
   const node = data.mdx
   
   const { breadcrumb: { crumbs } } = pageContext
-  const { pathname } = useLocation()
-
+  
   console.log(`create/template: ${node.fields.slug}`)
 
   return (
@@ -74,7 +71,7 @@ export default function PostTemplate({ data, pageContext }) {
 
       <Post node={node} />
 
-      <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} title={node.frontmatter.title} />
+      
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
       <Siblings nodes={data.siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />

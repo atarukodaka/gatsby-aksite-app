@@ -1,12 +1,15 @@
 import React from "react"
+import { useStaticQuery } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { useLocation } from "@reach/router"
 
-import styles from "./post.module.css"
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
 import PostLink from './post_link'
 import Image from './image'
+import Share from '../components/share'
+import styles from "./post.module.css"
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -41,13 +44,24 @@ const RenderMDX = ({ body }) => {
     )
 }
 
+const query = graphql`
+    { site { siteMetadata { siteUrl }} }
+`    
+
 const PostEntire = ({ node }) => {
+    const data = useStaticQuery(query)
+    const { pathname } = useLocation()
+
     return (
         <div className={styles.post}>
             <PostHeader node={node} />
             <main>
                 <RenderMDX body={node.body} />
             </main>
+            <footer>
+                <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
+                  title={node.frontmatter.title} />
+            </footer>
         </div>
     )
 }

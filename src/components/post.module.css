@@ -41,6 +41,11 @@ a.anchor {
   padding-bottom: 1rem;
 }
 
+footer {
+  border-top: solid 1px;
+  padding-top: 1rem;
+}
+
 /* ********************************************* */
 /* markdown */
 
