@@ -5,9 +5,9 @@ import { useLocation } from "@reach/router"
 import Grid from '@material-ui/core/Grid'
 
 import Layout from "../components/layout.js"
-import { Post } from "../components/post.js"
 import directoryLabel from '../utils/directory_label'
 import Share from '../components/share'
+import Post from "../components/post.js"
 import PostCard from '../components/post_card'
 
 export const query = graphql`

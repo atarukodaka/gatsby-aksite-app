@@ -40,53 +40,6 @@ a.anchor {
 .post main {
   padding-bottom: 1rem;
 }
-/* *** Post Card *** */
-
-.postCard {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
-  /* display: block; */
-}
-
-.postCardTitle {
-  /* background: linear-gradient(to bottom,  #484848 0%,#121212 100%);  */
-  /* margin-bottom: 0.5em; */
-  font-weight: bold;
-  color: black;
-}
-
-.postCard .date {
-  font-size: small;
-}
-
-.postCard .directory a {
-  font-size: small;
-}
-
-.postCard .excerpt {
-  font-size: small;
-  color: #444;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-/* *** Table of Contents *** */
-.tableOfContents  {
-  box-shadow: 2px 1px 0px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-  background-color: #f8f8f8;
-  margin-right: 2em;
-  margin-left: 2em;
-  margin-bottom: 2em;
-  padding-bottom: 0em;
-  /* padding: 1em; */
-  
-  /*  border-bottom: solid 1px;*/
-  /* background-color: #fee; */
-}
-
 
 /* ********************************************* */
 /* markdown */
