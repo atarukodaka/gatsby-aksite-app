@@ -47,7 +47,7 @@ const query = graphql`
 }
 `
 
-const Header = ({ siteTitle, siteDescription }) => {
+const TopPane = ({ siteTitle, siteDescription }) => {
     //const data = useStaticQuery(query)
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
@@ -81,7 +81,7 @@ const Header = ({ siteTitle, siteDescription }) => {
                     <Divider />
 
                     <nav>
-                        <GoogleSearch/>
+                        <GoogleSearch />
                         <h3>Directories</h3>
                         <DirectoryArchives />
                         <Divider />
@@ -101,17 +101,43 @@ const Header = ({ siteTitle, siteDescription }) => {
     )
 }
 
-const Footer = ({ author }) => (
-    <footer className={styles.footer}>
+const BottomPane = ({ author }) => (
+    <footer className={styles.bottomPane}>
         (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved.
-                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a> and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
+                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a>
+                and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
     </footer>
 )
 
-const TableOfContents = ( { items} ) => (
+const TableOfContents = ({ items }) => (
     <div className={styles.tableOfContents}>
         <h3>Table of Contents</h3>
-        <Tree items={items}/>
+        <Tree items={items} />
+    </div>
+)
+
+const MiddlePane = ({ children, tableOfContents }) => (
+    <div className={styles.middlePane}>
+        <Container className={styles.middlePane}>
+            <Grid container spacing={3}>
+                <Hidden smDown>
+                    <Grid item md={3} xs={false}>
+                        <div className={styles.sidebar}>
+                            <Sidebar />
+                        </div>
+                    </Grid>
+                </Hidden>
+
+                <Grid item md={6} xs={12}>
+                    {children}
+                </Grid>
+
+                <Grid item md={3} xs={12}>
+                    {tableOfContents && (<TableOfContents items={tableOfContents.items} />)}
+                </Grid>
+
+            </Grid>
+        </Container>
     </div>
 )
 
@@ -126,30 +152,9 @@ const Layout = ({ children, title, description, image, tableOfContents }) => {
     return (
         <MuiThemeProvider theme={theme}>
             <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
-            <Header siteTitle={siteTitle} siteDescription={siteDescription} />
-            <Container>
-                <div className={styles.main}>
-                    <Grid container spacing={3}>
-                        <Hidden smDown>
-                        <Grid item md={3} xs={false}>
-                            <div className={styles.sidebar}>
-                                <Sidebar/>
-                            </div>
-                        </Grid>
-                        </Hidden>
-
-                        <Grid item md={6} xs={12}>
-                            {children}
-                        </Grid>
-
-                        <Grid item md={3} xs={12}>
-                            { tableOfContents && (<TableOfContents items={tableOfContents.items}/>) }
-                        </Grid>
-                    
-                    </Grid>
-                </div>
-            </Container>
-            <Footer author={author} social={data.site.siteMetadata.social} />
+            <TopPane siteTitle={siteTitle} siteDescription={siteDescription} />
+            <MiddlePane tableOfContents={tableOfContents}>{children}</MiddlePane>
+            <BottomPane author={author} social={data.site.siteMetadata.social} />
         </MuiThemeProvider>
     )
 }

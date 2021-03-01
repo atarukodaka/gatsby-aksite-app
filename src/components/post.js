@@ -5,7 +5,6 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styles from "./post.module.css"
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
-
 import PostLink from './post_link'
 import Image from './image'
 
