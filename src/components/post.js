@@ -2,10 +2,8 @@ import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+
 import styles from "./post.module.css"
-//import TableOfContents from './table_of_contents'
-//import Img from 'gatsby-image'
-//import { Box, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
 import directoryLabel from '../utils/directory_label'
 import Image from './image'
 
@@ -14,7 +12,7 @@ const query = graphql`
     {
         allMdx {
             nodes {
-                id, slug
+                id
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
@@ -22,7 +20,7 @@ const query = graphql`
                     description
                 }
                 excerpt
-                fields { directory }
+                fields { slug, directory }
             }
         }
     }
@@ -30,7 +28,7 @@ const query = graphql`
 
 const PostLink = ({ slug }) => {
     const data = useStaticQuery(query)
-    const node = data.allMdx.nodes.find(v => v.slug === slug)
+    const node = data.allMdx.nodes.find(v => v.fields.slug === slug)
     if (node === undefined) { return <div>NO SUCH SLUG: {slug}</div> }
 
     //console.log("postlink node", node)
@@ -47,6 +45,14 @@ const DirectoryBox = ({ node }) => (
         </Link>
     </div>
 
+)
+
+const LinkWrapper = ({ to, children }) => (
+    <div className={styles.linkWrapper}>
+        <Link to={to}>
+            {children}
+        </Link>
+    </div>
 )
 
 const PostHeader = ({ node }) => (
@@ -68,29 +74,6 @@ const PostHeader = ({ node }) => (
         </div>
     </header>
 )
-/*
-const TocBox = ({ node, title, useAccordion }) => {
-    const defaultTitle = "Table of Contents"
-
-    return (
-        <div className={styles.tableOfContents}>
-            { (useAccordion) ?
-                (<Accordion defaultExpanded={true}>
-                    <AccordionSummary>
-                        <h3>{title || defaultTitle}</h3>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <TableOfContents toc={node.tableOfContents} />
-                    </AccordionDetails>
-                </Accordion>) :
-                <Box p={2}>
-                    <TableOfContents toc={node.tableOfContents} />
-                </Box>
-            }
-        </div>
-        )
-    }
-    */
 
 const RenderMDX = ({ body }) => {
     const shortcuts = { Image, PostLink }
@@ -120,12 +103,12 @@ const PostEntire = ({ node }) => {
 const PostExcerpt = ({ node }) => {
     return (
         <div className={styles.post}>
-            <Link to={'/' + node.slug} className={styles.postexcerpt}>
+            <LinkWrapper to={node.fields.slug}>
                 <PostHeader node={node} />
-                <main>
+                <main className={styles.excerpt}>
                     {node.excerpt}
                 </main>
-            </Link>
+            </LinkWrapper>
         </div>
     )
 }
@@ -133,29 +116,30 @@ const PostExcerpt = ({ node }) => {
 export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
-
 export const PostCard = ({ node }) => {
     const noImageAvailable = "no_image_available.png"
     const imgsrc = node.frontmatter.image || noImageAvailable
+
     return (
         <div className={styles.postCard}>
-            <Link to={'/' + node.slug} key={node.id}>
+            <LinkWrapper to={node.fields.slug}>
+                { /* <Link to={node.fields.slug} key={node.id} className={styles.linkWrapper}> */}
                 <div className="eyecatchImageSmallWrapper">
                     <Image filename={imgsrc} />
                 </div>
 
-                <div className={styles.postCardDate}>
+                <div className={styles.date}>
                     {node.frontmatter.date}
                 </div>
                 <div className={styles.postCardTitle}>
                     {node.frontmatter.title}
                 </div>
                 <DirectoryBox node={node} />
-                <div className={styles.postCardExcerpt}>
+                <div className={styles.excerpt}>
                     {node.frontmatter.description || node.excerpt}
                 </div>
                 <div style={{ clear: "both" }} />
-            </Link>
+            </LinkWrapper>
         </div>
     )
 }

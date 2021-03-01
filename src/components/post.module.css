@@ -5,7 +5,7 @@ a.anchor {
 .post {
   margin-top: 2em;
   margin-bottom: 2em;
-  padding-bottom: 1em;
+  /* padding-bottom: 1em; */
   /* padding-right: 1em; */
   /* background-color:white; */
   /* box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);  */
@@ -17,16 +17,13 @@ a.anchor {
   padding-bottom: 1em; */
   box-shadow: 0px 1px rgb(0 0 0 / 10%)
 }
-.postexcerpt  {
-  text-decoration: none;
-  color: black;
-}
-.postexcerpt a:visited {
-  color: black;
-}
-.title {
-  font-weight: bold;
+.header a { text-decoration: none }
+
+.post .title {
+  margin-bottom: 0.5rem;
   padding: 0.5em;
+  font-weight: bold;
+  
   background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
   color: white; 
 }
@@ -43,19 +40,28 @@ a.anchor {
   text-decoration: none;
 }
 .directory a:hover {
-   background-color: #eee 
+    background-color: #eff;
 }
 
-.excerpt a {
+.linkWrapper a {
   text-decoration: none;
   color: black;
 }
-
-
+.linkWrapper:hover {
+  background-color: #eee;
+  opacity: 0.7;
+}
 .description {
   padding: 1em;
 }
 
+.post .excerpt {
+  padding: 1em;
+}
+
+.post main {
+  padding-bottom: 1rem;
+}
 /* *** Post Card *** */
 
 .postCard {
@@ -72,9 +78,6 @@ a.anchor {
   opacity: 0.7;
 }
 
-.postCard a {
-  text-decoration: none;
-}
 
 .postCardTitle {
   /* background: linear-gradient(to bottom,  #484848 0%,#121212 100%);  */
@@ -83,18 +86,15 @@ a.anchor {
   color: black;
 }
 
-.postCardTitle a {
-  color: black;
-}
-.postCardTitle a:visited {
-  color: black;
-}
-
-.postCardDate {
+.postCard .date {
   font-size: small;
 }
 
-.postCardExcerpt {
+.postCard .directory a {
+  font-size: small;
+}
+
+.postCard .excerpt {
   font-size: small;
   color: #444;
   padding-left: 1em;
@@ -113,18 +113,6 @@ a.anchor {
   
   /*  border-bottom: solid 1px;*/
   /* background-color: #fee; */
-}
-.tableOfContents ol {
-  margin-bottom: 0em;
-}
-.tableOfContents h3, h4 {
-  margin-bottom: 0em;
-
-}
-.tableOfContentsTitle:hover {
-  background: #eee;
-  
-  /* opacity: 70%; */
 }
 
 

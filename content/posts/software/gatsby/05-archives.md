@@ -1,7 +1,6 @@
 ---
 title: Gatsby - [5] Archives
 date: 2021-02-11
-toc: true
 image: gatsby.png
 ---
 ## やること
@@ -18,7 +17,7 @@ date: 2020-02-02
 ...
 ```
 
-date:を加えます。書式ですが、「必ず」 YYYY-MM-DD にすること。2020-2-2 とか0を省くと文字列扱いになっておかしなことになります。
+date:を加えます。書式ですが、必ず YYYY-MM-DD にすること。2020-2-2 とか0を省くと文字列扱いになっておかしなことになります。
 
 ## gatsby-node.js をいじる
 
@@ -51,7 +50,6 @@ query でfrontmatter { date }も取ります。フォーマットも扱いやす
 
 ```js
 const yearMonths = new Set(mdxPages.nodes.filter(v=>v.frontmatter.yearmonth).map(node=> node.frontmatter.yearmonth))
-    //console.log("yearmonths: ", yearMonths)  
     yearMonths.forEach(node=>{
         const [year, month] = node.split('-').map(v=>parseInt(v))
         const fromDate = new Date(year, month - 1, 1)

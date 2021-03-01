@@ -1,7 +1,6 @@
 ---
 title: ゴッチ式トレーニング
 date: 2021-02-19
-toc: true
 image: trump.jpg
 ---
 

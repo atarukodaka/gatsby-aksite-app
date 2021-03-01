@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql, navigate } from "gatsby"
+import { useStaticQuery, graphql, navigate, Link } from "gatsby"
 import { TreeView, TreeItem } from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
@@ -45,11 +45,8 @@ const MonthlyArchives = ( { expandAll } ) => {
     const years = [...new Set(list.map(v=>v.year))].sort((a, b) => b-a)
     
     const defaultExpanded = ( expandAll) ? years : []
-    
-    const handleClick = (node) => {
-        //navigate(monthlyArchivePath(node.year, node.month))
-        navigate(node.path)
-    }
+
+    //  
     return (
         <TreeView
         defaultCollapseIcon={<ExpandMoreIcon />}
@@ -64,7 +61,7 @@ const MonthlyArchives = ( { expandAll } ) => {
                     return (<TreeItem key={year} nodeId={year.toString()} label={ `${year} (${countTotal})`}>
                         {
                             nodes.map(node=>(
-                                <TreeItem key={node.id} nodeId={node.id} label={`${node.year}/${node.month} (${node.countTotal})`} onLabelClick={() => { handleClick(node) }}/>
+                                <TreeItem key={node.id} nodeId={node.id} label={`${node.year}/${node.month} (${node.countTotal})`} onLabelClick={() => { navigate(node.path) }}/> 
                             ))
                         }
                     </TreeItem>

@@ -30,9 +30,8 @@ const query = graphql`
         sort: {fields: frontmatter___date, order: DESC}
         ) {
         nodes {
-            frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
-            slug
-            fields { directory }
+            frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }            
+            fields { slug, directory }
             id
             excerpt(pruneLength: 100)
         }
@@ -49,7 +48,7 @@ const RecentPosts = ( { nodes} ) => {
 }
 
 const Card = ( { children } ) => (
-    <div style={{boxShadow: "2px 2px 1px rgb(0 0 0 / 20%)", marginBottom: "1rem"}}>
+    <div style={{boxShadow: "2px 2px 1px rgb(0 0 0 / 20%)", marginBottom: "1rem", paddingBottom: "0.5rem"}}>
         {children}
     </div>
 )

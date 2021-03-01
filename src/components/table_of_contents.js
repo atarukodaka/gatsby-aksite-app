@@ -27,6 +27,43 @@ const TableOfContents = ({ toc }) => (
     (toc.items) ? (<Tree nodes={toc.items} />) : null
 )
 
+/*
+const TocBox = ({ node, title, useAccordion }) => {
+    const defaultTitle = "Table of Contents"
 
+    return (
+        <div className={styles.tableOfContents}>
+            { (useAccordion) ?
+                (<Accordion defaultExpanded={true}>
+                    <AccordionSummary>
+                        <h3>{title || defaultTitle}</h3>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                    <TableOfContents toc={node.tableOfContents} />
+                    </AccordionDetails>
+                </Accordion>) :
+                <Box p={2}>
+                    <TableOfContents toc={node.tableOfContents} />
+                </Box>
+            }
+        </div>
+        )
+    }
+    */
+
+    /*
+    .tableOfContents ol {
+  margin-bottom: 0em;
+}
+.tableOfContents h3, h4 {
+  margin-bottom: 0em;
+
+}
+.tableOfContentsTitle:hover {
+  background: #eee;  
+  opacity: 70%;
+}
+
+    */
 
 export default TableOfContents
