@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from "gatsby"
+import PropTypes from 'prop-types'
 
 import PostCard from './post_card'
 
@@ -29,6 +30,10 @@ const PostLink = ({ slug }) => {
     return (
         <PostCard node={node} />
     )
+}
+
+PostLink.propTypes = {
+    slug: PropTypes.string.isRequired
 }
 
 export default PostLink

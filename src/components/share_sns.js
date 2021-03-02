@@ -1,6 +1,7 @@
 import React from 'react'
 import { TwitterShareButton, TwitterIcon, FacebookShareButton, FacebookIcon } from 'react-share'
 import { css } from '@emotion/react'
+import PropTypes from 'prop-types'
 
 const shareWrapper = css`
     display: inline-block;
@@ -16,19 +17,31 @@ const shareItem = css`
     display: inline-block;
 `
 
-const Share = ({ title, url }) => (
+const ShareSNS = ({ title, url, iconSize, round }) => (
     <nav css={shareWrapper}>
         <div css={shareItem}>
             <FacebookShareButton url={url} title={title}>
-                <FacebookIcon size={32} round />
+                <FacebookIcon size={iconSize} round={round} />
             </FacebookShareButton>
         </div>
         <div css={shareItem}>
             <TwitterShareButton url={url} title={title}>
-                <TwitterIcon size={32} round/>
+                <TwitterIcon size={iconSize} round={round}/>
             </TwitterShareButton>
         </div>
     </nav>
 )
 
-export default Share
+ShareSNS.propTypes = {
+    title: PropTypes.string,
+    url: PropTypes.string,
+    iconSize: PropTypes.number,
+    round: PropTypes.bool
+}
+
+ShareSNS.defaultProps = {
+    iconSize: 32,
+    round: true,
+}
+
+export default ShareSNS

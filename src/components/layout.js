@@ -69,6 +69,7 @@ const TopPane = ({ siteTitle, siteDescription }) => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const gcse_cx = process.env.GCSE_CX
 
     return (
         <header>
@@ -93,7 +94,7 @@ const TopPane = ({ siteTitle, siteDescription }) => {
                     <Divider />
 
                     <nav>
-                        <GoogleSearch />
+                        <GoogleSearch cx={gcse_cx}/>
                         <h3>Directories</h3>
                         <DirectoryArchives />
                         <Divider />

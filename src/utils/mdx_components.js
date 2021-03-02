@@ -1,6 +1,6 @@
 //import React from 'react'
-import PostLink from './post_link'
-import Image from './image'
+import PostLink from '../components/post_link'
+import Image from '../components/image'
 
 const mdxComponents = () => {
     return {Image, PostLink}

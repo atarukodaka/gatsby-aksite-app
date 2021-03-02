@@ -42,7 +42,7 @@ export const PostCard = ({ node }) => {
 
                 <Date>{node.frontmatter.date}</Date>
                 <Title>{node.frontmatter.title}</Title>
-                <DirectoryBox node={node} />
+                <DirectoryBox directory={node.fields.directory} />
                 <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
                 <div style={{ clear: "both" }} />
             </PostCardBox>

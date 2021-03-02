@@ -3,11 +3,12 @@ import { useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
+import PropTypes from 'prop-types'
 
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
-import mdxComponents from './mdx_components'
-import Share from '../components/share'
+import mdxComponents from '../utils/mdx_components'
+import ShareSNS from './share_sns'
 import styles from "./post.module.css"
 import Image from './image'
 //import PostLink from './post_link'
@@ -20,7 +21,7 @@ const PostHeader = ({ node }) => (
             {node.frontmatter.title}
         </h1>
 
-        <DirectoryBox node={node} />
+        <DirectoryBox directory={node.fields.directory} />
         {node.frontmatter.image && (
             <div className="eyecatchImageWrapper">
                 <Image filename={node.frontmatter.image} />
@@ -61,7 +62,7 @@ const PostEntire = ({ node }) => {
                 <RenderMDX body={node.body} />
             </main>
             <footer>
-                <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
+                <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
                   title={node.frontmatter.title} />
             </footer>
         </div>
@@ -85,4 +86,12 @@ export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
 
+Post.propTypes = {
+    node: PropTypes.node.isRequired,
+    excerptify: PropTypes.bool
+}
+
+Post.defaultProps = {
+    excerptify: false
+}
 export default Post

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import PropTypes from 'prop-types'
 
 const ClientOnly = ({ children, ...delegated }) => {
     const [hasMounted, setHasMounted] = useState(false);
@@ -17,8 +17,8 @@ const ClientOnly = ({ children, ...delegated }) => {
     );
 }
 
-const SearchBox = () => {
-    const cx =  process.env.GCSE_CX 
+const SearchBox = ({cx}) => {
+    //const cx =  process.env.GCSE_CX 
     let gcse = document.createElement('script');
     gcse.type = 'text/javascript';
     gcse.async = true;
@@ -30,11 +30,14 @@ const SearchBox = () => {
     )
 }
 
-const GoogleSearch = () => (
+const GoogleSearch = ( {cx}) => (
     <ClientOnly>
-        <SearchBox/>
+        <SearchBox cx={cx}/>
     </ClientOnly>
 )
 
+GoogleSearch.propTypes = {
+  cx: PropTypes.string
+}
 export default GoogleSearch
 
