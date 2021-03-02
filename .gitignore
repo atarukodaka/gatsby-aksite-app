@@ -71,3 +71,4 @@ yarn-error.log
 .config
 .devcontainer
 .vscode/
+content/
