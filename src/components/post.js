@@ -5,7 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
 import PropTypes from 'prop-types'
 
-import LinkableWrapper from './linkable_wrapper'
+import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
 import mdxComponents from '../utils/mdx_components'
 import ShareSNS from './share_sns'
@@ -71,14 +71,14 @@ const PostEntire = ({ node }) => {
 
 const PostExcerpt = ({ node }) => {
     return (
-        <LinkableWrapper to={node.fields.slug}>
+        <LinkHover to={node.fields.slug}>
             <div className={styles.post}>
                 <PostHeader node={node} />
                 <main className={styles.excerpt}>
                     {node.excerpt}
                 </main>
             </div>
-        </LinkableWrapper>
+        </LinkHover>
     )
 }
 
