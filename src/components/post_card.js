@@ -5,7 +5,7 @@ import Image from './image'
 import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
 
-const PostCardBox = styled.div`
+const StyledBox = styled.div`
 margin-top: 1em;
 margin-bottom: 1em;
 padding-top: 1em;
@@ -35,7 +35,7 @@ export const PostCard = ({ node }) => {
 
     return (
         <LinkHover to={node.fields.slug}>
-            <PostCardBox>
+            <StyledBox>
                 <div className="eyecatchImageSmallWrapper">
                     <Image filename={imgsrc} />
                 </div>
@@ -45,7 +45,7 @@ export const PostCard = ({ node }) => {
                 <DirectoryBox directory={node.fields.directory} />
                 <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
                 <div style={{ clear: "both" }} />
-            </PostCardBox>
+            </StyledBox>
         </LinkHover>
     )
 }

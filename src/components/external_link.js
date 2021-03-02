@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import LinkableWrapper from './linkable_wrapper'
 import { css } from '@emotion/react'
 import LaunchIcon from '@material-ui/icons/Launch';
 
