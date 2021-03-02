@@ -1,15 +1,17 @@
 import React from "react"
-import { useStaticQuery } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
 
 import LinkableWrapper from './linkable_wrapper'
 import DirectoryBox from './directory_box'
-import PostLink from './post_link'
-import Image from './image'
+import mdxComponents from './mdx_components'
 import Share from '../components/share'
 import styles from "./post.module.css"
+import Image from './image'
+//import PostLink from './post_link'
+
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -32,9 +34,9 @@ const PostHeader = ({ node }) => (
 )
 
 const RenderMDX = ({ body }) => {
-    const shortcuts = { Image, PostLink }
+    //const shortcodes = {Image, PostLink}
     return (
-        <MDXProvider components={shortcuts}>
+        <MDXProvider components={mdxComponents}>
             <div className={styles.numbering_headings}>
                 <MDXRenderer>
                     {body}

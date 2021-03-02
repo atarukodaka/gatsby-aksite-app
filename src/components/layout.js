@@ -22,6 +22,8 @@ import Sidebar from './sidebar.js'
 
 const theme = createMuiTheme({  // #1
     palette: {
+        /* type: 'dark', */
+        
         primary: {
             light: '#ffff8b',
             main: '#222277',
@@ -29,6 +31,7 @@ const theme = createMuiTheme({  // #1
             contrastText: '#ffffff',
 
         }
+        
     },
 })
 const query = graphql`

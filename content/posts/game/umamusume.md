@@ -12,3 +12,13 @@ description: ウマ娘育成ゲーム始めてみた。
 とりあえずこんな感じ：
 <Image filename="umamusume.png"/>
 
+## 娘達
+### ☆３タイキシャトル
+<Image filename="taikishatoru.png"/>
+
+### ☆３スペシャルウィーク
+星３引換券でお迎え。
+
+### ☆１ハルウララ
+唯一のダート。
+
