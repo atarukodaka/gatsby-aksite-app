@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { css } from "@emotion/react"
 
-const grey_hover = css`
+export const grey_hover = css`
     &:hover {
         background-color: #eee;
         opacity: 0.7;

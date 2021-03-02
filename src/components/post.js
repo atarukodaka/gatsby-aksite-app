@@ -11,7 +11,6 @@ import mdxComponents from '../utils/mdx_components'
 import ShareSNS from './share_sns'
 import styles from "./post.module.css"
 import Image from './image'
-//import PostLink from './post_link'
 
 
 const PostHeader = ({ node }) => (
@@ -86,12 +85,5 @@ export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
 
-Post.propTypes = {
-    node: PropTypes.node.isRequired,
-    excerptify: PropTypes.bool
-}
 
-Post.defaultProps = {
-    excerptify: false
-}
 export default Post

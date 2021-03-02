@@ -1,10 +1,9 @@
-//import React from 'react'
-import PostLink from '../components/post_link'
 import Image from '../components/image'
-import ExternalLink from '../components/external_link'
+import LinkPost from '../components/link_post'
+import LinkExternal from '../components/link_external'
 
 const mdxComponents = () => {
-    return {Image, PostLink, ExternalLink }
+    return {Image, LinkPost, LinkExternal }
 }
 
 export default mdxComponents

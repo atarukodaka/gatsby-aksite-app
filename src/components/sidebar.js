@@ -15,7 +15,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 //import { List, ListItem } from '@material-ui/core'
 /* import Typography from '@material-ui/core' */
 import { PostCard } from './post_card'
-import PostLink from './post_link'
 
 const query = graphql`
 {
@@ -43,7 +42,7 @@ const query = graphql`
 const RecentPosts = ( { nodes} ) => {
     return (<nav>
         {nodes.map(node => (
-            <PostLink slug={node.fields.slug} key={node.id} />
+            <PostCard node={node} key={node.id} />
         ))}
     </nav>)
 }
