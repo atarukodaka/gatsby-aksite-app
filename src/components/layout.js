@@ -1,27 +1,24 @@
 import React from "react"
+import { graphql, useStaticQuery, Link } from "gatsby"
 
-//import Paper from '@material-ui/core/Paper'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-import Sidebar from './sidebar.js'
-import { graphql, useStaticQuery, Link } from "gatsby"
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import { Drawer, IconButton, Divider } from '@material-ui/core'
-//import { TwitterIcon } from 'react-share'
-import SEO from './seo'
-//import Typography from '@material-ui/core/Typography'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import { css } from '@emotion/react'
+
 import MonthlyArchives from './monthly_archives'
 import DirectoryArchives from './directory_archives'
-import Tree from './tree'
-
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import SEO from './seo'
 import GoogleSearch from './google_search'
+import Sidebar from './sidebar.js'
 
-import styles from './layout.module.css'
+//import styles from './layout.module.css'
 
 const theme = createMuiTheme({  // #1
     palette: {
@@ -46,7 +43,19 @@ const query = graphql`
     }
 }
 `
+////////////////////////////////////////////////////////////////
+// Top
+const cssSiteTitle = css`
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #111; 
 
+    h1 { font-size: 4rem; }
+    a { 
+        text-decoration: none;
+        color: black;
+    }
+`
 const TopPane = ({ siteTitle, siteDescription }) => {
     //const data = useStaticQuery(query)
     const [open, setOpen] = React.useState(false);
@@ -91,38 +100,64 @@ const TopPane = ({ siteTitle, siteDescription }) => {
                 </div>
             </Drawer>
 
-            <div className={styles.title}>
+            <div css={cssSiteTitle}>
                 <Container>
-                    <h1><Link to="/">{siteTitle}</Link></h1>
-                    <h3>{siteDescription}</h3>
+                    <Link to="/">
+                        <h1>{siteTitle}</h1>
+                        <h3>{siteDescription}</h3>
+                    </Link>
                 </Container>
             </div>
         </header>
     )
 }
 
-const BottomPane = ({ author }) => (
-    <footer className={styles.bottomPane}>
-        (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved.
-                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a>
-                and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
-    </footer>
+////////////////////////////////////////////////////////////////
+// Middle
+
+const cssMiddlePane = css`
+    margin-top: 2rem;
+`
+const cssTableOfContents = css`
+    position: sticky;
+    top: 0;
+    li {
+        font-size: 0.8rem;
+        a { text-decoration: none; }
+    }
+`
+const cssSidebar = css`
+    margin-right: 2rem;
+    font-size: 0.8rem;
+`
+
+const Tree = ({ items }) => (
+    <ol>
+        {
+            items.map(v => (
+                <li key={v.url}>
+                    <Link to={v.url}>{v.title}</Link>
+                    {v.items && (<Tree items={v.items} />)}
+                </li>
+            ))
+        }
+    </ol>
 )
 
 const TableOfContents = ({ items }) => (
-    <div className={styles.tableOfContents}>
+    <div css={cssTableOfContents}>
         <h3>Table of Contents</h3>
         <Tree items={items || []} />
     </div>
 )
 
 const MiddlePane = ({ children, tableOfContents }) => (
-    <div className={styles.middlePane}>
-        <Container className={styles.middlePane}>
+    <div css={cssMiddlePane}>
+        <Container>
             <Grid container spacing={3}>
                 <Hidden smDown>
                     <Grid item md={3} xs={false}>
-                        <div className={styles.sidebar}>
+                        <div css={cssSidebar}>
                             <Sidebar />
                         </div>
                     </Grid>
@@ -132,16 +167,35 @@ const MiddlePane = ({ children, tableOfContents }) => (
                     {children}
                 </Grid>
 
-                <Grid item md={3} xs={12}>
-                    <GoogleSearch/>
-                    {tableOfContents && (<TableOfContents items={tableOfContents.items} />)}
-                </Grid>
-
+                <Hidden smDown>
+                    <Grid item md={3} xs={12}>
+                        <GoogleSearch />
+                        {tableOfContents && (<TableOfContents items={tableOfContents.items} />)}
+                    </Grid>
+                </Hidden>
             </Grid>
         </Container>
     </div>
 )
 
+////////////////////////////////////////////////////////////////
+// Bottom
+
+const cssBottomPane = css`
+    border-top: 2px solid #111;
+    margin-top: 1em;
+    padding: 1em;
+`
+const BottomPane = ({ author }) => (
+    <footer css={cssBottomPane}>
+        (C) Copyright {(new Date()).getFullYear()} {author} All Right Reserved.
+                Powered by <a href="https://www.gatsbyjs.com/">Gatsby</a>
+                and <a href="https://github.com/atarukodaka/gatsby-aksite-starter">AK site starter</a>.
+    </footer>
+)
+
+////////////////////////////////////////////////////////////////
+// Layout
 const Layout = ({ children, title, description, image, tableOfContents }) => {
     const data = useStaticQuery(query)
     const siteTitle = data.site.siteMetadata.title
