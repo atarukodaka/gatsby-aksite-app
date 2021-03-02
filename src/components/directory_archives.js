@@ -1,12 +1,13 @@
 import React from 'react'
 import { useStaticQuery, Link, graphql } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
+import { css } from '@emotion/react'
 
 //import { Button } from '@material-ui/core'
 //const config = require('../../config')
 import directoryLabel from '../utils/directory_label'
 import { directoryArchivePath } from '../utils/archive_path'
-import styles from './directory_archives.module.css'
+// import styles from './directory_archives.module.css'
 
 const ListToTree = require('list-to-tree')
 
@@ -52,20 +53,30 @@ const DirectoryArchives = () => {
     })
   
     const tree = new ListToTree(list).GetTree()
-    return (
-        <div className={styles.tree}>
-            <Tree nodes={tree}/>
-        </div>
-    )
+
+    return (<Tree items={tree}/>)
 }
 
-const Tree = ({ nodes }) => (
-        <ul>
+const cssTree = css`
+    margin-top: 0.2em;
+`
+
+const cssItem = css`
+    list-style: none;
+    margin-bottom: 0.2em;
+
+    a {
+        text-decoration: none;
+    }
+`
+
+const Tree = ({ items }) => (
+        <ul css={cssTree}>
             {
-                nodes.map(v => (
-                    <li key={v.id} className="directory">
+                items.map(v => (
+                    <li key={v.id} css={cssItem}>
                         <Link to={directoryArchivePath(v.name)}>{v.label || v.name} ({v.totalCount})</Link>
-                        { v.child && (<Tree nodes={v.child}></Tree>)}
+                        { v.child && (<Tree items={v.child}></Tree>)}
                     </li>
                 )
                 )

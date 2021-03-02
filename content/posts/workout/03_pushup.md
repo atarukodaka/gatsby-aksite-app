@@ -1,6 +1,6 @@
 ---
 title: 宅トレ[3] - プッシュアップ
-date: 2021-03-01
+date: 2021-03-01 00:00:00
 image: udetate_man.png
 ---
 

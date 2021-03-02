@@ -124,22 +124,30 @@ const Sidebar = () => (
 いくつかやり方があります。
 
 ### Global CSS
-```css:title=src/components/layout.css
+```css:title=src/styles/global.css
 body {
   background-color: red;
 }
+nav.breadcrumb {
+    font-size: small;
+    border-top: 1px solid #ddd;
+    ...
 ```
 
-と css を定義して、
+などと汎用の css を定義して、gatsby-brower.js で読み込みます：
 
-```js:title=src/components/layout.js
-import './layout.css'
+```js:title=gatsby-brower.js
+import './src/styles/global.css'
 ...
 ```
 
-こうしとけば layout.js を import すればそのまま css も入ってきます。
+これでどのページでも読み込まれます。
+
+各所でモジュール化したい場合は CSS Modules か CSS-in-JS を使います。
 
 ### CSS modules
+対応する module.css ファイルを作りそこに css を定義して読み込む形：
+
 ```css:title=src/components/post.module.css
 .title {
     font-weight: bold;
@@ -156,15 +164,50 @@ import postStyles '../components/post.module.css'
 ...            
 ```
 
-とimportすると、attribute でクラスとして参照できます。
+とimportすると、attribute でcssクラスとして参照できます。
 
 
 ### CSS in JS
-styled とか makeStyle とかあるけど、詳しくは docs を。
+fontWeight とかなっちゃうオブジェクト型のはあまり好きではないので、通常の css記法が取れる emotion を使います。
 
+```sh
+npm install --save gatsby-plugin-emotion @emotion/react @emotion/styled
+```
+
+```js:title=gatsby-config.js
+module.exports = {
+  plugins: [
+    ...
+    `gatsby-plugin-emotion`,
+```
+
+styled でやるときは、
+
+```js
+import styled from '@emotion/styled'
+
+const Title=styled.div`
+    font-size: 2rem;
+`    
+```
+
+css crop は
+
+```js
+import { css } from '@emotion/react'
+const big = css`
+    font-size: 2rem;
+`
+
+const Foo = () => (
+    <span css={big}>big</span>
+    ...
+```
+
+手軽でよいね。局所的に使うときはcrop、いろいろちゃんとするときはmodule って感じで使い分けてる。
 
 ## やったこと
 こんな感じに：
 
 
-image: [gatsby-4](/images/gatsby-4.png) 
+<Image filename="gatsby-4.png"/>

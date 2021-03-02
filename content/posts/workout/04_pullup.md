@@ -1,6 +1,6 @@
 ---
 title: 宅トレ[4] - プルアップ
-date: 2021-03-03
+date: 2021-03-01 01:00:00
 image: undou_kensui_man.png
 ---
 

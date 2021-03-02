@@ -133,6 +133,7 @@ const MiddlePane = ({ children, tableOfContents }) => (
                 </Grid>
 
                 <Grid item md={3} xs={12}>
+                    <GoogleSearch/>
                     {tableOfContents && (<TableOfContents items={tableOfContents.items} />)}
                 </Grid>
 

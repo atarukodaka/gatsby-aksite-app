@@ -43,7 +43,7 @@ nav.breadcrumb {
     Youtube iframe
    -----------------------*/
 
-   .embedVideo-container {
+.embedVideo-container {
     position: relative;
     overflow: hidden;
     padding-bottom: 56.25%;
