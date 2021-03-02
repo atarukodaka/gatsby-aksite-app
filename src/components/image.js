@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
-
+import PropTypes from 'prop-types'
 
 const query = graphql`
     {
@@ -20,17 +20,26 @@ const query = graphql`
     }
 `
 
-const Image = ( props ) => {
+const Image = ( {filename, maxWidth = "100%"} ) => {
     const data = useStaticQuery(query)
+    const styles = {
+        maxWidth: maxWidth
+    }
     
     const image = data.images.nodes.find(node => 
-        node.relativePath === props.filename
+        node.relativePath === filename
     )
 
     if (!image) { 
-        return (<span>NO SUCH IMAGE: {props.filename}</span>)
+        return (<span>NO SUCH IMAGE: {filename}</span>)
     } 
-    return (<Img fluid={image.childImageSharp.fluid} />)
+    //return (<Img fluid={image.childImageSharp.fluid} />)
+    return (<div style={styles}><Img fluid={image.childImageSharp.fluid} /></div>)
+}
+
+Image.propTypes = {
+    filename: PropTypes.string.isRequired,
+    maxWidth: PropTypes.number
 }
 
 export default Image

@@ -2,23 +2,22 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { css } from "@emotion/react"
 
-const no_decoration = css`
-    text-decoration: none;
-    color: black;
-`
-
-const grey_hover = css`
+export const grey_hover = css`
     &:hover {
         background-color: #eee;
         opacity: 0.7;
     }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 `
-export const LinkableWrapper = ({ to, children }) => (
+export const LinkHover = ({ to, children }) => (
     <div css={grey_hover}>
-        <Link to={to} css={no_decoration}>
+        <Link to={to}>
             {children}
         </Link>
     </div>
 )
 
-export default LinkableWrapper
+export default LinkHover

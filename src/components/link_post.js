@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from "gatsby"
+import PropTypes from 'prop-types'
 
 import PostCard from './post_card'
 
@@ -21,14 +22,19 @@ const query = graphql`
     }
 `
 
-const PostLink = ({ slug }) => {
+const LinkPost = ({ node, to }) => { // specify post by either node or to(slug)
     const data = useStaticQuery(query)
-    const node = data.allMdx.nodes.find(v => v.fields.slug === slug)
-    if (node === undefined) { return <div>NO SUCH SLUG: {slug}</div> }
-
+    if (node === undefined){
+        node = data.allMdx.nodes.find(v => v.fields.slug === to)
+        if (node === undefined) { return <div>NO SUCH SLUG: {to}</div> }
+    }
     return (
         <PostCard node={node} />
     )
 }
 
-export default PostLink
+LinkPost.propTypes = {
+    slug: PropTypes.string.isRequired
+}
+
+export default LinkPost

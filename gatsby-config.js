@@ -133,5 +133,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-emotion`,
+    // self-made-prlugins
+    //`gatsby-plugin-monthly-archives`
   ],
 }

@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import { css } from '@emotion/react'
+import PropTypes from 'prop-types'
 
 import directoryLabel from '../utils/directory_label'
 
@@ -18,13 +19,17 @@ const cssDirectoryBox = css`
     }
 `
 
-const DirectoryBox = ({ node }) => (
+const DirectoryBox = ({ directory }) => (
     <div css={cssDirectoryBox}>
-        <Link to={'/' + node.fields.directory}>
-            {directoryLabel(node.fields.directory)}
+        <Link to={'/' + directory}>
+            {directoryLabel(directory)}
         </Link>
     </div>
 
 )
+
+DirectoryBox.prototype = {
+    directory: PropTypes.string.isRequired
+}
 
 export default DirectoryBox

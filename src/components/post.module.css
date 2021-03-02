@@ -25,7 +25,7 @@ a.anchor {
   font-weight: bold;
   
   background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%); 
-  color: white; 
+  color: white;
 }
 
 
@@ -46,6 +46,9 @@ footer {
   padding-top: 1rem;
 }
 
+main {
+  padding-right: 1rem; 
+}
 /* ********************************************* */
 /* markdown */
 

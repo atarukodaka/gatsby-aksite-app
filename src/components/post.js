@@ -1,15 +1,17 @@
 import React from "react"
-import { useStaticQuery } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
+import PropTypes from 'prop-types'
 
-import LinkableWrapper from './linkable_wrapper'
+import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
-import PostLink from './post_link'
-import Image from './image'
-import Share from '../components/share'
+import mdxComponents from '../utils/mdx_components'
+import ShareSNS from './share_sns'
 import styles from "./post.module.css"
+import Image from './image'
+
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -18,7 +20,7 @@ const PostHeader = ({ node }) => (
             {node.frontmatter.title}
         </h1>
 
-        <DirectoryBox node={node} />
+        <DirectoryBox directory={node.fields.directory} />
         {node.frontmatter.image && (
             <div className="eyecatchImageWrapper">
                 <Image filename={node.frontmatter.image} />
@@ -32,9 +34,9 @@ const PostHeader = ({ node }) => (
 )
 
 const RenderMDX = ({ body }) => {
-    const shortcuts = { Image, PostLink }
+    //const shortcodes = {Image, PostLink}
     return (
-        <MDXProvider components={shortcuts}>
+        <MDXProvider components={mdxComponents}>
             <div className={styles.numbering_headings}>
                 <MDXRenderer>
                     {body}
@@ -59,7 +61,7 @@ const PostEntire = ({ node }) => {
                 <RenderMDX body={node.body} />
             </main>
             <footer>
-                <Share url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
+                <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
                   title={node.frontmatter.title} />
             </footer>
         </div>
@@ -68,19 +70,20 @@ const PostEntire = ({ node }) => {
 
 const PostExcerpt = ({ node }) => {
     return (
-        <LinkableWrapper to={node.fields.slug}>
+        <LinkHover to={node.fields.slug}>
             <div className={styles.post}>
                 <PostHeader node={node} />
                 <main className={styles.excerpt}>
                     {node.excerpt}
                 </main>
             </div>
-        </LinkableWrapper>
+        </LinkHover>
     )
 }
 
 export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
+
 
 export default Post
