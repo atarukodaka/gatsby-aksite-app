@@ -76,10 +76,7 @@ export default function PostTemplate({ data, pageContext }) {
      >
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
-      <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>
       <Post node={node} />
-
-      
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
       <Siblings nodes={data.siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />
