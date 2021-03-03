@@ -8,21 +8,7 @@ const query = graphql`
     {
         allMdx {
             nodes {
-                id
-                frontmatter {
-                    title
-                    date(formatString: "YYYY-MM-DD")
-                    cover { 
-                        childImageSharp {
-                          fluid(maxWidth: 800) {
-                            ...GatsbyImageSharpFluid
-                          }
-                        }
-                      }
-                    description
-                }
-                excerpt
-                fields { slug, directory }
+                ...postFields
             }
         }
     }

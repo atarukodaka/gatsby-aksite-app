@@ -19,4 +19,18 @@ fragment postFields on Mdx {
   }
   tableOfContents
 }
+
+fragment postFieldsBody on Mdx {
+    ...postFields
+    body
+}
+
+fragment siteInformation on Site {
+    siteMetadata {
+        title
+        author
+        description
+        social { twitter, github }
+    }
+}
 `

@@ -9,14 +9,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 export const query = graphql`
   query {
     site {
-      siteMetadata {
-        title
-        author
-        description
-        social {
-          twitter, github 
-        }
-      }
+      ...siteInformation
     }
   }
 `

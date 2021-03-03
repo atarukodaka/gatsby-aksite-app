@@ -37,12 +37,7 @@ const theme = createMuiTheme({  // #1
 const query = graphql`
 {
     site {
-        siteMetadata {
-            title
-            author
-            description
-            social { twitter }
-        }
+        ...siteInformation
     }
 }
 `

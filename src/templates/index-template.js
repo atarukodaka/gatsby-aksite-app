@@ -8,11 +8,6 @@ import { Box } from '@material-ui/core'
 
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
-    site {
-      siteMetadata {
-        description
-      }
-    }
     allMdx (sort: {fields: frontmatter___date, order: DESC},
       skip: $skip, limit: $limit){
       nodes {

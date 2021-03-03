@@ -23,10 +23,6 @@ const query = graphql`
 
 const Image = ( {filename, maxWidth = "100%"} ) => {
     const data = useStaticQuery(query)
-    const styles = {
-        maxWidth: maxWidth
-    }
-    
     const image = data.images.nodes.find(node => 
         node.relativePath === filename
     )
