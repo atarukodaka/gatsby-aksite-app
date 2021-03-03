@@ -40,8 +40,14 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "YYYY-MM-DD")
-            image
             description
+            cover { 
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
           fields {
             slug, directory

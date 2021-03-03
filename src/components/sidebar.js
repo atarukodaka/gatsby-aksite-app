@@ -30,7 +30,16 @@ const query = graphql`
         sort: {fields: frontmatter___date, order: DESC}
         ) {
         nodes {
-            frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }            
+            frontmatter {
+                title, date(formatString: "YYYY-MM-DD"), description
+                cover {
+                    childImageSharp {
+                        fluid(maxWidth: 800){
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
+            }            
             fields { slug, directory }
             id
             excerpt(pruneLength: 100)

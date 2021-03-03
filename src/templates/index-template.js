@@ -18,7 +18,7 @@ export const data = graphql`
       nodes {
         id
         frontmatter { 
-          title, date(formatString: "YYYY-MM-DD"), image, description 
+          title, date(formatString: "YYYY-MM-DD"), description 
           cover {
             childImageSharp {
               fluid(maxWidth: 800) {

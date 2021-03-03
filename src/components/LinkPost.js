@@ -12,7 +12,13 @@ const query = graphql`
                 frontmatter {
                     title
                     date(formatString: "YYYY-MM-DD")
-                    image
+                    cover { 
+                        childImageSharp {
+                          fluid(maxWidth: 800) {
+                            ...GatsbyImageSharpFluid
+                          }
+                        }
+                      }
                     description
                 }
                 excerpt

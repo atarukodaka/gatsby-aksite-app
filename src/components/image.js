@@ -34,8 +34,8 @@ const Image = ( {filename, maxWidth = "100%"} ) => {
     if (!image) { 
         return (<span>NO SUCH IMAGE: {filename}</span>)
     } 
-    //return (<Img fluid={image.childImageSharp.fluid} />)
-    return (<div style={styles}><Img fluid={image.childImageSharp.fluid} /></div>)
+    return (<Img fluid={image.childImageSharp.fluid} />)
+    //return (<div style={styles}><Img fluid={image.childImageSharp.fluid} /></div>)
 }
 
 Image.propTypes = {
