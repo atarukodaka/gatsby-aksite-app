@@ -11,6 +11,7 @@ import mdxComponents from '../utils/mdx_components'
 import ShareSNS from './share_sns'
 import styles from "./post.module.css"
 import Image from './image'
+import Img from 'gatsby-image'
 
 
 const PostHeader = ({ node }) => (
@@ -21,10 +22,10 @@ const PostHeader = ({ node }) => (
         </h1>
 
         <DirectoryBox directory={node.fields.directory} />
-        {node.frontmatter.image && (
+        {node.frontmatter.featuredImage && (
             <div className="eyecatchImageWrapper">
-                <Image filename={node.frontmatter.image} />
-                { /* <Img fluid={node.frontmatter.image.childImageSharp.fluid}/> */}
+                { /* <Image filename={node.frontmatter.image} /> */ }
+                <Img fluid={node.frontmatter.featuredImage.childImageSharp.fluid}/>
             </div>
         )}
         <div className={styles.description}>

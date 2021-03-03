@@ -7,6 +7,7 @@ import Layout from "../components/layout.js"
 import directoryLabel from '../utils/directory_label'
 import Post from "../components/post.js"
 import PostCard from '../components/post_card'
+import Img from 'gatsby-image'
 
 export const query = graphql`
     query ($slug: String!, $directory: String!) {
@@ -19,9 +20,15 @@ export const query = graphql`
         frontmatter {
           title
           date(formatString: "YYYY-MM-DD")
-          toc
           image
           description
+          featuredImage {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
         fields {
           slug, directory
@@ -69,6 +76,7 @@ export default function PostTemplate({ data, pageContext }) {
      >
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
+      <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>
       <Post node={node} />
 
       
