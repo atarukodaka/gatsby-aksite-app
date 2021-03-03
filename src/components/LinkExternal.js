@@ -23,7 +23,7 @@ const StyledLink = styled.div`
 
 const LinkExternal = ({ children, to }) => (
     <div css={grey_hover}>
-        <a href={to} target="_blank">
+        <a href={to} target="_blank" rel="noreferrer">
             <StyledLink>
                 {children}
                 <LaunchIcon size="small"/>

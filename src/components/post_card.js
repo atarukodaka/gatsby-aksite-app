@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import Image from './image'
+//import Image from './image'
+//import Img from 'gatsby-image'
 import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
+import CoverImage from './CoverImage'
 
 const StyledBox = styled.div`
 margin-top: 1em;
@@ -30,16 +32,13 @@ font-size: small;
 `
 
 export const PostCard = ({ node }) => {
-    const noImageAvailable = "no_image_available.png"
-    const imgsrc = node.frontmatter.image || noImageAvailable
+    //const noImageAvailable = "no_image_available.png"
+    //const imgsrc = node.frontmatter.image || noImageAvailable
 
     return (
         <LinkHover to={node.fields.slug}>
             <StyledBox>
-                <div className="eyecatchImageSmallWrapper">
-                    <Image filename={imgsrc} />
-                </div>
-
+                <CoverImage node={node} className="eyecatchImageSmallWrapper"/>
                 <Date>{node.frontmatter.date}</Date>
                 <Title>{node.frontmatter.title}</Title>
                 <DirectoryBox directory={node.fields.directory} />

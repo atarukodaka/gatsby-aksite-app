@@ -3,15 +3,16 @@ import { useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 
 import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
-import mdxComponents from '../utils/mdx_components'
+import MdxComponents from './MdxComponents'
 import ShareSNS from './share_sns'
 import styles from "./post.module.css"
-import Image from './image'
-
+//import Image from './image'
+//import Img from 'gatsby-image'
+import CoverImage from './CoverImage'
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -21,12 +22,7 @@ const PostHeader = ({ node }) => (
         </h1>
 
         <DirectoryBox directory={node.fields.directory} />
-        {node.frontmatter.image && (
-            <div className="eyecatchImageWrapper">
-                <Image filename={node.frontmatter.image} />
-                { /* <Img fluid={node.frontmatter.image.childImageSharp.fluid}/> */}
-            </div>
-        )}
+        <CoverImage node={node} className="eyecatchImageWrapper"/>
         <div className={styles.description}>
             {node.frontmatter.description}
         </div>
@@ -36,7 +32,7 @@ const PostHeader = ({ node }) => (
 const RenderMDX = ({ body }) => {
     //const shortcodes = {Image, PostLink}
     return (
-        <MDXProvider components={mdxComponents}>
+        <MDXProvider components={MdxComponents}>
             <div className={styles.numbering_headings}>
                 <MDXRenderer>
                     {body}
@@ -84,6 +80,5 @@ const PostExcerpt = ({ node }) => {
 export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
-
 
 export default Post

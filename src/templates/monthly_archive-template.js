@@ -9,22 +9,13 @@ import Layout from "../components/layout.js"
 import { monthlyArchivePath } from '../utils/archive_path'
 
 export const query = graphql`
-    query($fromDate: Date!, $toDate: Date!, $pruneLength: Int!=200, $skip: Int!, $limit: Int!){        
+      query($fromDate: Date!, $toDate: Date!, $skip: Int!, $limit: Int!){        
       allMdx(sort: {fields: frontmatter___date, order: DESC},
         filter: { frontmatter: { date: { gte: $fromDate, lt: $toDate } }},
         skip: $skip, limit: $limit) {
         nodes { 
-          id
-          excerpt(truncate: true, pruneLength: $pruneLength)
-
-          frontmatter {
-            date(formatString: "YYYY-MM-DD"), title, image, description
-          }        
-          fields { 
-            slug, directory
-          }
-          tableOfContents
-        }
+          ...postFields
+        } 
       }
     }
   `

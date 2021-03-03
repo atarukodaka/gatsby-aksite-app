@@ -7,39 +7,19 @@ import Layout from "../components/layout.js"
 import directoryLabel from '../utils/directory_label'
 import Post from "../components/post.js"
 import PostCard from '../components/post_card'
+//import Img from 'gatsby-image'
+//import postFields from '../fragments'
 
 export const query = graphql`
     query ($slug: String!, $directory: String!) {
       site { siteMetadata { siteUrl }}
       mdx(fields: { slug: { eq: $slug }}){
-        id
-        tableOfContents
-        body
-        excerpt(pruneLength: 100)
-        frontmatter {
-          title
-          date(formatString: "YYYY-MM-DD")
-          toc
-          image
-          description
-        }
-        fields {
-          slug, directory
-        }        
+        ...postFieldsBody
+               
       }
       siblings: allMdx(filter: { fields: { directory: { eq: $directory} }}){
         nodes {
-          id
-          excerpt(pruneLength: 100)
-          frontmatter {
-            title
-            date(formatString: "YYYY-MM-DD")
-            image
-            description
-          }
-          fields {
-            slug, directory
-          }
+          ...postFields
         }
       }
     }
@@ -70,8 +50,6 @@ export default function PostTemplate({ data, pageContext }) {
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
       <Post node={node} />
-
-      
 
       <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
       <Siblings nodes={data.siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />

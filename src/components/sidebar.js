@@ -19,21 +19,14 @@ import { PostCard } from './post_card'
 const query = graphql`
 {
     site {
-        siteMetadata {
-            title
-            author
-            social { twitter, github }
-        }                    
+        ...siteInformation               
     }
     recentPosts: allMdx(
         limit: 5,
         sort: {fields: frontmatter___date, order: DESC}
         ) {
         nodes {
-            frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }            
-            fields { slug, directory }
-            id
-            excerpt(pruneLength: 100)
+            ...postFields
         }
     }
 }
