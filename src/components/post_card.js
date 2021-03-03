@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import Image from './image'
-import Img from 'gatsby-image'
+//import Image from './image'
+//import Img from 'gatsby-image'
 import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
+import CoverImage from './CoverImage'
 
 const StyledBox = styled.div`
 margin-top: 1em;
@@ -37,13 +38,7 @@ export const PostCard = ({ node }) => {
     return (
         <LinkHover to={node.fields.slug}>
             <StyledBox>
-                <div className="eyecatchImageSmallWrapper">
-                    { /* <Image filename={imgsrc} /> */ }
-                    { node.frontmatter.cover &&
-                    (<Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>)
-                    }
-                </div>
-
+                <CoverImage node={node} className="eyecatchImageSmallWrapper"/>
                 <Date>{node.frontmatter.date}</Date>
                 <Title>{node.frontmatter.title}</Title>
                 <DirectoryBox directory={node.fields.directory} />
