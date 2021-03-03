@@ -22,10 +22,10 @@ const PostHeader = ({ node }) => (
         </h1>
 
         <DirectoryBox directory={node.fields.directory} />
-        {node.frontmatter.featuredImage && (
+        {node.frontmatter.cover && (
             <div className="eyecatchImageWrapper">
                 { /* <Image filename={node.frontmatter.image} /> */ }
-                <Img fluid={node.frontmatter.featuredImage.childImageSharp.fluid}/>
+                <Img fluid={node.frontmatter.cover.childImageSharp.fluid}/>
             </div>
         )}
         <div className={styles.description}>

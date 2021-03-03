@@ -1,6 +1,7 @@
 ---
 title: Profile
 featuredImage: umamusume.png
+cover: umamusume.png
 ---
 asdfadf
 
