@@ -24,13 +24,13 @@ const query = graphql`
 
 const LinkPost = ({ to }) => { 
     const data = useStaticQuery(query)
-    node = data.allMdx.nodes.find(v => v.fields.slug === to)
+    const node = data.allMdx.nodes.find(v => v.fields.slug === to)
     if (node === undefined) { return <div>NO SUCH SLUG: {to}</div> }
     return (<PostCard node={node} />)
 }
 
 LinkPost.propTypes = {
-    slug: PropTypes.string.isRequired
+    to: PropTypes.string.isRequired
 }
 
 export default LinkPost
