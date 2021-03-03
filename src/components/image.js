@@ -3,9 +3,10 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Img from 'gatsby-image'
 import PropTypes from 'prop-types'
 
+// images: allFile (filter: {sourceInstanceName: {eq: "images"}}){
 const query = graphql`
     {
-        images: allFile (filter: {sourceInstanceName: {eq: "images"}}){
+        images: allFile {
             nodes {
                 relativePath
                 name

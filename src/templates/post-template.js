@@ -20,7 +20,6 @@ export const query = graphql`
         frontmatter {
           title
           date(formatString: "YYYY-MM-DD")
-          image
           description
           cover { 
             childImageSharp {

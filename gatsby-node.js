@@ -21,9 +21,11 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       }
     `);
 };
+//const {fmImagesToRelative} = require('gatsby-remark-relative-images')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
+    //fmImagesToRelative(node)
 
     if (node.internal.type === `Mdx`) {
         const slug = createFilePath({ node, getNode })
