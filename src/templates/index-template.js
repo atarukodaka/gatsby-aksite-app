@@ -7,7 +7,7 @@ import { Pagination } from '@material-ui/lab'
 import { Box } from '@material-ui/core'
 
 export const data = graphql`
-  query ($skip: Int!, $limit: Int!, $pruneLength: Int!=200){
+  query ($skip: Int!, $limit: Int!){
     site {
       siteMetadata {
         description
@@ -16,20 +16,7 @@ export const data = graphql`
     allMdx (sort: {fields: frontmatter___date, order: DESC},
       skip: $skip, limit: $limit){
       nodes {
-        id
-        frontmatter { 
-          title, date(formatString: "YYYY-MM-DD"), description 
-          cover {
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-        excerpt(pruneLength: $pruneLength)
-        fields { slug, directory }
-        tableOfContents
+        ...postFields
       }
     }
   }

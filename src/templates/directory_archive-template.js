@@ -9,30 +9,13 @@ import Layout from "../components/layout.js"
 import { directoryArchivePath } from '../utils/archive_path'
 
 export const query = graphql`
-    query($regex: String!, $pruneLength: Int!=100, $skip: Int!, $limit: Int!){        
+    query($regex: String!, $skip: Int!, $limit: Int!){        
       allMdx(sort:  {fields: frontmatter___date, order: DESC},
         filter: {fields: {directory: {regex: $regex}}},
         skip: $skip, limit: $limit
          ) {
         nodes { 
-          id
-          excerpt(truncate: true, pruneLength: $pruneLength)
-          
-          tableOfContents
-          frontmatter {
-            date(formatString: "YYYY-MM-DD"), title, description
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }     
-          fields { 
-            slug, directory
-          }   
-          
+          ...postFields
         }
       }
     }
