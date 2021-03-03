@@ -21,6 +21,13 @@ export const query = graphql`
           tableOfContents
           frontmatter {
             date(formatString: "YYYY-MM-DD"), title, image, description
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }     
           fields { 
             slug, directory
@@ -40,7 +47,7 @@ export default function DirectoryArchiveTemplate({ data, pageContext }) {
   const { directory, numberOfPages, humanPageNumber } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
   //const current_directory = directory.split('/').slice(-1)
-  const label = crumbs.slice(1).map(v=> v.crumbLabel).join('/')
+  const label = crumbs.slice(1).map(v => v.crumbLabel).join('/')
   const title = `DIRECTORY: ${label}`
 
   return (
@@ -48,13 +55,13 @@ export default function DirectoryArchiveTemplate({ data, pageContext }) {
       <Breadcrumb crumbs={crumbs} />
       <h1 className="pageTitle">{title}</h1>
       {
-        data.allMdx.nodes.map(node=>(
-          <Post excerptify={true} node={node} key={node.id}/>
+        data.allMdx.nodes.map(node => (
+          <Post excerptify={true} node={node} key={node.id} />
         ))
       }
 
       <Box display="flex" justifyContent="center" m={3}>
-        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(_e,p) => { handleChange(directory, p) }} />
+        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(_e, p) => { handleChange(directory, p) }} />
       </Box>
     </Layout>
   )

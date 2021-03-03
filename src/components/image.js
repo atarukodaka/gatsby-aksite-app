@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 // images: allFile (filter: {sourceInstanceName: {eq: "images"}}){
 const query = graphql`
     {
-        images: allFile {
+        images: allFile (filter: {childrenImageSharp: {elemMatch: {id: {ne: null}}}}){
             nodes {
                 relativePath
                 name

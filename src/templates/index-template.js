@@ -17,7 +17,16 @@ export const data = graphql`
       skip: $skip, limit: $limit){
       nodes {
         id
-        frontmatter { title, date(formatString: "YYYY-MM-DD"), image, description }
+        frontmatter { 
+          title, date(formatString: "YYYY-MM-DD"), image, description 
+          cover {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
         excerpt(pruneLength: $pruneLength)
         fields { slug, directory }
         tableOfContents
