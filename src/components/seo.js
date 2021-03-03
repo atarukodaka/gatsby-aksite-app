@@ -7,26 +7,19 @@ import { useLocation } from "@reach/router"
 const query = graphql`
 {
     site {
-        siteMetadata {
-            siteTitle: title
-            author
-            siteDescription: description
-            siteUrl
-            social { twitter }
-        }
+        ...siteInformation
     }
 }
 `
 const SEO = ( { title, description, image, lang } ) => {
     const data = useStaticQuery(query)
     const { pathname } = useLocation()
-    const { siteUrl } = data.site.siteMetadata
+    const siteUrl = data.site.siteMetadata.siteUrl
     const twitterUsername = data.site.siteMetadata.social.twitter
     const url = [siteUrl, pathname].join('/')
     
     const imageUrl = (image) ? [siteUrl, "images", image].join('/') : [siteUrl, "images/top.png"].join('/')
   
-
     return (
         <Helmet
             htmlAttributes={ (lang) ? { lang: lang } : {} }

@@ -8,15 +8,7 @@ const query = graphql`
     {
         allMdx {
             nodes {
-                id
-                frontmatter {
-                    title
-                    date(formatString: "YYYY-MM-DD")
-                    image
-                    description
-                }
-                excerpt
-                fields { slug, directory }
+                ...postFields
             }
         }
     }

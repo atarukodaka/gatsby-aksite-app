@@ -22,6 +22,9 @@ const crumbLabelUpdates = (config.directory_labels) ? Object.keys(config.directo
 module.exports = {
   siteMetadata: config.siteMetadata,
   plugins: [
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -36,6 +39,14 @@ module.exports = {
         path: `${__dirname}/content/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pages`,
+        path: `${__dirname}/src/pages`,
+      },
+    },
+    
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -129,8 +140,6 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-emotion`,
     // self-made-prlugins

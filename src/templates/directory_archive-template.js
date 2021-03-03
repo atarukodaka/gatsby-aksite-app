@@ -9,23 +9,13 @@ import Layout from "../components/layout.js"
 import { directoryArchivePath } from '../utils/archive_path'
 
 export const query = graphql`
-    query($regex: String!, $pruneLength: Int!=100, $skip: Int!, $limit: Int!){        
+    query($regex: String!, $skip: Int!, $limit: Int!){        
       allMdx(sort:  {fields: frontmatter___date, order: DESC},
         filter: {fields: {directory: {regex: $regex}}},
         skip: $skip, limit: $limit
          ) {
         nodes { 
-          id
-          excerpt(truncate: true, pruneLength: $pruneLength)
-          
-          tableOfContents
-          frontmatter {
-            date(formatString: "YYYY-MM-DD"), title, image, description
-          }     
-          fields { 
-            slug, directory
-          }   
-          
+          ...postFields
         }
       }
     }
@@ -40,7 +30,7 @@ export default function DirectoryArchiveTemplate({ data, pageContext }) {
   const { directory, numberOfPages, humanPageNumber } = pageContext
   const { breadcrumb: { crumbs } } = pageContext
   //const current_directory = directory.split('/').slice(-1)
-  const label = crumbs.slice(1).map(v=> v.crumbLabel).join('/')
+  const label = crumbs.slice(1).map(v => v.crumbLabel).join('/')
   const title = `DIRECTORY: ${label}`
 
   return (
@@ -48,13 +38,13 @@ export default function DirectoryArchiveTemplate({ data, pageContext }) {
       <Breadcrumb crumbs={crumbs} />
       <h1 className="pageTitle">{title}</h1>
       {
-        data.allMdx.nodes.map(node=>(
-          <Post excerptify={true} node={node} key={node.id}/>
+        data.allMdx.nodes.map(node => (
+          <Post excerptify={true} node={node} key={node.id} />
         ))
       }
 
       <Box display="flex" justifyContent="center" m={3}>
-        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(_e,p) => { handleChange(directory, p) }} />
+        <Pagination count={numberOfPages} page={humanPageNumber} onChange={(_e, p) => { handleChange(directory, p) }} />
       </Box>
     </Layout>
   )

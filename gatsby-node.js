@@ -17,12 +17,15 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       }
       type MdxFrontmatter {
           description: String
+          cover: File
       }
     `);
 };
+//const {fmImagesToRelative} = require('gatsby-remark-relative-images')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
+    //fmImagesToRelative(node)
 
     if (node.internal.type === `Mdx`) {
         const slug = createFilePath({ node, getNode })
