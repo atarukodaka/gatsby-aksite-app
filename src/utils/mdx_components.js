@@ -1,6 +1,6 @@
 import Image from '../components/image'
-import LinkPost from '../components/link_post'
-import LinkExternal from '../components/link_external'
+import LinkPost from '../components/LinkPost'
+import LinkExternal from '../components/LinkExternal'
 
 const mdxComponents = () => {
     return {Image, LinkPost, LinkExternal }

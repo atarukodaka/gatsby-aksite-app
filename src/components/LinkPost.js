@@ -22,15 +22,11 @@ const query = graphql`
     }
 `
 
-const LinkPost = ({ node, to }) => { // specify post by either node or to(slug)
+const LinkPost = ({ to }) => { 
     const data = useStaticQuery(query)
-    if (node === undefined){
-        node = data.allMdx.nodes.find(v => v.fields.slug === to)
-        if (node === undefined) { return <div>NO SUCH SLUG: {to}</div> }
-    }
-    return (
-        <PostCard node={node} />
-    )
+    node = data.allMdx.nodes.find(v => v.fields.slug === to)
+    if (node === undefined) { return <div>NO SUCH SLUG: {to}</div> }
+    return (<PostCard node={node} />)
 }
 
 LinkPost.propTypes = {
