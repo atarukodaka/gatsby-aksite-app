@@ -70,7 +70,7 @@ const Post = ({ node }) => {
                 <div>{node.frontmatter.date}</div>
                 <Title>{node.frontmatter.title}</Title>
                 <DirectoryBox directory={node.fields.directory} />
-                <CoverImage node={node} className="eyecatchImageWrapper" />
+                <CoverImage node={node}/>
                 <Description>{node.frontmatter.description}</Description>
             </Header>
             <Main>

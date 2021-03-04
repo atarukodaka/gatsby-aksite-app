@@ -29,7 +29,7 @@ export const PostCard = ({ node }) => (
     <HoverBox>
         <Link to={node.fields.slug}>
             <Card>
-                <CoverImage node={node} className="eyecatchImageSmallWrapper" />
+                <CoverImage node={node} size="small" />
                 <Date>{node.frontmatter.date}</Date>
                 <Title>{node.frontmatter.title}</Title>
                 <DirectoryBox directory={node.fields.directory} />

@@ -5,7 +5,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
 import MonthlyArchives from './MonthlyArchives'
-import DirectoryArchives from './DirectoryArchives'
+import DirectoryTree from './DirectoryTree'
 import Card from './Card'
 import RecentPosts from './RecentPosts'
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
 
             <Card>
                 <h3>Directories</h3>
-                <DirectoryArchives />
+                <DirectoryTree />
             </Card>
 
             <Card>

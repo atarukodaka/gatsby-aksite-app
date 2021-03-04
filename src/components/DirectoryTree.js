@@ -8,6 +8,7 @@ import { css } from '@emotion/react'
 import directoryLabel from '../utils/directory_label'
 import { directoryArchivePath } from '../utils/archive_path'
 // import styles from './directory_archives.module.css'
+import HoverBox from './HoverBox'
 
 const ListToTree = require('list-to-tree')
 
@@ -22,15 +23,15 @@ const query = graphql`
 }
 `
 
-const DirectoryArchives = () => {
+const DirectoryTree = () => {
     const data = useStaticQuery(query)
 
     const list = []
-    
-    data.mdxPages.nodes.filter(v=>v.fields.directory !== "").forEach(node => {
+
+    data.mdxPages.nodes.filter(v => v.fields.directory !== "").forEach(node => {
         const directory = node.fields.directory
         const item = list.find(v => v.name === directory)
-        if (item === undefined){
+        if (item === undefined) {
             const parts = directory.split('/')
             //const label = parts.pop()
             //const label = config.directory_labels[`/${parts.join('/')}`] || parts.slice(-1)
@@ -46,15 +47,15 @@ const DirectoryArchives = () => {
             list.push({ id: directory, parent: parent_id, name: directory, label: label, totalCount: 0 })
         }
     })
-    
-    list.forEach(node=>{
+
+    list.forEach(node => {
         const re = new RegExp(`^${node.name}`)
-        node.totalCount = data.mdxPages.nodes.filter(v=> re.test(v.fields.directory)).length
+        node.totalCount = data.mdxPages.nodes.filter(v => re.test(v.fields.directory)).length
     })
-  
+
     const tree = new ListToTree(list).GetTree()
 
-    return (<Tree items={tree}/>)
+    return (<Tree items={tree} />)
 }
 
 const cssTree = css`
@@ -63,24 +64,28 @@ const cssTree = css`
 
 const cssItem = css`
     list-style: none;
-    margin-bottom: 0.2em;
-
+    
     a {
         text-decoration: none;
     }
 `
 
 const Tree = ({ items }) => (
-        <ul css={cssTree}>
-            {
-                items.map(v => (
-                    <li key={v.id} css={cssItem}>
-                        <Link to={directoryArchivePath(v.name)}>{v.label || v.name} ({v.totalCount})</Link>
-                        { v.child && (<Tree items={v.child}></Tree>)}
-                    </li>
-                )
-                )
-            }
-        </ul>)
+    <ul css={cssTree}>
+        {
+            items.map(v => (
+                <li key={v.id} css={cssItem}>
+                    <HoverBox>
+                        <Link to={directoryArchivePath(v.name)}>
+                            {v.label || v.name} ({v.totalCount})
+                        </Link>
+                    </HoverBox>
+                    { v.child && (<Tree items={v.child}></Tree>)}
 
-export default DirectoryArchives
+                </li>
+            )
+            )
+        }
+    </ul>)
+
+export default DirectoryTree

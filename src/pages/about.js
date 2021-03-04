@@ -32,7 +32,11 @@ const AboutPage = ({ data, pageContext }) => {
         <a href={twitterUrl}><TwitterIcon aria-label="button" /></a>
         <a href={gitHubUrl}><GitHubIcon aria-label="button" /></a>
       </div>
-      <LinkPost to="/game/umamusume/">top</LinkPost>
+      <LinkPost to="/game/umamusume/"/>
+      <LinkPost to="/">top</LinkPost>
+      <LinkPost to="/archives/202002">archives</LinkPost>
+
+
     </Layout>
   )
 }

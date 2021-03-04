@@ -13,7 +13,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { css } from '@emotion/react'
 
 import MonthlyArchives from './MonthlyArchives'
-import DirectoryArchives from './DirectoryArchives'
+import DirectoryTree from './DirectoryTree'
 import SEO from './SEO'
 import GoogleSearch from './GoogleSearch'
 import Sidebar from './Sidebar'
@@ -91,7 +91,7 @@ const TopPane = ({ siteTitle, siteDescription }) => {
                     <nav>
                         <GoogleSearch cx={gcse_cx}/>
                         <h3>Directories</h3>
-                        <DirectoryArchives />
+                        <DirectoryTree />
                         <Divider />
                         <h3>Monthly</h3>
                         <MonthlyArchives />
