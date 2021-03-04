@@ -9,7 +9,8 @@ export default ({ pageContext}) => {
     return (
         <Layout>
             <Breadcrumb crumbs={crumbs} crumbLabel='Directory Archives'/>
-            <h3>Directory Archives</h3>
+            <h1 className="pageTitle">Directory Archives</h1>
+            
             <DirectoryTree/>
         </Layout>
     )

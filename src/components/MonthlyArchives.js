@@ -6,14 +6,15 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import PropTypes from 'prop-types'
 
 import { monthlyArchivePath } from '../utils/archive_path'
+import DirectoryLabel from '../utils/directory_label'
 
 const query = graphql`
 {
     mdxPages: allMdx {
         nodes {
             id
-            fields { slug }
-            frontmatter { date(formatString: "YYYY-MM-DD") }
+            fields { slug, directory }
+            frontmatter { title, date(formatString: "YYYY-MM-DD") }
         }
     }
 
@@ -28,24 +29,27 @@ const createMonthlyArchiveList = (  nodes  ) => {
         const month = date.getMonth() + 1
         const yyyymm = year.toString() + (month).toString().padStart(2,0)
     
-        const item = list.find(v=>v.id === yyyymm)
+        let item = list.find(v=>v.id === yyyymm)
         if (item === undefined){
-            list.push({id: yyyymm, year: year, month: month, date: date, 
+            item = {id: yyyymm, year: year, month: month, date: date, 
                 path: monthlyArchivePath(year, month),
-                countTotal: 1})
+                nodes: [], countTotal: 1}
+            list.push(item)
         } else {
             item.countTotal ++
         }
+        item.nodes.push(node)
     })
     return list
 }
 
-const MonthlyArchives = ( { expandAll } ) => {
+const MonthlyArchives = (  ) => {
     const data = useStaticQuery(query)
     const list = createMonthlyArchiveList(data.mdxPages.nodes)
     const years = [...new Set(list.map(v=>v.year))].sort((a, b) => b-a)
     
-    const defaultExpanded = ( expandAll) ? years : []
+    //const defaultExpanded = ( expandAll) ? years : []
+    const defaultExpanded = [] // TODO
 
     //  
     return (
@@ -56,13 +60,21 @@ const MonthlyArchives = ( { expandAll } ) => {
     >
             {
                 years.map(year=>{
-                    const nodes = list.filter(v=> v.year === year)
-                    const countTotal = nodes.reduce((prev, curr) => prev + curr.countTotal, 0)
+                    const items = list.filter(v=> v.year === year)
+                    const countTotal = items.reduce((prev, curr) => prev + curr.countTotal, 0)
                     
                     return (<TreeItem key={year} nodeId={year.toString()} label={ `${year} (${countTotal})`}>
                         {
-                            nodes.map(node=>(
-                                <TreeItem key={node.id} nodeId={node.id} label={`${node.year}/${node.month} (${node.countTotal})`} onLabelClick={() => { navigate(node.path) }}/> 
+                            items.map(item=>(
+                                <TreeItem key={item.id} nodeId={item.id} 
+                                 label={`${item.year}/${item.month} (${item.countTotal})`}
+                                 onLabelClick={() => { navigate(item.path) }}>
+                                    { item.nodes.map(node=>(
+                                        <TreeItem key={node.id} label={`${node.frontmatter.title}[${DirectoryLabel(node.fields.directory)}]`}
+                                         onLabelClick={() => { navigate(node.fields.slug) }}></TreeItem>
+                                    ))
+                                    }
+                                </TreeItem> 
                             ))
                         }
                     </TreeItem>
