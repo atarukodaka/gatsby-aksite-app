@@ -4,9 +4,10 @@ import React from 'react'
 import styled from '@emotion/styled'
 import LaunchIcon from '@material-ui/icons/Launch';
 
-import { grey_hover } from './link_hover'
+//import { grey_hover } from './link_hover'
+import { HoverBox, Card } from './LinkCard'
 
-
+/*
 const StyledLink = styled.div`
     padding: 1rem;
     box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
@@ -20,16 +21,17 @@ const StyledLink = styled.div`
         background-color: #ccc;
     }
 `
+*/
 
 const LinkExternal = ({ children, to }) => (
-    <div css={grey_hover}>
+    <HoverBox>
         <a href={to} target="_blank" rel="noreferrer">
-            <StyledLink>
+            <Card>
                 {children}
                 <LaunchIcon size="small"/>
-            </StyledLink>
+            </Card>
         </a>
-    </div>
+    </HoverBox>
     
 )
 

@@ -17,7 +17,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       }
       type MdxFrontmatter {
           description: String
-          cover: File
+          cover: File @fileByRelativePath
       }
     `);
 };

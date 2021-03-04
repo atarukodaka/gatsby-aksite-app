@@ -5,7 +5,8 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
 //import PropTypes from 'prop-types'
 
-import LinkHover from './link_hover'
+//import LinkHover from './link_hover'
+import { Link } from 'gatsby'
 import DirectoryBox from './directory_box'
 import MdxComponents from './MdxComponents'
 import ShareSNS from './share_sns'
@@ -13,6 +14,7 @@ import styles from "./post.module.css"
 //import Image from './image'
 //import Img from 'gatsby-image'
 import CoverImage from './CoverImage'
+import { LinkCard } from './LinkCard'
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>
@@ -46,7 +48,7 @@ const query = graphql`
     { site { siteMetadata { siteUrl }} }
 `    
 
-const PostEntire = ({ node }) => {
+const Post = ({ node }) => {
     const data = useStaticQuery(query)
     const { pathname } = useLocation()
 
@@ -64,21 +66,22 @@ const PostEntire = ({ node }) => {
     )
 }
 
+/*
 const PostExcerpt = ({ node }) => {
     return (
-        <LinkHover to={node.fields.slug}>
+        <LinkCard to={node.fields.slug}>
             <div className={styles.post}>
                 <PostHeader node={node} />
                 <main className={styles.excerpt}>
                     {node.excerpt}
                 </main>
             </div>
-        </LinkHover>
+        </LinkCard>
     )
 }
 
 export const Post = ({ node, excerptify }) => {
     return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
 }
-
+*/
 export default Post

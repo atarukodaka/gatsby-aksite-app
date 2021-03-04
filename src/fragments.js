@@ -1,9 +1,11 @@
 import { graphql } from 'gatsby'
 
+console.log("fragments.js loaded")
+
 export const postFields = graphql`
 fragment postFields on Mdx {
   id
-  excerpt(pruneLength: 200)
+  excerpt(pruneLength: 100)
   frontmatter {
     date(formatString: "YYYY-MM-DD"), title, description
     cover {

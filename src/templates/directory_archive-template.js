@@ -4,7 +4,7 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Box from '@material-ui/core/Box'
 import { Pagination } from '@material-ui/lab'
 
-import { Post } from "../components/post.js"
+import { PostCard } from "../components/post_card.js"
 import Layout from "../components/layout.js"
 import { directoryArchivePath } from '../utils/archive_path'
 
@@ -39,7 +39,7 @@ export default function DirectoryArchiveTemplate({ data, pageContext }) {
       <h1 className="pageTitle">{title}</h1>
       {
         data.allMdx.nodes.map(node => (
-          <Post excerptify={true} node={node} key={node.id} />
+          <PostCard node={node} key={node.id} />
         ))
       }
 

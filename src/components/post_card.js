@@ -1,19 +1,9 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-//import Image from './image'
-//import Img from 'gatsby-image'
-import LinkHover from './link_hover'
 import DirectoryBox from './directory_box'
 import CoverImage from './CoverImage'
-
-const StyledBox = styled.div`
-margin-top: 1em;
-margin-bottom: 1em;
-padding-top: 1em;
-padding-bottom: 1em;
-box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
-`
+import LinkCard from './LinkCard'
 
 const Title = styled.div`
     font-weight: bold;
@@ -30,23 +20,18 @@ const Excerpt = styled.div`
 const Date = styled.div`
 font-size: small;
 `
-
-export const PostCard = ({ node }) => {
-    //const noImageAvailable = "no_image_available.png"
-    //const imgsrc = node.frontmatter.image || noImageAvailable
-
-    return (
-        <LinkHover to={node.fields.slug}>
-            <StyledBox>
-                <CoverImage node={node} className="eyecatchImageSmallWrapper"/>
-                <Date>{node.frontmatter.date}</Date>
-                <Title>{node.frontmatter.title}</Title>
-                <DirectoryBox directory={node.fields.directory} />
-                <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
-                <div style={{ clear: "both" }} />
-            </StyledBox>
-        </LinkHover>
-    )
-}
+const ClearImage = styled.div`
+    clear: both;
+`
+export const PostCard = ({ node }) => (
+    <LinkCard to={node.fields.slug}>
+        <CoverImage node={node} className="eyecatchImageSmallWrapper" />
+        <Date>{node.frontmatter.date}</Date>
+        <Title>{node.frontmatter.title}</Title>
+        <DirectoryBox directory={node.fields.directory} />
+        <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
+        <ClearImage/>
+    </LinkCard>
+)
 
 export default PostCard

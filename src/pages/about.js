@@ -4,7 +4,8 @@ import { graphql } from 'gatsby'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
-
+import { Card, LinkCard} from '../components/LinkCard'
+import { Link } from 'gatsby'
 
 export const query = graphql`
   query {
@@ -31,6 +32,7 @@ const AboutPage = ({ data, pageContext }) => {
         <a href={twitterUrl}><TwitterIcon aria-label="button" /></a>
         <a href={gitHubUrl}><GitHubIcon aria-label="button" /></a>
       </div>
+      <LinkCard to="/">top</LinkCard>
     </Layout>
   )
 }
