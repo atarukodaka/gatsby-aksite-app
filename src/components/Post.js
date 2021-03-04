@@ -33,6 +33,7 @@ const Header = styled.header`
     box-shadow: 0px 1px rgb(0 0 0 / 10%)
 `
 const Main = styled.main`
+    margin-top: 1rem;
     padding-bottom: 1rem;
     padding-right: 1rem; 
 `
@@ -99,7 +100,7 @@ const Post = ({ node, siblings, prevPost, nextPost }) => {
     const { pathname } = useLocation()
 
     return (
-        <div css={cssPost}>
+        <div css={cssPost} className={styles.post}>
             <Header>
                 <div>{node.frontmatter.date}</div>
                 <Title>{node.frontmatter.title}</Title>

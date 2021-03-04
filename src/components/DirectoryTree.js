@@ -1,7 +1,7 @@
 import React from 'react'
-import { useStaticQuery, Link, graphql, navigate } from "gatsby"
+import { useStaticQuery, graphql, navigate } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
-import { css } from '@emotion/react'
+//import { css } from '@emotion/react'
 import { TreeView, TreeItem } from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
@@ -12,7 +12,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import directoryLabel from '../utils/directory_label'
 import { directoryArchivePath } from '../utils/archive_path'
 // import styles from './directory_archives.module.css'
-import HoverBox from './HoverBox'
+//import HoverBox from './HoverBox'
 
 const ListToTree = require('list-to-tree')
 
@@ -84,13 +84,14 @@ const DirectoryTree = () => {
 }
 
 const Tree = ({item}) => (
-    <TreeItem label={`${item.label} (${item.totalCount})`} nodeId={item.name} onClick={() => {}} onLabelClick={(e) => {e.preventDefault(); navigate('/' + item.name)}}>
+    <TreeItem label={`${item.label} (${item.totalCount})`} nodeId={item.name}
+        onClick={() => {}} 
+        onLabelClick={(e) => {e.preventDefault(); navigate(directoryArchivePath(item.name))}}>
         { item.child && ( item.child.map(v => (<Tree item={v}/>)) ) }
     </TreeItem>
 )
 
 /*
-
 const cssTree = css`
     margin-top: 0.2em;
 `
