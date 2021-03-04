@@ -1,11 +1,13 @@
 import React from "react"
 import { graphql, navigate } from "gatsby"
+/*
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Layout from "../components/layout.js"
 import { Post } from "../components/post.js"
 import { PostCard } from '../components/post_card'
 import { Pagination } from '@material-ui/lab'
 import { Box } from '@material-ui/core'
+*/
 
 import ArchiveTemplate from './archive_template'
 
