@@ -33,10 +33,10 @@ const createMonthlyArchiveList = (  nodes  ) => {
         if (item === undefined){
             item = {id: yyyymm, year: year, month: month, date: date, 
                 path: monthlyArchivePath(year, month),
-                nodes: [], countTotal: 1}
+                nodes: []} // , countTotal: 1}
             list.push(item)
-        } else {
-            item.countTotal ++
+        //} else {
+           // item.countTotal ++
         }
         item.nodes.push(node)
     })
@@ -61,13 +61,14 @@ const MonthlyArchives = (  ) => {
             {
                 years.map(year=>{
                     const items = list.filter(v=> v.year === year)
-                    const countTotal = items.reduce((prev, curr) => prev + curr.countTotal, 0)
+                    //const countTotal = items.reduce((prev, curr) => prev + curr.countTotal, 0)
+                    const countTotal = items.reduce((prev, curr) => prev + curr.nodes.length, 0)
                     
                     return (<TreeItem key={year} nodeId={year.toString()} label={ `${year} (${countTotal})`}>
                         {
                             items.map(item=>(
                                 <TreeItem key={item.id} nodeId={item.id} 
-                                 label={`${item.year}/${item.month} (${item.countTotal})`}
+                                 label={`${item.year}/${item.month} (${item.nodes.length})`}
                                  onLabelClick={() => { navigate(item.path) }}>
                                     { item.nodes.map(node=>(
                                         <TreeItem key={node.id} label={`${node.frontmatter.title}[${DirectoryLabel(node.fields.directory)}]`}
