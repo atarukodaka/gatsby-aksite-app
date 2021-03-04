@@ -7,6 +7,8 @@ import { PostCard } from '../components/post_card'
 import { Pagination } from '@material-ui/lab'
 import { Box } from '@material-ui/core'
 
+import ArchiveTemplate from './archive_template'
+
 export const data = graphql`
   query ($skip: Int!, $limit: Int!){
     allMdx (sort: {fields: frontmatter___date, order: DESC},
@@ -22,12 +24,22 @@ const IndexTemplate = ( { data, pageContext } ) => {
   const { humanPageNumber, numberOfPages } = pageContext;
   const { breadcrumb: { crumbs } } = pageContext
 
-  const label = (humanPageNumber === 1) ? crumbs[0].crumbLabel : `index [${humanPageNumber}]`
+  const title = (humanPageNumber === 1) ? crumbs[0].crumbLabel : `index [${humanPageNumber}]`
   
   const handleChange = (_event, p) => {
     navigate((p === 1) ? '/' : `/${p}`)
   }
 
+  const pagination_parameters = {
+    numberOfPages: numberOfPages,
+    humanPageNumber: humanPageNumber,
+    onChangeHandler: handleChange
+  }
+  return (<ArchiveTemplate title={title} nodes={data.allMdx.nodes} crumbs={crumbs}
+    pagination_parameters={pagination_parameters}
+    showTitle={false}/>)
+    
+  /*
   return (
     <Layout title={label}>  
       <Breadcrumb crumbs={crumbs} crumbLabel={label}/>
@@ -41,6 +53,7 @@ const IndexTemplate = ( { data, pageContext } ) => {
       </Box>
     </Layout>    
   )
+  */
 }
 
 export default IndexTemplate
