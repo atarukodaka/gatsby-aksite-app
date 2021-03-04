@@ -1,7 +1,7 @@
 import React from 'react'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import DirectoryArchives from '../components/directory_archives'
-import Layout from '../components/layout'
+import DirectoryTree from '../components/DirectoryTree'
+import Layout from '../components/Layout'
 
 export default ({ pageContext}) => {
     const { breadcrumb: { crumbs } } = pageContext
@@ -9,8 +9,9 @@ export default ({ pageContext}) => {
     return (
         <Layout>
             <Breadcrumb crumbs={crumbs} crumbLabel='Directory Archives'/>
-            <h3>Directory Archives</h3>
-            <DirectoryArchives/>
+            <h1 className="pageTitle">Directory Archives</h1>
+            
+            <DirectoryTree/>
         </Layout>
     )
 }

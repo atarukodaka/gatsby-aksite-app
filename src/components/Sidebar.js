@@ -1,11 +1,12 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+//import { Box } from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
 import MonthlyArchives from './MonthlyArchives'
-import DirectoryArchives from './DirectoryArchives'
-import { Card } from './Card'
+import DirectoryTree from './DirectoryTree'
+import Card from './Card'
 import RecentPosts from './RecentPosts'
 
 const query = graphql`
@@ -42,7 +43,7 @@ const Sidebar = () => {
 
             <Card>
                 <h3>Directories</h3>
-                <DirectoryArchives />
+                <DirectoryTree />
             </Card>
 
             <Card>

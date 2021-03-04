@@ -7,6 +7,7 @@ const config = {
     siteUrl: 'https://atarukodaka.github.io',
     //siteUrl: 'https://cranky-williams-77ca16.netlify.app',
     //siteUrl: `http://localhost:8000/`,
+    coverImage: '/images/top.png',
     social: {
       twitter: 'ataru_kodaka',
       github: 'atarukodaka',
@@ -26,8 +27,6 @@ directory_labels: {
     "/figureskating/practise": "銀盤練習",
     "/hobby": "趣味"
   },
-
-
 }
 
 module.exports = config;

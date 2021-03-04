@@ -12,13 +12,15 @@ const query = graphql`
 }
 `
 const SEO = ( { title, description, image, lang } ) => {
-    const data = useStaticQuery(query)
+    const { site }  = useStaticQuery(query)
     const { pathname } = useLocation()
-    const siteUrl = data.site.siteMetadata.siteUrl
-    const twitterUsername = data.site.siteMetadata.social.twitter
+    const siteUrl = site.siteMetadata.siteUrl
+    const twitterUsername = site.siteMetadata.social.twitter
+    const coverImage = site.siteMetadata.coverImage
     const url = [siteUrl, pathname].join('/')
     
-    const imageUrl = (image) ? [siteUrl, "images", image].join('/') : [siteUrl, "images/top.png"].join('/')
+    //const imageUrl = (image) ? [siteUrl, "images", image].join('/') : [siteUrl, "images/top.png"].join('/')
+    const imageUrl = siteUrl + coverImage
   
     return (
         <Helmet

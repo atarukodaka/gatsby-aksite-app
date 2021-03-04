@@ -1,10 +1,11 @@
 import React from "react"
-import Layout from "../components/layout.js"
 import { graphql } from 'gatsby'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
+import Layout from "../components/Layout"
+import LinkPost from '../components/LinkPost'
 
 export const query = graphql`
   query {
@@ -31,6 +32,11 @@ const AboutPage = ({ data, pageContext }) => {
         <a href={twitterUrl}><TwitterIcon aria-label="button" /></a>
         <a href={gitHubUrl}><GitHubIcon aria-label="button" /></a>
       </div>
+      <LinkPost to="/game/umamusume/"/>
+      <LinkPost to="/">top</LinkPost>
+      <LinkPost to="/archives/202002">archives</LinkPost>
+
+
     </Layout>
   )
 }

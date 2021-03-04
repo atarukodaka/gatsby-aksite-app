@@ -1,23 +1,19 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
-import Grid from '@material-ui/core/Grid'
 
-import Layout from "../components/layout.js"
-import directoryLabel from '../utils/directory_label'
-import Post from "../components/post.js"
-import PostCard from '../components/post_card'
-//import Img from 'gatsby-image'
-//import postFields from '../fragments'
+import Layout from "../components/Layout"
+import Post from "../components/Post"
 
 export const query = graphql`
-    query ($slug: String!, $directory: String!) {
+    query ($slug: String!) {
       site { siteMetadata { siteUrl }}
       mdx(fields: { slug: { eq: $slug }}){
         ...postFieldsBody
                
       }
-      siblings: allMdx(filter: { fields: { directory: { eq: $directory} }}){
+
+      allMdx(sort: {fields: frontmatter___date, order: ASC}) {
         nodes {
           ...postFields
         }
@@ -26,33 +22,26 @@ export const query = graphql`
 
 `
 
-const Siblings = ( { nodes }) => (
-  <nav>
-    <Grid container spacing={3}>
-      {nodes.slice(0, 9).map(v =>
-        (<Grid item xs={12} sm={6} key={v.id}><PostCard node={v} /></Grid>))
-      }
-    </Grid>
-  </nav>
-)
-
 export default function PostTemplate({ data, pageContext }) {
+  console.log(`create/template: ${data.mdx.fields.slug}`)
   const node = data.mdx
-  
   const { breadcrumb: { crumbs } } = pageContext
   
-  console.log(`create/template: ${node.fields.slug}`)
+  const image_url = node.frontmatter.cover?.publicURL
+  const index = data.allMdx.nodes.map(v=>v.id).indexOf(node.id)
+  const prevPost = (index > 0) ? data.allMdx.nodes[index-1] : null
+  const nextPost = (index < data.allMdx.nodes.length) ? data.allMdx.nodes[index+1] : null
+  const siblings = data.allMdx.nodes.filter(v=> 
+      (v.id !== node.id) && (v.fields.directory === node.fields.directory))
 
   return (
-    <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} 
-     image={node.frontmatter.image} tableOfContents={node.tableOfContents} 
-     >
+    <Layout title={node.frontmatter.title} 
+      description={node.frontmatter.description || node.excerpt} 
+      image={image_url} tableOfContents={node.tableOfContents} >
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 
-      <Post node={node} />
-
-      <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
-      <Siblings nodes={data.siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />
+      <Post node={node} siblings={siblings}
+        prevPost={prevPost} nextPost={nextPost}/>
     </Layout>
   )
 }

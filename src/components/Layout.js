@@ -12,11 +12,12 @@ import { Drawer, IconButton, Divider } from '@material-ui/core'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { css } from '@emotion/react'
 
-import MonthlyArchives from './monthly_archives'
-import DirectoryArchives from './directory_archives'
-import SEO from './seo'
-import GoogleSearch from './google_search'
-import Sidebar from './sidebar.js'
+import MonthlyArchives from './MonthlyArchives'
+import DirectoryTree from './DirectoryTree'
+import SEO from './SEO'
+import GoogleSearch from './GoogleSearch'
+import Sidebar from './Sidebar'
+//import useSiteInformation from '../hooks/use_site_information'
 
 //import styles from './layout.module.css'
 
@@ -34,13 +35,7 @@ const theme = createMuiTheme({  // #1
         
     },
 })
-const query = graphql`
-{
-    site {
-        ...siteInformation
-    }
-}
-`
+
 ////////////////////////////////////////////////////////////////
 // Top
 const cssSiteTitle = css`
@@ -91,7 +86,7 @@ const TopPane = ({ siteTitle, siteDescription }) => {
                     <nav>
                         <GoogleSearch cx={gcse_cx}/>
                         <h3>Directories</h3>
-                        <DirectoryArchives />
+                        <DirectoryTree />
                         <Divider />
                         <h3>Monthly</h3>
                         <MonthlyArchives />
@@ -121,13 +116,13 @@ const cssTableOfContents = css`
     position: sticky;
     top: 0;
     li {
-        font-size: 0.8rem;
+        /* font-size: 0.8rem; */
         a { text-decoration: none; }
     }
 `
 const cssSidebar = css`
     margin-right: 2rem;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
 `
 
 const Tree = ({ items }) => (
@@ -168,7 +163,7 @@ const MiddlePane = ({ children, tableOfContents }) => (
 
                 <Hidden smDown>
                     <Grid item md={3} xs={12}>
-                        <GoogleSearch />
+                        <GoogleSearch cx={process.env.GCSE_CX}/>
                         {tableOfContents && (<TableOfContents items={tableOfContents.items} />)}
                     </Grid>
                 </Hidden>
@@ -196,19 +191,34 @@ const BottomPane = ({ author }) => (
 ////////////////////////////////////////////////////////////////
 // Layout
 const Layout = ({ children, title, description, image, tableOfContents }) => {
-    const data = useStaticQuery(query)
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const author = data.site.siteMetadata.author
-
-    if (description === undefined) { description = siteDescription }
+    const query = graphql`
+    {
+        site {
+            siteMetadata {
+                siteTitle: title
+                siteDescription: description
+                author
+                coverImage
+                social { twitter, github }
+            }
+        }
+    }
+    `
+    
+    /*
+    const { site }  = useStaticQuery(query)
+    const { siteTitle, siteDescription, author, social } = site.siteMetadata
+    */
+    const { site: { siteMetadata: { siteTitle, siteDescription, author, social, coverImage }}} = 
+        useStaticQuery(query)
 
     return (
         <MuiThemeProvider theme={theme}>
-            <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
+            <SEO title={`${title} | ${siteTitle}`} 
+              description={description || siteDescription} image={coverImage} lang="ja" />
             <TopPane siteTitle={siteTitle} siteDescription={siteDescription} />
             <MiddlePane tableOfContents={tableOfContents}>{children}</MiddlePane>
-            <BottomPane author={author} social={data.site.siteMetadata.social} />
+            <BottomPane author={author} social={social} />
         </MuiThemeProvider>
     )
 }
