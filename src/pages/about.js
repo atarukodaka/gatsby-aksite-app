@@ -1,11 +1,11 @@
 import React from "react"
-import Layout from "../components/layout.js"
 import { graphql } from 'gatsby'
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import { Card, LinkCard} from '../components/LinkCard'
-import { Link } from 'gatsby'
+
+import Layout from "../components/Layout"
+import { LinkCard} from '../components/LinkCard'
 
 export const query = graphql`
   query {

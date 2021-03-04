@@ -3,10 +3,10 @@ import { graphql } from "gatsby"
 import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Grid from '@material-ui/core/Grid'
 
-import Layout from "../components/layout.js"
+import Layout from "../components/Layout"
 import directoryLabel from '../utils/directory_label'
-import Post from "../components/post.js"
-import PostCard from '../components/post_card'
+import Post from "../components/Post"
+import PostCard from '../components/PostCard'
 //import Img from 'gatsby-image'
 //import postFields from '../fragments'
 

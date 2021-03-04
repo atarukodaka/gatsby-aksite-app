@@ -1,4 +1,4 @@
-import Image from './image'
+import Image from './Image'
 import LinkPost from './LinkPost'
 import LinkExternal from './LinkExternal'
 

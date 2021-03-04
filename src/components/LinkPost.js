@@ -2,7 +2,7 @@ import React from 'react'
 import { useStaticQuery, graphql } from "gatsby"
 import PropTypes from 'prop-types'
 
-import PostCard from './post_card'
+import PostCard from './PostCard'
 
 const query = graphql`
     {

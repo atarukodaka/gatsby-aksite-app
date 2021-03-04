@@ -6,15 +6,15 @@ import { useLocation } from "@reach/router"
 //import PropTypes from 'prop-types'
 
 //import LinkHover from './link_hover'
-import { Link } from 'gatsby'
-import DirectoryBox from './directory_box'
+//import { Link } from 'gatsby'
+import DirectoryBox from './DirectoryBox'
 import MdxComponents from './MdxComponents'
-import ShareSNS from './share_sns'
+import ShareSNS from './ShareSNS'
 import styles from "./post.module.css"
 //import Image from './image'
 //import Img from 'gatsby-image'
 import CoverImage from './CoverImage'
-import { LinkCard } from './LinkCard'
+//import { LinkCard } from './LinkCard'
 
 const PostHeader = ({ node }) => (
     <header className={styles.header}>

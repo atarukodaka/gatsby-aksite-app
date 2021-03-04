@@ -12,11 +12,11 @@ import { Drawer, IconButton, Divider } from '@material-ui/core'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { css } from '@emotion/react'
 
-import MonthlyArchives from './monthly_archives'
-import DirectoryArchives from './directory_archives'
-import SEO from './seo'
-import GoogleSearch from './google_search'
-import Sidebar from './sidebar.js'
+import MonthlyArchives from './MonthlyArchives'
+import DirectoryArchives from './DirectoryArchives'
+import SEO from './SEO'
+import GoogleSearch from './GoogleSearch'
+import Sidebar from './Sidebar'
 
 //import styles from './layout.module.css'
 

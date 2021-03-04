@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import DirectoryBox from './directory_box'
+import DirectoryBox from './DirectoryBox'
 import CoverImage from './CoverImage'
 import LinkCard from './LinkCard'
 

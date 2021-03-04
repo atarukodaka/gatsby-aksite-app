@@ -3,8 +3,8 @@ import { Breadcrumb } from 'gatsby-plugin-breadcrumb'
 import Box from '@material-ui/core/Box'
 import { Pagination } from '@material-ui/lab'
 
-import { PostCard } from "../components/post_card.js"
-import Layout from "../components/layout.js"
+import { PostCard } from "../components/PostCard"
+import Layout from "../components/Layout"
 
 
 const ArchiveTemplate = ( {title, nodes, crumbs, pagination_parameters, showTitle = true} ) => (
