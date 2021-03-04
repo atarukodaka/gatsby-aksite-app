@@ -5,12 +5,15 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import Grid from '@material-ui/core/Grid'
 
 import DirectoryBox from './DirectoryBox'
 import MdxComponents from './MdxComponents'
 import ShareSNS from './ShareSNS'
 import styles from "./post.module.css"
 import CoverImage from './CoverImage'
+import directoryLabel from '../utils/directory_label'
+import PostCard from '../components/PostCard'
 
 const Title = styled.h1`
     margin-bottom: 0.5rem;
@@ -59,8 +62,17 @@ const RenderMDX = ({ body }) => {
         </MDXProvider>
     )
 }
+const Siblings = ({ nodes }) => (
+    <nav>
+        <Grid container spacing={3}>
+            {nodes.slice(0, 9).map(v =>
+                (<Grid item xs={12} sm={6} key={v.id}><PostCard node={v} /></Grid>))
+            }
+        </Grid>
+    </nav>
+)
 
-const Post = ({ node }) => {
+const Post = ({ node, siblings }) => {
     const data = useStaticQuery(query)
     const { pathname } = useLocation()
 
@@ -70,7 +82,7 @@ const Post = ({ node }) => {
                 <div>{node.frontmatter.date}</div>
                 <Title>{node.frontmatter.title}</Title>
                 <DirectoryBox directory={node.fields.directory} />
-                <CoverImage node={node}/>
+                <CoverImage node={node} />
                 <Description>{node.frontmatter.description}</Description>
             </Header>
             <Main>
@@ -79,6 +91,9 @@ const Post = ({ node }) => {
             <Footer>
                 <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
                     title={node.frontmatter.title} />
+                    
+                <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
+                <Siblings nodes={siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />
             </Footer>
         </div>
     )
