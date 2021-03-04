@@ -121,13 +121,13 @@ const cssTableOfContents = css`
     position: sticky;
     top: 0;
     li {
-        font-size: 0.8rem;
+        /* font-size: 0.8rem; */
         a { text-decoration: none; }
     }
 `
 const cssSidebar = css`
     margin-right: 2rem;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
 `
 
 const Tree = ({ items }) => (

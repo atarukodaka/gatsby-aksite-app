@@ -83,6 +83,14 @@ const DirectoryTree = () => {
 
 }
 
+const Tree = ({item}) => (
+    <TreeItem label={`${item.label} (${item.totalCount})`} nodeId={item.name} onClick={() => {}} onLabelClick={(e) => {e.preventDefault(); navigate('/' + item.name)}}>
+        { item.child && ( item.child.map(v => (<Tree item={v}/>)) ) }
+    </TreeItem>
+)
+
+/*
+
 const cssTree = css`
     margin-top: 0.2em;
 `
@@ -94,15 +102,6 @@ const cssItem = css`
         text-decoration: none;
     }
 `
-
-const Tree = ({item}) => (
-    <TreeItem label={`${item.label} (${item.totalCount})`} nodeId={item.name} onClick={() => {}} onLabelClick={() => {navigate('/' + item.name)}}>
-        { item.child && ( item.child.map(v => (<Tree item={v}/>)) ) }
-    </TreeItem>
-)
-
-
-/*
 const Tree = ({ items }) => (
     <ul css={cssTree}>
         {

@@ -3,12 +3,12 @@ import Img from 'gatsby-image'
 import { css } from '@emotion/react'
 
 const cssWrapperSmall = css`
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     float: left;
     box-shadow: 2px 2px 1px rgb(0 0 0 / 20%);
-    margin-right: 1em;
-    margin-bottom: 0em;
+    margin-right: 0.5rem;
+    margin-bottom: 0rem;
     background-color: #f2f2f2;
 
     .gatsby-image-wrapper {

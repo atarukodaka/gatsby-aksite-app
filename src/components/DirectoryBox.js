@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import directoryLabel from '../utils/directory_label'
 
 const cssDirectoryBox = css`
-    font-size: 0.8rem;
     display: inline-block;
     background-color: #cdd;
     a {
@@ -19,8 +18,8 @@ const cssDirectoryBox = css`
     }
 `
 
-const DirectoryBox = ({ directory }) => (
-    <div css={cssDirectoryBox}>
+const DirectoryBox = ({ directory, ...props }) => (
+    <div css={cssDirectoryBox} {...props}>
         <Link to={'/' + directory}>
             {directoryLabel(directory)}
         </Link>
