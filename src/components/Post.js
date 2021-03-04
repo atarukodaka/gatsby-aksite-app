@@ -6,6 +6,9 @@ import { useLocation } from "@reach/router"
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import Grid from '@material-ui/core/Grid'
+import Divider from '@material-ui/core/Divider'
+//import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+//import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import DirectoryBox from './DirectoryBox'
 import MdxComponents from './MdxComponents'
@@ -45,7 +48,7 @@ const cssPost = css`
     /* background-color:white; */
     /* box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);  */
     box-shadow: 2px 2px 1px rgb(0 0 0 / 20%)
-`
+//`
 const query = graphql`
     { site { siteMetadata { siteUrl }} }
 `
@@ -72,7 +75,26 @@ const Siblings = ({ nodes }) => (
     </nav>
 )
 
-const Post = ({ node, siblings }) => {
+const PrevNextPost = ( {prevPost, nextPost })  => (
+    <nav style={{ marginBottom: "2rem" }}>
+    <Grid container>
+        <Grid item sm={4}>
+        <h4 style={{textAlign:"left"}}>
+            《 PREV POST
+            </h4>
+            {prevPost && (<PostCard node={prevPost} />)}
+        </Grid>
+        <Grid item sm={4} />
+        <Grid item sm={4}>
+        <h4 style={{textAlign:"right"}}>NEXT POST》</h4>
+            {nextPost && (<PostCard node={nextPost} />)}
+        </Grid>
+    </Grid>
+</nav>
+
+
+)
+const Post = ({ node, siblings, prevPost, nextPost }) => {
     const data = useStaticQuery(query)
     const { pathname } = useLocation()
 
@@ -91,9 +113,10 @@ const Post = ({ node, siblings }) => {
             <Footer>
                 <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
                     title={node.frontmatter.title} />
-                    
-                <h4>Siblings on '{directoryLabel(node.fields.directory)}'</h4>
-                <Siblings nodes={siblings.nodes.filter(v => v.fields.slug !== node.fields.slug)} />
+                <PrevNextPost prevPost={prevPost} nextPost={nextPost}/>
+                <Divider/>
+                <h3>Siblings on '{directoryLabel(node.fields.directory)}'</h3>
+                <Siblings nodes={siblings}/>
             </Footer>
         </div>
     )

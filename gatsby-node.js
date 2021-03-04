@@ -55,7 +55,7 @@ const createMdxPages = ({ nodes, actions }) => {
             component: path.resolve(`./src/templates/post-template.js`),
             context: {
                 slug: node.fields.slug,
-                directory: node.fields.directory
+                //directory: node.fields.directory
             },
         })
     })

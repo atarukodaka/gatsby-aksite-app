@@ -17,6 +17,7 @@ import DirectoryTree from './DirectoryTree'
 import SEO from './SEO'
 import GoogleSearch from './GoogleSearch'
 import Sidebar from './Sidebar'
+//import useSiteInformation from '../hooks/use_site_information'
 
 //import styles from './layout.module.css'
 
@@ -34,13 +35,7 @@ const theme = createMuiTheme({  // #1
         
     },
 })
-const query = graphql`
-{
-    site {
-        ...siteInformation
-    }
-}
-`
+
 ////////////////////////////////////////////////////////////////
 // Top
 const cssSiteTitle = css`
@@ -196,19 +191,34 @@ const BottomPane = ({ author }) => (
 ////////////////////////////////////////////////////////////////
 // Layout
 const Layout = ({ children, title, description, image, tableOfContents }) => {
-    const data = useStaticQuery(query)
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const author = data.site.siteMetadata.author
-
-    if (description === undefined) { description = siteDescription }
+    const query = graphql`
+    {
+        site {
+            siteMetadata {
+                siteTitle: title
+                siteDescription: description
+                author
+                coverImage
+                social { twitter, github }
+            }
+        }
+    }
+    `
+    
+    /*
+    const { site }  = useStaticQuery(query)
+    const { siteTitle, siteDescription, author, social } = site.siteMetadata
+    */
+    const { site: { siteMetadata: { siteTitle, siteDescription, author, social, coverImage }}} = 
+        useStaticQuery(query)
 
     return (
         <MuiThemeProvider theme={theme}>
-            <SEO title={`${title} | ${siteTitle}`} description={description} image={image} lang="ja" />
+            <SEO title={`${title} | ${siteTitle}`} 
+              description={description || siteDescription} image={coverImage} lang="ja" />
             <TopPane siteTitle={siteTitle} siteDescription={siteDescription} />
             <MiddlePane tableOfContents={tableOfContents}>{children}</MiddlePane>
-            <BottomPane author={author} social={data.site.siteMetadata.social} />
+            <BottomPane author={author} social={social} />
         </MuiThemeProvider>
     )
 }

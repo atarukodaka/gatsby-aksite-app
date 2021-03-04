@@ -32,6 +32,7 @@ fragment siteInformation on Site {
         title
         author
         description
+        coverImage
         social { twitter, github }
     }
 }
