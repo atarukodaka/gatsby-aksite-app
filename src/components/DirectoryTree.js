@@ -1,7 +1,11 @@
 import React from 'react'
-import { useStaticQuery, Link, graphql } from "gatsby"
+import { useStaticQuery, Link, graphql, navigate } from "gatsby"
 //import { TreeView, TreeItem } from '@material-ui/lab'
 import { css } from '@emotion/react'
+import { TreeView, TreeItem } from '@material-ui/lab'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+
 
 //import { Button } from '@material-ui/core'
 //const config = require('../../config')
@@ -52,10 +56,31 @@ const DirectoryTree = () => {
         const re = new RegExp(`^${node.name}`)
         node.totalCount = data.mdxPages.nodes.filter(v => re.test(v.fields.directory)).length
     })
-
+    const allNodeIds = list.map(v=> v.name)
     const tree = new ListToTree(list).GetTree()
+    //console.log("directory tree", tree)
 
-    return (<Tree items={tree} />)
+    //return (<Tree items={tree} />)
+    
+    const [expanded, setExpanded] = React.useState([])
+
+    const handleToggle = (_event, nodeIds) => {
+        setExpanded(nodeIds);
+      };
+    
+    return (<TreeView
+        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpandIcon={<ChevronRightIcon />}
+     //   expanded={expanded}
+     //   onNodeToggle={handleToggle}
+        defaultExpanded={allNodeIds}
+        >
+        {
+         tree.map(item=> (<Tree item={item}/>))   
+        }
+        
+    </TreeView>)
+
 }
 
 const cssTree = css`
@@ -70,6 +95,14 @@ const cssItem = css`
     }
 `
 
+const Tree = ({item}) => (
+    <TreeItem label={`${item.label} (${item.totalCount})`} nodeId={item.name} onClick={() => {}} onLabelClick={() => {navigate('/' + item.name)}}>
+        { item.child && ( item.child.map(v => (<Tree item={v}/>)) ) }
+    </TreeItem>
+)
+
+
+/*
 const Tree = ({ items }) => (
     <ul css={cssTree}>
         {
@@ -87,5 +120,5 @@ const Tree = ({ items }) => (
             )
         }
     </ul>)
-
+*/
 export default DirectoryTree
