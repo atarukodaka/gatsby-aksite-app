@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 
 import DirectoryBox from './DirectoryBox'
 import CoverImage from './CoverImage'
-import LinkCard from './LinkCard'
+import Card from './Card'
+import HoverBox from './HoverBox'
 
 const Title = styled.div`
     font-weight: bold;
@@ -18,20 +20,24 @@ const Excerpt = styled.div`
 `
 
 const Date = styled.div`
-font-size: small;
+    font-size: small;
 `
 const ClearImage = styled.div`
     clear: both;
 `
 export const PostCard = ({ node }) => (
-    <LinkCard to={node.fields.slug}>
-        <CoverImage node={node} className="eyecatchImageSmallWrapper" />
-        <Date>{node.frontmatter.date}</Date>
-        <Title>{node.frontmatter.title}</Title>
-        <DirectoryBox directory={node.fields.directory} />
-        <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
-        <ClearImage/>
-    </LinkCard>
+    <HoverBox>
+        <Link to={node.fields.slug}>
+            <Card>
+                <CoverImage node={node} className="eyecatchImageSmallWrapper" />
+                <Date>{node.frontmatter.date}</Date>
+                <Title>{node.frontmatter.title}</Title>
+                <DirectoryBox directory={node.fields.directory} />
+                <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
+                <ClearImage />
+            </Card>
+        </Link>
+    </HoverBox>
 )
 
 export default PostCard

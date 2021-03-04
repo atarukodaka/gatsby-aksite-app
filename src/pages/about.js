@@ -5,7 +5,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
 import Layout from "../components/Layout"
-import { LinkCard} from '../components/LinkCard'
+import LinkPost from '../components/LinkPost'
 
 export const query = graphql`
   query {
@@ -32,7 +32,7 @@ const AboutPage = ({ data, pageContext }) => {
         <a href={twitterUrl}><TwitterIcon aria-label="button" /></a>
         <a href={gitHubUrl}><GitHubIcon aria-label="button" /></a>
       </div>
-      <LinkCard to="/">top</LinkCard>
+      <LinkPost to="/game/umamusume/">top</LinkPost>
     </Layout>
   )
 }

@@ -42,10 +42,11 @@ export default function PostTemplate({ data, pageContext }) {
   const { breadcrumb: { crumbs } } = pageContext
   
   console.log(`create/template: ${node.fields.slug}`)
+  const image_url = (node.frontmatter.cover) ? node.frontmatter.cover.publicURL : ""
 
   return (
     <Layout title={node.frontmatter.title} description={node.frontmatter.description || node.excerpt} 
-     image={node.frontmatter.image} tableOfContents={node.tableOfContents} 
+     image={image_url} tableOfContents={node.tableOfContents} 
      >
       <Breadcrumb crumbs={crumbs} crumbLabel={node.frontmatter.title} />
 

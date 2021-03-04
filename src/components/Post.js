@@ -3,33 +3,49 @@ import { useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { useLocation } from "@reach/router"
-//import PropTypes from 'prop-types'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 
-//import LinkHover from './link_hover'
-//import { Link } from 'gatsby'
 import DirectoryBox from './DirectoryBox'
 import MdxComponents from './MdxComponents'
 import ShareSNS from './ShareSNS'
 import styles from "./post.module.css"
-//import Image from './image'
-//import Img from 'gatsby-image'
 import CoverImage from './CoverImage'
-//import { LinkCard } from './LinkCard'
 
-const PostHeader = ({ node }) => (
-    <header className={styles.header}>
-        <div className={styles.date}>{node.frontmatter.date}</div>
-        <h1 className={styles.title}>
-            {node.frontmatter.title}
-        </h1>
+const Title = styled.h1`
+    margin-bottom: 0.5rem;
+    padding: 0.5em;
+    font-weight: bold;
 
-        <DirectoryBox directory={node.fields.directory} />
-        <CoverImage node={node} className="eyecatchImageWrapper"/>
-        <div className={styles.description}>
-            {node.frontmatter.description}
-        </div>
-    </header>
-)
+    background: linear-gradient(to bottom,  #4848aa 0%, #222277 100%);  
+    color: white;
+`
+const Description = styled.div`
+    padding: 1rem;  
+`
+const Header = styled.header`
+    box-shadow: 0px 1px rgb(0 0 0 / 10%)
+`
+const Main = styled.main`
+    padding-bottom: 1rem;
+    padding-right: 1rem; 
+`
+const Footer = styled.footer`
+    border-top: solid 1px;
+    padding-top: 1rem;
+`
+const cssPost = css`
+    margin-top: 2em;
+    margin-bottom: 2em;
+    /* padding-bottom: 1em; */
+    /* padding-right: 1em; */
+    /* background-color:white; */
+    /* box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);  */
+    box-shadow: 2px 2px 1px rgb(0 0 0 / 20%)
+`
+const query = graphql`
+    { site { siteMetadata { siteUrl }} }
+`
 
 const RenderMDX = ({ body }) => {
     //const shortcodes = {Image, PostLink}
@@ -44,44 +60,28 @@ const RenderMDX = ({ body }) => {
     )
 }
 
-const query = graphql`
-    { site { siteMetadata { siteUrl }} }
-`    
-
 const Post = ({ node }) => {
     const data = useStaticQuery(query)
     const { pathname } = useLocation()
 
     return (
-        <div className={styles.post}>
-            <PostHeader node={node} />
-            <main>
+        <div css={cssPost}>
+            <Header>
+                <div>{node.frontmatter.date}</div>
+                <Title>{node.frontmatter.title}</Title>
+                <DirectoryBox directory={node.fields.directory} />
+                <CoverImage node={node} className="eyecatchImageWrapper" />
+                <Description>{node.frontmatter.description}</Description>
+            </Header>
+            <Main>
                 <RenderMDX body={node.body} />
-            </main>
-            <footer>
-                <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`} 
-                  title={node.frontmatter.title} />
-            </footer>
+            </Main>
+            <Footer>
+                <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
+                    title={node.frontmatter.title} />
+            </Footer>
         </div>
     )
 }
 
-/*
-const PostExcerpt = ({ node }) => {
-    return (
-        <LinkCard to={node.fields.slug}>
-            <div className={styles.post}>
-                <PostHeader node={node} />
-                <main className={styles.excerpt}>
-                    {node.excerpt}
-                </main>
-            </div>
-        </LinkCard>
-    )
-}
-
-export const Post = ({ node, excerptify }) => {
-    return (excerptify) ? <PostExcerpt node={node} /> : <PostEntire node={node} />
-}
-*/
 export default Post
