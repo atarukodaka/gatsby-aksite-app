@@ -16,7 +16,8 @@ import ShareSNS from './ShareSNS'
 import styles from "./post.module.css"
 import CoverImage from './CoverImage'
 import directoryLabel from '../utils/directory_label'
-import PostCard from '../components/PostCard'
+import PostCard from './PostCard'
+//import postTitle from './postTitle'
 
 const Title = styled.h1`
     margin-bottom: 0.5rem;
@@ -33,6 +34,7 @@ const Header = styled.header`
     box-shadow: 0px 1px rgb(0 0 0 / 10%)
 `
 const Main = styled.main`
+    margin-top: 1rem;
     padding-bottom: 1rem;
     padding-right: 1rem; 
 `
@@ -53,13 +55,13 @@ const query = graphql`
     { site { siteMetadata { siteUrl }} }
 `
 
-const RenderMDX = ({ body }) => {
+const RenderMDX = ({ children }) => {
     //const shortcodes = {Image, PostLink}
     return (
         <MDXProvider components={MdxComponents}>
-            <div className={styles.numbering_headings}>
+            <div className={styles.body}>
                 <MDXRenderer>
-                    {body}
+                    {children}
                 </MDXRenderer>
             </div>
         </MDXProvider>
@@ -75,22 +77,22 @@ const Siblings = ({ nodes }) => (
     </nav>
 )
 
-const PrevNextPost = ( {prevPost, nextPost })  => (
+const PrevNextPost = ({ prevPost, nextPost }) => (
     <nav style={{ marginBottom: "2rem" }}>
-    <Grid container>
-        <Grid item sm={4}>
-        <h4 style={{textAlign:"left"}}>
-            《 PREV POST
+        <Grid container>
+            <Grid item sm={4}>
+                <h4 style={{ textAlign: "left" }}>
+                    《 PREV POST
             </h4>
-            {prevPost && (<PostCard node={prevPost} />)}
+                {prevPost && (<PostCard node={prevPost} />)}
+            </Grid>
+            <Grid item sm={4} />
+            <Grid item sm={4}>
+                <h4 style={{ textAlign: "right" }}>NEXT POST》</h4>
+                {nextPost && (<PostCard node={nextPost} />)}
+            </Grid>
         </Grid>
-        <Grid item sm={4} />
-        <Grid item sm={4}>
-        <h4 style={{textAlign:"right"}}>NEXT POST》</h4>
-            {nextPost && (<PostCard node={nextPost} />)}
-        </Grid>
-    </Grid>
-</nav>
+    </nav>
 
 
 )
@@ -99,24 +101,26 @@ const Post = ({ node, siblings, prevPost, nextPost }) => {
     const { pathname } = useLocation()
 
     return (
-        <div css={cssPost}>
+        <div css={cssPost} className={styles.post}>
             <Header>
                 <div>{node.frontmatter.date}</div>
-                <Title>{node.frontmatter.title}</Title>
+                <Title>{node.fields.postTitle}</Title>
                 <DirectoryBox directory={node.fields.directory} />
                 <CoverImage node={node} />
                 <Description>{node.frontmatter.description}</Description>
             </Header>
             <Main>
-                <RenderMDX body={node.body} />
+                <RenderMDX>
+                    {node.body}
+                </RenderMDX>
             </Main>
             <Footer>
                 <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
-                    title={node.frontmatter.title} />
-                <PrevNextPost prevPost={prevPost} nextPost={nextPost}/>
-                <Divider/>
+                    title={node.fields.postTitle}/>
+                <PrevNextPost prevPost={prevPost} nextPost={nextPost} />
+                <Divider />
                 <h3>Siblings on '{directoryLabel(node.fields.directory)}'</h3>
-                <Siblings nodes={siblings}/>
+                <Siblings nodes={siblings} />
             </Footer>
         </div>
     )

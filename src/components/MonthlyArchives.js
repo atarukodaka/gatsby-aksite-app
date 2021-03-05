@@ -6,7 +6,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import PropTypes from 'prop-types'
 
 import { monthlyArchivePath } from '../utils/archive_path'
-import DirectoryLabel from '../utils/directory_label'
+//import DirectoryLabel from '../utils/directory_label'
 
 const query = graphql`
 {
@@ -70,10 +70,10 @@ const MonthlyArchives = (  ) => {
                                 <TreeItem key={item.id} nodeId={item.id} 
                                  label={`${item.year}/${item.month} (${item.nodes.length})`}
                                  onLabelClick={() => { navigate(item.path) }}>
-                                    { item.nodes.map(node=>(
+                                    {/* item.nodes.map(node=>(
                                         <TreeItem key={node.id} label={`${node.frontmatter.title}[${DirectoryLabel(node.fields.directory)}]`}
                                          onLabelClick={() => { navigate(node.fields.slug) }}></TreeItem>
-                                    ))
+                                    ))*/
                                     }
                                 </TreeItem> 
                             ))

@@ -16,14 +16,22 @@ const query = graphql`
     }
 `
 
-const LinkPost = ({ to, children }) => { 
+const LinkPost = ({ to, children, display = "card" }) => {
     const data = useStaticQuery(query)
     const node = data.allMdx.nodes.find(v => v.fields.slug === to)
-    if (node === undefined) {
-        //return <div>NO SUCH SLUG: {to}</div> 
-        return (<HoverBox><Link to={to}><Card>{children}</Card></Link></HoverBox>)
-    } else {
-        return (<PostCard node={node} />)
+
+    switch (display){
+    case "text":
+        return (<Link to={to}>{node?.frontmatter?.title || to}</Link>)
+    
+    default: // card
+        if (node === undefined) {
+            //return <div>NO SUCH SLUG: {to}</div> 
+            return (<HoverBox><Link to={to}><Card>{children}</Card></Link></HoverBox>)
+        } else {
+            return (<PostCard node={node} />)
+
+        }
     }
 }
 

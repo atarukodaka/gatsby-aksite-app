@@ -14,12 +14,16 @@ const query = graphql`
     site {
         ...siteInformation               
     }
+    allMdx {
+        nodes { ...postFields }
+    }
 }
 `
 
+
+
 const Profile = () => {
     const { site } = useStaticQuery(query)
-
     const twitterUrl = `http://www.twitter.com/${site.siteMetadata.social.twitter}`
     const gitHubUrl = `http://github.com/${site.siteMetadata.social.github}`
 
