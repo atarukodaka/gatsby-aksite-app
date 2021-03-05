@@ -3,7 +3,7 @@ const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const { paginate } = require('gatsby-awesome-pagination');
 
-const { monthlyArchivePath, directoryArchivePath } = require('./src/utils/archive_path')
+const { monthlyArchivePath, directoryArchivePath } = require('./src/utils/archive_path');
 
 const itemsPerPage = 10
 const templateDir = "./src/templates"
@@ -154,6 +154,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     title
                     date(formatString: "YYYY-MM-DD")
                     yearmonth: date(formatString: "YYYY-MM")
+                    series { title, number }
                 }
                 fields {
                     slug, directory

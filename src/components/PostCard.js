@@ -6,7 +6,6 @@ import DirectoryBox from './DirectoryBox'
 import CoverImage from './CoverImage'
 import Card from './Card'
 import HoverBox from './HoverBox'
-import { node } from 'prop-types'
 //import postTitle from './postTitle'
 
 const Title = styled.div`

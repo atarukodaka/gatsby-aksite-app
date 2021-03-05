@@ -62,12 +62,13 @@ const DirectoryTree = () => {
 
     //return (<Tree items={tree} />)
     
-    const [expanded, setExpanded] = React.useState([])
+    //const [expanded, setExpanded] = React.useState([])
 
+    /*
     const handleToggle = (_event, nodeIds) => {
         setExpanded(nodeIds);
       };
-    
+    */
     return (<TreeView
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}

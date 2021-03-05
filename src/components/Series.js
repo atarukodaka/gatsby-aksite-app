@@ -3,7 +3,6 @@ import { graphql, useStaticQuery, Link } from 'gatsby'
 import PostCard from './PostCard'
 
 const Series = ( {title, current, display="card"} ) => {
-
     const query = graphql`
         {
             allMdx {
