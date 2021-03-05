@@ -7,7 +7,8 @@ import CoverImage from './CoverImage'
 import Card from './Card'
 import HoverBox from './HoverBox'
 
-const Title = styled.h4`
+const Title = styled.div`
+    font-size: 1.14rem;
     font-weight: bold;
     color: black;
     margin: 0em;

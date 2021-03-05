@@ -6,6 +6,7 @@ const { paginate } = require('gatsby-awesome-pagination');
 const { monthlyArchivePath, directoryArchivePath } = require('./src/utils/archive_path')
 
 const itemsPerPage = 10
+const templateDir = "./src/templates"
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
@@ -21,17 +22,15 @@ exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
       }
     `);
 };
-//const {fmImagesToRelative} = require('gatsby-remark-relative-images')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
-    //fmImagesToRelative(node)
 
     if (node.internal.type === `Mdx`) {
         const slug = createFilePath({ node, getNode })
         const directory = slug.split("/").slice(1, -2).join("/")
-        console.log("create node: ", slug, directory)
-        // add directory field
+        console.log("create node: ", slug, "[", directory, "]")
+        
         createNodeField({
             node,
             name: 'slug',
@@ -49,13 +48,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 const createMdxPages = ({ nodes, actions }) => {
     console.log("** all markdown pages")
     const { createPage } = actions
+    const template = `${templateDir}/post-template.js`
     nodes.forEach(node => {
         createPage({
             path: node.fields.slug,
-            component: path.resolve(`./src/templates/post-template.js`),
+            component: path.resolve(template),
             context: {
                 slug: node.fields.slug,
-                //directory: node.fields.directory
             },
         })
     })
@@ -65,13 +64,14 @@ const createMdxPages = ({ nodes, actions }) => {
 const createIndexPagination = ({ nodes, actions }) => {
     console.log("** index paginate")
     const { createPage } = actions
+    const template = `${templateDir}/index-template.js`
     paginate({
         createPage,
         items: nodes,
         itemsPerPage: itemsPerPage,
         //pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
         pathPrefix: '/',
-        component: path.resolve("./src/templates/index-template.js")
+        component: path.resolve(template),
     })
 }
 ////////////////
@@ -83,14 +83,14 @@ const createDirectoryArchives = ({ nodes, actions }) => {
     directories.forEach(directory => {
         const re = new RegExp(`^${directory}`)
         const items = nodes.filter(node => re.test(node.fields.directory))
-
+        const template = `${templateDir}/directory_archive-template.js`
         paginate({
             createPage,
             items: items,
             itemsPerPage: itemsPerPage,
             //pathPrefix: `/${directory}`,
             pathPrefix: directoryArchivePath(directory),
-            component: path.resolve(`./src/templates/directory_archive-template.js`),
+            component: path.resolve(template),
             context: {
                 archive: 'directory',
                 directory: directory,
@@ -121,7 +121,7 @@ const createMonthlyArchives = ({nodes, actions}) => {
             items: items,
             itemsPerPage: itemsPerPage,
             pathPrefix: monthlyArchivePath(year, month),
-            component: path.resolve(`./src/templates/monthly_archive-template.js`),
+            component: path.resolve(`${templateDir}/monthly_archive-template.js`),
             context: {
                 archive: 'monthly',
                 year: year,
