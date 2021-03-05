@@ -6,7 +6,8 @@ import DirectoryBox from './DirectoryBox'
 import CoverImage from './CoverImage'
 import Card from './Card'
 import HoverBox from './HoverBox'
-import postTitle from './postTitle'
+import { node } from 'prop-types'
+//import postTitle from './postTitle'
 
 const Title = styled.div`
     font-size: 1.1rem;
@@ -35,19 +36,29 @@ const ClearImage = styled.div`
     clear: both;
 `
 
-export const PostCard = ({ node }) => (
-    <HoverBox>
-        <Link to={node.fields.slug}>
-            <Card>
-                <CoverImage node={node} size="small" />
-                <Date>{node.frontmatter.date}</Date>
-                <Title>{postTitle(node)}</Title>
-                <DirectoryBox directory={node.fields.directory} style={{fontSize: "0.6rem"}}/>
-                <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
-                <ClearImage />
-            </Card>
-        </Link>
-    </HoverBox>
+const Wrapper = ({ node, children, disableLink = false }) => {
+    return (disableLink) ?
+        (<div>{children}</div>) :
+        (<HoverBox>
+            <Link to={node.fields.slug}>
+                {children}
+            </Link>
+        </HoverBox>)
+}
+
+
+export const PostCard = ({ node, disableLink = false }) => (
+    <Wrapper node={node} disableLink={disableLink}>
+        <Card>
+            <CoverImage node={node} size="small" />
+            <Date>{node.frontmatter.date}</Date>
+            <Title>{node.fields.postTitle}</Title>
+            <DirectoryBox directory={node.fields.directory} style={{ fontSize: "0.6rem" }} />
+            <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
+            <ClearImage />
+        </Card>
+
+    </Wrapper>
 )
 
 export default PostCard

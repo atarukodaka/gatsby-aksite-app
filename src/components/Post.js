@@ -17,7 +17,7 @@ import styles from "./post.module.css"
 import CoverImage from './CoverImage'
 import directoryLabel from '../utils/directory_label'
 import PostCard from './PostCard'
-import postTitle from './postTitle'
+//import postTitle from './postTitle'
 
 const Title = styled.h1`
     margin-bottom: 0.5rem;
@@ -104,7 +104,7 @@ const Post = ({ node, siblings, prevPost, nextPost }) => {
         <div css={cssPost} className={styles.post}>
             <Header>
                 <div>{node.frontmatter.date}</div>
-                <Title>{postTitle(node)}</Title>
+                <Title>{node.fields.postTitle}</Title>
                 <DirectoryBox directory={node.fields.directory} />
                 <CoverImage node={node} />
                 <Description>{node.frontmatter.description}</Description>
@@ -116,7 +116,7 @@ const Post = ({ node, siblings, prevPost, nextPost }) => {
             </Main>
             <Footer>
                 <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
-                    title={postTitle(node)}/>
+                    title={node.fields.postTitle}/>
                 <PrevNextPost prevPost={prevPost} nextPost={nextPost} />
                 <Divider />
                 <h3>Siblings on '{directoryLabel(node.fields.directory)}'</h3>

@@ -43,6 +43,14 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
             name: 'directory',
             value: directory
         })
+        const postTitle = (node.frontmatter.series) ? 
+                `${node.frontmatter.series.title}[${node.frontmatter.series.number}] ${node.frontmatter.title}` : 
+                node.frontmatter.title
+        createNodeField({
+            node,
+            name: 'postTitle',
+            value: postTitle
+        })
     }
 }
 ////////////////////////////////////////////////////////////////
