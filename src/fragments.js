@@ -15,6 +15,10 @@ fragment postFields on Mdx {
         }
       }
     }
+    series {
+      title
+      number
+    }
   }        
   fields { 
     slug, directory

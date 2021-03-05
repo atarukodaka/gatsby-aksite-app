@@ -6,13 +6,20 @@ import DirectoryBox from './DirectoryBox'
 import CoverImage from './CoverImage'
 import Card from './Card'
 import HoverBox from './HoverBox'
+import postTitle from './postTitle'
 
-const Title = styled.h4`
-    {/*font-size: 1.14rem;
+const Title = styled.div`
+    font-size: 1.1rem;
     font-weight: bold;
-    color: black; */}
+    color: black;
     margin: 0em;
 `
+
+/*
+const Title = styled.h4`
+    margin: 0em;
+`
+*/
 
 const Excerpt = styled.div`
     font-size: small;
@@ -27,13 +34,14 @@ const Date = styled.div`
 const ClearImage = styled.div`
     clear: both;
 `
+
 export const PostCard = ({ node }) => (
     <HoverBox>
         <Link to={node.fields.slug}>
             <Card>
                 <CoverImage node={node} size="small" />
                 <Date>{node.frontmatter.date}</Date>
-                <Title>{node.frontmatter.title}</Title>
+                <Title>{postTitle(node)}</Title>
                 <DirectoryBox directory={node.fields.directory} style={{fontSize: "0.6rem"}}/>
                 <Excerpt>{node.frontmatter.description || node.excerpt}</Excerpt>
                 <ClearImage />

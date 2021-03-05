@@ -10,16 +10,18 @@ const templateDir = "./src/templates"
 
 exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
     createTypes(`
-      type Mdx implements Node {
-        frontmatter: MdxFrontmatter
-      }
+        type Mdx implements Node {
+            frontmatter: MdxFrontmatter
+        }
         type MdxFrontmatter {
-        toc: Boolean
-      }
-      type MdxFrontmatter {
-          description: String
-          cover: File @fileByRelativePath
-      }
+            description: String
+            cover: File @fileByRelativePath
+            series: Series
+        }
+        type Series {
+            title: String
+            number: Int
+        }
     `);
 };
 
@@ -30,7 +32,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         const slug = createFilePath({ node, getNode })
         const directory = slug.split("/").slice(1, -2).join("/")
         console.log("create node: ", slug, "[", directory, "]")
-        
+
         createNodeField({
             node,
             name: 'slug',
@@ -102,7 +104,7 @@ const createDirectoryArchives = ({ nodes, actions }) => {
 }
 ////////////////
 // monthly archive
-const createMonthlyArchives = ({nodes, actions}) => {
+const createMonthlyArchives = ({ nodes, actions }) => {
     console.log("** creating monthly archives")
     const { createPage } = actions
     const yearMonths = new Set(nodes.filter(v => v.frontmatter.yearmonth).map(node => node.frontmatter.yearmonth))

@@ -16,7 +16,8 @@ import ShareSNS from './ShareSNS'
 import styles from "./post.module.css"
 import CoverImage from './CoverImage'
 import directoryLabel from '../utils/directory_label'
-import PostCard from '../components/PostCard'
+import PostCard from './PostCard'
+import postTitle from './postTitle'
 
 const Title = styled.h1`
     margin-bottom: 0.5rem;
@@ -54,16 +55,14 @@ const query = graphql`
     { site { siteMetadata { siteUrl }} }
 `
 
-const RenderMDX = ({ body }) => {
+const RenderMDX = ({ children }) => {
     //const shortcodes = {Image, PostLink}
     return (
         <MDXProvider components={MdxComponents}>
-            <div className={styles.numbering_headings}>
-                <div className={styles.body}>
-                    <MDXRenderer>
-                        {body}
-                    </MDXRenderer>
-                </div>
+            <div className={styles.body}>
+                <MDXRenderer>
+                    {children}
+                </MDXRenderer>
             </div>
         </MDXProvider>
     )
@@ -105,17 +104,19 @@ const Post = ({ node, siblings, prevPost, nextPost }) => {
         <div css={cssPost} className={styles.post}>
             <Header>
                 <div>{node.frontmatter.date}</div>
-                <Title>{node.frontmatter.title}</Title>
+                <Title>{postTitle(node)}</Title>
                 <DirectoryBox directory={node.fields.directory} />
                 <CoverImage node={node} />
                 <Description>{node.frontmatter.description}</Description>
             </Header>
             <Main>
-                <RenderMDX body={node.body} />
+                <RenderMDX>
+                    {node.body}
+                </RenderMDX>
             </Main>
             <Footer>
                 <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
-                    title={node.frontmatter.title} />
+                    title={postTitle(node)}/>
                 <PrevNextPost prevPost={prevPost} nextPost={nextPost} />
                 <Divider />
                 <h3>Siblings on '{directoryLabel(node.fields.directory)}'</h3>
