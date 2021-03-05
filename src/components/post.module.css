@@ -5,7 +5,7 @@ a.anchor {
 /* ********************************************* */
 /* markdown */
 
-.post h1 {
+.post main h1 {
   font-weight: bold;
   border-bottom: 1px solid #888;
   padding-top: 10px;
@@ -16,7 +16,7 @@ a.anchor {
   counter-reset: h2; 
 }
 
-.post h2 {
+.post .body h2 {
   font-weight: bold;
   
   border-bottom: 1px solid #888;
@@ -29,7 +29,7 @@ a.anchor {
   counter-reset: h3;
 }
 
-.post h3 {
+.post .body h3 {
   font-weight: bold;
   border-bottom: 1px solid #888;
   padding-top: 10px;
@@ -41,7 +41,7 @@ a.anchor {
   counter-reset: h4;   
 }
 
-.post h4 {
+.post .body h4 {
   font-weight: bold;
   border-bottom: 1px solid #888;
   padding-top: 10px;
@@ -57,24 +57,24 @@ body {
   counter-reset: h1; counter-reset: h2; 
 }
 
-.post h1:before {
+.post .body  h1:before {
   color: #888;
   font-size: large; 
 }
 
-.post h2:before {
+.post .body h2:before {
   color: #888;
   font-size: large; 
   content: counter(h2) ". "; 
 }
 
-.post h3:before {
+.post .body h3:before {
   color: #888;
   font-size: large; 
   content: counter(h2) "." counter(h3) ". "; 
 }
 
-.post h4:before {
+.post .body h4:before {
   color: #888;
   font-size: large; 
   content: counter(h2) "." counter(h3) "." counter(h4) ". "; 

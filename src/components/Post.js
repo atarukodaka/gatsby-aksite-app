@@ -59,9 +59,11 @@ const RenderMDX = ({ body }) => {
     return (
         <MDXProvider components={MdxComponents}>
             <div className={styles.numbering_headings}>
-                <MDXRenderer>
-                    {body}
-                </MDXRenderer>
+                <div className={styles.body}>
+                    <MDXRenderer>
+                        {body}
+                    </MDXRenderer>
+                </div>
             </div>
         </MDXProvider>
     )
@@ -76,22 +78,22 @@ const Siblings = ({ nodes }) => (
     </nav>
 )
 
-const PrevNextPost = ( {prevPost, nextPost })  => (
+const PrevNextPost = ({ prevPost, nextPost }) => (
     <nav style={{ marginBottom: "2rem" }}>
-    <Grid container>
-        <Grid item sm={4}>
-        <h4 style={{textAlign:"left"}}>
-            《 PREV POST
+        <Grid container>
+            <Grid item sm={4}>
+                <h4 style={{ textAlign: "left" }}>
+                    《 PREV POST
             </h4>
-            {prevPost && (<PostCard node={prevPost} />)}
+                {prevPost && (<PostCard node={prevPost} />)}
+            </Grid>
+            <Grid item sm={4} />
+            <Grid item sm={4}>
+                <h4 style={{ textAlign: "right" }}>NEXT POST》</h4>
+                {nextPost && (<PostCard node={nextPost} />)}
+            </Grid>
         </Grid>
-        <Grid item sm={4} />
-        <Grid item sm={4}>
-        <h4 style={{textAlign:"right"}}>NEXT POST》</h4>
-            {nextPost && (<PostCard node={nextPost} />)}
-        </Grid>
-    </Grid>
-</nav>
+    </nav>
 
 
 )
@@ -114,10 +116,10 @@ const Post = ({ node, siblings, prevPost, nextPost }) => {
             <Footer>
                 <ShareSNS url={`${data.site.siteMetadata.siteUrl}${pathname}`}
                     title={node.frontmatter.title} />
-                <PrevNextPost prevPost={prevPost} nextPost={nextPost}/>
-                <Divider/>
+                <PrevNextPost prevPost={prevPost} nextPost={nextPost} />
+                <Divider />
                 <h3>Siblings on '{directoryLabel(node.fields.directory)}'</h3>
-                <Siblings nodes={siblings}/>
+                <Siblings nodes={siblings} />
             </Footer>
         </div>
     )

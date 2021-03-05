@@ -19,7 +19,12 @@ const query = graphql`
 const LinkPost = ({ to, children, display = "card" }) => {
     const data = useStaticQuery(query)
     const node = data.allMdx.nodes.find(v => v.fields.slug === to)
-    if (display === "card") {
+
+    switch (display){
+    case "text":
+        return (<Link to={to}>{node?.frontmatter?.title || to}</Link>)
+    
+    default: // card
         if (node === undefined) {
             //return <div>NO SUCH SLUG: {to}</div> 
             return (<HoverBox><Link to={to}><Card>{children}</Card></Link></HoverBox>)
@@ -27,10 +32,7 @@ const LinkPost = ({ to, children, display = "card" }) => {
             return (<PostCard node={node} />)
 
         }
-    } else if (node === "text"){
-        return (<Link to={to}>{children}</Link>)
     }
-
 }
 
 LinkPost.propTypes = {
