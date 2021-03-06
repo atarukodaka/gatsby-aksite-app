@@ -75,6 +75,7 @@ const createIndexPagination = ({ nodes, actions }) => {
     console.log("** index paginate")
     const { createPage } = actions
     const template = `${templateDir}/index-template.js`
+    console.log("resolve", path.resolve(template), require.resolve(template))
     paginate({
         createPage,
         items: nodes,
@@ -84,6 +85,7 @@ const createIndexPagination = ({ nodes, actions }) => {
         component: path.resolve(template),
     })
 }
+
 ////////////////
 // directory archvies
 const createDirectoryArchives = ({ nodes, actions }) => {
